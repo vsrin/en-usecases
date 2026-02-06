@@ -1,0 +1,65 @@
+import type { UseCaseMeta } from '../types/usecase';
+
+export const useCases: UseCaseMeta[] = [
+  {
+    id: 'cohort-analysis',
+    slug: 'cohort-analysis',
+    title: 'Rethinking Cohort Analysis in P&C Reserving',
+    subtitle: 'Why Agentic AI Changes the Actuarial Paradigm',
+    category: 'actuarial',
+    tags: ['Loss Reserving', 'Cohort Segmentation', 'Agentic Architecture', 'Governance'],
+    status: 'published',
+    publishedAt: '2025-06-01',
+    estimatedReadMin: 12,
+    detailType: 'html',
+    htmlPath: 'cohort-analysis.html',
+    keyQuestion: 'What if actuaries could test every plausible cohort hypothesis — not just the ones time allows?',
+    summary:
+      'Traditional cohort analysis tests a fraction of possible segmentations due to manual constraints. This use case explores how composable AI agents can systematically evaluate cohort hypotheses while preserving actuarial rigor, governance, and regulatory transparency.',
+  },
+  {
+    id: 'submission-triage',
+    slug: 'submission-triage',
+    title: 'The Submission Bottleneck Problem',
+    subtitle: 'How Structured AI Triage Changes Underwriting Throughput',
+    category: 'underwriting',
+    tags: ['Submission Intake', 'Intelligent Routing', 'Appetite Alignment'],
+    status: 'coming-soon',
+    publishedAt: '',
+    estimatedReadMin: 10,
+    detailType: 'component',
+    keyQuestion: 'Why do underwriters spend more time finding the right submissions than analyzing them?',
+    summary:
+      'Commercial submissions arrive in unstructured formats across inconsistent channels. This use case examines how agentic workflows can decompose, classify, and route submissions against appetite guidelines — shifting underwriter effort from logistics to judgment.',
+  },
+  {
+    id: 'loss-run-analysis',
+    slug: 'loss-run-analysis',
+    title: 'Unlocking Signal in Loss Run Data',
+    subtitle: 'From Unstructured PDFs to Structured Risk Intelligence',
+    category: 'underwriting',
+    tags: ['Loss Run', 'Document Intelligence', 'Risk Assessment', 'Data Normalization'],
+    status: 'coming-soon',
+    publishedAt: '',
+    estimatedReadMin: 8,
+    detailType: 'component',
+    keyQuestion: 'How much risk insight is trapped in loss run PDFs that no one has time to properly decode?',
+    summary:
+      'Loss runs are the most information-dense artifact in commercial underwriting — yet they arrive in dozens of formats and are typically reviewed through pattern recognition rather than systematic extraction. This use case explores what changes when AI agents normalize and interrogate loss history at scale.',
+  },
+  {
+    id: 'audit-compliance',
+    slug: 'audit-compliance-monitoring',
+    title: 'Continuous Compliance as Architecture',
+    subtitle: 'Moving Audit from Post-Hoc Review to Embedded Governance',
+    category: 'compliance',
+    tags: ['Audit', 'Regulatory', 'Governance', 'Embedded Controls'],
+    status: 'coming-soon',
+    publishedAt: '',
+    estimatedReadMin: 10,
+    detailType: 'component',
+    keyQuestion: 'What if compliance were a property of the workflow, not a review that happens after?',
+    summary:
+      'Insurance compliance traditionally operates as a retrospective check. This use case explores the architectural shift toward embedding governance agents directly within operational workflows — making compliance continuous, auditable, and inseparable from the decisions themselves.',
+  },
+];

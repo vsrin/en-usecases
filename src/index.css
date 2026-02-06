@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-en-navy: #0a0e1a;
+  --color-en-navy-light: #111827;
+  --color-en-navy-mid: #1a2236;
+  --color-en-slate: #1e293b;
+  --color-en-cyan: #00e5cc;
+  --color-en-cyan-dim: #00c4ad;
+  --color-en-teal: #14b8a6;
+  --color-en-purple: #8b5cf6;
+  --color-en-amber: #f59e0b;
+  --color-en-red: #ef4444;
+  --color-en-white: #f8fafc;
+  --color-en-muted: #94a3b8;
+  --color-en-border: rgba(255, 255, 255, 0.08);
+  --color-en-border-light: rgba(255, 255, 255, 0.12);
+  --color-en-glass: rgba(17, 24, 39, 0.7);
+
+  /* ── Blue accent system ── */
+  --color-en-blue: #2563eb;
+  --color-en-blue-light: #3b82f6;
+  --color-en-blue-dim: #1d4ed8;
+  --color-en-blue-bg: #eff6ff;
+
+  /* ── Light palette - Enhanced Contrast ── */
+  --color-lt-bg: #ffffff;
+  --color-lt-bg-secondary: #f5f7fa;
+  --color-lt-bg-tertiary: #e8ecf2;
+  --color-lt-text: #1a1a2e;
+  --color-lt-text-secondary: #334155;
+  --color-lt-text-muted: #64748b;
+  --color-lt-border: #cbd5e1;
+  --color-lt-border-light: #e2e8f0;
+  --color-lt-card: #ffffff;
+  --color-lt-glass: rgba(255, 255, 255, 0.95);
+
+  /* ── Paper (detail pages) ── */
+  --color-en-paper: #fafaf8;
+  --color-en-ink: #1a1a2e;
+  --color-en-paper-border: #d0cdc5;
+  --color-en-paper-muted: #5a5a5a;
+
+  --font-display: 'Onest', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Onest', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Onest', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Onest', -apple-system, BlinkMacSystemFont, monospace;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  ::selection {
+    background: var(--color-en-blue);
+    color: white;
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-en-blue); }
+  .dark ::-webkit-scrollbar-track { background: var(--color-en-navy); }
+  .dark ::-webkit-scrollbar-thumb { background: var(--color-en-slate); }
+}
+
+@layer utilities {
+  .text-gradient-blue {
+    background: linear-gradient(135deg, var(--color-en-blue), var(--color-en-blue-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-cyan {
+    background: linear-gradient(135deg, var(--color-en-cyan), var(--color-en-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .bg-grid-pattern {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .bg-grid-pattern-light {
+    background-image:
+      linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow-blue {
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.12), 0 0 60px rgba(37, 99, 235, 0.04);
+  }
+  .glass-card-light {
+    background: var(--color-lt-glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--color-lt-border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .glass-card {
+    background: var(--color-en-glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--color-en-border-light);
+  }
+}
