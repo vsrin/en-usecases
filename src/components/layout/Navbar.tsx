@@ -8,20 +8,14 @@ export default function Navbar() {
   const isDetailPage = location.pathname.startsWith('/use-case/');
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-      isDark 
-        ? 'bg-en-navy/80 backdrop-blur-xl border-b border-en-border' 
-        : 'bg-white/80 backdrop-blur-xl border-b border-lt-border shadow-sm'
-    }`}>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-en-navy/95 backdrop-blur-xl border-b border-en-border">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Left side - Logo or Back button */}
         <div className="flex items-center gap-4">
           {isDetailPage ? (
             <Link 
               to="/" 
-              className={`inline-flex items-center gap-2 text-sm font-medium transition-colors ${
-                isDark ? 'text-en-muted hover:text-en-white' : 'text-lt-text-secondary hover:text-lt-text'
-              }`}
+              className="inline-flex items-center gap-2 text-sm font-medium text-en-muted hover:text-en-white transition-colors"
             >
               <ArrowLeft size={18} />
               Back to Library
@@ -33,11 +27,7 @@ export default function Navbar() {
                 alt="ElevateNow" 
                 className="h-8 w-auto"
               />
-              <span className={`text-sm px-3 py-1 rounded-full ${
-                isDark 
-                  ? 'bg-en-cyan/10 text-en-cyan border border-en-cyan/20' 
-                  : 'bg-en-blue/10 text-en-blue border border-en-blue/20'
-              }`}>
+              <span className="text-sm px-3 py-1 rounded-full bg-en-cyan/10 text-en-cyan border border-en-cyan/20">
                 Use Cases
               </span>
             </Link>
@@ -50,19 +40,13 @@ export default function Navbar() {
             href="https://elevatenow.tech"
             target="_blank"
             rel="noopener noreferrer"
-            className={`text-sm font-medium transition-colors ${
-              isDark ? 'text-en-muted hover:text-en-white' : 'text-lt-text-secondary hover:text-lt-text'
-            }`}
+            className="text-sm font-medium text-en-muted hover:text-en-white transition-colors"
           >
             Main Site
           </a>
           <button
             onClick={toggleTheme}
-            className={`p-2 rounded-lg transition-all hover:scale-110 ${
-              isDark 
-                ? 'bg-white/10 hover:bg-white/15 text-en-white' 
-                : 'bg-lt-bg-tertiary hover:bg-lt-border text-lt-text'
-            }`}
+            className="p-2 rounded-lg bg-white/10 hover:bg-white/15 text-en-white transition-all hover:scale-110"
             aria-label="Toggle theme"
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
