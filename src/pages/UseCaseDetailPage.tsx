@@ -1,6 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { useCases } from '../data/usecases';
 import UseCaseHtmlViewer from '../components/usecases/UseCaseHtmlViewer';
 import { useTheme } from '../context/ThemeContext';
