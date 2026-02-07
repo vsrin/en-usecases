@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElevateNow .  Prior Carrier Loss Run Intelligence for Specialty Commercial</title>
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fafaf8;
+    --accent: #1a5276;
+    --accent-light: #2980b9;
+    --accent-bg: #eaf2f8;
+    --tool-blue: #1a5276;
+    --agent-green: #1e6e3e;
+    --warning-orange: #d35400;
+    --border: #e0ddd5;
+    --muted: #6b6b6b;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── Hero Section ── */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 80px;
+    background: linear-gradient(135deg, #0c1821 0%, #1b2838 40%, #243b4a 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -300px; right: -300px;
+    width: 800px; height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,82,118,0.15) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -200px; left: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(30,110,62,0.08) 0%, transparent 70%);
+  }
+  .hero-label {
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 32px;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.12;
+    max-width: 900px;
+    margin-bottom: 28px;
+    z-index: 1;
+  }
+  .hero h1 span { color: #3498db; }
+  .hero-sub {
+    font-size: 22px;
+    opacity: 0.8;
+    max-width: 700px;
+    margin-bottom: 48px;
+    line-height: 1.6;
+    z-index: 1;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+    font-size: 14px;
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  /* ── Container ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 60px;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 80px;
+    page-break-before: always;
+    page-break-inside: avoid;
+  }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .section h2 {
+    font-family: Georgia, serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+  .section-intro {
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+
+  /* ── Problem Section ── */
+  .problem-backdrop {
+    background: linear-gradient(to bottom, #fdf6f0 0%, #fafaf8 100%);
+    padding: 48px 40px;
+    border-radius: 16px;
+    box-shadow: inset 0 2px 0 rgba(211,84,0,0.1);
+    page-break-inside: avoid;
+  }
+  .problem-stat {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--warning-orange);
+  }
+  .stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--warning-orange);
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+  }
+
+  /* ── Challenge Cards ── */
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .challenge-card {
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--muted);
+    page-break-inside: avoid;
+  }
+  .challenge-icon {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--warning-orange);
+    background: #fef5e7;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  .challenge-card h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .challenge-card p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── Traditional Approach ── */
+  .traditional-flow {
+    background: white;
+    padding: 48px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin: 48px 0;
+    page-break-inside: avoid;
+  }
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    page-break-inside: avoid;
+  }
+  .flow-step:last-child { border-bottom: none; }
+  .flow-number {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: #f5f4f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--muted);
+  }
+  .flow-content h4 {
+    margin-bottom: 8px;
+    font-size: 17px;
+  }
+  .flow-content p {
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .flow-pain {
+    background: #fff8f0;
+    border-left: 3px solid var(--warning-orange);
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-size: 14px;
+    color: #8b4513;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* ── Workflow Phases ── */
+  .workflow-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .workflow-phase {
+    background: white;
+    padding: 36px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+    page-break-inside: avoid;
+  }
+  .workflow-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .workflow-badge {
+    background: var(--accent);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+  .workflow-title {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .workflow-desc {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .workflow-outcomes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .outcome-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
+  .outcome-icon {
+    color: var(--agent-green);
+    font-weight: 700;
+  }
+
+  /* ── Governance Section ── */
+  .governance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .governance-card {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--agent-green);
+  }
+  .governance-card h4 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: var(--agent-green);
+  }
+  .governance-card p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .governance-example {
+    background: #f0f7f0;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 16px;
+    font-family: 'SF Mono', Monaco, monospace;
+    font-size: 12px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* ── Value Grid ── */
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .value-card {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--accent);
+  }
+  .value-icon {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .value-card h4 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  .value-card p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .value-metric {
+    background: var(--accent-bg);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 14px;
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  /* ── Differentiator Section ── */
+  .diff-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 32px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .diff-table th {
+    background: var(--ink);
+    color: white;
+    padding: 16px 20px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .diff-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .diff-table tr:last-child td { border-bottom: none; }
+  .diff-table tr:nth-child(even) { background: #fafaf8; }
+  .diff-traditional { color: var(--warning-orange); }
+  .diff-elevate { color: var(--agent-green); font-weight: 600; }
+
+  /* ── CTA Section ── */
+  .cta-section {
+    background: linear-gradient(135deg, #1a5276 0%, #1e6e3e 100%);
+    color: white;
+    padding: 80px 60px;
+    text-align: center;
+    border-radius: 16px;
+    margin: 60px 0;
+  }
+  .cta-section h2 {
+    font-family: Georgia, serif;
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  .cta-section p {
+    font-size: 18px;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 32px;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary {
+    background: white;
+    color: var(--accent);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  @media (max-width: 768px) {
+    .hero { padding: 60px 24px; }
+    .container { padding: 30px 24px; }
+    .traditional-flow { padding: 24px; }
+    .workflow-phase { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- HERO SECTION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-label">ElevateNow Agentic Recipe</div>
+  <h1>Prior Carrier Loss Runs: <span>From PDF Chaos to Underwriting Intelligence</span></h1>
+  <div class="hero-sub">
+    Every carrier sends loss runs in different formats. Every claim is coded differently. 
+    Underwriters spend hours mapping claims to coverage lines. or worse, they don't, and 
+    miss the signals that matter most.
+  </div>
+  <div class="hero-meta">
+    <span>Specialty Commercial</span>
+    <span>Municipal & Public Entity</span>
+    <span>10 min read</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- THE PROBLEM -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">The Problem</div>
+    <h2>The Loss Run Data Gap</h2>
+    <div class="section-intro">
+      Underwriters need to understand an account's loss history before pricing coverage. 
+      But prior carrier loss runs arrive as unstructured PDFs with carrier-specific codes, 
+      inconsistent formats, and no mapping to your coverage lines.
+    </div>
+
+    <div class="problem-backdrop">
+      <div class="problem-stat">
+        <div class="stat-card">
+          <div class="stat-number">58</div>
+          <div class="stat-label">Canonical coverage products in specialty commercial</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1,400+</div>
+          <div class="stat-label">LOB code aliases across carriers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">15 min</div>
+          <div class="stat-label">Average time to manually categorize one loss run</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">23%</div>
+          <div class="stat-label">Claims miscategorized under manual review</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="challenge-grid">
+      <div class="challenge-card">
+        <div class="challenge-icon">FORMAT CHAOS</div>
+        <h3>Every Carrier, Different Format</h3>
+        <p>
+          Liberty Mutual uses "AL" for Auto Liability. Travelers uses "CAL". Hartford uses 
+          "CommAuto-Liab". The same coverage, three different codes. Multiply by 50 carriers 
+          and 58 products.
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-icon">HIDDEN SIGNALS</div>
+        <h3>Misclassified Claims Hide Risk</h3>
+        <p>
+          A discrimination claim filed under "General Liability" should be EPL. A police 
+          excessive force claim coded as "GL" should be Law Enforcement Liability. Carriers 
+          often misfile. and underwriters inherit those errors.
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-icon">COVERAGE GAPS</div>
+        <h3>Uninsured Exposures Go Unnoticed</h3>
+        <p>
+          A $1.1M property claim on a policy with no property coverage isn't a mapping 
+          failure. it's a critical finding. But when everything lands in a spreadsheet, 
+          these signals get lost.
+        </p>
+      </div>
+    </div>
+  </div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- CURRENT STATE -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Current State</div>
+    <h2>How Loss Runs Are Processed Today</h2>
+
+    <div class="traditional-flow">
+      <div class="flow-step">
+        <div class="flow-number">1</div>
+        <div class="flow-content">
+          <h4>PDF Arrives via Email</h4>
+          <p>Loss run PDF from prior carrier lands in underwriter's inbox. Format unknown until opened.</p>
+          <div class="flow-pain">Pain: No standardization. Each carrier's format requires mental translation.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number">2</div>
+        <div class="flow-content">
+          <h4>Manual Data Entry</h4>
+          <p>Underwriter or assistant manually keys claims into spreadsheet. Date of loss, description, amounts, carrier codes.</p>
+          <div class="flow-pain">Pain: Time-consuming, error-prone. Typos introduce downstream errors.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number">3</div>
+        <div class="flow-content">
+          <h4>Code Translation (Mental)</h4>
+          <p>Underwriter mentally maps carrier codes to coverage lines. "CommPkge" → probably Property? Or GL? Context-dependent.</p>
+          <div class="flow-pain">Pain: Tribal knowledge required. New underwriters guess. Veterans inconsistent.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number">4</div>
+        <div class="flow-content">
+          <h4>Coverage Matching (If Time Permits)</h4>
+          <p>Compare claims against policy coverages to identify relevance. Often skipped under time pressure.</p>
+          <div class="flow-pain">Pain: Coverage gaps invisible. Claims for inactive coverages mixed with active.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number">5</div>
+        <div class="flow-content">
+          <h4>Pricing Decision</h4>
+          <p>Underwriter prices based on incomplete picture. Some claims miscategorized, some exposures undetected.</p>
+          <div class="flow-pain">Pain: Pricing decisions made on flawed data. Adverse selection risk.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- ELEVATENOW APPROACH -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">The ElevateNow Approach</div>
+    <h2>Loss Run Intelligence That Thinks Like an Underwriter</h2>
+    <div class="section-intro">
+      We don't just extract data from PDFs. We map claims to your coverage lines, detect 
+      misclassifications carriers missed, flag uninsured exposures, and deliver audit-ready 
+      output with full provenance. every mapping traced to evidence.
+    </div>
+
+    <div class="workflow-grid">
+      <div class="workflow-phase">
+        <div class="workflow-header">
+          <div class="workflow-badge">Stage 1</div>
+          <div class="workflow-title">Intelligent Extraction</div>
+        </div>
+        <p class="workflow-desc">
+          Extract claims from any carrier's PDF format. Normalize dates, amounts, descriptions. 
+          Capture LOB codes exactly as provided. Confidence scores on every field. when extraction 
+          is uncertain, we flag it rather than guess.
+        </p>
+        <div class="workflow-outcomes">
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Multi-carrier format support</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Field-level confidence scores</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Automatic insured name matching</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>85-90%+ extraction accuracy threshold</span></div>
+        </div>
+      </div>
+
+      <div class="workflow-phase">
+        <div class="workflow-header">
+          <div class="workflow-badge">Stage 2</div>
+          <div class="workflow-title">Canonical Product Mapping</div>
+        </div>
+        <p class="workflow-desc">
+          Map carrier codes to your canonical coverage products using a 5-tier algorithm: 
+          direct LOB lookup, alias matching, package hint detection, 
+          AI-powered inference, and description analysis. Every mapping includes method and confidence.
+        </p>
+        <div class="workflow-outcomes">
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>58 canonical products</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>1,400+ alias mappings</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>AI fallback for unknown codes</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Method attribution on every claim</span></div>
+        </div>
+      </div>
+
+      <div class="workflow-phase">
+        <div class="workflow-header">
+          <div class="workflow-badge">Stage 3</div>
+          <div class="workflow-title">Override Intelligence</div>
+        </div>
+        <p class="workflow-desc">
+          Detect misclassified claims using 19 EPL indicators, law enforcement keywords, 
+          sexual abuse patterns, and more. A claim coded "GL" with "EEOC" or "discrimination" 
+          in the description gets reclassified to EPL. because that's what an experienced 
+          underwriter would do.
+        </p>
+        <div class="workflow-outcomes">
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>EPL override detection (19 indicators)</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Law Enforcement Liability flags</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Sexual Abuse & Molestation detection</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Priority cascade (SAM > LEL > EPL)</span></div>
+        </div>
+      </div>
+
+      <div class="workflow-phase">
+        <div class="workflow-header">
+          <div class="workflow-badge">Stage 4</div>
+          <div class="workflow-title">Coverage Gap Detection</div>
+        </div>
+        <p class="workflow-desc">
+          Match claims against active policy coverages. When a claim maps to a coverage 
+          the account doesn't have, flag it as "Uninsured Exposure". not as a mapping failure. 
+          A $1.1M property claim with no property coverage is a critical underwriting finding.
+        </p>
+        <div class="workflow-outcomes">
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Active product detection (3-tier)</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Uninsured exposure flagging</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Coverage gap quantification</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Premium vs. claims alignment</span></div>
+        </div>
+      </div>
+
+      <div class="workflow-phase">
+        <div class="workflow-header">
+          <div class="workflow-badge">Stage 5</div>
+          <div class="workflow-title">Reconciliation & Audit Trail</div>
+        </div>
+        <p class="workflow-desc">
+          Generate Excel reconciliation with full audit trail: every claim, its original code, 
+          mapped product, mapping method, confidence score, and override reason if applicable. 
+          Underwriters see exactly why each claim landed where it did.
+        </p>
+        <div class="workflow-outcomes">
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Claim-level provenance</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Excel reconciliation report</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Category summaries by product</span></div>
+          <div class="outcome-item"><span class="outcome-icon">✓</span><span>Year-over-year trending</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- GOVERNANCE -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Governance Encoded</div>
+    <h2>Trust Through Transparency</h2>
+    <div class="section-intro">
+      Every mapping decision is explainable. Every override is justified. Underwriters 
+      don't get black-box outputs. they get recommendations with full reasoning.
+    </div>
+
+    <div class="governance-grid">
+      <div class="governance-card">
+        <h4>Mapping Provenance</h4>
+        <p>
+          Every claim shows how it was mapped: direct lookup, alias match, AI inference, 
+          or override. No hidden logic.
+        </p>
+        <div class="governance-example">
+          Claim X35408: "GL" → EPL<br>
+          Method: override_epl<br>
+          Reason: Description contains "DISCRIMINATION"<br>
+          Confidence: 95%
+        </div>
+      </div>
+      <div class="governance-card">
+        <h4>Override Justification</h4>
+        <p>
+          When the system reclassifies a claim, it shows the trigger keyword and 
+          the override rule that applied.
+        </p>
+        <div class="governance-example">
+          Override Applied: EPL_KEYWORDS<br>
+          Trigger: "EEOC CLAIM" in description<br>
+          Original: General Liability<br>
+          Reclassified: Employment Practices Liability
+        </div>
+      </div>
+      <div class="governance-card">
+        <h4>Confidence Thresholds</h4>
+        <p>
+          Low-confidence mappings are flagged for review. The system recommends. it doesn't 
+          decide autonomously on uncertain cases.
+        </p>
+        <div class="governance-example">
+          Claim X35409: Confidence 62%<br>
+          Status: FLAGGED FOR REVIEW<br>
+          Reason: Ambiguous LOB code "MISC"<br>
+          Suggested: Review description context
+        </div>
+      </div>
+      <div class="governance-card">
+        <h4>Audit-Ready Output</h4>
+        <p>
+          Excel reconciliation includes methodology reference, override priority hierarchy, 
+          and execution checklist for compliance review.
+        </p>
+        <div class="governance-example">
+          Reconciliation Report<br>
+          ├── Claims Detail (with provenance)<br>
+          ├── Category Summary<br>
+          ├── Override Reference<br>
+          └── Methodology Notes
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- DIFFERENTIATORS -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Why ElevateNow</div>
+    <h2>Beyond Basic Extraction</h2>
+
+    <table class="diff-table">
+      <tr>
+        <th>Capability</th>
+        <th>Traditional Insurtech</th>
+        <th>ElevateNow</th>
+      </tr>
+      <tr>
+        <td>PDF Extraction</td>
+        <td class="diff-traditional">Generic OCR, format-specific</td>
+        <td class="diff-elevate">Multi-carrier with confidence scores</td>
+      </tr>
+      <tr>
+        <td>Code Mapping</td>
+        <td class="diff-traditional">Simple lookup table</td>
+        <td class="diff-elevate">5-tier algorithm with 1,500+ aliases</td>
+      </tr>
+      <tr>
+        <td>Misclassification</td>
+        <td class="diff-traditional">Accepts carrier coding</td>
+        <td class="diff-elevate">Override intelligence (EPL, LEL, SAM)</td>
+      </tr>
+      <tr>
+        <td>Coverage Gaps</td>
+        <td class="diff-traditional">Not detected</td>
+        <td class="diff-elevate">Uninsured exposure flagging</td>
+      </tr>
+      <tr>
+        <td>Explainability</td>
+        <td class="diff-traditional">Black box output</td>
+        <td class="diff-elevate">Full provenance on every claim</td>
+      </tr>
+      <tr>
+        <td>Multi-Policy Batch</td>
+        <td class="diff-traditional">Manual file matching</td>
+        <td class="diff-elevate">Automatic loss run to policy matching</td>
+      </tr>
+    </table>
+  </div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- VALUE PROPOSITION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">The Impact</div>
+    <h2>What This Means for Underwriting</h2>
+
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-icon">SPEED</div>
+        <h4>15 Minutes → 30 Seconds</h4>
+        <p>
+          Automated extraction, mapping, and reconciliation. Underwriters receive 
+          structured output ready for review. not raw PDFs requiring manual processing.
+        </p>
+        <div class="value-metric">97% reduction in processing time</div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">ACCURACY</div>
+        <h4>Underwriter-Level Mapping</h4>
+        <p>
+          Override intelligence catches what carriers miss. A discrimination claim 
+          coded as GL gets reclassified to EPL. because that's where it belongs.
+        </p>
+        <div class="value-metric">23% fewer misclassified claims</div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">INSIGHT</div>
+        <h4>Coverage Gaps Surfaced</h4>
+        <p>
+          Uninsured exposures flagged before they become surprises. A $1.1M property 
+          claim on a no-property policy is a finding, not a failure.
+        </p>
+        <div class="value-metric">100% coverage gap detection</div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">TRUST</div>
+        <h4>Explainable Decisions</h4>
+        <p>
+          Every mapping includes method, confidence, and reasoning. Underwriters 
+          verify rather than wonder. Auditors trace rather than question.
+        </p>
+        <div class="value-metric">Full provenance on every claim</div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">SCALE</div>
+        <h4>Batch Processing</h4>
+        <p>
+          Process multiple loss runs against multiple policies in a single batch. 
+          Automatic matching by insured name. no manual file renaming required.
+        </p>
+        <div class="value-metric">Unlimited batch volume</div>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">GOVERNANCE</div>
+        <h4>Audit-Ready Output</h4>
+        <p>
+          Excel reconciliation with claim-level detail, category summaries, and 
+          methodology reference. Ready for compliance review without rework.
+        </p>
+        <div class="value-metric">Zero rework for audit preparation</div>
+      </div>
+    </div>
+  </div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- CTA SECTION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+  <div class="cta-section">
+    <h2>Ready to Transform Loss Run Processing?</h2>
+    <p>
+      Join specialty carriers turning PDF chaos into underwriting intelligence. with 
+      governance encoded, provenance included, and coverage gaps surfaced.
+    </p>
+    <div class="cta-buttons">
+      <a href="#" class="btn btn-primary">Schedule a Demo</a>
+      <a href="#" class="btn btn-secondary">Request Technical Brief</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  <p>
+    ElevateNow Agentic Recipe | Prior Carrier Loss Run Intelligence<br>
+    © 2026 ElevateNow. Proprietary & Confidential.
+  </p>
+</div>
+
+</body>
+</html>
