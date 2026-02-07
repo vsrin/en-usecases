@@ -1,7 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
 import { useCases } from '../data/usecases';
 import UseCaseHtmlViewer from '../components/usecases/UseCaseHtmlViewer';
 import { useTheme } from '../context/ThemeContext';
@@ -41,12 +40,6 @@ export default function UseCaseDetailPage() {
 
   return (
     <div className="min-h-screen bg-en-paper pt-20">
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-7xl mx-auto px-6 py-6">
-        <Link to="/" className="inline-flex items-center gap-2 text-en-paper-muted hover:text-en-ink text-sm transition-colors">
-          <ArrowLeft size={16} />
-          Back to Use Case Library
-        </Link>
-      </motion.div>
       {useCase.detailType === 'html' && useCase.htmlPath && (
         <UseCaseHtmlViewer htmlPath={useCase.htmlPath} />
       )}
