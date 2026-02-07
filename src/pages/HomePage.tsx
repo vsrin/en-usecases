@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, SlidersHorizontal } from 'lucide-react';
-import { useCases } from '../data/usecases';
+import { usecases } from '../data/usecases';
 import { CATEGORY_CONFIG, type UseCaseCategory } from '../types/usecase';
 import UseCaseTile from '../components/usecases/UseCaseTile';
 import ContactSection from '../components/usecases/ContactSection';
@@ -12,7 +12,7 @@ export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState<UseCaseCategory | 'all'>('all');
   const { isDark } = useTheme();
 
-  const filtered = useCases.filter((uc) => {
+  const filtered = usecases.filter((uc) => {
     const matchesSearch =
       search === '' ||
       uc.title.toLowerCase().includes(search.toLowerCase()) ||

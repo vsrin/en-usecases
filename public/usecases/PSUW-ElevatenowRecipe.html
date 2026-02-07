@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElevateNow — AI-Powered Public Sector Underwriting</title>
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fafaf8;
+    --accent: #1e3a5f;
+    --accent-light: #2c5282;
+    --accent-bg: #ebf4ff;
+    --tool-blue: #1a5276;
+    --agent-green: #1e6e3e;
+    --border: #e0ddd5;
+    --muted: #6b6b6b;
+    --warning: #c0392b;
+    --warning-bg: #fdf2f0;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── Hero Section ── */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 80px;
+    background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 40%, #2d3a4a 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -300px; right: -300px;
+    width: 800px; height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,90,150,0.15) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -200px; left: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(30,58,95,0.12) 0%, transparent 70%);
+  }
+  .hero-label {
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 32px;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.12;
+    max-width: 950px;
+    margin-bottom: 28px;
+    z-index: 1;
+  }
+  .hero h1 span { color: #5dade2; }
+  .hero-sub {
+    font-size: 22px;
+    opacity: 0.8;
+    max-width: 700px;
+    margin-bottom: 48px;
+    line-height: 1.6;
+    z-index: 1;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+    font-size: 14px;
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  /* ── Container ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 60px;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 80px;
+    page-break-before: always;
+    page-break-inside: avoid;
+  }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .section h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+  .section-intro {
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+
+  /* ── Problem Section (Backdrop) ── */
+  .problem-backdrop {
+    background: linear-gradient(to bottom, var(--warning-bg) 0%, #fafaf8 100%);
+    padding: 48px 40px;
+    border-radius: 16px;
+    box-shadow: inset 0 2px 0 rgba(192,57,43,0.1);
+    page-break-inside: avoid;
+  }
+  .problem-stat {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--warning);
+  }
+  .stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--warning);
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+  }
+
+  /* ── Challenge Cards ── */
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .challenge-card {
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--muted);
+    page-break-inside: avoid;
+  }
+  .challenge-icon {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--warning);
+    background: var(--warning-bg);
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  .challenge-card h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .challenge-card p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── Traditional Approach ── */
+  .traditional-flow {
+    background: white;
+    padding: 48px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin: 48px 0;
+    page-break-inside: avoid;
+  }
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    page-break-inside: avoid;
+  }
+  .flow-step:last-child { border-bottom: none; }
+  .flow-number {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: #f5f5f5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--muted);
+  }
+  .flow-content h4 {
+    margin-bottom: 8px;
+    font-size: 17px;
+  }
+  .flow-content p {
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .flow-pain {
+    display: inline-block;
+    background: var(--warning-bg);
+    color: var(--warning);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 12px;
+  }
+
+  /* ── ElevateNow Principles ── */
+  .principle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 48px 0;
+  }
+  .principle-card {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--accent);
+    page-break-inside: avoid;
+  }
+  .principle-card h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+  .principle-card p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── Workflow ── */
+  .workflow-container {
+    background: linear-gradient(to bottom, var(--accent-bg) 0%, #fafaf8 100%);
+    padding: 48px 40px;
+    border-radius: 16px;
+    margin: 48px 0;
+  }
+  .workflow-phase {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+    page-break-inside: avoid;
+  }
+  .workflow-phase:last-child { margin-bottom: 0; }
+  .workflow-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .workflow-badge {
+    background: var(--accent);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .workflow-title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .workflow-desc {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .workflow-outcomes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .outcome-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-bg);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .outcome-icon {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ── Value Grid ── */
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .value-card {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    page-break-inside: avoid;
+  }
+  .value-icon {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 8px 14px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  .value-card h4 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .value-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .value-metric {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Governance Section ── */
+  .governance-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .governance-card {
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--agent-green);
+  }
+  .governance-card h4 {
+    font-size: 17px;
+    margin-bottom: 10px;
+    color: var(--agent-green);
+  }
+  .governance-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── CTA Section ── */
+  .cta-section {
+    background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 100%);
+    color: white;
+    padding: 80px 60px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 60px 0;
+  }
+  .cta-section h2 {
+    font-family: Georgia, serif;
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  .cta-section p {
+    font-size: 18px;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  .btn {
+    padding: 16px 32px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: #5dade2;
+    color: #0d1b2a;
+  }
+  .btn-primary:hover { background: #85c1e9; }
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+  .btn-secondary:hover { border-color: white; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Key Question Callout ── */
+  .key-question {
+    background: linear-gradient(135deg, #1b263b 0%, #2d3a4a 100%);
+    color: white;
+    padding: 48px;
+    border-radius: 16px;
+    margin: 48px 0;
+    position: relative;
+  }
+  .key-question::before {
+    content: '"';
+    font-family: Georgia, serif;
+    font-size: 120px;
+    position: absolute;
+    top: -20px;
+    left: 30px;
+    opacity: 0.1;
+  }
+  .key-question p {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    line-height: 1.5;
+    font-style: italic;
+    max-width: 800px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-label">ElevateNow Agentic Recipe</div>
+  <h1>Municipal Budgets Tell <span>Risk Stories</span>. Most Underwriters Never Hear Them.</h1>
+  <p class="hero-sub">
+    Transform 200-page county budget PDFs into actionable underwriting intelligence, with every claim traced to evidence and every supplemental form justified by rule.
+  </p>
+  <div class="hero-meta">
+    <span>Public Sector Underwriting</span>
+    <span>Counties · Special Districts · Municipalities</span>
+    <span>AI-Powered Risk Assessment</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- KEY QUESTION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="key-question">
+  <p>
+    How much risk signal is buried in budget documents that no underwriter has time to decode, and what happens when that signal surfaces after a loss?
+  </p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- THE CHALLENGE -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The Challenge</div>
+  <h2>Public Sector Complexity Exceeds Manual Capacity</h2>
+  <p class="section-intro">
+    Counties and municipalities operate jails, water treatment plants, law enforcement, transit systems, and healthcare facilities. Each carries distinct liability profiles. Yet underwriters receive the same 200-page budget PDF and 15 minutes to figure it out.
+  </p>
+
+  <div class="problem-backdrop">
+    <div class="problem-stat">
+      <div class="stat-card">
+        <div class="stat-number">3,144</div>
+        <div class="stat-label">U.S. Counties<br>Each with unique risk profile</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">87</div>
+        <div class="stat-label">Department Types<br>Requiring classification</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">15 min</div>
+        <div class="stat-label">Typical Review Time<br>For 200+ page budget</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">$2.4M</div>
+        <div class="stat-label">Average PFAS Settlement<br>Per contamination event</div>
+      </div>
+    </div>
+
+    <div class="challenge-grid">
+      <div class="challenge-card">
+        <div class="challenge-icon">SIGNAL BURIED</div>
+        <h3>Budget Data Is Unstructured</h3>
+        <p>
+          Department names vary wildly. "Public Safety" might mean sheriff, fire, and EMS combined, or just code enforcement. Without classification, concentration risk hides in plain sight.
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-icon">INTEL SCATTERED</div>
+        <h3>External Risk Is Invisible</h3>
+        <p>
+          PFAS litigation, consent decrees, ransomware attacks: the intelligence exists in news articles and public filings, but searching takes hours. And even when found, validating it relates to <em>this</em> county (not a similarly named one) requires expertise.
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-icon">RULES IMPLICIT</div>
+        <h3>Supplemental Logic Is Undocumented</h3>
+        <p>
+          "Why did we request the Law Enforcement form?" Senior UWs know intuitively. The rule lives in their heads, not in a system auditors can verify.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- TRADITIONAL APPROACH -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Current State</div>
+  <h2>How Public Sector Gets Underwritten Today</h2>
+
+  <div class="traditional-flow">
+    <div class="flow-step">
+      <div class="flow-number">1</div>
+      <div class="flow-content">
+        <h4>Broker Submits Budget PDF</h4>
+        <p>A 200-page PDF lands in the underwriter's queue. Maybe Excel exports if they're lucky. Usually just scanned images of printed pages.</p>
+        <span class="flow-pain">⏱ Day 1 lost to extraction</span>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-number">2</div>
+      <div class="flow-content">
+        <h4>Manual Department Scan</h4>
+        <p>UW scrolls through looking for "red flag" words: jail, sheriff, water, transit. Concentration analysis? Only if there's time (there isn't).</p>
+        <span class="flow-pain">⚠️ 40% of high-relevance departments missed</span>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-number">3</div>
+      <div class="flow-content">
+        <h4>Google Search for News</h4>
+        <p>Quick search for "[County Name] lawsuit" or "PFAS." Results mixed with other jurisdictions. No systematic coverage of all risk domains.</p>
+        <span class="flow-pain">🎲 Hit-or-miss intelligence</span>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-number">4</div>
+      <div class="flow-content">
+        <h4>Supplemental Requests by Gut</h4>
+        <p>Experienced UW knows to request LE Supplemental when jail budget is "big." But what's big? Why? No documented threshold or rule chain.</p>
+        <span class="flow-pain">📋 Undocumented decision logic</span>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-number">5</div>
+      <div class="flow-content">
+        <h4>Briefing Memo from Memory</h4>
+        <p>Senior UW writes assessment based on what they noticed and remember. No link to source data. No audit trail. No year-over-year comparison.</p>
+        <span class="flow-pain">🔍 Unverifiable conclusions</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- ELEVATENOW APPROACH -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The ElevateNow Approach</div>
+  <h2>Underwriting Intelligence with Governance Built In</h2>
+  <p class="section-intro">
+    Not a black-box risk score. A transparent, auditable system where every claim links to evidence, every supplemental traces to a rule, and the underwriter remains in control.
+  </p>
+
+  <div class="principle-grid">
+    <div class="principle-card">
+      <h3>Narrative First, Not Dashboard First</h3>
+      <p>
+        Underwriters read prose, not pivot tables. The system synthesizes findings into executive narrative with <strong>clickable citations</strong>. Hover to see the source, click to drill into evidence.
+      </p>
+    </div>
+    <div class="principle-card">
+      <h3>Logic Chains, Not Black Boxes</h3>
+      <p>
+        Every supplemental form shows a 3-step reasoning trace: <strong>Detection → Association → Determination</strong>. Auditors see exactly why Law Enforcement Supplemental was required.
+      </p>
+    </div>
+    <div class="principle-card">
+      <h3>Flagged for Review, Not Hidden</h3>
+      <p>
+        When confidence is low or entity validation uncertain, findings surface with <strong>yellow flags</strong>, not buried in logs. The underwriter decides, not the algorithm.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- CAPABILITIES -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The Capabilities</div>
+  <h2>From Budget PDF to Underwriting Briefing</h2>
+  <p class="section-intro">
+    A coordinated set of capabilities transforms raw budget data into classified departments, verified external intelligence, and audit-ready supplemental logic. All findings persist to enable year-over-year benchmarking and trend analysis.
+  </p>
+
+  <div class="workflow-container">
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">CAPABILITY</div>
+        <div class="workflow-title">Budget Classification</div>
+      </div>
+      <p class="workflow-desc">
+        Vendor-extracted budget data flows through pattern matching and alias resolution. Each line item maps to one of <strong>87 canonical departments</strong> with confidence scores. High-relevance departments like Sheriff, Jail, and Water Treatment trigger coverage analysis. Results persist to enable year-over-year comparison of allocation shifts and concentration changes.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Department classification</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Concentration analysis</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Coverage triggers identified</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Year-over-year benchmarking</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">CAPABILITY</div>
+        <div class="workflow-title">Dynamic Risk Intelligence</div>
+      </div>
+      <p class="workflow-desc">
+        The system dynamically scans public domain sources including news articles, government filings, court records, and regulatory announcements across 8 risk domains. Findings are validated to confirm they relate to the correct entity, not a similarly named jurisdiction. Source credibility is scored. Boilerplate language from audit documents is filtered. Uncertain findings surface for human review. All intelligence persists to track how a county's risk profile evolves over time.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Real-time public domain scanning</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Entity validation</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Credibility scoring</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Historical trend tracking</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">CAPABILITY</div>
+        <div class="workflow-title">Environmental Compliance</div>
+      </div>
+      <p class="workflow-desc">
+        When water departments are detected, the system gathers PFAS levels and checks EPA and state compliance thresholds. Active contamination proceedings and consent orders are identified. With a $2.4M average settlement per event, this capability pays for itself on the first catch. Historical compliance data enables trending of environmental exposure.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span>PFAS levels (ppt)</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Compliance status</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Active violations</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Compliance trend analysis</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">CAPABILITY</div>
+        <div class="workflow-title">Underwriting Synthesis</div>
+      </div>
+      <p class="workflow-desc">
+        All findings synthesize into an executive narrative with <strong>hotspot citations</strong> linking each claim to its source. Logic chains explain every supplemental form requirement. A composite risk signal summarizes overall exposure. Underwriters get prose they can read and evidence they can verify.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Narrative summary</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Clickable hotspots</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Supplemental logic chains</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Composite risk signal</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase" style="border-bottom: none;">
+      <div class="workflow-header">
+        <div class="workflow-badge">CAPABILITY</div>
+        <div class="workflow-title">Persistent Intelligence Layer</div>
+      </div>
+      <p class="workflow-desc">
+        Every submission, classification, and intelligence finding persists to a structured data layer. This enables powerful benchmarking: compare this year's budget allocation against last year's, track how detention spending trends across similar-sized counties, monitor whether flagged litigation has resolved. The underwriter sees not just a snapshot, but a trajectory.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Multi-year budget comparison</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Peer county benchmarking</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Intelligence trend tracking</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Complete audit trail</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- GOVERNANCE -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Governance by Design</div>
+  <h2>Trust Through Transparency</h2>
+  <p class="section-intro">
+    AI assistance only earns underwriter trust when every conclusion can be verified. The system is designed for auditability, not as an afterthought, but as architecture.
+  </p>
+
+  <div class="governance-grid">
+    <div class="governance-card">
+      <h4>Hotspot Citations</h4>
+      <p>Every claim in the narrative links to source evidence. "14% expansion in Detention" leads directly to the budget line item, page number, and classification confidence.</p>
+    </div>
+    <div class="governance-card">
+      <h4>Logic Chains</h4>
+      <p>Supplemental forms show reasoning: Step 1 (Detection), Step 2 (Risk Association), Step 3 (Rule Application). Auditors trace the path from data to decision.</p>
+    </div>
+    <div class="governance-card">
+      <h4>Flagged Findings</h4>
+      <p>Low-confidence items do not disappear. They surface with yellow flags and "Requires UW Review" status. The human makes the call, informed by AI but not replaced by it.</p>
+    </div>
+    <div class="governance-card">
+      <h4>Full Audit Trail</h4>
+      <p>Every operation logged with timestamp, version, and duration. Reproducible runs. Compliance-ready documentation generated automatically.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- VALUE PROPOSITION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The Impact</div>
+  <h2>Measurable Value for Underwriting Teams</h2>
+
+  <div class="value-grid">
+    <div class="value-card">
+      <div class="value-icon">SPEED</div>
+      <h4>Hours to Minutes</h4>
+      <p>
+        Transform multi-day manual review into sub-minute automated analysis. Underwriters spend time on judgment calls, not data extraction and news searches.
+      </p>
+      <div class="value-metric">95%+ faster initial triage</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">COVERAGE</div>
+      <h4>Nothing Missed</h4>
+      <p>
+        Systematic classification of all 87 department types. Intelligence search across 8 risk domains. No more "we didn't know they had a jail."
+      </p>
+      <div class="value-metric">100% department classification</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">ACCURACY</div>
+      <h4>Entity Validation</h4>
+      <p>
+        AI verifies that findings relate to <em>this</em> county, not a similarly named district. Boilerplate filtered. Source credibility scored. False positives caught before they mislead.
+      </p>
+      <div class="value-metric">90%+ citation confidence</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">INSIGHT</div>
+      <h4>Year-Over-Year Trends</h4>
+      <p>
+        Persistent data enables benchmarking: How did detention spending change? Did that PFAS issue resolve? What are peer counties allocating? Context transforms snapshots into trajectories.
+      </p>
+      <div class="value-metric">Multi-year trend visibility</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">CONSISTENCY</div>
+      <h4>Standardized Process</h4>
+      <p>
+        Same budget, same rules, same classification, regardless of which UW handles it. Eliminate analyst-to-analyst variation. Codify institutional knowledge.
+      </p>
+      <div class="value-metric">Reproducible risk assessment</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">SCALE</div>
+      <h4>Portfolio Intelligence</h4>
+      <p>
+        Pre-curate intelligence for 3,144 counties. Refresh quarterly. When submissions arrive, cached data is ready. New customer? Same-day turnaround.
+      </p>
+      <div class="value-metric">Proactive risk monitoring</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- CTA SECTION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="cta-section">
+  <h2>Ready to Transform Public Sector Underwriting?</h2>
+  <p>
+    Join forward-thinking underwriting teams using AI to uncover risk signals, justify decisions, and move faster, without sacrificing governance or control.
+  </p>
+  <div class="cta-buttons">
+    <a href="#" class="btn btn-primary">Schedule a Demo</a>
+    <a href="#" class="btn btn-secondary">Request Technical Brief</a>
+  </div>
+</div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  <p>
+    ElevateNow Agentic Recipe | AI-Powered Public Sector Underwriting<br>
+    © 2026 ElevateNow. Proprietary & Confidential.
+  </p>
+</div>
+
+</body>
+</html>
