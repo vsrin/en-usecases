@@ -17,6 +17,29 @@ export const usecases: UseCaseMeta[] = [
     summary: 'Submissions arrive via email, portal, and broker feeds in inconsistent formats. This recipe extracts, validates, and routes submissions automatically, ensuring nothing falls through the cracks and underwriters receive complete, structured packages.',
   },
   {
+    "id": "workers-comp-fnol-intelligence",
+    "slug": "workers-comp-fnol-intelligence",
+    "title": "First Notice of Loss Claims Arrive With Red Flags Hidden in Plain Sight",
+    "subtitle": "From Unstructured Intake to Governed Intelligence Report in Minutes",
+    "category": "claims",
+    "tags": [
+      "Workers Compensation",
+      "FNOL Processing",
+      "Claims Intelligence",
+      "Fraud Detection",
+      "Subrogation",
+      "Compensability Analysis",
+      "Authority Routing"
+    ],
+    "status": "published",
+    "publishedAt": "2026-02-08",
+    "estimatedReadMin": 12,
+    "detailType": "html",
+    "htmlPath": "WCFNOL-ElevatenowRecipe.html",
+    "keyQuestion": "When a worker is injured, claims adjusters have minutes to triage compensability, spot fraud indicators, calculate reserves, and route to the right authority level. What happens when the red flags are buried in unstructured text, the jurisdiction rules conflict across 50 states, and there's no time to consult the manual?",
+    "summary": "Workers compensation claims begin with unstructured FNOL narratives hiding critical signals—fraud indicators, third-party liability, compensability questions, OSHA triggers. This recipe transforms chaos into governed intelligence: jurisdiction rules applied consistently across 50 states, 12 sensitive indicators detected with standardized taxonomy, subrogation theories evaluated systematically, and authority routing based on explicit governance logic. Every decision traced to evidence, every knowledge source cited, every routing choice documented. From 90-minute manual triage to sub-10-minute intelligence delivery with complete audit trails."
+  },
+  {
     id: 'loss-run-intelligence',
     slug: 'loss-run-intelligence',
     title: 'Prior Carrier Loss Runs: From PDF Chaos to Underwriting Intelligence',

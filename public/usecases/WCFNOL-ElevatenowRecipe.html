@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElevateNow — Workers Compensation Claims Intelligence</title>
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fafaf8;
+    --accent: #1e3a5f;
+    --accent-light: #2c5282;
+    --accent-bg: #ebf4ff;
+    --tool-blue: #1a5276;
+    --agent-green: #1e6e3e;
+    --border: #e0ddd5;
+    --muted: #6b6b6b;
+    --warning: #c0392b;
+    --warning-bg: #fdf2f0;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── Hero Section ── */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 80px;
+    background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 40%, #2d3a4a 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -300px; right: -300px;
+    width: 800px; height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,90,150,0.15) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -200px; left: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(30,58,95,0.12) 0%, transparent 70%);
+  }
+  .hero-label {
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 32px;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.12;
+    max-width: 950px;
+    margin-bottom: 28px;
+    z-index: 1;
+  }
+  .hero h1 span { color: #5dade2; }
+  .hero-sub {
+    font-size: 22px;
+    opacity: 0.8;
+    max-width: 700px;
+    margin-bottom: 48px;
+    line-height: 1.6;
+    z-index: 1;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+    font-size: 14px;
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  /* ── Container ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 60px;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 80px;
+    page-break-before: always;
+    page-break-inside: avoid;
+  }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .section h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+  .section-intro {
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+
+  /* ── Problem Section (Backdrop) ── */
+  .problem-backdrop {
+    background: linear-gradient(to bottom, var(--warning-bg) 0%, #fafaf8 100%);
+    padding: 48px 40px;
+    border-radius: 16px;
+    box-shadow: inset 0 2px 0 rgba(192,57,43,0.1);
+    page-break-inside: avoid;
+  }
+  .problem-stat {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--warning);
+  }
+  .stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--warning);
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+  }
+
+  /* ── Challenge Cards ── */
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .challenge-card {
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--muted);
+    page-break-inside: avoid;
+  }
+  .challenge-icon {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--warning);
+    background: var(--warning-bg);
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  .challenge-card h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .challenge-card p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── Traditional Approach ── */
+  .traditional-flow {
+    background: white;
+    padding: 48px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin: 48px 0;
+    page-break-inside: avoid;
+  }
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    page-break-inside: avoid;
+  }
+  .flow-step:last-child { border-bottom: none; }
+  .flow-number {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: #f5f5f5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--muted);
+  }
+  .flow-content h4 {
+    margin-bottom: 8px;
+    font-size: 17px;
+  }
+  .flow-content p {
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .flow-pain {
+    display: inline-block;
+    background: var(--warning-bg);
+    color: var(--warning);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 12px;
+  }
+
+  /* ── ElevateNow Principles ── */
+  .principle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 48px 0;
+  }
+  .principle-card {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--accent);
+    page-break-inside: avoid;
+  }
+  .principle-card h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+  .principle-card p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── Workflow ── */
+  .workflow-container {
+    background: linear-gradient(to bottom, var(--accent-bg) 0%, #fafaf8 100%);
+    padding: 48px 40px;
+    border-radius: 16px;
+    margin: 48px 0;
+  }
+  .workflow-phase {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent);
+    page-break-inside: avoid;
+  }
+  .workflow-phase:last-child { margin-bottom: 0; }
+  .workflow-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .workflow-badge {
+    background: var(--accent);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .workflow-title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .workflow-desc {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .workflow-outcomes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .outcome-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-bg);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .outcome-icon {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ── Value Grid ── */
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .value-card {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    page-break-inside: avoid;
+  }
+  .value-icon {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 8px 14px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  .value-card h4 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .value-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .value-metric {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Governance Section ── */
+  .governance-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .governance-card {
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--agent-green);
+  }
+  .governance-card h4 {
+    font-size: 17px;
+    margin-bottom: 10px;
+    color: var(--agent-green);
+  }
+  .governance-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── CTA Section ── */
+  .cta-section {
+    background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 100%);
+    color: white;
+    padding: 80px 60px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 60px 0;
+  }
+  .cta-section h2 {
+    font-family: Georgia, serif;
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  .cta-section p {
+    font-size: 18px;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  .btn {
+    padding: 16px 32px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: #5dade2;
+    color: #0d1b2a;
+  }
+  .btn-primary:hover { background: #85c1e9; }
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+  .btn-secondary:hover { border-color: white; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Key Question Callout ── */
+  .key-question {
+    background: linear-gradient(135deg, #1b263b 0%, #2d3a4a 100%);
+    color: white;
+    padding: 48px;
+    border-radius: 16px;
+    margin: 48px 0;
+    position: relative;
+  }
+  .key-question::before {
+    content: '"';
+    font-family: Georgia, serif;
+    font-size: 120px;
+    position: absolute;
+    top: -20px;
+    left: 30px;
+    opacity: 0.1;
+  }
+  .key-question p {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    line-height: 1.5;
+    font-style: italic;
+    max-width: 800px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-label">ElevateNow Agentic Recipe</div>
+  <h1>First Notice of Loss Claims Arrive <span>With Red Flags Hidden</span> in Plain Sight.</h1>
+  <p class="hero-sub">From intake email to actionable intelligence report in minutes, with every decision traced to evidence and governed by encoded best practices.</p>
+  <div class="hero-meta">
+    <div>Workers Compensation · Claims Automation</div>
+    <div>Published February 2026</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- KEY QUESTION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="key-question">
+  <p>When a worker is injured, claims adjusters have minutes to triage compensability, spot fraud indicators, calculate reserves, and route to the right authority level. What happens when the red flags are buried in unstructured text, the jurisdiction rules conflict across 50 states, and there's no time to consult the manual?</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- THE PROBLEM -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The Challenge</div>
+  <h2>Workers Comp Claims Start With Chaos</h2>
+  <p class="section-intro">
+    Every workers compensation claim begins the same way: an unstructured First Notice of Loss (FNOL) arrives via email, call center transcript, or employer portal. Within that narrative are critical signals—fraud indicators, third-party liability, compensability questions, OSHA triggers—that determine whether the claim should be auto-accepted, escalated to senior review, or blocked pending investigation. Miss one signal and reserves are wrong, fraud goes undetected, or subrogation opportunities vanish.
+  </p>
+
+  <div class="problem-backdrop">
+    <h3 style="font-size:22px;margin-bottom:24px;">What Adjusters Face Today</h3>
+    <div class="problem-stat">
+      <div class="stat-card">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Jurisdiction rule sets to apply correctly</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">12</div>
+        <div class="stat-label">Sensitive fraud & risk indicators to detect</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">8–15</div>
+        <div class="stat-label">Minutes available per FNOL during peak intake</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">Zero</div>
+        <div class="stat-label">Audit trail when decisions are made mentally</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="challenge-grid">
+    <div class="challenge-card">
+      <div class="challenge-icon">UNSTRUCTURED DATA</div>
+      <h3>FNOL Narratives Bury Critical Details</h3>
+      <p>Injury descriptions arrive as free text. Witnesses mentioned casually. Pre-existing conditions noted in passing. Third parties referenced without clarity. Every claim is a different narrative structure.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">JURISDICTION COMPLEXITY</div>
+      <h3>50 States, 50 Rule Sets</h3>
+      <p>Benefit rates, waiting periods, compensability standards, subrogation provisions, and reporting deadlines vary by state. Applying the wrong jurisdiction's rules creates regulatory exposure and reserve errors.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">FRAUD DETECTION</div>
+      <h3>Red Flags Surface Too Late</h3>
+      <p>Witness conflicts, prior claims history, attorney involvement timing, suspicious injury mechanisms—all indicators that should trigger investigation but often emerge only after reserves are set and treatment begins.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">MANUAL AUTHORITY ROUTING</div>
+      <h3>Who Reviews What?</h3>
+      <p>Should this claim go to a junior adjuster, senior review, or claims director? The decision involves compensability confidence, reserve amount, indicator severity, and subrogation potential but it's done mentally with no documentation.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">NO GOVERNANCE TRAIL</div>
+      <h3>Decisions Vanish Into Notebooks</h3>
+      <p>Why was this claim auto-accepted? What compensability factors were considered? Which knowledge sources informed the decision? When audits or litigation arrive, there's no trail.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">SUBROGATION BLIND SPOTS</div>
+      <h3>Recovery Opportunities Missed</h3>
+      <p>Equipment manufacturers, maintenance contractors, premises owners—third parties who might share liability. Spotting subrogation potential requires analyzing injury mechanism, witnesses, and external parties immediately, not months later.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- TRADITIONAL APPROACH -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Traditional Workflow</div>
+  <h2>How FNOL Processing Works Today</h2>
+  <p class="section-intro">
+    Most carriers rely on adjusters to manually triage every FNOL, applying mental checklists, jurisdiction knowledge, and institutional experience to make intake decisions. The process is fast but fragile and entirely dependent on individual adjuster expertise.
+  </p>
+
+  <div class="traditional-flow">
+    <div class="flow-step">
+      <div class="flow-number">1</div>
+      <div class="flow-content">
+        <h4>FNOL Intake</h4>
+        <p>Claim arrives via email, phone, or employer portal. Adjuster reads narrative, extracts key facts manually, enters data into claims system.</p>
+        <div class="flow-pain">15–20 minutes · No structure validation · Inconsistent data capture</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-number">2</div>
+      <div class="flow-content">
+        <h4>Jurisdiction Rule Lookup</h4>
+        <p>Adjuster identifies state, consults jurisdiction manual or internal wiki to determine benefit rates, waiting periods, compensability standards. Rules memorized for frequent states, looked up for others.</p>
+        <div class="flow-pain">5–10 minutes · Risk of outdated manuals · Inconsistent application</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-number">3</div>
+      <div class="flow-content">
+        <h4>Compensability Assessment</h4>
+        <p>Adjuster mentally evaluates whether injury arose out of and in the course of employment. Considers employer defenses, witness statements, injury mechanism. Decision recorded as "likely compensable" or "questionable" but reasoning is not documented.</p>
+        <div class="flow-pain">10–15 minutes · No structured analysis · Reasoning lost</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-number">4</div>
+      <div class="flow-content">
+        <h4>Indicator Screening</h4>
+        <p>Adjuster scans narrative for red flags: attorney involvement, witness conflicts, prior claims, suspicious injury. Relies on pattern recognition and experience. No standardized indicator taxonomy. Easy to miss subtle signals under time pressure.</p>
+        <div class="flow-pain">5–10 minutes · Pattern recognition · Inconsistent detection</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-number">5</div>
+      <div class="flow-content">
+        <h4>Reserve Calculation</h4>
+        <p>Adjuster estimates medical and indemnity reserves using jurisdiction rates, injury type, and projected duration. Often relies on simple multipliers or rule of thumb. Legal reserves added if attorney involved. Calculation done in spreadsheet or calculator.</p>
+        <div class="flow-pain">10–15 minutes · Manual math · No variance analysis</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-number">6</div>
+      <div class="flow-content">
+        <h4>Subrogation Identification</h4>
+        <p>Adjuster considers whether third parties might share liability. Equipment failures, premises conditions, motor vehicle involvement. Decision based on experience and judgment. No structured liability theory framework. Referral to subrogation team is manual and inconsistent.</p>
+        <div class="flow-pain">5 minutes · No structured analysis · Recovery opportunities missed</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-number">7</div>
+      <div class="flow-content">
+        <h4>Authority Routing</h4>
+        <p>Adjuster decides whether claim should be auto-handled, escalated to senior review, or blocked for investigation. Decision based on reserve amount, indicators detected, compensability confidence, and personal risk tolerance. No governance framework.</p>
+        <div class="flow-pain">Varies by adjuster · No standardization · Authority creep</div>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:17px;color:var(--muted);margin-top:32px;">
+    <strong>Total time per claim: 60–90 minutes.</strong> Zero governance documentation. Inconsistent indicator detection. Authority decisions based on individual judgment. No knowledge traceability. When litigation or audit arrives, the reasoning behind the initial acceptance or escalation is gone.
+  </p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- ELEVATENOW PRINCIPLES -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">ElevateNow Difference</div>
+  <h2>Governance-First Claims Intelligence</h2>
+  <p class="section-intro">
+    ElevateNow doesn't just automate FNOL processing, it encodes institutional knowledge, enforces governance, and creates complete audit trails. Every decision is traced to evidence. Every authority gate is documented. Every knowledge source is cited. The result is not faster claims processing, but trustworthy claims intelligence.
+  </p>
+
+  <div class="principle-grid">
+    <div class="principle-card">
+      <h3>Encoded Best Practices</h3>
+      <p>Jurisdiction rules, compensability logic, fraud indicator taxonomies, subrogation theories, all codified into specialized analytical capabilities. Not AI deciding alone, but AI applying proven institutional frameworks consistently.</p>
+    </div>
+
+    <div class="principle-card">
+      <h3>Complete Evidence Trails</h3>
+      <p>Every claim analysis produces structured outputs with explicit reasoning, knowledge citations, confidence scores, and decision logic. When an adjuster sees "compensability: 87%", they also see which employment factors, injury characteristics, and knowledge sources informed that score.</p>
+    </div>
+
+    <div class="principle-card">
+      <h3>Authority Gates That Govern</h3>
+      <p>Claims don't route to adjusters based on gut feel, they route based on explicit governance logic. Compensability thresholds, indicator severity rules, reserve authority limits, and subrogation potential criteria determine who handles what, with full documentation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- ELEVATENOW WORKFLOW -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The ElevateNow Approach</div>
+  <h2>From FNOL Intake to Intelligence Report</h2>
+  <p class="section-intro">
+    The ElevateNow Workers Compensation Claims Intelligence recipe orchestrates specialized analytical capabilities and AI agents across four distinct phases, each producing structured, auditable outputs that flow into downstream analysis and final authority routing.
+  </p>
+
+  <div class="workflow-container">
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">PHASE 1</div>
+        <div class="workflow-title">Intake & Jurisdictional Grounding</div>
+      </div>
+      <p class="workflow-desc">
+        Unstructured FNOL narrative is parsed to extract claimant, employer, injury, and witness details. Jurisdiction is resolved from injury location and employer state, retrieving state-specific benefit rates, compensability standards, reporting deadlines, and subrogation rules from authoritative reference data.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Structured claim record</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Jurisdiction rules applied</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Compliance calendar initialized</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">PHASE 2</div>
+        <div class="workflow-title">Risk & Compensability Intelligence</div>
+      </div>
+      <p class="workflow-desc">
+        AI agents analyze compensability by evaluating employment relationship (arising out of / in course of employment), employer defenses, and injury characteristics against jurisdiction-specific standards. Simultaneously, the narrative is screened for 12 sensitive indicators (fraud patterns, attorney timing, witness conflicts, OSHA triggers, pre-existing conditions). Domain knowledge from institutional guides is retrieved to inform both analyses.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Compensability score with reasoning</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Indicators detected & classified</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Knowledge citations attached</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">PHASE 3</div>
+        <div class="workflow-title">Financial Exposure & Subrogation</div>
+      </div>
+      <p class="workflow-desc">
+        Reserve calculator determines medical, indemnity, and legal exposure using jurisdiction-specific rates, injury severity, and projected duration. Subrogation screener analyzes injury mechanism, witness accounts, and external parties to identify potential third-party liability across five theories (negligence, product defect, premises, motor vehicle, toxic exposure). Both analyses produce scenario-based outputs with confidence ranges.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Tiered reserve scenarios</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Subrogation potential identified</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Authority level determined</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">PHASE 4</div>
+        <div class="workflow-title">Authority Routing & Intelligence Delivery</div>
+      </div>
+      <p class="workflow-desc">
+        Governance gate evaluates four dimensions, compensability confidence, indicator severity, reserve amount, subrogation potential, to determine routing: auto-accept (simple, clear claims), human review (ambiguous or moderate risk), or investigation hold (critical indicators, high exposure, third-party liability). Final intelligence report assembles all upstream outputs into a structured briefing with executive summary, priority actions, compliance deadlines, and complete governance trail.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Routing decision documented</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Intelligence report generated</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Governance trail locked</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- VALUE PROPOSITION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Why ElevateNow</div>
+  <h2>What Traditional Claims Automation Misses</h2>
+  <p class="section-intro">
+    Most claims automation focuses on speed and cost reduction. ElevateNow focuses on trust and governance. Yes, FNOL processing time drops from 60–90 minutes to under 10 minutes. But the real value is consistent application of institutional knowledge, complete audit trails, and authority gates that hold when tested.
+  </p>
+
+  <div class="value-grid">
+    <div class="value-card">
+      <div class="value-icon">GOVERNANCE</div>
+      <h4>Decisions You Can Defend</h4>
+      <p>Every compensability assessment, indicator detection, reserve calculation, and authority routing decision is documented with explicit reasoning, knowledge citations, and confidence scores. When litigation or regulatory audit arrives, the complete decision trail exists.</p>
+      <div class="value-metric">From zero documentation to complete governance trail</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">CONSISTENCY</div>
+      <h4>Institutional Knowledge, Encoded</h4>
+      <p>50-state jurisdiction rules, fraud indicator taxonomies, compensability frameworks, subrogation liability theories—all applied consistently across every claim. No variation by adjuster experience, memory, or risk tolerance. Best practices become automated practice.</p>
+      <div class="value-metric">From adjuster-dependent to framework-driven analysis</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">DETECTION</div>
+      <h4>Red Flags Don't Hide</h4>
+      <p>12 sensitive indicators detected with standardized taxonomy: fraud patterns, attorney involvement timing, witness conflicts, OSHA triggers, pre-existing conditions, employment relationship questions. Pattern recognition happens reliably, not variably.</p>
+      <div class="value-metric">From 40–60% detection rate to 95%+ consistency</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">SUBROGATION</div>
+      <h4>Recovery Potential Identified Early</h4>
+      <p>Five liability theories (negligence, product defect, premises, motor vehicle, toxic exposure) applied to every claim. Third parties, responsible parties, and evidence preservation requirements identified at intake, not discovered months later after spoliation.</p>
+      <div class="value-metric">From 15% referral rate to 80%+ potential identification</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">AUTHORITY</div>
+      <h4>Routing Based on Risk, Not Gut Feel</h4>
+      <p>Governance gate evaluates compensability confidence, indicator severity, reserve amount, and subrogation potential using explicit thresholds. Authority levels (auto-accept, senior review, investigation hold) assigned consistently with full documentation of why.</p>
+      <div class="value-metric">From mental authority routing to documented governance</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">SPEED</div>
+      <h4>From 90 Minutes to Under 10</h4>
+      <p>FNOL intake, jurisdiction resolution, compensability analysis, indicator screening, reserve calculation, subrogation identification, and authority routing, all completed in minutes with higher quality than manual processing. Adjusters spend time investigating, not data entry.</p>
+      <div class="value-metric">85%+ time reduction · 10x capacity improvement</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- GOVERNANCE & TRUST -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Trust Architecture</div>
+  <h2>How ElevateNow Earns Trust</h2>
+  <p class="section-intro">
+    Trust in claims automation isn't about accepting AI decisions blindly, it's about understanding exactly how conclusions were reached, which knowledge informed them, and why specific authority levels were assigned. ElevateNow's governance architecture makes every decision transparent and defensible.
+  </p>
+
+  <div class="governance-grid">
+    <div class="governance-card">
+      <h4>Knowledge Traceability</h4>
+      <p>Every compensability assessment, indicator detection, and subrogation analysis cites specific knowledge sources from institutional guides. When the system says "compensability is questionable due to personal comfort doctrine", the citation links to the exact guide section that informed that reasoning. Adjusters know why, not just what.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Confidence Calibration</h4>
+      <p>Compensability scores aren't binary accept/deny, they're confidence ranges with explicit reasoning. "87% compensable" means the employment relationship is clear, injury mechanism aligns with duties, but one employer defense (personal comfort) warrants senior review. Confidence guides authority routing, and both are documented.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Authority Gate Logic</h4>
+      <p>Why was this claim auto-accepted while that one went to investigation hold? The governance gate evaluates four dimensions with explicit thresholds. Auto-accept requires: compensability >90%, zero critical indicators, reserves <$25K, no subrogation potential. Any breach triggers escalation, and the specific breach is logged.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Audit Trail Immutability</h4>
+      <p>Every analytical step, jurisdiction resolution, knowledge retrieval, compensability analysis, indicator detection, reserve calculation, subrogation screening, authority gate decision, is recorded with timestamp, input data, output results, knowledge citations, and reasoning. The trail is immutable: adjusters can override decisions, but cannot erase the system's original analysis.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- REAL-WORLD OUTCOMES -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Proof Points</div>
+  <h2>Three Claims, Three Different Outcomes</h2>
+  <p class="section-intro">
+    The ElevateNow system has been validated against three reference claims representing the full spectrum of complexity: a construction fatality with equipment failure and third-party liability, a warehouse injury with pre-existing condition complications, and a straightforward slip-and-fall. Each claim routed correctly based on governance logic.
+  </p>
+
+  <div class="challenge-grid">
+    <div class="challenge-card" style="border-top-color: #991b1b;">
+      <div class="challenge-icon" style="background: #fef2f2; color: #991b1b;">CRITICAL CLAIM</div>
+      <h3>Construction Fatality → Investigation Hold</h3>
+      <p><strong>Scenario:</strong> Crane operator fatal fall from 45 feet. Equipment failure suspected. Maintenance contractor and equipment manufacturer identified as potential third parties.</p>
+      <p><strong>Analysis:</strong> Fatality indicator (critical severity) + OSHA trigger + third-party liability potential + $96.8K reserve = immediate escalation to Claims Director with blocking gate. Subrogation referral auto-generated with evidence preservation checklist.</p>
+      <p style="margin-top:16px;font-weight:600;color:#991b1b;">Result: Routed to Claims Director · Investigation Hold · Human Review Required</p>
+    </div>
+
+    <div class="challenge-card" style="border-top-color: #d97706;">
+      <div class="challenge-icon" style="background: #fffbeb; color: #d97706;">HIGH-RISK CLAIM</div>
+      <h3>Warehouse Back Injury → Senior Review</h3>
+      <p><strong>Scenario:</strong> Forklift operator lumbar strain lifting 75-lb pallet. Pre-existing back condition noted in medical history. Standard employer premises, no third parties involved.</p>
+      <p><strong>Analysis:</strong> Pre-existing condition indicator (medium severity) + compensability 82% (below 90% auto-accept threshold) + $92.2K reserve = senior adjuster review. No subrogation potential. Non-blocking gate, claim processing continues during review.</p>
+      <p style="margin-top:16px;font-weight:600;color:#d97706;">Result: Routed to Senior Adjuster · Non-Blocking Gate · Human Review</p>
+    </div>
+
+    <div class="challenge-card" style="border-top-color: #166534;">
+      <div class="challenge-icon" style="background: #f0fdf4; color: #166534;">STANDARD CLAIM</div>
+      <h3>Kitchen Slip-and-Fall → Auto-Accepted</h3>
+      <p><strong>Scenario:</strong> Hospitality worker wrist sprain from wet floor. Two witnesses. Clear employment relationship. Standard employer premises.</p>
+      <p><strong>Analysis:</strong> Compensability 94% (strong) + zero indicators detected + $1,650 medical-only reserve + no subrogation = auto-accept criteria met. Claim bypasses human review and proceeds directly to treatment authorization and reserve booking.</p>
+      <p style="margin-top:16px;font-weight:600;color:#166534;">Result: Auto-Accepted · No Human Review Required · Direct to Processing</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- CTA -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="cta-section">
+  <h2>Ready to Transform FNOL Processing?</h2>
+  <p>See how ElevateNow's Workers Compensation Claims Intelligence recipe can deliver governed, consistent, audit-ready claims analysis while reducing intake time by 85%+.</p>
+  <div class="cta-buttons">
+    <a href="#" class="btn btn-primary">Request Demo</a>
+    <a href="#" class="btn btn-secondary">Technical Overview</a>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  <p>
+    ElevateNow · Workers Compensation Claims Intelligence Recipe<br>
+    © 2026 ElevateNow. Proprietary & Confidential.
+  </p>
+</div>
+
+</body>
+</html>

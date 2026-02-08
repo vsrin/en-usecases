@@ -8,7 +8,7 @@ export default function Navbar() {
   const isDetailPage = location.pathname.startsWith('/use-case/');
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-en-navy/95 backdrop-blur-xl border-b border-en-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-en-navy/98 backdrop-blur-xl border-b border-en-border shadow-lg">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Left side - Logo or Back button */}
         <div className="flex items-center gap-4">

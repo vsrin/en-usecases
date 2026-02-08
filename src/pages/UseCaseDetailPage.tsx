@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { getUseCaseBySlug } from '../data/usecases';
 import UseCaseHtmlViewer from '../components/usecases/UseCaseHtmlViewer';
@@ -9,6 +10,11 @@ export default function UseCaseDetailPage() {
   const { isDark } = useTheme();
   
   const useCase = slug ? getUseCaseBySlug(slug) : undefined;
+
+  // Scroll to top when page loads or slug changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
 
   if (!useCase) {
     return (
@@ -64,35 +70,8 @@ export default function UseCaseDetailPage() {
   if (useCase.detailType === 'html' && useCase.htmlPath) {
     return (
       <div className="use-case-detail">
-        {/* Back Navigation - Fixed */}
-        <div className={`fixed top-16 left-0 right-0 z-40 ${
-          isDark ? 'bg-en-ink/90 backdrop-blur-md' : 'bg-white/90 backdrop-blur-md border-b border-lt-border'
-        }`}>
-          <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-            <Link 
-              to="/" 
-              className={`inline-flex items-center gap-2 font-medium transition-colors ${
-                isDark ? 'text-en-muted hover:text-en-white' : 'text-lt-text-secondary hover:text-lt-text'
-              }`}
-            >
-              <ArrowLeft size={18} />
-              Back to Library
-            </Link>
-            <div className="flex items-center gap-4">
-              <span className={`text-sm ${isDark ? 'text-en-muted' : 'text-lt-text-muted'}`}>
-                {useCase.estimatedReadMin} min read
-              </span>
-              <span className={`px-3 py-1 rounded-full text-xs font-semibold uppercase ${
-                isDark ? 'bg-en-blue/20 text-en-blue' : 'bg-en-blue/10 text-en-blue'
-              }`}>
-                {useCase.category}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* HTML Content */}
-        <div className="pt-12">
+        {/* HTML Content - starts at top, under fixed navbar */}
+        <div className="pt-20">
           <UseCaseHtmlViewer htmlPath={useCase.htmlPath} />
         </div>
       </div>
