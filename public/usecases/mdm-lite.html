@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElevateNow .  MDM Lite: Readiness-to-Resolution Platform</title>
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fafaf8;
+    --accent: #1e3a5f;
+    --accent-light: #2c5282;
+    --accent-bg: #ebf4ff;
+    --tool-blue: #1a5276;
+    --agent-green: #1e6e3e;
+    --border: #e0ddd5;
+    --muted: #6b6b6b;
+    --warning: #c0392b;
+    --warning-bg: #fdf2f0;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── Hero Section ── */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 80px;
+    background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 40%, #2d3a4a 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -300px; right: -300px;
+    width: 800px; height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,90,150,0.15) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -200px; left: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(30,58,95,0.12) 0%, transparent 70%);
+  }
+  .hero-label {
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 32px;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.12;
+    max-width: 950px;
+    margin-bottom: 28px;
+    z-index: 1;
+  }
+  .hero h1 span { color: #5dade2; }
+  .hero-sub {
+    font-size: 22px;
+    opacity: 0.8;
+    max-width: 700px;
+    margin-bottom: 48px;
+    line-height: 1.6;
+    z-index: 1;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+    font-size: 14px;
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  /* ── Container ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 60px;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 80px;
+    page-break-inside: avoid;
+  }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .section h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+  .section-intro {
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+
+  /* ── Problem Section (Backdrop) ── */
+  .problem-backdrop {
+    background: linear-gradient(to bottom, var(--warning-bg) 0%, #fafaf8 100%);
+    padding: 48px 40px;
+    border-radius: 16px;
+    box-shadow: inset 0 2px 0 rgba(192,57,43,0.1);
+    page-break-inside: avoid;
+  }
+  .problem-stat {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--warning);
+  }
+  .stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--warning);
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+  }
+
+  /* ── Challenge Cards ── */
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .challenge-card {
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--accent);
+    page-break-inside: avoid;
+  }
+  .challenge-icon {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    background: var(--accent-bg);
+    color: var(--accent);
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  .challenge-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+  .challenge-card p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── Workflow Section ── */
+  .workflow-container {
+    margin-top: 40px;
+  }
+  .workflow-phase {
+    background: white;
+    padding: 32px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--tool-blue);
+    page-break-inside: avoid;
+  }
+  .workflow-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .workflow-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    background: var(--accent-bg);
+    color: var(--accent);
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .workflow-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .workflow-desc {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .workflow-outcomes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .outcome-item {
+    font-size: 14px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .outcome-icon {
+    color: var(--agent-green);
+    font-weight: 700;
+  }
+
+  /* ── Value Grid ── */
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+    margin-top: 40px;
+  }
+  .value-card {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--agent-green);
+    page-break-inside: avoid;
+  }
+  .value-icon {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    background: #f0fdf4;
+    color: var(--agent-green);
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  .value-card h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .value-card p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .value-metric {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--agent-green);
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Governance Grid ── */
+  .governance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .governance-card {
+    background: var(--accent-bg);
+    padding: 28px;
+    border-radius: 12px;
+    border-left: 4px solid var(--accent);
+    page-break-inside: avoid;
+  }
+  .governance-card h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+  .governance-card p {
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  /* ── Scenario Cards ── */
+  .scenario-split {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 32px;
+    margin-top: 40px;
+  }
+  .scenario-card {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    border-top: 6px solid var(--accent);
+    page-break-inside: avoid;
+  }
+  .scenario-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 8px 16px;
+    background: var(--accent-bg);
+    color: var(--accent);
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+  .scenario-card h3 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+  .scenario-section {
+    margin-bottom: 24px;
+  }
+  .scenario-section h5 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .scenario-section p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .scenario-outcome {
+    margin-top: 24px;
+    padding: 20px;
+    background: #f0fdf4;
+    border-left: 4px solid var(--agent-green);
+    border-radius: 8px;
+  }
+  .scenario-outcome strong {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--agent-green);
+    margin-bottom: 8px;
+  }
+  .scenario-outcome p {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* ── CTA Section ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    color: white;
+    padding: 60px 50px;
+    border-radius: 16px;
+    text-align: center;
+    margin-top: 80px;
+    box-shadow: var(--shadow-lg);
+  }
+  .cta-section h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+  .cta-section p {
+    font-size: 18px;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto 36px;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: white;
+    color: var(--accent);
+  }
+  .btn-primary:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 48px 20px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+
+  /* ── Print Styles ── */
+  @media print {
+    .hero { min-height: auto; padding: 60px 40px; }
+    .container { padding: 30px 40px; }
+    .section { page-break-inside: avoid; }
+    .challenge-card, .value-card, .workflow-phase, .scenario-card { page-break-inside: avoid; }
+    .cta-section { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-label">MDM READINESS-TO-RESOLUTION</div>
+  <h1>Entity Resolution That <span>Starts With Data Reality</span></h1>
+  <p class="hero-sub">
+    Assess data quality, configure matching rules, test configurations in sandbox, then deploy. whether that's exporting proven rules to your enterprise MDM platform or running production matching directly. Know your data works before it matters.
+  </p>
+  <div class="hero-meta">
+    <span>ElevateNow Intelligence Platform</span>
+    <span>Entity Resolution & Golden Records</span>
+    <span>Sandbox or Production Deployment</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- THE BUSINESS PROBLEM -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The Challenge</div>
+  <h2>Enterprise MDM Platforms Assume You Arrive Ready</h2>
+  <p class="section-intro">
+    Enterprise MDM platforms provide powerful matching engines, survivorship frameworks, and golden record systems. but they assume your data is clean, your blocking schemes are tested, and your confidence thresholds are calibrated. They aren't. Organizations discover configuration mistakes in production after months of implementation and millions in investment. Mid-market companies need entity resolution but can't justify 12-18 month enterprise deployments.
+  </p>
+
+  <div class="problem-backdrop">
+    <h3 style="font-size: 24px; margin-bottom: 24px;">The entity resolution readiness gap manifests in two ways:</h3>
+    
+    <div class="problem-stat">
+      <div class="stat-card">
+        <div class="stat-number">12-18 mo</div>
+        <div class="stat-label">Enterprise MDM implementation timeline. too slow for business needs</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">No testing</div>
+        <div class="stat-label">Enterprise platforms provide no sandbox for configuration validation</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">Production risk</div>
+        <div class="stat-label">Wrong blocking schemes discovered after go-live with real customer data</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">$500K-2M</div>
+        <div class="stat-label">Wasted on production rework when configurations fail</div>
+      </div>
+    </div>
+
+    <p style="margin-top: 28px; font-size: 17px; line-height: 1.7;">
+      The root cause: Enterprise MDM platforms focus on scale and features. matching algorithms, survivorship frameworks, workflow orchestration. but provide no pre-deployment assessment of whether your data supports entity resolution, and no safe sandbox to test configurations before production. You configure matching rules in production, discover they generate millions of false positives, and spend months fixing what should have been tested first.
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SPECIFIC CHALLENGES -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">What Goes Wrong</div>
+  <h2>Why Entity Resolution Fails Without Testing</h2>
+  <p class="section-intro">
+    Entity resolution readiness isn't just about having a matching engine. it's about knowing your data quality supports matching, your blocking schemes work with real records, your survivorship rules pick correct values, and your confidence thresholds route decisions appropriately. These problems don't surface in vendor demos. They surface in production when matching fails.
+  </p>
+
+  <div class="challenge-grid">
+    <div class="challenge-card">
+      <div class="challenge-icon">NO QUALITY ASSESSMENT</div>
+      <h3>Matching Engines Need Usable Data</h3>
+      <p>Your blocking scheme says "match on phone + postal code" but 80% of phone numbers are null and postal codes aren't standardized. The matching engine generates candidate pairs that can't resolve because the keys are unusable. You discover this in production after loading millions of records, not before deployment when it could be fixed.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">NO CONFIGURATION SANDBOX</div>
+      <h3>Production Is Not a Testing Environment</h3>
+      <p>Enterprise platforms provide matching engines but no sandbox to test configurations. You set blocking schemes, survivorship rules, and auto-merge thresholds directly in production. When your composite key generates 10 million false candidate pairs instead of the expected 50,000, you learn this with real customer data at risk, not in a safe testing environment.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">CULTURAL VARIANCE IGNORED</div>
+      <h3>Global Names Break Western Algorithms</h3>
+      <p>Your phonetic matching works for "Michael Smith" but fails for "José María García Fernández" (Spanish two surnames), "van der Berg" (Dutch prefix), "Wong Michael" (Chinese reversed order). Blocking schemes designed for Western names generate duplicates across EMEA and APAC. Nobody tested cultural variance before global deployment.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">MISCALIBRATED THRESHOLDS</div>
+      <h3>Confidence Scores Set By Guesswork</h3>
+      <p>You set auto-merge threshold at 92% confidence thinking it's conservative. In production, 92% generates 15,000 auto-merges per day. many incorrect. because you never tested threshold calibration with real candidate pairs. Adjusting in production means unmerging thousands of golden records and explaining data quality failures to the business.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">SURVIVORSHIP FAILURES</div>
+      <h3>Wrong Source Values Survive</h3>
+      <p>Your survivorship rules trust CRM over policy system, but CRM has stale addresses while policy system has current data. Golden records show customers at old addresses because source weighting wasn't validated with actual records. Discovered when marketing campaigns mail to wrong addresses at scale.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">IMPLEMENTATION TIMELINE</div>
+      <h3>12-18 Months Is Too Slow</h3>
+      <p>Customer duplicates cost money today. Sales can't see unified account view, marketing sends duplicate emails, finance reconciles conflicting records. But enterprise MDM requires 12-18 month implementations. You need entity resolution running in weeks, not years, but lightweight alternatives don't exist with production-grade capabilities.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- ELEVATENOW SOLUTION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The ElevateNow Approach</div>
+  <h2>Readiness-to-Resolution Platform</h2>
+  <p class="section-intro">
+    ElevateNow MDM Lite provides the complete workflow that enterprise platforms miss: assess data quality first, configure and test matching rules in sandbox, validate with real records, then deploy. either by exporting proven configurations to your enterprise MDM platform or by running MDM Lite as your production matching engine. Know your data and configurations work before deployment matters.
+  </p>
+
+  <div class="workflow-container">
+    <div class="workflow-phase" style="border-left-color: var(--agent-green);">
+      <div class="workflow-header">
+        <div class="workflow-badge" style="background: #f0fdf4; color: var(--agent-green);">PHASE 1</div>
+        <div class="workflow-title">Assess Data Quality & Match Rate Viability</div>
+      </div>
+      <p class="workflow-desc">
+        Before any matching configuration, assess whether your data supports entity resolution. Multi-tier profiling reveals completeness, uniqueness, and pattern validity across all blocking fields. AI-powered insights detect cultural name variance (Spanish two surnames, Chinese reversed order, Dutch prefixes) and flag semantic issues with remediation recommendations. Blocking schema assessment shows which fields are usable for matching. phone 20% completeness means it can't be primary blocking key. Match rate projection models current accuracy (31%) versus post-remediation potential (74.9%), showing ROI of data cleansing before matching deployment.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Multi-tier quality profiling</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Cultural name variance detection</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Match rate projections before/after remediation</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Field-level remediation priorities</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase" style="border-left-color: var(--agent-green);">
+      <div class="workflow-header">
+        <div class="workflow-badge" style="background: #f0fdf4; color: var(--agent-green);">PHASE 2</div>
+        <div class="workflow-title">Configure Matching Rules Based on Actual Data Quality</div>
+      </div>
+      <p class="workflow-desc">
+        Design blocking schemes informed by quality assessment. if phone is 80% null, don't use it as primary key; composite keys combining name phonetic + country + surname work better. Configure attribute weights (name 0.25, email 0.30, phone 0.10) and penalties (mismatched values reduce score). Set matcher types per field. fuzzy for names (handles typos), exact for government IDs, phonetic for cultural variance, date-based for temporal matching. Define blocking schemes (email exact, phone last 4 digits, government ID, policy number, name phonetic + country + surname) that align with your data reality, not theoretical best practices.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Quality-informed blocking scheme design</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Configurable attribute weights and penalties</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Multiple matcher types (fuzzy, exact, phonetic, date)</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Composite key strategies for cultural variance</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase" style="border-left-color: var(--agent-green);">
+      <div class="workflow-header">
+        <div class="workflow-badge" style="background: #f0fdf4; color: var(--agent-green);">PHASE 3</div>
+        <div class="workflow-title">Test Configurations in Sandbox with Real Records</div>
+      </div>
+      <p class="workflow-desc">
+        Ingest records from source systems (CRM, policy system, government APIs) via JSON payloads, run matching engine with your configured rules, and preview results in review queue before any production deployment. AI-powered name standardization handles cultural variance. "Michael Wong" becomes first: MICHAEL, last: WONG, culture: CHINESE with variants (MIKE, MICK) for phonetic matching. Test different auto-merge thresholds (>92% auto-accept, 70-92% review queue, <70% separate) with real candidate pairs to calibrate confidence levels. Preview golden records showing competing values, data lineage (which source system contributed each attribute), and survivorship outcomes before production.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Safe sandbox with real source data</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> AI name standardization with cultural awareness</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Threshold calibration with candidate pairs</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Golden record preview with lineage</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase" style="border-left-color: var(--agent-green);">
+      <div class="workflow-header">
+        <div class="workflow-badge" style="background: #f0fdf4; color: var(--agent-green);">PHASE 4</div>
+        <div class="workflow-title">Configure Survivorship Rules by Source Trust</div>
+      </div>
+      <p class="workflow-desc">
+        Define source weighting across all contributing systems. CRM 40% confidence, policy system 35%, government API 25%. based on data quality assessment and business trust levels. Configure field-level survivorship strategies: trust highest-weight source (government ID from gov API always wins), most recent from trusted sources (address from policy system if updated within 90 days), hybrid approach (combine CRM contact info with policy system coverage data), or collect all unique values (aggregate policy numbers across systems). Test survivorship with competing values in sandbox to validate rules pick correct data before production golden records are created.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Source weighting by trust levels</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Field-level survivorship strategies</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Competing value resolution logic</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Sandbox validation before production</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase" style="border-left-color: var(--agent-green);">
+      <div class="workflow-header">
+        <div class="workflow-badge" style="background: #f0fdf4; color: var(--agent-green);">PHASE 5</div>
+        <div class="workflow-title">Deploy: Export Configurations or Run Production</div>
+      </div>
+      <p class="workflow-desc">
+        Two deployment paths based on your organizational needs. Path A (Enterprise MDM): Export proven configurations. blocking schemes, attribute weights, matcher types, survivorship rules, auto-merge thresholds. to your enterprise MDM platform for production deployment with confidence that rules work with your data. Path B (Production Matching): Deploy MDM Lite directly as production matching engine with review queue for uncertain matches (70-92% confidence), golden records with data lineage, competing value resolution, and complete audit trail. Both paths start with tested, validated configurations informed by actual data quality.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Configuration export to enterprise platforms</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Production-capable matching engine</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Review queue for human validation</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Complete audit trail and lineage</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- DUAL SCENARIO POSITIONING -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Two Paths, One Platform</div>
+  <h2>Choose Your Deployment Strategy</h2>
+  <p class="section-intro">
+    MDM Lite serves two distinct organizational needs: enterprises implementing full-scale MDM platforms who need configuration testing and validation before production deployment, and organizations needing entity resolution now without 12-18 month enterprise implementations. Same platform, same assessment workflow, different deployment endpoints.
+  </p>
+
+  <div class="scenario-split">
+    <div class="scenario-card">
+      <div class="scenario-badge">SCENARIO A</div>
+      <h3>You're Implementing Enterprise MDM</h3>
+      
+      <div class="scenario-section">
+        <h5>The Challenge</h5>
+        <p>Your enterprise MDM platform provides powerful matching engines but no sandbox to test configurations before production. You're expected to set blocking schemes, survivorship rules, and confidence thresholds directly in production. discovering configuration mistakes only after loading real customer data.</p>
+      </div>
+
+      <div class="scenario-section">
+        <h5>The Risk</h5>
+        <p>Wrong blocking schemes generate millions of false candidate pairs instead of expected thousands. Miscalibrated auto-merge thresholds create incorrect golden records at scale. Survivorship rules pick stale data over current values. All discovered in production, all requiring expensive rework, all preventable with pre-deployment testing.</p>
+      </div>
+
+      <div class="scenario-section">
+        <h5>The Solution</h5>
+        <p>Use MDM Lite as configuration sandbox. Assess data quality first to understand blocking field viability. Configure matching rules, test with real records, preview golden records, validate survivorship outcomes. Iterate until confident. Export proven configurations to enterprise platform. Deploy to production knowing rules work with your data.</p>
+      </div>
+
+      <div class="scenario-outcome">
+        <strong>Outcome</strong>
+        <p>Faster enterprise MDM deployment · Higher match accuracy from day one · Eliminate production configuration rework · Prove rules work before deployment matters</p>
+      </div>
+    </div>
+
+    <div class="scenario-card">
+      <div class="scenario-badge">SCENARIO B</div>
+      <h3>You Need Entity Resolution Now</h3>
+      
+      <div class="scenario-section">
+        <h5>The Challenge</h5>
+        <p>Customer duplicates cost money today. sales can't see unified accounts, marketing sends duplicate emails, finance reconciles conflicting records. But enterprise MDM requires 12-18 month implementations you can't afford to wait for. You need matching running in weeks, not years.</p>
+      </div>
+
+      <div class="scenario-section">
+        <h5>The Reality</h5>
+        <p>Mid-market organizations, departmental use cases, pilot programs, acquired subsidiaries, specific business processes. all need entity resolution without enterprise platform complexity, cost, or timeline. Lightweight alternatives exist but lack production-grade capabilities: configurable matching, survivorship frameworks, golden records, review queues, audit trails.</p>
+      </div>
+
+      <div class="scenario-section">
+        <h5>The Solution</h5>
+        <p>Deploy MDM Lite as production matching engine. Assess data quality, configure matching rules informed by actual quality scores, test in sandbox, then promote to production. Full capabilities: AI name standardization, configurable blocking schemes, survivorship rules by source trust, auto-merge with confidence thresholds, review queue for uncertain matches, golden records with lineage.</p>
+      </div>
+
+      <div class="scenario-outcome">
+        <strong>Outcome</strong>
+        <p>Entity resolution live in weeks, not years · Production-grade capabilities without enterprise cost · Prove ROI before platform investment · Migration path to enterprise MDM when business justifies</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- KEY CAPABILITIES -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Platform Capabilities</div>
+  <h2>What Makes MDM Lite Production-Ready</h2>
+  <p class="section-intro">
+    Whether deploying as sandbox for enterprise MDM testing or as production matching engine, MDM Lite provides complete entity resolution capabilities: data quality assessment, configurable matching rules, AI-powered name standardization, survivorship frameworks, golden records with lineage, and human review workflows for uncertain matches.
+  </p>
+
+  <div class="value-grid">
+    <div class="value-card">
+      <div class="value-icon">DATA QUALITY FOUNDATION</div>
+      <h4>Know What Works Before You Deploy</h4>
+      <p>Multi-tier assessment reveals blocking field viability. completeness, uniqueness, pattern validity. AI insights detect cultural name variance across EMEA/APAC and flag semantic issues with severity scoring. Match rate projection models current accuracy versus post-remediation potential, showing ROI of data cleansing before matching investment. Field-level remediation roadmap prioritizes fixes by impact on matching accuracy.</p>
+      <div class="value-metric">From blind deployment to data-informed configuration</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">CONFIGURABLE MATCHING</div>
+      <h4>Rules That Adapt to Your Data Reality</h4>
+      <p>Design blocking schemes based on quality assessment. composite keys (name phonetic + country + surname) when single fields fail, exact matching for government IDs, fuzzy for names handling typos, phonetic for cultural variance. Configure attribute weights (name 0.25, email 0.30) and penalties for mismatches. Test multiple strategies in sandbox, validate with real candidate pairs, deploy what works.</p>
+      <div class="value-metric">From one-size-fits-all to quality-informed matching</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">CULTURAL INTELLIGENCE</div>
+      <h4>Global Names, Not Just Western Patterns</h4>
+      <p>AI-powered name standardization handles Spanish two surnames (García Fernández), Dutch prefixes (van der Berg), Chinese reversed order (Wong Michael), Indian regional variance (Rajagopalachari). Generates canonical form, variants for phonetic matching, and culture metadata. Approval workflow lets data stewards validate AI suggestions before names enter golden records. Blocking schemes adapt to cultural patterns.</p>
+      <div class="value-metric">From Western-only to global entity resolution</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">SURVIVORSHIP FRAMEWORKS</div>
+      <h4>Right Values Survive to Golden Records</h4>
+      <p>Configure source weighting by trust levels (CRM 40%, policy system 35%, government API 25%) informed by quality assessment. Field-level strategies: trust highest weight (government ID), most recent from trusted sources (address from policy system), hybrid (combine contact from CRM with coverage from policy), collect all (aggregate policy numbers). Test with competing values in sandbox before production.</p>
+      <div class="value-metric">From guesswork to tested survivorship logic</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">CONFIDENCE CALIBRATION</div>
+      <h4>Thresholds Set By Evidence, Not Intuition</h4>
+      <p>Test auto-merge thresholds with real candidate pairs in sandbox. preview how many matches fall into each bucket (>92% auto-merge, 70-92% review queue, <70% separate) before production deployment. Adjust thresholds based on business risk tolerance and observed accuracy. See golden records that would be created at different confidence levels. Calibrate in safety, deploy with confidence.</p>
+      <div class="value-metric">From production guesswork to sandbox-validated thresholds</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">REVIEW WORKFLOWS</div>
+      <h4>Human Validation for Uncertain Matches</h4>
+      <p>Matches between auto-merge and separate thresholds (70-92% confidence) route to review queue where data stewards see side-by-side comparison, competing values highlighted, match score breakdown, survivorship preview. Approve (merge as same entity) or reject (keep separate). Decisions feed back to matching engine, improving future accuracy. Complete audit trail of human overrides for governance.</p>
+      <div class="value-metric">From automated-only to human-in-loop validation</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">GOLDEN RECORDS</div>
+      <h4>Single Source of Truth with Complete Lineage</h4>
+      <p>Golden records show best values per attribute based on survivorship rules, with complete data lineage showing which source system contributed each field. Competing values displayed when multiple sources conflict. name has "TAN JOHN" from CRM and "MADDURI RJ" from policy system, both shown with source and timestamp. Quality scores per attribute. Uniqueness metrics. Trust scores based on source weighting and recency.</p>
+      <div class="value-metric">From opaque merges to transparent golden records</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">AUDIT TRAIL</div>
+      <h4>Every Decision Documented for Governance</h4>
+      <p>Complete history of matching decisions. which records were compared, confidence scores, whether auto-merged or sent to review queue, human override decisions with justification, survivorship rule application, golden record creation with timestamp and source attribution. Immutable audit trail supports regulatory compliance, explains entity resolution to business stakeholders, enables retrospective analysis of matching accuracy.</p>
+      <div class="value-metric">From black box matching to governed entity resolution</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">DEPLOYMENT FLEXIBILITY</div>
+      <h4>Sandbox to Production, or Export to Enterprise</h4>
+      <p>Start in sandbox for all scenarios. test configurations with real data, validate matching accuracy, preview golden records. Then choose deployment path: export configurations (blocking schemes, weights, survivorship rules, thresholds) to enterprise MDM platform, or promote MDM Lite sandbox to production. Both paths start with proven, tested configurations. Migration path exists from production MDM Lite to enterprise platform when business justifies.</p>
+      <div class="value-metric">From forced choice to flexible deployment strategy</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- GOVERNANCE & TRUST -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Trust Architecture</div>
+  <h2>How MDM Lite Builds Confidence in Entity Resolution</h2>
+  <p class="section-intro">
+    Deploying entity resolution. whether in sandbox or production. requires confidence that matching works, survivorship picks correct values, and golden records represent truth. MDM Lite's architecture makes every configuration decision testable, every matching outcome explainable, and every golden record traceable back to source systems.
+  </p>
+
+  <div class="governance-grid">
+    <div class="governance-card">
+      <h4>Test Before Production, Always</h4>
+      <p>No matching configuration goes live without sandbox validation. Test blocking schemes with real candidate pairs, preview golden records before creation, validate survivorship with competing values, calibrate thresholds with actual confidence distributions. Whether exporting to enterprise MDM or deploying MDM Lite directly, rules are proven with evidence before production data is touched.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Quality-Informed Configuration</h4>
+      <p>Matching rules aren't designed in vacuum. they're informed by actual data quality assessment. If phone is 80% null, blocking schemes don't rely on it. If names show cultural variance, phonetic matchers account for Spanish two surnames and Chinese reversed order. If addresses aren't standardized, geocoding runs before blocking. Configuration decisions based on data reality, not theoretical best practices.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Confidence Scores with Transparency</h4>
+      <p>Match scores aren't opaque percentages. they show attribute-by-attribute contribution. Name contributed 0.25 weight with fuzzy match score 0.88, email contributed 0.30 weight with exact match score 1.0, phone contributed 0.10 weight with null penalty -0.05. Total confidence 87% falls into review queue (70-92% threshold). Data steward sees why score is 87%, not 92%, and can approve or reject with context.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Survivorship with Justification</h4>
+      <p>Golden records don't just show winning values. they show why those values won. Address came from policy system (source weight 0.35) updated 14 days ago (recency bonus), beat CRM address (source weight 0.40) updated 180 days ago (recency penalty). Name came from government API (source weight 0.25, highest trust for names). Phone aggregated from both sources (collect all strategy). Every attribute has justification.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Human Override with Audit Trail</h4>
+      <p>When data stewards override matching decisions. rejecting auto-merge that seemed incorrect, approving uncertain match with business context. the override is logged with justification, timestamp, and user attribution. Overrides feed back to matching engine as training signals. Audit trail shows system recommendation, human decision, and rationale for governance and compliance.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Iterative Improvement Process</h4>
+      <p>Matching accuracy improves through sandbox iteration, not production trial-and-error. Test blocking scheme, review false positives in candidate pairs, adjust composite keys. Test survivorship rules, review golden records with competing values, refine source weighting. Test thresholds, review auto-merge decisions, calibrate confidence levels. Deploy only when sandbox validation shows rules work with your data.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- CTA -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="cta-section">
+  <h2>Ready to Deploy Entity Resolution That Works?</h2>
+  <p>See how ElevateNow MDM Lite can assess data quality, test matching configurations in sandbox, and deploy either as proven rules to your enterprise platform or as production matching engine. entity resolution that starts with data reality, not vendor assumptions.</p>
+  <div class="cta-buttons">
+    <a href="#" class="btn btn-primary">Request Demo</a>
+    <a href="#" class="btn btn-secondary">Technical Deep Dive</a>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  <p>
+    ElevateNow · MDM Lite: Readiness-to-Resolution Platform<br>
+    © 2026 ElevateNow. Proprietary & Confidential.
+  </p>
+</div>
+
+</body>
+</html>

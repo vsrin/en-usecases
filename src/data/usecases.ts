@@ -123,6 +123,30 @@ export const usecases: UseCaseMeta[] = [
     keyQuestion: 'Your enterprise acquires operations in APAC and needs to onboard their systems into your MDM stack—but their customer names follow different cultural patterns, addresses use unfamiliar formats, and source schemas don\'t align with your target model. What happens when the 5-6 week manual mapping process per region becomes the bottleneck preventing global expansion?',
     summary: 'MDM implementations fail when source data isn\'t ready for entity resolution—cultural name variance across EMEA breaks matching algorithms, addresses aren\'t standardized for blocking schemes, quality gaps render matching keys unusable. This assessment platform auto-generates source data dictionaries using AI, maps 100+ tables to MDM target schemas with confidence scoring, profiles data quality across four assessment tiers, and projects match rates before and after remediation. Organizations learn in 1-2 days whether their data supports the $2-5M MDM business case—or needs structural rework first.'
   },
+  {
+    id: 'mdm-lite',
+    slug: 'mdm-lite',
+    title: 'Enterprise MDM Platforms Provide No Sandbox to Test Configurations Before Production',
+    subtitle: 'Assess Data Quality, Configure Matching Rules, Test in Sandbox, Deploy When Ready',
+    category: 'operations',
+    tags: [
+      'Entity Resolution',
+      'Master Data Management',
+      'Matching Engine',
+      'Golden Records',
+      'Survivorship Rules',
+      'Data Quality',
+      'Configuration Testing',
+      'Cultural Name Variance'
+    ],
+    status: 'published',
+    publishedAt: '2026-02-09',
+    estimatedReadMin: 16,
+    detailType: 'html',
+    htmlPath: 'mdm-lite.html',
+    keyQuestion: 'You set your blocking scheme to "last name + postal code" and auto-merge threshold to 92% confidence—but will that generate 50,000 candidate pairs or 10 million false positives? Will golden records pick current addresses or stale CRM data? You discover these answers in production with real customer data at risk. What if you could test everything in sandbox first?',
+    summary: 'Enterprise MDM platforms assume you arrive with clean data and perfect configurations—providing powerful matching engines but no sandbox for testing, no quality assessment, no threshold calibration with real records. This readiness-to-resolution platform starts with data quality profiling (cultural name variance detection, blocking field viability, match rate projections), enables configuration testing in sandbox (blocking schemes, survivorship rules, confidence thresholds), then supports dual deployment: export proven configurations to enterprise MDM platforms, or deploy as production matching engine for organizations needing entity resolution in weeks, not years.'
+  },
 ];
 
 // Helper functions
