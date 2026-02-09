@@ -4,17 +4,26 @@ export const usecases: UseCaseMeta[] = [
   {
     id: 'submission-intake',
     slug: 'submission-intake',
-    title: 'Intelligent Submission Intake',
-    subtitle: 'From Email Chaos to Structured Workflow',
-    category: 'operations',
-    tags: ['Submission', 'Document Processing', 'Workflow Automation', 'Triage'],
+    title: 'Submissions Take 3-29 Days to Quote, Yet 40% Never Convert',
+    subtitle: 'From Manual Triage Bottleneck to Governance-Encoded Workflows That Build Trust',
+    category: 'underwriting',
+    tags: [
+      'Submission Triage',
+      'Appetite Screening',
+      'Document Intelligence',
+      'Intelligent Routing',
+      'Governance-Encoded Rules',
+      'Progressive Automation',
+      'Fast NO Capability',
+      'Commercial Underwriting'
+    ],
     status: 'published',
     publishedAt: '2026-01-20',
-    estimatedReadMin: 8,
+    estimatedReadMin: 12,
     detailType: 'html',
     htmlPath: 'SubmissionIntake.html',
-    keyQuestion: 'What if every submission arrived pre-sorted, pre-validated, and ready for the right underwriter?',
-    summary: 'Submissions arrive via email, portal, and broker feeds in inconsistent formats. This recipe extracts, validates, and routes submissions automatically, ensuring nothing falls through the cracks and underwriters receive complete, structured packages.',
+    keyQuestion: 'Underwriters spend 60-70% of their time on triage work that doesn\'t require underwriting judgment—extracting data from PDFs, checking appetite guidelines, routing to queues. Meanwhile, submissions sit 24-48 hours before anyone evaluates them, and 40% get mis-routed to underwriters without appetite for that risk. What if Fast NOs were as fast as Fast YESes—and both happened in minutes, not days?',
+    summary: 'Commercial submissions arrive as unstructured PDFs, emails, ACORD forms across inconsistent channels, requiring manual extraction, appetite screening, and routing—deterministic tasks that waste underwriter judgment on clerical work. This governance-encoded triage system extracts structured fields with validation (not hallucinated guesses), applies underwriter-defined appetite rules at scale, routes by expertise-territory-capacity optimization, and prioritizes by expected premium and win probability. Underwriters start reviewing 100% of system recommendations, progressively shift to exception-based oversight as accuracy demonstrates trust. Not autonomous replacement—supervised delegation that reduces 3-29 day cycles to same-day decisions while keeping underwriters in control of judgment-intensive work.'
   },
   {
     "id": "workers-comp-fnol-intelligence",
