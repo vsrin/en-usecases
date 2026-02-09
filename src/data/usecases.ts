@@ -99,6 +99,30 @@ export const usecases: UseCaseMeta[] = [
     keyQuestion: 'What if cohort design was driven by statistical evidence rather than tradition and convenience?',
     summary: 'Cohort selection is foundational to reserve accuracy, yet most actuaries inherit segmentation from predecessors without rigorous testing. This recipe automates hypothesis generation, cohort construction, and statistical validation to find objectively better segmentations.',
   },
+  {
+    id: 'mdm-pre-assessment',
+    slug: 'mdm-pre-assessment',
+    title: 'MDM Platforms Fail When Nobody Assessed Data Readiness First',
+    subtitle: 'From 5-6 Week Manual Schema Mapping to 1-2 Day AI-Powered Readiness Assessment',
+    category: 'operations',
+    tags: [
+      'Master Data Management',
+      'Data Quality',
+      'Entity Resolution',
+      'Schema Mapping',
+      'Data Profiling',
+      'MDM Readiness',
+      'Global Data Governance',
+      'Cultural Name Variance'
+    ],
+    status: 'published',
+    publishedAt: '2026-02-09',
+    estimatedReadMin: 14,
+    detailType: 'html',
+    htmlPath: 'pre-mdm-assessment-sellsheet.html',
+    keyQuestion: 'Your enterprise acquires operations in APAC and needs to onboard their systems into your MDM stack—but their customer names follow different cultural patterns, addresses use unfamiliar formats, and source schemas don\'t align with your target model. What happens when the 5-6 week manual mapping process per region becomes the bottleneck preventing global expansion?',
+    summary: 'MDM implementations fail when source data isn\'t ready for entity resolution—cultural name variance across EMEA breaks matching algorithms, addresses aren\'t standardized for blocking schemes, quality gaps render matching keys unusable. This assessment platform auto-generates source data dictionaries using AI, maps 100+ tables to MDM target schemas with confidence scoring, profiles data quality across four assessment tiers, and projects match rates before and after remediation. Organizations learn in 1-2 days whether their data supports the $2-5M MDM business case—or needs structural rework first.'
+  },
 ];
 
 // Helper functions

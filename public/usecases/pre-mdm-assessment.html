@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElevateNow .  MDM Pre-Assessment: Data Readiness Intelligence</title>
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fafaf8;
+    --accent: #1e3a5f;
+    --accent-light: #2c5282;
+    --accent-bg: #ebf4ff;
+    --tool-blue: #1a5276;
+    --agent-green: #1e6e3e;
+    --border: #e0ddd5;
+    --muted: #6b6b6b;
+    --warning: #c0392b;
+    --warning-bg: #fdf2f0;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── Hero Section ── */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 80px;
+    background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 40%, #2d3a4a 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -300px; right: -300px;
+    width: 800px; height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,90,150,0.15) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -200px; left: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(30,58,95,0.12) 0%, transparent 70%);
+  }
+  .hero-label {
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 32px;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.12;
+    max-width: 950px;
+    margin-bottom: 28px;
+    z-index: 1;
+  }
+  .hero h1 span { color: #5dade2; }
+  .hero-sub {
+    font-size: 22px;
+    opacity: 0.8;
+    max-width: 700px;
+    margin-bottom: 48px;
+    line-height: 1.6;
+    z-index: 1;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+    font-size: 14px;
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  /* ── Container ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 60px;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 80px;
+    page-break-inside: avoid;
+  }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .section h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+  .section-intro {
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+
+  /* ── Problem Section (Backdrop) ── */
+  .problem-backdrop {
+    background: linear-gradient(to bottom, var(--warning-bg) 0%, #fafaf8 100%);
+    padding: 48px 40px;
+    border-radius: 16px;
+    box-shadow: inset 0 2px 0 rgba(192,57,43,0.1);
+    page-break-inside: avoid;
+  }
+  .problem-stat {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--warning);
+  }
+  .stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--warning);
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+  }
+
+  /* ── Challenge Cards ── */
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .challenge-card {
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--accent);
+    page-break-inside: avoid;
+  }
+  .challenge-icon {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    background: var(--accent-bg);
+    color: var(--accent);
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  .challenge-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+  .challenge-card p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── Workflow Section ── */
+  .workflow-container {
+    margin-top: 40px;
+  }
+  .workflow-phase {
+    background: white;
+    padding: 32px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--tool-blue);
+    page-break-inside: avoid;
+  }
+  .workflow-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .workflow-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    background: var(--accent-bg);
+    color: var(--accent);
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .workflow-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .workflow-desc {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .workflow-outcomes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .outcome-item {
+    font-size: 14px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .outcome-icon {
+    color: var(--agent-green);
+    font-weight: 700;
+  }
+
+  /* ── Value Grid ── */
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+    margin-top: 40px;
+  }
+  .value-card {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--agent-green);
+    page-break-inside: avoid;
+  }
+  .value-icon {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    background: #f0fdf4;
+    color: var(--agent-green);
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  .value-card h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .value-card p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .value-metric {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--agent-green);
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Governance Grid ── */
+  .governance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .governance-card {
+    background: var(--accent-bg);
+    padding: 28px;
+    border-radius: 12px;
+    border-left: 4px solid var(--accent);
+    page-break-inside: avoid;
+  }
+  .governance-card h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+  .governance-card p {
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  /* ── CTA Section ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    color: white;
+    padding: 60px 50px;
+    border-radius: 16px;
+    text-align: center;
+    margin-top: 80px;
+    box-shadow: var(--shadow-lg);
+  }
+  .cta-section h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+  .cta-section p {
+    font-size: 18px;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto 36px;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: white;
+    color: var(--accent);
+  }
+  .btn-primary:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 48px 20px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+
+  /* ── Print Styles ── */
+  @media print {
+    .hero { min-height: auto; padding: 60px 40px; }
+    .container { padding: 30px 40px; }
+    .section { page-break-inside: avoid; }
+    .challenge-card, .value-card, .workflow-phase { page-break-inside: avoid; }
+    .cta-section { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-label">DATA READINESS FOR AI</div>
+  <h1>MDM Pre-Assessment: <span>Know Before You Invest</span></h1>
+  <p class="hero-sub">
+    AI-powered data profiling and schema mapping that assesses MDM readiness in days, not months. revealing data quality gaps, entity resolution challenges, and transformation requirements before your first MDM dollar is spent.
+  </p>
+  <div class="hero-meta">
+    <span>ElevateNow Intelligence Platform</span>
+    <span>Enterprise Data Governance</span>
+    <span>Global Entity Resolution</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- THE BUSINESS PROBLEM -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The Challenge</div>
+  <h2>The Hidden Cost of MDM Unpreparedness</h2>
+  <p class="section-intro">
+    Global enterprises invest millions in Master Data Management platforms. Informatica, IBM InfoSphere, Reltio. only to discover six months into implementation that their source data isn't ready. Customer names vary by cultural conventions across EMEA, address formats don't standardize, identifiers conflict across systems, and entity resolution fails because nobody assessed data quality before the MDM project kicked off.
+  </p>
+
+  <div class="problem-backdrop">
+    <h3 style="font-size: 24px; margin-bottom: 24px;">The MDM readiness gap manifests in three ways:</h3>
+    
+    <div class="problem-stat">
+      <div class="stat-card">
+        <div class="stat-number">5-6 weeks</div>
+        <div class="stat-label">Manual source-to-target schema mapping per data source</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">100+ tables</div>
+        <div class="stat-label">Source systems with 1,000+ columns to profile and map</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">40-60%</div>
+        <div class="stat-label">Of MDM projects fail or require major rework due to data quality issues</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">$2-5M</div>
+        <div class="stat-label">Wasted on MDM implementations that discover data problems too late</div>
+      </div>
+    </div>
+
+    <p style="margin-top: 28px; font-size: 17px; line-height: 1.7;">
+      The root cause: MDM vendors assume your data is clean, standardized, and ready for entity resolution. It never is. By the time you discover that "José García" from Spain, "Jose Garcia" from Mexico, and "José María García Fernández" from Argentina are the same customer. but your MDM can't tell. you're already six months and $1.5M into a failing implementation.
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SPECIFIC CHALLENGES -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">What Goes Wrong</div>
+  <h2>Why MDM Fails: The Data Reality Nobody Sees Coming</h2>
+  <p class="section-intro">
+    MDM readiness isn't just about data quality. it's about discovering the structural, cultural, and systemic issues that make entity resolution impossible until they're addressed. These problems don't surface in vendor demos. They surface when your MDM goes live and nothing matches.
+  </p>
+
+  <div class="challenge-grid">
+    <div class="challenge-card">
+      <div class="challenge-icon">CULTURAL VARIANCE</div>
+      <h3>Names Don't Follow One Pattern</h3>
+      <p>Spanish customers use two surnames (García Fernández), Dutch names include prefixes (van der Berg), Indian names vary by region (Rajagopalachari vs. Singh), Chinese names reverse order (Wong Michael vs. Michael Wong). Your MDM matching engine assumes Western first-name-last-name structure. Matching fails globally, creating duplicate entities across EMEA, APAC, and LATAM.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">SCHEMA CHAOS</div>
+      <h3>100 Tables, 1,000 Columns, Zero Consistency</h3>
+      <p>CRM stores customer data in 12 tables with "cust_first_name", policy system uses 8 tables with "policy_holder_given_name", billing system has 15 tables with "subscriber_fname". Subject matter experts spend 5-6 weeks manually mapping source columns to the 30-40 target schema fields MDM requires. Every new data source restarts this cycle.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">HIDDEN QUALITY GAPS</div>
+      <h3>You Don't Know What You Don't Know</h3>
+      <p>80% of phone numbers are null, addresses aren't parsed into city/postal code components, government IDs conflict between systems, email addresses contain typos, birth dates show impossible values. MDM entity resolution relies on these fields as matching keys. When they're unusable, matching accuracy collapses. but you won't discover this until after implementation.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">BLOCKING FAILURES</div>
+      <h3>Matching Keys That Don't Match</h3>
+      <p>Your blocking schema says "use last name + postal code" for candidate pair generation. But Spanish customers have two last names stored inconsistently, UK postal codes use different formats than Germany, and 35% of records have no postal code at all. The MDM matching engine generates millions of false candidate pairs or misses true matches entirely. Nobody tested this before go-live.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">INCOMPLETE TRANSFORMATION</div>
+      <h3>ETL Scripts Written From Guesswork</h3>
+      <p>Data engineers write transformation logic without understanding source data semantics. "nation" column gets mapped to "country" target field. but the source uses country codes (US, GB), while MDM expects full names (United States, United Kingdom). The mapping exists, but the transformation is wrong. Entity resolution fails because the values don't align.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div="challenge-icon">NO READINESS BASELINE</div>
+      <h3>MDM Vendor Says "Just Load Your Data"</h3>
+      <p>Informatica, Reltio, IBM. all assume source data is profiled, cleansed, and structurally ready. They provide matching engines, survivorship rules, golden record frameworks. but no pre-assessment of whether your data can actually support entity resolution. You discover the problems after signing the contract, after loading data, after matching fails at 31% accuracy instead of 85%.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- TRADITIONAL APPROACHES -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">How Companies Fail Today</div>
+  <h2>The Broken MDM Onboarding Process</h2>
+  <p class="section-intro">
+    Most enterprises follow a manual, error-prone process that takes 5-6 weeks per data source, provides no quality visibility, and produces schema mappings based on analyst intuition rather than data-driven insights. The MDM project starts with incomplete information and pays the price later.
+  </p>
+
+  <div class="workflow-container">
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">STEP 1</div>
+        <div class="workflow-title">Subject Matter Expert Creates Source Data Dictionary</div>
+      </div>
+      <p class="workflow-desc">
+        SME manually reviews 100+ source tables, 1,000+ columns, examining table structures, sample data, and business context to document what each column means. This takes 2-3 weeks of intensive work, produces static Excel documentation that's outdated the moment it's complete, and still misses semantic nuances that only appear in production data.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> 2-3 weeks per data source</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> No quality assessment</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> Static, Excel-based documentation</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">STEP 2</div>
+        <div class="workflow-title">Data Analyst Proposes Target Schema Mapping</div>
+      </div>
+      <p class="workflow-desc">
+        Data analyst reviews source dictionary, consults with SME, and manually maps source columns to MDM target schema fields. "cust_first_name" maps to "first_name", "nation" maps to "country". but without data profiling, the analyst doesn't know that "nation" contains country codes while MDM expects full names. Mapping looks correct on paper, fails in production.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> 1-2 weeks of coordination</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> No semantic validation</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> Transformation errors hidden until runtime</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">STEP 3</div>
+        <div class="workflow-title">SME Approves Mapping, Hoping It Works</div>
+      </div>
+      <p class="workflow-desc">
+        SME reviews proposed mapping, approves based on column name similarity and business intuition, signs off without data profiling, quality analysis, or test matching. Nobody knows if phone numbers are usable for matching (80% null), if addresses can be standardized (mixed formats), or if names follow consistent patterns (cultural variance). MDM project proceeds to implementation with these hidden landmines.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> 1 week approval cycle</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> Zero data quality visibility</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> No blocking schema validation</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">STEP 4</div>
+        <div class="workflow-title">MDM Fails Six Months Later</div>
+      </div>
+      <p class="workflow-desc">
+        MDM goes live. Matching accuracy is 31% instead of expected 85%. Duplicate entities proliferate. Golden records contain competing values with no clear survivorship logic. Investigation reveals the problems that should have been caught in pre-assessment: unusable phone numbers, unstandardized addresses, cultural name variance, conflicting identifiers, semantic transformation errors. Project is now 6 months and $1.5M deep with major rework required.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> 6+ months wasted</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> $2-5M in sunk costs</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> Complete rework required</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- ELEVATENOW SOLUTION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The ElevateNow Approach</div>
+  <h2>AI-Powered MDM Readiness Assessment</h2>
+  <p class="section-intro">
+    ElevateNow's Pre-MDM Assessment platform transforms the 5-6 week manual process into a 1-2 day AI-augmented workflow that automatically generates source dictionaries, maps to target schemas with confidence scoring, profiles data quality at column level, and produces a comprehensive readiness report showing exactly what works, what doesn't, and what must be fixed before MDM implementation.
+  </p>
+
+  <div class="workflow-container">
+    <div class="workflow-phase" style="border-left-color: var(--agent-green);">
+      <div class="workflow-header">
+        <div class="workflow-badge" style="background: #f0fdf4; color: var(--agent-green);">PHASE 1</div>
+        <div class="workflow-title">Auto-Generate Source Data Dictionary with AI</div>
+      </div>
+      <p class="workflow-desc">
+        Connect to source database (PostgreSQL, Oracle, SQL Server, Snowflake), extract schema metadata for all tables and columns, sample representative data from each column, and feed to AI to generate semantic descriptions. "cust_id" becomes "A unique identifier for each customer, automatically generated using a sequence." The system generates complete data dictionary in minutes. work that took SMEs 2-3 weeks. with descriptions based on actual data patterns, not guesswork.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Minutes instead of weeks</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> 122 tables analyzed automatically</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> AI-generated semantic descriptions</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase" style="border-left-color: var(--agent-green);">
+      <div class="workflow-header">
+        <div class="workflow-badge" style="background: #f0fdf4; color: var(--agent-green);">PHASE 2</div>
+        <div class="workflow-title">Intelligent Source-to-Target Mapping with Confidence Scores</div>
+      </div>
+      <p class="workflow-desc">
+        Upload MDM target schema (JSON format defining 5-6 target tables with 30-40 required fields), use AI to analyze semantic similarity between source columns and target fields, generate one-to-one and one-to-many mappings with confidence scores (70-95%), flag conflicts where multiple source columns map to same target field, and auto-generate ETL transformation scripts with INSERT statements. Analyst reviews 83% coverage with 70% average confidence, approves high-confidence mappings, investigates flagged conflicts. all in hours, not weeks.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> 30/36 target columns mapped</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> 83% coverage, 70% avg confidence</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> ETL scripts auto-generated</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase" style="border-left-color: var(--agent-green);">
+      <div class="workflow-header">
+        <div class="workflow-badge" style="background: #f0fdf4; color: var(--agent-green);">PHASE 3</div>
+        <div class="workflow-title">Comprehensive Data Quality & Readiness Profiling</div>
+      </div>
+      <p class="workflow-desc">
+        Run four-tier assessment: (1) Deterministic DQ report using Great Expectations validation. completeness 100%, null rate 0%, uniqueness 100%, pattern distribution analysis; (2) AI-level insights identifying 13 fields needing improvement with severity levels (HIGH/fixable, MEDIUM/fixable, HIGH/not fixable) and actionable recommendations; (3) Blocking schema assessment showing which fields are ready vs. need work for MDM matching with quality scores per field; (4) Executive readiness report with overall score (49%), estimated match rate projection (31% current, improving to 74.9% after cleansing), and quality improvement potential (+26.2%).
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> 13 blocking fields assessed</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Quality gaps identified with fix recommendations</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Match rate projections before/after cleansing</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase" style="border-left-color: var(--agent-green);">
+      <div class="workflow-header">
+        <div class="workflow-badge" style="background: #f0fdf4; color: var(--agent-green);">PHASE 4</div>
+        <div class="workflow-title">Readiness Report with Go/No-Go Recommendation</div>
+      </div>
+      <p class="workflow-desc">
+        Synthesize all findings into executive summary: current readiness score, critical issues flagged, fields ready vs. needing work, estimated match rate improvement potential, recommended remediation actions with priority levels, go/no-go decision for MDM implementation. Report shows exactly what must be fixed (first_name has 67% quality. numeric values, special characters, low uniqueness), what's ready (date_of_birth 95% quality), and projected ROI of data cleansing before MDM investment. Decision-makers know before spending $2M whether their data supports the MDM business case.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Clear go/no-go recommendation</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Prioritized remediation roadmap</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Match rate improvement projection</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- VALUE PROPOSITION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Why ElevateNow</div>
+  <h2>What Traditional MDM Onboarding Misses</h2>
+  <p class="section-intro">
+    Most MDM vendors assume you arrive with clean, profiled, ready-to-match data. ElevateNow assumes the opposite. that your data has quality gaps, semantic inconsistencies, and structural issues that will sabotage entity resolution unless identified and fixed first. Pre-assessment isn't about delaying MDM. It's about ensuring MDM succeeds when you launch it.
+  </p>
+
+  <div class="value-grid">
+    <div class="value-card">
+      <div class="value-icon">SPEED</div>
+      <h4>5-6 Weeks Reduced to 1-2 Days</h4>
+      <p>AI auto-generates source data dictionaries, maps to target schemas with confidence scoring, profiles quality at column level, and produces readiness reports. work that takes SMEs and data analysts 5-6 weeks of manual effort per data source. Onboard new sources in days, not months. Scale MDM readiness assessments across the enterprise.</p>
+      <div class="value-metric">95% time reduction · 30x faster schema mapping</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">QUALITY VISIBILITY</div>
+      <h4>Know What's Broken Before MDM Sees It</h4>
+      <p>Four-tier profiling. deterministic DQ, AI-level insights, blocking schema assessment, executive readiness report. reveals exactly which fields are usable for matching (date_of_birth 95% quality), which need cleansing (first_name 67% quality with numeric values and special characters), and which will fail entity resolution entirely (phone 20% completeness). Fix problems before MDM investment, not after.</p>
+      <div class="value-metric">From zero visibility to comprehensive quality assessment</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">CULTURAL INTELLIGENCE</div>
+      <h4>Global Names, Addresses, Identifiers Assessed</h4>
+      <p>AI identifies cultural variance in names (Spanish two-surname patterns, Dutch prefixes, Chinese reversed order), address format inconsistencies (UK postal codes vs. German formats), and identifier conflicts across systems. Blocking schema assessment shows whether your matching keys actually support entity resolution across EMEA, APAC, LATAM. before you discover this six months into MDM implementation.</p>
+      <div class="value-metric">From Western-name assumptions to global entity resolution readiness</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">SEMANTIC MAPPING</div>
+      <h4>Transformation Logic Validated, Not Guessed</h4>
+      <p>AI doesn't just map column names. it validates semantic compatibility. "nation" column maps to "country" target field with 73% confidence, but AI flags that source contains codes (US, GB) while target expects full names (United States, United Kingdom). Analyst catches transformation mismatch before ETL runs, preventing runtime failures and bad golden records.</p>
+      <div class="value-metric">From name-based mapping to semantic validation</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">MATCH RATE PROJECTION</div>
+      <h4>Predict MDM Success Before Investment</h4>
+      <p>Readiness report projects match rate: 31% with current data quality, improving to 74.9% after recommended cleansing (+26.2% improvement potential). Decision-makers see ROI of data remediation before MDM contract is signed. If projected match rate after cleansing is still below 70%, you know MDM won't deliver business value. postpone implementation, fix structural issues first, avoid $2-5M failure.</p>
+      <div class="value-metric">From blind MDM investment to data-driven go/no-go decisions</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">REMEDIATION ROADMAP</div>
+      <h4>Prioritized Fixes, Not Generic Advice</h4>
+      <p>AI-level insights identify 13 fields needing improvement with severity (HIGH/MEDIUM), fixability (fixable/not fixable), and specific recommendations. "Remove numeric-only entries from first_name" (HIGH severity, fixable). "Consider additional attributes for uniqueness in first_name" (HIGH severity, not fixable. suggests blocking schema needs rework). Data engineers know exactly what to fix, in what order, before MDM onboarding.</p>
+      <div class="value-metric">From generic quality advice to field-level remediation actions</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- GOVERNANCE & TRUST -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Trust Architecture</div>
+  <h2>How ElevateNow Builds Confidence in MDM Readiness</h2>
+  <p class="section-intro">
+    Assessing MDM readiness isn't about running profiling scripts. it's about giving decision-makers the confidence to invest millions in entity resolution platforms, knowing their data will support the business case. ElevateNow's assessment architecture makes every quality gap, semantic mismatch, and blocking failure visible before MDM implementation begins.
+  </p>
+
+  <div class="governance-grid">
+    <div class="governance-card">
+      <h4>Confidence Scoring, Not Binary Pass/Fail</h4>
+      <p>Source-to-target mappings include confidence scores (70-95%) based on semantic similarity, data type compatibility, and sample data validation. "customer_master.nation → parties.country" shows 73% confidence with flag that source uses codes while target expects full names. Analysts review medium-confidence mappings (70-85%), auto-approve high-confidence (>85%), investigate conflicts. decisions based on evidence, not intuition.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Multi-Tier Quality Assessment</h4>
+      <p>Four assessment layers. deterministic DQ (completeness, uniqueness, patterns), AI insights (semantic issues with fix recommendations), blocking schema validation (which fields support matching), executive readiness (overall score with match rate projection). ensure quality gaps aren't missed. If phone numbers are 80% null, blocking schema assessment flags this before MDM matching engine fails.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Match Rate Projection with Improvement Scenarios</h4>
+      <p>Readiness report doesn't just say "data has quality issues". it projects match rate under current conditions (31%) and after recommended cleansing (74.9%), showing +26.2% improvement potential. Decision-makers see ROI of remediation: invest $200K in data cleansing now to achieve 75% match rate, or proceed with 31% match rate and accept $2M MDM platform will fail to deliver business value.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Field-Level Remediation Actions with Priority</h4>
+      <p>AI insights flag specific issues. "first_name has high percentage of numeric-only values" (HIGH severity, fixable), "presence of special characters in first_name" (MEDIUM severity, fixable), "low uniqueness in first_name" (HIGH severity, not fixable. suggests blocking schema needs composite keys). Data engineers receive actionable remediation roadmap with priority order, cost estimates, and timeline projections before MDM work begins.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- REAL-WORLD OUTCOMES -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Proof Points</div>
+  <h2>Three Data Sources, Three Different Readiness Outcomes</h2>
+  <p class="section-intro">
+    Pre-MDM assessment reveals the truth before MDM investment: some data sources are ready for entity resolution, some need targeted cleansing, and some require structural rework. The assessment prevents catastrophic failures by showing which sources can proceed, which need remediation, and which should wait until fundamental data issues are resolved.
+  </p>
+
+  <div class="challenge-grid">
+    <div class="challenge-card" style="border-top-color: #166534;">
+      <div class="challenge-icon" style="background: #f0fdf4; color: #166534;">READY FOR MDM</div>
+      <h3>Policy System → 85% Readiness, Proceed to Implementation</h3>
+      <p><strong>Assessment Results:</strong> Government ID 100% unique, date_of_birth 95% quality, policy_number perfect matching key, address fields properly parsed into city/postal code components. 85% overall readiness score.</p>
+      <p><strong>Recommendation:</strong> Proceed directly to MDM onboarding. Blocking schema using policy_number + government_id will achieve 85%+ match rate. Minor cleansing recommended for optional fields (middle_name 33% quality), but core matching keys are production-ready.</p>
+      <p style="margin-top:16px;font-weight:600;color:#166534;">Outcome: MDM Implementation Approved · Expected 85% Match Rate · No Remediation Required</p>
+    </div>
+
+    <div class="challenge-card" style="border-top-color: #d97706;">
+      <div class="challenge-icon" style="background: #fffbeb; color: #d97706;">NEEDS TARGETED CLEANSING</div>
+      <h3>CRM System → 49% Readiness, Remediate Before MDM</h3>
+      <p><strong>Assessment Results:</strong> first_name 67% quality (numeric values, special characters), phone 20% completeness, email has typos, address not standardized. 13 fields flagged needing improvement. Current match rate projection: 31%.</p>
+      <p><strong>Recommendation:</strong> Delay MDM 6-8 weeks for targeted remediation. Remove numeric entries from first_name, standardize addresses using geocoding API, validate email patterns, source phone numbers from alternative systems. Post-cleansing projection: 74.9% match rate (+26.2% improvement). $200K remediation investment enables $2M MDM to deliver business value.</p>
+      <p style="margin-top:16px;font-weight:600;color:#d97706;">Outcome: 6-8 Week Remediation Required · Post-Fix 75% Match Rate · MDM Delayed But Salvageable</p>
+    </div>
+
+    <div class="challenge-card" style="border-top-color: #991b1b;">
+      <div class="challenge-icon" style="background: #fef2f2; color: #991b1b;">STRUCTURAL REWORK NEEDED</div>
+      <h3>Legacy Billing System → 22% Readiness, Postpone MDM</h3>
+      <p><strong>Assessment Results:</strong> Names stored in single field (no first/last separation), cultural variance not handled (Spanish two surnames, Chinese reversed order), addresses in free-text blob, phone numbers in mixed international formats, no unique identifiers across customer records. 22% overall readiness score.</p>
+      <p><strong>Recommendation:</strong> Do NOT proceed with MDM. Even after cleansing, projected match rate remains below 50% due to structural issues. Blocking schema cannot be defined without composite keys that don't exist. Recommendation: 3-6 month data architecture rework to parse names by cultural rules, standardize addresses, establish unique customer identifiers. Reassess readiness after structural changes before MDM investment.</p>
+      <p style="margin-top:16px;font-weight:600;color:#991b1b;">Outcome: MDM Investment Blocked · 3-6 Month Rework Required · $2M Failure Prevented</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- CTA -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="cta-section">
+  <h2>Ready to Assess MDM Readiness Before You Invest?</h2>
+  <p>See how ElevateNow's Pre-MDM Assessment platform can reveal data quality gaps, validate entity resolution feasibility, and project match rates before your first MDM dollar is spent. reducing 5-6 week manual processes to 1-2 days of AI-augmented intelligence.</p>
+  <div class="cta-buttons">
+    <a href="#" class="btn btn-primary">Request Assessment</a>
+    <a href="#" class="btn btn-secondary">Technical Deep Dive</a>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  <p>
+    ElevateNow · MDM Pre-Assessment: Data Readiness Intelligence<br>
+    © 2026 ElevateNow. Proprietary & Confidential.
+  </p>
+</div>
+
+</body>
+</html>
