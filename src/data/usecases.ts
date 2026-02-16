@@ -26,27 +26,30 @@ export const usecases: UseCaseMeta[] = [
     summary: 'Commercial submissions arrive as unstructured PDFs, emails, ACORD forms across inconsistent channels, requiring manual extraction, appetite screening, and routing—deterministic tasks that waste underwriter judgment on clerical work. This governance-encoded triage system extracts structured fields with validation (not hallucinated guesses), applies underwriter-defined appetite rules at scale, routes by expertise-territory-capacity optimization, and prioritizes by expected premium and win probability. Underwriters start reviewing 100% of system recommendations, progressively shift to exception-based oversight as accuracy demonstrates trust. Not autonomous replacement—supervised delegation that reduces 3-29 day cycles to same-day decisions while keeping underwriters in control of judgment-intensive work.'
   },
   {
-    "id": "workers-comp-fnol-intelligence",
-    "slug": "workers-comp-fnol-intelligence",
-    "title": "First Notice of Loss Claims Arrive With Red Flags Hidden in Plain Sight",
-    "subtitle": "From Unstructured Intake to Governed Intelligence Report in Minutes",
+    "id": "fnol-claims-intelligence",
+    "slug": "fnol-claims-intelligence",
+    "title": "FNOL Processing: Where Critical Signals Hide in Unstructured Chaos",
+    "subtitle": "Multi-Line Claims Intelligence—From Intake to Governed Analysis in Minutes",
     "category": "claims",
     "tags": [
-      "Workers Compensation",
       "FNOL Processing",
       "Claims Intelligence",
+      "Workers Compensation",
+      "Auto Liability",
+      "Multi-LOB",
       "Fraud Detection",
       "Subrogation",
-      "Compensability Analysis",
-      "Authority Routing"
+      "Sub-File Architecture",
+      "Authority Routing",
+      "Governance"
     ],
     "status": "published",
-    "publishedAt": "2026-02-08",
-    "estimatedReadMin": 12,
+    "publishedAt": "2026-02-16",
+    "estimatedReadMin": 15,
     "detailType": "html",
-    "htmlPath": "WCFNOL-ElevatenowRecipe.html",
-    "keyQuestion": "When a worker is injured, claims adjusters have minutes to triage compensability, spot fraud indicators, calculate reserves, and route to the right authority level. What happens when the red flags are buried in unstructured text, the jurisdiction rules conflict across 50 states, and there's no time to consult the manual?",
-    "summary": "Workers compensation claims begin with unstructured FNOL narratives hiding critical signals—fraud indicators, third-party liability, compensability questions, OSHA triggers. This recipe transforms chaos into governed intelligence: jurisdiction rules applied consistently across 50 states, 12 sensitive indicators detected with standardized taxonomy, subrogation theories evaluated systematically, and authority routing based on explicit governance logic. Every decision traced to evidence, every knowledge source cited, every routing choice documented. From 90-minute manual triage to sub-10-minute intelligence delivery with complete audit trails."
+    "htmlPath": "ElevateNow_MultiLOB_FNOL.html",
+    "keyQuestion": "When an FNOL arrives—workplace injury, multi-vehicle collision, property loss—adjusters have minutes to assess liability, detect fraud, identify subrogation, calculate reserves, and route correctly. What happens when critical signals are buried in unstructured narratives, jurisdiction rules vary across 50 states, and institutional knowledge exists only in expert adjusters' heads?",
+    "summary": "Claims begin with unstructured FNOL documents hiding critical intelligence—fraud patterns, third-party liability, multi-party exposure, municipal defects. This platform transforms chaos into governed analysis across Workers Compensation, Auto Liability, and Property. Jurisdiction rules applied consistently. Fraud indicators detected systematically. Subrogation theories evaluated for every claim. For Auto: sub-files spawned automatically, fault allocated across parties, adverse exposure tracked. For WC: compensability assessed with confidence scoring, employer defenses screened. Every decision deterministic and referenceable. Every knowledge source cited. Every routing choice documented. From 90-minute manual processing to sub-10-minute intelligence delivery with complete audit trails."
   },
   {
     id: 'loss-run-intelligence',

@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElevateNow — Multi-Line Claims Intelligence Platform</title>
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fafaf8;
+    --accent: #1e3a5f;
+    --accent-light: #2c5282;
+    --accent-bg: #ebf4ff;
+    --tool-blue: #1a5276;
+    --agent-green: #1e6e3e;
+    --border: #e0ddd5;
+    --muted: #6b6b6b;
+    --warning: #c0392b;
+    --warning-bg: #fdf2f0;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── Hero Section ── */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 80px;
+    background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 40%, #2d3a4a 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -300px; right: -300px;
+    width: 800px; height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,90,150,0.15) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -200px; left: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(30,58,95,0.12) 0%, transparent 70%);
+  }
+  .hero-label {
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 32px;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(42px, 6vw, 68px);
+    font-weight: 800;
+    line-height: 1.15;
+    max-width: 1000px;
+    margin-bottom: 28px;
+    z-index: 1;
+  }
+  .hero h1 span { color: #5dade2; }
+  .hero-sub {
+    font-size: 22px;
+    opacity: 0.85;
+    max-width: 780px;
+    margin-bottom: 48px;
+    line-height: 1.6;
+    z-index: 1;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+    font-size: 14px;
+    opacity: 0.6;
+    z-index: 1;
+  }
+
+  /* ── Container ── */
+  .container {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 50px 60px;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 80px;
+    page-break-before: always;
+    page-break-inside: avoid;
+  }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .section h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+  .section-intro {
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 780px;
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+
+  /* ── Problem Section (Backdrop) ── */
+  .problem-backdrop {
+    background: linear-gradient(to bottom, var(--warning-bg) 0%, #fafaf8 100%);
+    padding: 48px 40px;
+    border-radius: 16px;
+    box-shadow: inset 0 2px 0 rgba(192,57,43,0.1);
+    page-break-inside: avoid;
+  }
+  .problem-stat {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--warning);
+  }
+  .stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--warning);
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+  }
+
+  /* ── LOB Grid ── */
+  .lob-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+    margin-top: 40px;
+  }
+  .lob-card {
+    background: white;
+    padding: 32px 28px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--accent);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .lob-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .lob-icon {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--accent-bg);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  .lob-card h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .lob-card p {
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .lob-complexity {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Differentiation Grid ── */
+  .diff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 40px;
+  }
+  .diff-column h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .diff-column.generic h4 { color: var(--muted); }
+  .diff-column.elevatenow h4 { color: var(--accent); }
+  .diff-item {
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .diff-column.generic .diff-item { color: #999; }
+  .diff-column.generic .diff-item::before { content: '✗ '; color: var(--warning); margin-right: 8px; }
+  .diff-column.elevatenow .diff-item { color: var(--ink); font-weight: 500; }
+  .diff-column.elevatenow .diff-item::before { content: '✓ '; color: #10b981; margin-right: 8px; }
+
+  /* ── Architecture Diagram ── */
+  .arch-diagram {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    margin: 40px 0;
+  }
+  .arch-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .arch-box {
+    flex: 1;
+    padding: 24px;
+    background: var(--accent-bg);
+    border-radius: 10px;
+    border-left: 4px solid var(--accent);
+  }
+  .arch-box h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .arch-box p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .arch-arrow {
+    font-size: 24px;
+    color: var(--accent);
+  }
+
+  /* ── Value Grid ── */
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+    margin-top: 40px;
+  }
+  .value-card {
+    background: white;
+    padding: 32px 28px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--accent);
+  }
+  .value-icon {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--accent);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    margin-bottom: 14px;
+  }
+  .value-card h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .value-card p {
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .value-metric {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Proof Points ── */
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+    margin-top: 40px;
+  }
+  .proof-card {
+    background: white;
+    padding: 32px 28px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid #666;
+  }
+  .proof-card.wc { border-top-color: #991b1b; }
+  .proof-card.auto { border-top-color: #2563eb; }
+  .proof-card.cross { border-top-color: #10b981; }
+  .proof-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: #f0f0f0;
+    color: #666;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    margin-bottom: 14px;
+  }
+  .proof-card.wc .proof-badge { background: #fef2f2; color: #991b1b; }
+  .proof-card.auto .proof-badge { background: #eff6ff; color: #2563eb; }
+  .proof-card.cross .proof-badge { background: #f0fdf4; color: #10b981; }
+  .proof-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+  .proof-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .proof-result {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* ── CTA Section ── */
+  .cta-section {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+    color: white;
+    padding: 80px 60px;
+    border-radius: 16px;
+    text-align: center;
+    margin: 60px 0;
+  }
+  .cta-section h2 {
+    font-family: Georgia, serif;
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+  .cta-section p {
+    font-size: 19px;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 16px 36px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-primary {
+    background: white;
+    color: var(--accent);
+  }
+  .btn-primary:hover {
+    background: #f8f8f8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+
+  @media print {
+    .hero { min-height: auto; padding: 60px 40px; }
+    .cta-section { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-label">Multi-Line Claims Intelligence Platform</div>
+  <h1>From 90 Minutes to 10.<br>From Gut Feel to <span>Governance</span>.</h1>
+  <p class="hero-sub">
+    ElevateNow transforms FNOL processing across Workers Compensation, Auto, and Property by encoding institutional knowledge into governed, audit-ready intelligence. Your adjusters get sub-file routing, multi-party liability analysis, and subrogation screening in minutes—not hours.
+  </p>
+  <div class="hero-meta">
+    <span>3 Lines of Business</span>
+    <span>9-Stage Intelligence Pipeline</span>
+    <span>85%+ Time Reduction</span>
+    <span>Complete Audit Trail</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- THE PROBLEM -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The Challenge</div>
+  <h2>FNOL Processing Doesn't Scale</h2>
+  <p class="section-intro">
+    Your adjusters spend 60–90 minutes per FNOL manually extracting data, researching jurisdiction rules, assessing compensability or liability, detecting fraud indicators, identifying subrogation potential, calculating reserves, and determining authority routing. That's 60–90 minutes of institutional knowledge application that happens inconsistently, leaves no audit trail, and can't be defended under scrutiny.
+  </p>
+
+  <div class="problem-backdrop">
+    <div class="problem-stat">
+      <div class="stat-card">
+        <div class="stat-number">60–90</div>
+        <div class="stat-label">Minutes per FNOL<br>(manual processing)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">40–60%</div>
+        <div class="stat-label">Fraud indicator<br>detection rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">15%</div>
+        <div class="stat-label">Subrogation potential<br>identified at intake</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">Zero</div>
+        <div class="stat-label">Defensible audit trail<br>for decisions</div>
+      </div>
+    </div>
+
+    <p style="margin-top:28px;font-size:17px;color:var(--muted);line-height:1.6;">
+      <strong>The core issue isn't speed—it's consistency and governance.</strong> When compensability assessments, liability determinations, and authority routing depend on individual adjuster judgment with no documented reasoning, you can't scale quality. You can't defend decisions. You can't improve systematically.
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- MULTI-LOB COMPLEXITY -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Three Lines, One Platform</div>
+  <h2>Built for Multi-LOB Complexity</h2>
+  <p class="section-intro">
+    Workers Compensation, Auto, and Property aren't just different data schemas—they're fundamentally different analytical frameworks. Compensability vs. liability. Single claim vs. sub-file architecture. Employer defenses vs. comparative negligence. ElevateNow encodes these domain-specific frameworks, not generic AI extraction.
+  </p>
+
+  <div class="lob-grid">
+    <div class="lob-card">
+      <div class="lob-icon">Workers Compensation</div>
+      <h3>Compensability Framework</h3>
+      <p>AOE/COE analysis across 50 states, employer defense screening (intoxication, horseplay, willful misconduct), benefit calculation (TTD/PTD/PPD rates by jurisdiction), OSHA trigger detection, and third-party equipment/premises liability identification.</p>
+      <div class="lob-complexity">Key Complexity: Jurisdiction-specific benefit tables, multi-tier compensability confidence scoring</div>
+    </div>
+
+    <div class="lob-card">
+      <div class="lob-icon">Auto Liability</div>
+      <h3>Multi-Party Sub-File Architecture</h3>
+      <p>Single FNOL spawns multiple sub-files: first-party collision/PIP, third-party bodily injury (per claimant), adverse exposure tracking, property damage claims. Liability analysis with comparative/contributory fault allocation. No-fault vs. tort state rules. Municipal/product liability screening.</p>
+      <div class="lob-complexity">Key Complexity: Sub-file determination, multi-party fault allocation, adverse claimant management</div>
+    </div>
+
+    <div class="lob-card">
+      <div class="lob-icon">Property (Planned)</div>
+      <h3>Peril-Specific Coverage Analysis</h3>
+      <p>Weather event correlation, coverage applicability by peril (wind, hail, flood, fire), valuation methodology (ACV vs. RCV), additional living expense calculations, ordinance and law endorsements, and concurrent causation doctrine application.</p>
+      <div class="lob-complexity">Key Complexity: Peril identification, policy endorsement mapping, CAT event correlation</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- WHAT MAKES US DIFFERENT -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Differentiation</div>
+  <h2>Institutional Knowledge, Not Generic AI</h2>
+  <p class="section-intro">
+    Most claims automation uses generic AI to extract data and hopes for the best. ElevateNow encodes your institutional knowledge—50-state jurisdiction rules, fraud indicator patterns, subrogation theories, authority thresholds—and applies them consistently to every claim with complete audit trails. Every decision is deterministic and referenceable.
+  </p>
+
+  <div class="diff-grid">
+    <div class="diff-column generic">
+      <h4>Generic Claims Automation</h4>
+      <div class="diff-item">Extracts data from documents</div>
+      <div class="diff-item">No encoded business rules</div>
+      <div class="diff-item">Adjuster manually analyzes compensability</div>
+      <div class="diff-item">Adjuster manually screens for fraud</div>
+      <div class="diff-item">Adjuster manually identifies subrogation</div>
+      <div class="diff-item">Adjuster manually calculates reserves</div>
+      <div class="diff-item">Routing decisions vary by adjuster</div>
+      <div class="diff-item">No documentation of reasoning</div>
+      <div class="diff-item">Inconsistent outcomes across similar claims</div>
+      <div class="diff-item">Decisions can't be defended under audit</div>
+    </div>
+
+    <div class="diff-column elevatenow">
+      <h4>ElevateNow Claims Intelligence</h4>
+      <div class="diff-item">Extracts and analyzes in one step</div>
+      <div class="diff-item">Institutional knowledge encoded and applied</div>
+      <div class="diff-item">Automated compensability assessment with confidence</div>
+      <div class="diff-item">Systematic fraud indicator detection</div>
+      <div class="diff-item">Automatic subrogation potential identification</div>
+      <div class="diff-item">Calculated reserve recommendations</div>
+      <div class="diff-item">Consistent routing based on explicit criteria</div>
+      <div class="diff-item">Complete reasoning documented for every decision</div>
+      <div class="diff-item">Consistent framework applied to all claims</div>
+      <div class="diff-item">Defensible audit trail from intake to routing</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- ARCHITECTURE -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">How It Works</div>
+  <h2>9-Stage Intelligence Pipeline</h2>
+  <p class="section-intro">
+    ElevateNow processes every FNOL through nine analytical stages, each applying specific institutional knowledge and business rules. Results are deterministic and referenceable—the same inputs always produce the same analysis with complete documentation of reasoning.
+  </p>
+
+  <div class="arch-diagram">
+    <div class="arch-row">
+      <div class="arch-box">
+        <h4>Stage 0: Data Extraction</h4>
+        <p>Extracts structured information from FNOL documents (PDFs, emails, transcripts). For Auto claims, determines required sub-files (collision, bodily injury per party, PIP, rental).</p>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box">
+        <h4>Stage 1: Jurisdiction</h4>
+        <p>Applies state-specific rules: Workers Comp benefit rates and filing deadlines, Auto fault systems (comparative vs. contributory negligence), no-fault PIP requirements.</p>
+      </div>
+    </div>
+
+    <div class="arch-row">
+      <div class="arch-box">
+        <h4>Stage 2: Knowledge Retrieval</h4>
+        <p>Identifies relevant institutional knowledge based on claim characteristics—jurisdiction-specific case law, coverage interpretations, benefit calculation rules.</p>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box">
+        <h4>Stage 3: Primary Analysis</h4>
+        <p>Workers Comp: Compensability assessment with confidence score. Auto: Liability determination with fault allocation. Both produce documented reasoning for their conclusions.</p>
+      </div>
+    </div>
+
+    <div class="arch-row">
+      <div class="arch-box">
+        <h4>Stage 4: Fraud Detection</h4>
+        <p>Screens for sensitive indicators: fraud patterns, attorney involvement timing, delayed reporting, inconsistent statements, phantom passengers (auto), staged collisions.</p>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box">
+        <h4>Stage 5: Subrogation</h4>
+        <p>Evaluates recovery potential against five liability theories. Identifies responsible third parties, estimates recovery amount, documents evidence preservation requirements.</p>
+      </div>
+    </div>
+
+    <div class="arch-row">
+      <div class="arch-box">
+        <h4>Stage 6: Reserve Calculation</h4>
+        <p>Workers Comp: Benefit calculation based on average weekly wage and jurisdiction rates. Auto: Damage estimates plus bodily injury exposure per claimant. Produces tiered scenarios.</p>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box">
+        <h4>Stage 7: Authority Routing</h4>
+        <p>Evaluates confidence scores, fraud indicators, reserve amounts, and subrogation potential against explicit thresholds. Routes to auto-accept, senior review, or investigation with documented logic.</p>
+      </div>
+    </div>
+
+    <div class="arch-row">
+      <div class="arch-box" style="flex:2;">
+        <h4>Stage 8: Intelligence Report</h4>
+        <p>Assembles all upstream analysis into a structured briefing: executive summary, recommended actions, compliance deadlines, complete decision trail with knowledge references.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- VALUE PROPOSITION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Business Impact</div>
+  <h2>What Gets Better</h2>
+  <p class="section-intro">
+    The platform delivers time savings and capacity improvement, but the real value is quality improvement: consistent application of institutional knowledge, early identification of subrogation potential, systematic fraud detection, and defensible decision trails that hold under regulatory audit.
+  </p>
+
+  <div class="value-grid">
+    <div class="value-card">
+      <div class="value-icon">SPEED</div>
+      <h4>From 90 Minutes to Under 10</h4>
+      <p>FNOL intake, jurisdiction resolution, analytical assessment, indicator screening, reserve calculation, subrogation identification, and authority routing—all completed in minutes. Adjusters investigate claims, not data entry forms.</p>
+      <div class="value-metric">85%+ time reduction per claim · 10x capacity improvement</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">GOVERNANCE</div>
+      <h4>Decisions You Can Defend</h4>
+      <p>Every compensability/liability assessment, indicator detection, reserve calculation, and authority decision documented with explicit reasoning, knowledge citations, and confidence scores. The complete trail exists when litigation or audit arrives.</p>
+      <div class="value-metric">From zero documentation to complete governance trail</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">CONSISTENCY</div>
+      <h4>Institutional Knowledge, Applied</h4>
+      <p>50-state jurisdiction rules, fraud taxonomies, subrogation theories, authority thresholds—applied consistently to every claim. No variation by adjuster experience or risk tolerance. Best practices become automated practice.</p>
+      <div class="value-metric">From adjuster-dependent to framework-driven analysis</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">DETECTION</div>
+      <h4>Red Flags Surface Early</h4>
+      <p>12 sensitive indicators detected with standardized taxonomy across WC and Auto. Attorney pre-retention, delayed reporting, phantom passengers, staged collisions, witness conflicts—pattern recognition happens systematically.</p>
+      <div class="value-metric">From 40–60% detection rate to 95%+ consistency</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">SUBROGATION</div>
+      <h4>Recovery Identified at Intake</h4>
+      <p>Five liability theories (negligence, product, premises, motor vehicle, municipal) applied to every claim. Third parties and responsible parties identified at intake—not months later after evidence spoliation. Municipal liability (traffic signals, sidewalks) systematically screened.</p>
+      <div class="value-metric">From 15% referral rate to 80%+ potential identification</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">SUB-FILES</div>
+      <h4>Auto Complexity Handled</h4>
+      <p>Single Auto FNOL spawns multiple sub-files automatically: first-party collision/PIP, third-party BI (per injured party), adverse exposure tracking, property damage, rental. Each routed correctly based on coverage and liability analysis.</p>
+      <div class="value-metric">From manual sub-file creation to automatic determination</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- PROOF POINTS -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Real-World Scenarios</div>
+  <h2>How the System Handles Complexity</h2>
+  <p class="section-intro">
+    The platform has been validated against reference claims representing the full spectrum: WC chemical exposure with third-party equipment liability, Auto multi-vehicle collision with municipal signal malfunction, and cross-LOB subrogation scenarios where Auto collision spawns WC claims for commercial drivers.
+  </p>
+
+  <div class="proof-grid">
+    <div class="proof-card wc">
+      <div class="proof-badge">Workers Comp — Critical</div>
+      <h3>Chemical Exposure → Equipment Subrogation</h3>
+      <p><strong>Scenario:</strong> TCE vapor release, 3 affected employees, one hospitalized. Equipment seal failure on degreasing unit serviced 32 days prior by manufacturer.</p>
+      <p><strong>Analysis:</strong> Catastrophic indicator (hospitalization) + OSHA trigger + third-party equipment liability identified → manufacturer PVS added to subrogation screen. Evidence preservation checklist auto-generated: gasket, service records, maintenance contract, 311 reports.</p>
+      <div class="proof-result">Routed to Claims Director · Investigation Hold · Subrogation Unit Notified · $65K–$110K recovery potential identified</div>
+    </div>
+
+    <div class="proof-card auto">
+      <div class="proof-badge">Auto Liability — Critical</div>
+      <h3>Multi-Vehicle Collision → Municipal Liability</h3>
+      <p><strong>Scenario:</strong> 3-vehicle intersection T-bone. Traffic signal malfunctioned for 24+ hours. City had 311 complaints but dispatched no repair crew. 2 hospitalized, attorney retained within 24 hours.</p>
+      <p><strong>Analysis:</strong> 7 sub-files spawned (PD-COLL, PIP, BI × 2 attorney-rep'd, RENTAL, SUBRO-CITY, SUBRO-conventional). Municipal liability flagged via FL Statute §316.0745. Comparative fault allocated: at-fault driver 60–70%, City 30–40%, our insured 0–15%.</p>
+      <div class="proof-result">7 Sub-Files Created · Adverse Exposure $0–$54.5K · Municipal Subro $65K–$110K · Defense Counsel Engaged · Traffic Engineering Expert Required</div>
+    </div>
+
+    <div class="proof-card cross">
+      <div class="proof-badge">Cross-LOB Intelligence</div>
+      <h3>Commercial Auto → Workers Comp Crossover</h3>
+      <p><strong>Scenario:</strong> Delivery driver in company vehicle rear-ended at red light. Driver sustains cervical strain requiring 6 weeks off work. Auto claim filed under commercial policy. WC claim filed for lost wages.</p>
+      <p><strong>Analysis:</strong> Platform detects both Auto and WC exposure from single incident. Auto liability analyzer determines clear third-party fault. WC compensability analyzer confirms AOE/COE. Subrogation screener identifies at-fault driver's carrier for recovery against WC indemnity payments. Cross-LOB coordination flagged.</p>
+      <div class="proof-result">Dual Claims Identified · Subrogation Coordination Flagged · WC Indemnity vs. Auto BI Offset Calculated · Recovery Strategy: Auto Third-Party Pursuit</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- CTA -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="cta-section">
+  <h2>See It in Action</h2>
+  <p>See how ElevateNow's Multi-Line Claims Intelligence Platform delivers governed, audit-ready analysis across Workers Compensation, Auto, and Property while reducing FNOL processing time by 85%+.</p>
+  <div class="cta-buttons">
+    <a href="#" class="btn btn-primary">Request Demo</a>
+    <a href="#" class="btn btn-secondary">Technical Deep Dive</a>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  <p>
+    ElevateNow · Multi-Line Claims Intelligence Platform<br>
+    Workers Compensation · Auto Liability · Property (Planned)<br>
+    © 2026 ElevateNow. Proprietary & Confidential.
+  </p>
+</div>
+
+</body>
+</html>
