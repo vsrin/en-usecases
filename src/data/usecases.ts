@@ -159,6 +159,32 @@ export const usecases: UseCaseMeta[] = [
     keyQuestion: 'You set your blocking scheme to "last name + postal code" and auto-merge threshold to 92% confidence—but will that generate 50,000 candidate pairs or 10 million false positives? Will golden records pick current addresses or stale CRM data? You discover these answers in production with real customer data at risk. What if you could test everything in sandbox first?',
     summary: 'Enterprise MDM platforms assume you arrive with clean data and perfect configurations—providing powerful matching engines but no sandbox for testing, no quality assessment, no threshold calibration with real records. This readiness-to-resolution platform starts with data quality profiling (cultural name variance detection, blocking field viability, match rate projections), enables configuration testing in sandbox (blocking schemes, survivorship rules, confidence thresholds), then supports dual deployment: export proven configurations to enterprise MDM platforms, or deploy as production matching engine for organizations needing entity resolution in weeks, not years.'
   },
+  {
+    id: 'data-quality-certification',
+    slug: 'data-quality-certification',
+    title: 'Your AI Is Making Decisions on Data Nobody Has Certified',
+    subtitle: 'From Reactive DQ Dashboards to Pipeline-Enforced AI Data Certification Across 10 Quality Dimensions',
+    category: 'operations',
+    tags: [
+      'Data Quality',
+      'AI Certification',
+      'Data Governance',
+      'Unstructured Data',
+      'Pipeline Enforcement',
+      'Composite Scoring',
+      'Document Quality',
+      'Regulatory Compliance',
+      'Agentic AI',
+      'Semantic Layer'
+    ],
+    status: 'published',
+    publishedAt: '2026-03-03',
+    estimatedReadMin: 16,
+    detailType: 'html',
+    htmlPath: 'data-quality-certification.html',
+    keyQuestion: 'Your enterprise is deploying AI agents that autonomously consume data from structured databases and unstructured documents—but no certification layer exists between raw data and AI consumption. When the regulator asks "was this data certified before your AI used it to deny this claim?", what do you show them?',
+    summary: 'AI agents are consuming enterprise data at machine speed with no certification gate—traditional DQ tools observe and report but don\'t enforce, cover structured data but ignore documents, and produce binary pass/fail results instead of composite trust scores. ElevateNow\'s three-module certification platform (SDQ for structured intelligence, PDQ for pipeline enforcement, UDQ for document certification) scores every data product 0-100 across 10 quality dimensions, blocks uncertified data from reaching AI through severity-based gating, and produces regulator-ready audit trails showing exactly what was certified, when, and at what quality threshold—shifting data quality from a monitoring dashboard to an enforceable trust control plane for AI consumption.'
+  },
 ];
 
 // Helper functions

@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElevateNow · AI-Certified Data: Data Quality Certification for AI Consumption</title>
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fafaf8;
+    --accent: #1e3a5f;
+    --accent-light: #2c5282;
+    --accent-bg: #ebf4ff;
+    --tool-blue: #1a5276;
+    --agent-green: #1e6e3e;
+    --border: #e0ddd5;
+    --muted: #6b6b6b;
+    --warning: #c0392b;
+    --warning-bg: #fdf2f0;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── Hero Section ── */
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 80px;
+    background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 40%, #2d3a4a 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -300px; right: -300px;
+    width: 800px; height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,90,150,0.15) 0%, transparent 70%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -200px; left: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(30,58,95,0.12) 0%, transparent 70%);
+  }
+  .hero-label {
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 32px;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.12;
+    max-width: 950px;
+    margin-bottom: 28px;
+    z-index: 1;
+  }
+  .hero h1 span { color: #5dade2; }
+  .hero-sub {
+    font-size: 22px;
+    opacity: 0.8;
+    max-width: 700px;
+    margin-bottom: 48px;
+    line-height: 1.6;
+    z-index: 1;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+    font-size: 14px;
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  /* ── Container ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 60px;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 80px;
+    page-break-inside: avoid;
+  }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .section h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+  .section-intro {
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 720px;
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+
+  /* ── Problem Section (Backdrop) ── */
+  .problem-backdrop {
+    background: linear-gradient(to bottom, var(--warning-bg) 0%, #fafaf8 100%);
+    padding: 48px 40px;
+    border-radius: 16px;
+    box-shadow: inset 0 2px 0 rgba(192,57,43,0.1);
+    page-break-inside: avoid;
+  }
+  .problem-stat {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--warning);
+  }
+  .stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--warning);
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+  }
+
+  /* ── Challenge Cards ── */
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .challenge-card {
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--accent);
+    page-break-inside: avoid;
+  }
+  .challenge-icon {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    background: var(--accent-bg);
+    color: var(--accent);
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  .challenge-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+  .challenge-card p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── Workflow Section ── */
+  .workflow-container {
+    margin-top: 40px;
+  }
+  .workflow-phase {
+    background: white;
+    padding: 32px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--tool-blue);
+    page-break-inside: avoid;
+  }
+  .workflow-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .workflow-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    background: var(--accent-bg);
+    color: var(--accent);
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .workflow-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .workflow-desc {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .workflow-outcomes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .outcome-item {
+    font-size: 14px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .outcome-icon {
+    color: var(--agent-green);
+    font-weight: 700;
+  }
+
+  /* ── Pipeline Section ── */
+  .pipeline-strip {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 40px 0 20px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  .pipeline-node {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    padding: 20px 12px;
+    position: relative;
+    background: white;
+    border: 1px solid var(--border);
+  }
+  .pipeline-node:first-child { border-radius: 12px 0 0 12px; }
+  .pipeline-node:last-child { border-radius: 0 12px 12px 0; }
+  .pipeline-node:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: var(--accent);
+    z-index: 2;
+    background: var(--paper);
+    padding: 2px;
+  }
+  .pipeline-node.cert { background: var(--accent-bg); border-color: var(--accent); }
+  .pipeline-node.gate { background: #f0fdf4; border-color: var(--agent-green); }
+  .pipeline-node.consume { background: #fefce8; border-color: #ca8a04; }
+  .pipeline-node-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .pipeline-node-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .pipeline-caption {
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── Value Grid ── */
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+    margin-top: 40px;
+  }
+  .value-card {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--agent-green);
+    page-break-inside: avoid;
+  }
+  .value-icon {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    background: #f0fdf4;
+    color: var(--agent-green);
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  .value-card h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .value-card p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .value-metric {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--agent-green);
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Dimension Grid ── */
+  .dimension-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .dimension-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border-left: 3px solid var(--accent);
+    page-break-inside: avoid;
+  }
+  .dimension-number {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .dimension-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .dimension-question {
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── Governance Grid ── */
+  .governance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .governance-card {
+    background: var(--accent-bg);
+    padding: 28px;
+    border-radius: 12px;
+    border-left: 4px solid var(--accent);
+    page-break-inside: avoid;
+  }
+  .governance-card h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+  .governance-card p {
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  /* ── Competitive Table ── */
+  .comp-table-wrap {
+    overflow-x: auto;
+    margin-top: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    font-size: 14px;
+  }
+  .comp-table th {
+    background: var(--accent);
+    color: white;
+    padding: 14px 16px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+  .comp-table th:first-child {
+    text-align: left;
+    min-width: 200px;
+  }
+  .comp-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+  .comp-table td:first-child {
+    text-align: left;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .comp-table tr:last-child td { border-bottom: none; }
+  .comp-table tr:nth-child(even) { background: #f9fafb; }
+  .comp-check { color: var(--agent-green); font-weight: 700; font-size: 18px; }
+  .comp-partial { color: #d97706; font-weight: 700; font-size: 16px; }
+  .comp-miss { color: #d1d5db; font-size: 18px; }
+  .comp-table .elevatenow-col {
+    background: rgba(30,106,62,0.06);
+  }
+  .comp-table th.elevatenow-col {
+    background: var(--agent-green);
+  }
+
+  /* ── CTA Section ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    color: white;
+    padding: 60px 50px;
+    border-radius: 16px;
+    text-align: center;
+    margin-top: 80px;
+    box-shadow: var(--shadow-lg);
+  }
+  .cta-section h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+  .cta-section p {
+    font-size: 18px;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto 36px;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: white;
+    color: var(--accent);
+  }
+  .btn-primary:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 48px 20px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+
+  /* ── Print Styles ── */
+  @media print {
+    .hero { min-height: auto; padding: 60px 40px; }
+    .container { padding: 30px 40px; }
+    .section { page-break-inside: avoid; }
+    .challenge-card, .value-card, .workflow-phase { page-break-inside: avoid; }
+    .cta-section { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-label">AI-CERTIFIED DATA</div>
+  <h1>Your AI Is Making Decisions on Data <span>Nobody Has Certified</span></h1>
+  <p class="hero-sub">
+    10-dimension data quality certification that ensures only validated, scored, and governed data reaches your AI agents, semantic layers, and automation workflows — shifting data quality from a monitoring dashboard to an enforceable trust control plane.
+  </p>
+  <div class="hero-meta">
+    <span>ElevateNow Intelligence Platform</span>
+    <span>AI Data Governance</span>
+    <span>Regulated Industries</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- THE BUSINESS PROBLEM -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The Challenge</div>
+  <h2>The Uncertified Data Crisis</h2>
+  <p class="section-intro">
+    Every enterprise is deploying AI — agents, copilots, automation workflows. But nobody has asked the foundational question: is the data feeding these systems actually fit for AI consumption? There is no certification gate, no quality score, no trust threshold between raw data and the AI that reasons over it.
+  </p>
+
+  <div class="problem-backdrop">
+    <h3 style="font-size: 24px; margin-bottom: 24px;">The gap between "data exists" and "data is AI-ready" is where enterprise risk now lives:</h3>
+
+    <div class="problem-stat">
+      <div class="stat-card">
+        <div class="stat-number">No Score</div>
+        <div class="stat-label">Data products reach AI with no composite quality signal — just binary pass/fail per rule</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">No Gate</div>
+        <div class="stat-label">DQ tools observe and report — nothing stops uncertified data from reaching the semantic layer</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">No Trail</div>
+        <div class="stat-label">When the regulator asks how AI decided, there's no certification lineage to show</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">No Docs</div>
+        <div class="stat-label">Existing DQ tools validate structured tables — the PDFs and loss runs that drive decisions go unchecked</div>
+      </div>
+    </div>
+
+    <p style="margin-top: 28px; font-size: 17px; line-height: 1.7;">
+      The architecture has fundamentally changed. In the old world, humans mediated between data and decisions — they could smell bad data, catch anomalies, apply judgment. In the agentic world, AI agents autonomously consume data, reason over it, and trigger actions. There is no human in the loop to catch that the loss run was unreadable, the claim amount was implausible, or the policy record was a duplicate. The governance model built for human-mediated decisions does not work when machines consume data at machine speed.
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SPECIFIC CHALLENGES -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">What Goes Wrong</div>
+  <h2>Why Traditional Data Quality Fails in an AI World</h2>
+  <p class="section-intro">
+    The tools enterprises rely on today — Great Expectations, Monte Carlo, Soda — were built for a world where humans reviewed dashboards and made decisions. They were never designed to serve as certification gates for autonomous AI consumption. The gaps are structural, not incremental.
+  </p>
+
+  <div class="challenge-grid">
+    <div class="challenge-card">
+      <div class="challenge-icon">REACTIVE, NOT EMBEDDED</div>
+      <h3>DQ Reports Arrive After AI Has Already Decided</h3>
+      <p>Traditional data quality runs in batch — nightly profiles, weekly reports, monthly reviews. But AI agents consume data in real-time. By the time your DQ dashboard surfaces a completeness issue or a freshness violation, the agent has already auto-adjudicated a claim, triggered a workflow, or fed a recommendation to an underwriter. The governance cadence is fundamentally mismatched to the consumption pattern.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">STRUCTURED ONLY</div>
+      <h3>Nobody Is Validating the Documents</h3>
+      <p>Existing DQ tools validate structured tabular data — database columns, warehouse tables, pipeline outputs. But the critical decisions in insurance are driven by PDFs, loss runs, ACORD forms, scanned submissions, and email attachments. The majority of decision-critical data in insurance lives in documents, not databases. Your DQ tool has an opinion on the SQL table. It has no opinion on whether the OCR'd loss run is readable, complete, or trustworthy.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">BINARY PASS/FAIL</div>
+      <h3>No Composite Trust Signal for AI</h3>
+      <p>Traditional tools give pass/fail per rule. "Null check passed." "Format check failed." But AI needs a holistic quality signal: is this data product, across all relevant dimensions, trustworthy enough to feed an agent? A document that passes completeness but fails semantic coherence and provenance is still dangerous. Without a composite score, there's no trust threshold — no way to say "this data product scores below 60, block it from the semantic layer."</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">NO ENFORCEMENT</div>
+      <h3>Observability Without Authority</h3>
+      <p>Data observability tools tell you data is bad. They don't stop bad data from reaching AI. There's no severity-based gating that intercepts data in the pipeline and says "this doesn't pass certification — route it for remediation before it reaches the agent." DQ becomes a monitoring dashboard that data engineers check on Monday mornings, not an enforcement gate that every data product must pass through before AI consumption.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">NO DOCUMENT SCORING</div>
+      <h3>Unstructured Data Is a Blind Spot</h3>
+      <p>A PDF loss run arrives in the claims pipeline. Can OCR actually read it? Is it a duplicate of a document submitted last week? Does the content make semantic sense — or did a page get scanned out of order? Is the source trustworthy? These are questions that determine whether AI will hallucinate or reason correctly. Today, no tool in the enterprise DQ stack answers them. Documents flow into AI pipelines unscored and uncertified.</p>
+    </div>
+
+    <div class="challenge-card">
+      <div class="challenge-icon">NO AUDIT TRAIL</div>
+      <h3>Regulators Will Ask — You Won't Have an Answer</h3>
+      <p>When the regulator asks "how did your AI decide to deny this claim?", you need to show the data that fed the decision, its quality score, when it was certified, and what threshold it passed. Today, that trail doesn't exist. Compliance teams scramble to reconstruct data lineage after the fact — pulling logs, interviewing engineers, piecing together what data was where and when. The certification should have happened before AI consumption, not after the regulatory inquiry.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- TRADITIONAL APPROACHES -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">How Companies Operate Today</div>
+  <h2>The Broken Data Quality Operating Model</h2>
+  <p class="section-intro">
+    Most enterprises have invested in data quality tooling. The problem isn't that they lack tools — it's that the tools operate in a parallel universe from the AI systems consuming data. Quality is measured but never enforced. Issues are flagged but never gated. The DQ stack and the AI stack are disconnected.
+  </p>
+
+  <div class="workflow-container">
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">STEP 1</div>
+        <div class="workflow-title">Data Team Configures Rule-Based Validation</div>
+      </div>
+      <p class="workflow-desc">
+        Data engineers set up Great Expectations or Soda checks on warehouse tables. Null checks, format validation, type enforcement, uniqueness constraints. The rules cover structured data well — database columns, pipeline outputs, staging tables. But no checks exist for the documents, PDFs, and scanned forms that drive critical business decisions. The validation layer covers half the data landscape and ignores the half that matters most.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> Structured data only</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> No document validation</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> No composite scoring</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">STEP 2</div>
+        <div class="workflow-title">DQ Dashboard Shows Failures — Nobody Prioritizes Them</div>
+      </div>
+      <p class="workflow-desc">
+        The dashboard lights up: 47 failing checks across 12 data sources. But there's no severity framework — a missing middle name and a corrupted claim amount get the same "failed" status. Data engineers triage based on intuition, not impact. High-severity issues affecting AI decision quality sit in the same backlog as cosmetic formatting problems. Nobody has a framework to say "this failure will cause AI to hallucinate — fix it now."
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> No severity-based prioritization</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> Triage by intuition, not impact</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> No connection to AI consumption</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">STEP 3</div>
+        <div class="workflow-title">AI Team Builds on Top — No Gate Between DQ and AI</div>
+      </div>
+      <p class="workflow-desc">
+        The AI team builds agents, semantic layers, and automation workflows on top of the same data. They assume the data team has quality covered. The data team assumes the AI team validates inputs. Neither team has built a gate between them. The DQ dashboard and the AI pipeline operate independently. Data that the DQ tool flagged as problematic flows directly into agent reasoning — there's no enforcement mechanism connecting the two systems.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> DQ and AI stacks disconnected</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> No enforcement between quality and consumption</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> Shared assumption, no shared gate</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">STEP 4</div>
+        <div class="workflow-title">AI Decides on Uncertified Data — Regulator Asks Questions</div>
+      </div>
+      <p class="workflow-desc">
+        An agent auto-adjudicates a claim using a loss run that OCR couldn't fully read (processability gap), a policy record with a duplicate entity (no entity resolution), and a claimant name that doesn't match across systems (consistency failure). The decision is wrong. The claimant appeals. The regulator asks for the data certification trail — what quality score did the data carry, when was it certified, what threshold did it pass? The trail doesn't exist. The enterprise is now defending an AI decision that was made on data nobody certified.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> AI decision made on uncertified data</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> No certification trail for regulators</div>
+        <div class="outcome-item"><span class="outcome-icon" style="color: var(--warning);">✗</span> Reactive scramble to reconstruct lineage</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- 10 DIMENSIONS -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The Certification Framework</div>
+  <h2>10 Dimensions of Data Quality Certification</h2>
+  <p class="section-intro">
+    Every data product — structured or unstructured — is scored 0–100 across all 10 dimensions. The composite score becomes the trust signal for AI consumption. Only data products that pass the certification threshold reach the semantic layer and AI agents.
+  </p>
+
+  <div class="dimension-grid">
+    <div class="dimension-card">
+      <div class="dimension-number">01</div>
+      <div class="dimension-name">Processability</div>
+      <div class="dimension-question">Can we read it?</div>
+    </div>
+    <div class="dimension-card">
+      <div class="dimension-number">02</div>
+      <div class="dimension-name">Completeness</div>
+      <div class="dimension-question">Is everything there?</div>
+    </div>
+    <div class="dimension-card">
+      <div class="dimension-number">03</div>
+      <div class="dimension-name">Accuracy</div>
+      <div class="dimension-question">Are values correct?</div>
+    </div>
+    <div class="dimension-card">
+      <div class="dimension-number">04</div>
+      <div class="dimension-name">Consistency</div>
+      <div class="dimension-question">Does it agree across sources?</div>
+    </div>
+    <div class="dimension-card">
+      <div class="dimension-number">05</div>
+      <div class="dimension-name">Currency</div>
+      <div class="dimension-question">Is it current enough?</div>
+    </div>
+    <div class="dimension-card">
+      <div class="dimension-number">06</div>
+      <div class="dimension-name">Duplication</div>
+      <div class="dimension-question">Have we seen this before?</div>
+    </div>
+    <div class="dimension-card">
+      <div class="dimension-number">07</div>
+      <div class="dimension-name">Conformity</div>
+      <div class="dimension-question">Does it follow the expected format?</div>
+    </div>
+    <div class="dimension-card">
+      <div class="dimension-number">08</div>
+      <div class="dimension-name">Referential Integrity</div>
+      <div class="dimension-question">Do references resolve?</div>
+    </div>
+    <div class="dimension-card">
+      <div class="dimension-number">09</div>
+      <div class="dimension-name">Semantic Coherence</div>
+      <div class="dimension-question">Does the content make sense?</div>
+    </div>
+    <div class="dimension-card">
+      <div class="dimension-number">10</div>
+      <div class="dimension-name">Provenance</div>
+      <div class="dimension-question">Can we trust the source?</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- ELEVATENOW SOLUTION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The ElevateNow Approach</div>
+  <h2>Three-Module AI Data Certification</h2>
+  <p class="section-intro">
+    ElevateNow's certification platform replaces the disconnected "observe and report" model with an integrated pipeline that scores, gates, and certifies every data product before AI consumption. Three modules — intelligence, enforcement, and document certification — work together to create the trust control plane that regulated industries require.
+  </p>
+
+  <div class="workflow-container">
+    <div class="workflow-phase" style="border-left-color: var(--agent-green);">
+      <div class="workflow-header">
+        <div class="workflow-badge" style="background: #f0fdf4; color: var(--agent-green);">SDQ</div>
+        <div class="workflow-title">Structured Data Quality — The Intelligence Layer</div>
+      </div>
+      <p class="workflow-desc">
+        Goes beyond rule-based validation into statistical anomaly detection and cross-field consistency. Not just "is this field null?" but "is this claim amount statistically plausible given the policy type, coverage limit, and loss history?" Rule-based validation catches the obvious. Statistical plausibility catches the subtle. Cross-field consistency catches the contradictions. The composite score aggregates all dimensions into a single trust signal: this data product scores 78/100 — certified for AI consumption.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Rule-based + statistical anomaly detection</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Cross-field consistency validation</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Composite 0–100 trust score per data product</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase" style="border-left-color: var(--agent-green);">
+      <div class="workflow-header">
+        <div class="workflow-badge" style="background: #f0fdf4; color: var(--agent-green);">PDQ</div>
+        <div class="workflow-title">Proactive Data Quality — The Enforcement Layer</div>
+      </div>
+      <p class="workflow-desc">
+        Pipeline-embedded SDK that intercepts data before it reaches AI. This is the shift from "observe and report" to "enforce and certify." Severity-based gating: CRITICAL issues (score below 40) block data from the semantic layer entirely. HIGH issues (40–60) route to human review with remediation recommendations. MEDIUM issues (60–80) pass with quality annotations attached. Centralized rule governance means a certification rule defined once propagates across all pipelines. Auto-profiling continuously monitors for drift — when data quality degrades, the gate tightens automatically.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Pipeline-embedded enforcement, not dashboard reporting</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Severity-based gating (block / review / pass)</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Centralized rule governance + auto-profiling</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase" style="border-left-color: var(--agent-green);">
+      <div class="workflow-header">
+        <div class="workflow-badge" style="background: #f0fdf4; color: var(--agent-green);">UDQ</div>
+        <div class="workflow-title">Unstructured Data Quality — The Document Certification Layer</div>
+      </div>
+      <p class="workflow-desc">
+        The capability that no existing DQ tool provides. Every document — PDF, loss run, ACORD form, scanned submission — is scored 0–100 across all 10 quality dimensions. OCR intelligence assesses processability. Duplicate detection flags documents already in the system. Provenance verification traces the source. Semantic coherence checks whether the content makes sense or if pages are missing, misordered, or corrupted. Only certified documents pass through to AI agents. The insurance industry runs on documents — this module certifies the data that actually drives decisions.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> 10-dimension scoring for every document</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> OCR intelligence + duplicate detection</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Provenance verification + semantic coherence</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase" style="border-left-color: var(--agent-green);">
+      <div class="workflow-header">
+        <div class="workflow-badge" style="background: #f0fdf4; color: var(--agent-green);">PIPELINE</div>
+        <div class="workflow-title">The Certification Pipeline — From Raw Data to AI-Certified Data Products</div>
+      </div>
+      <p class="workflow-desc">
+        The three modules feed into a unified certification pipeline. Raw data enters, passes through DQ certification, PII detection and redaction, and entity resolution. Data products that pass all gates receive AI Readiness Certification and are published to the Data Product Registry. The Registry acts as the trust control plane — only certified data products are discoverable by the semantic layer and consumable by AI agents. Every certification carries a quality score, timestamp, and full lineage trail.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Unified pipeline: DQ → PII → Entity Resolution → Certification</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Data Product Registry as trust control plane</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span> Every certification scored, timestamped, and traceable</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pipeline Visual -->
+  <div class="pipeline-strip">
+    <div class="pipeline-node">
+      <div class="pipeline-node-label">Input</div>
+      <div class="pipeline-node-name">Raw Data</div>
+    </div>
+    <div class="pipeline-node cert">
+      <div class="pipeline-node-label">Certify</div>
+      <div class="pipeline-node-name">DQ Certification</div>
+    </div>
+    <div class="pipeline-node cert">
+      <div class="pipeline-node-label">Protect</div>
+      <div class="pipeline-node-name">PII Detection & Redaction</div>
+    </div>
+    <div class="pipeline-node cert">
+      <div class="pipeline-node-label">Resolve</div>
+      <div class="pipeline-node-name">Entity Resolution</div>
+    </div>
+    <div class="pipeline-node gate">
+      <div class="pipeline-node-label">Gate</div>
+      <div class="pipeline-node-name">AI Readiness Certification</div>
+    </div>
+    <div class="pipeline-node gate">
+      <div class="pipeline-node-label">Registry</div>
+      <div class="pipeline-node-name">Data Product Registry</div>
+    </div>
+    <div class="pipeline-node consume">
+      <div class="pipeline-node-label">Consume</div>
+      <div class="pipeline-node-name">Semantic Layer → AI Agents</div>
+    </div>
+  </div>
+  <p class="pipeline-caption">The Registry acts as the trust control plane governing AI consumption. Nothing reaches agents without certification.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- COMPETITIVE POSITIONING -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Competitive Positioning</div>
+  <h2>What Others Don't Do</h2>
+  <p class="section-intro">
+    Great Expectations, Monte Carlo, and Soda are capable tools for parts of the data quality problem. But none of them were built to serve as a certification layer for AI consumption. The gaps are not bugs — they're architectural choices made for a pre-AI world.
+  </p>
+
+  <div class="comp-table-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Capability</th>
+          <th>Great Expectations</th>
+          <th>Monte Carlo</th>
+          <th>Soda</th>
+          <th class="elevatenow-col">ElevateNow</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Rule-Based Validation</td>
+          <td><span class="comp-check">✓</span></td>
+          <td><span class="comp-check">✓</span></td>
+          <td><span class="comp-check">✓</span></td>
+          <td class="elevatenow-col"><span class="comp-check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Pipeline Enforcement</td>
+          <td><span class="comp-partial">◐</span></td>
+          <td><span class="comp-miss">—</span></td>
+          <td><span class="comp-partial">◐</span></td>
+          <td class="elevatenow-col"><span class="comp-check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Severity-Based Gating</td>
+          <td><span class="comp-miss">—</span></td>
+          <td><span class="comp-miss">—</span></td>
+          <td><span class="comp-miss">—</span></td>
+          <td class="elevatenow-col"><span class="comp-check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Auto-Profiling</td>
+          <td><span class="comp-partial">◐</span></td>
+          <td><span class="comp-check">✓</span></td>
+          <td><span class="comp-partial">◐</span></td>
+          <td class="elevatenow-col"><span class="comp-check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Central Rule Propagation</td>
+          <td><span class="comp-miss">—</span></td>
+          <td><span class="comp-miss">—</span></td>
+          <td><span class="comp-miss">—</span></td>
+          <td class="elevatenow-col"><span class="comp-check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Unstructured / Document Validation</td>
+          <td><span class="comp-miss">—</span></td>
+          <td><span class="comp-miss">—</span></td>
+          <td><span class="comp-miss">—</span></td>
+          <td class="elevatenow-col"><span class="comp-check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Statistical Plausibility</td>
+          <td><span class="comp-partial">◐</span></td>
+          <td><span class="comp-check">✓</span></td>
+          <td><span class="comp-miss">—</span></td>
+          <td class="elevatenow-col"><span class="comp-check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Composite Risk Scoring</td>
+          <td><span class="comp-miss">—</span></td>
+          <td><span class="comp-miss">—</span></td>
+          <td><span class="comp-miss">—</span></td>
+          <td class="elevatenow-col"><span class="comp-check">✓</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- VALUE PROPOSITION -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Why ElevateNow</div>
+  <h2>From Monitoring Dashboard to Trust Control Plane</h2>
+  <p class="section-intro">
+    The shift isn't incremental. It's architectural. ElevateNow replaces the disconnected observe-and-report model with an integrated certification pipeline that scores, gates, and audits every data product before AI touches it.
+  </p>
+
+  <div class="value-grid">
+    <div class="value-card">
+      <div class="value-icon">COMPOSITE SCORING</div>
+      <h4>One Trust Signal, Not a List of Rule Results</h4>
+      <p>AI doesn't need to know that 14 of 23 rules passed. AI needs a single, composite trust score: this data product scores 78/100 across 10 dimensions — certified for consumption. The composite score collapses complexity into a decision-ready signal. Below threshold? Blocked. Above threshold? Certified. Every score is explainable — drill into any dimension to see what contributed to the rating.</p>
+      <div class="value-metric">From binary pass/fail to holistic 0–100 trust certification</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">PIPELINE ENFORCEMENT</div>
+      <h4>Data That Fails Certification Never Reaches AI</h4>
+      <p>Severity-based gating embedded in the data pipeline — not a dashboard you check later. CRITICAL issues block consumption entirely. HIGH issues route to human review with specific remediation actions. MEDIUM issues pass with quality annotations attached so AI agents can weight their confidence accordingly. The gate is automatic, always-on, and operates at pipeline speed. Bad data doesn't slip through while someone is on vacation.</p>
+      <div class="value-metric">From "observe and report" to "enforce and certify"</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">DOCUMENT CERTIFICATION</div>
+      <h4>Structured + Unstructured Under One Framework</h4>
+      <p>The same 10-dimension framework that certifies database tables also certifies PDFs, loss runs, ACORD forms, and scanned submissions. Insurance doesn't make decisions on SQL alone. The loss run that triggers a claim decision, the submission document that informs underwriting, the ACORD form that binds a policy — these documents carry the data that matters most and have been invisible to DQ tools until now.</p>
+      <div class="value-metric">From structured-only validation to full data landscape certification</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">AUDIT TRAIL</div>
+      <h4>Every AI Decision Traceable to Certified Data</h4>
+      <p>Every data product that passes through the certification pipeline carries a quality score, certification timestamp, dimension breakdown, and full lineage trail. When the regulator asks "how did your AI decide?", you show the certification record: this data product scored 82/100 at 2:47 PM on March 1st, passed the 70-point threshold, and was consumed by the claims adjudication agent at 2:48 PM. The trail is built at certification time, not reconstructed after the inquiry.</p>
+      <div class="value-metric">From retroactive scramble to proactive regulatory defensibility</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">DRIFT DETECTION</div>
+      <h4>Certification Isn't One-Time — It's Continuous</h4>
+      <p>Auto-profiling monitors data quality continuously against freshness SLAs and drift thresholds. A data product certified last week may no longer qualify today — schema changed, source degraded, completeness dropped. When drift is detected, the certification is revoked and the data product is pulled from the Registry until re-certification. AI never consumes stale or degraded data because the gate responds to change in real-time.</p>
+      <div class="value-metric">From point-in-time validation to continuous certification</div>
+    </div>
+
+    <div class="value-card">
+      <div class="value-icon">CENTRALIZED GOVERNANCE</div>
+      <h4>Define Once, Enforce Everywhere</h4>
+      <p>Certification rules are defined centrally and propagate across all data pipelines automatically. A new rule — "all PII fields must be redacted before AI consumption" — is defined once in the governance layer and immediately enforced across every pipeline, every data product, every certification gate. No pipeline-by-pipeline configuration. No inconsistent rule versions across teams. One source of truth for what "certified" means.</p>
+      <div class="value-metric">From fragmented rule management to unified certification governance</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- GOVERNANCE & TRUST -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Trust Architecture</div>
+  <h2>How Certification Builds Confidence Across the Enterprise</h2>
+  <p class="section-intro">
+    Data quality certification isn't a technical feature — it's an organizational confidence mechanism. When the CDO, the CRO, the compliance team, and the AI engineering team all trust the same certification framework, AI adoption accelerates because the risk conversation changes from "is the data safe?" to "the data is certified."
+  </p>
+
+  <div class="governance-grid">
+    <div class="governance-card">
+      <h4>10-Dimension Scoring as Intellectual Foundation</h4>
+      <p>The 10-dimension framework (Processability, Completeness, Accuracy, Consistency, Currency, Duplication, Conformity, Referential Integrity, Semantic Coherence, Provenance) provides a shared vocabulary across business, technical, and compliance stakeholders. When the data team says "this product scores 82," everyone understands what that means — and can drill into any dimension to understand why.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Severity Gating with Escalation Paths</h4>
+      <p>Not all quality failures are equal. A missing middle name and a corrupted claim amount should not receive the same treatment. Severity-based gating routes CRITICAL failures to immediate block, HIGH failures to human review with remediation guidance, and MEDIUM issues to pass-with-annotation. The escalation paths are configurable per data domain — claims data may have tighter thresholds than marketing data.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Data Product Registry as Control Plane</h4>
+      <p>The Registry is the single catalog of certified data products available for AI consumption. It acts as the control plane — AI agents and semantic layers discover and consume data through the Registry, never directly from source systems. If a data product's certification is revoked (due to drift, freshness violation, or re-profiling failure), it disappears from the Registry and AI can no longer access it. The Registry is the trust boundary.</p>
+    </div>
+
+    <div class="governance-card">
+      <h4>Certification Lineage for Regulatory Readiness</h4>
+      <p>Every certification event generates an immutable record: data product ID, certification timestamp, composite score, per-dimension breakdown, threshold applied, gate decision (pass/review/block), and consuming system. This lineage is designed for regulatory inquiry — not as an afterthought, but as a primary output of the certification process. When the auditor arrives, the records already exist.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- REAL-WORLD OUTCOMES -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Certification in Practice</div>
+  <h2>Three Data Products, Three Certification Outcomes</h2>
+  <p class="section-intro">
+    The certification pipeline produces clear, actionable outcomes for every data product. Some pass and flow to AI immediately. Some need targeted remediation. Some are blocked until structural issues are resolved. The point is that every outcome is visible and intentional — no data reaches AI by accident.
+  </p>
+
+  <div class="challenge-grid">
+    <div class="challenge-card" style="border-top-color: #166534;">
+      <div class="challenge-icon" style="background: #f0fdf4; color: #166534;">CERTIFIED — PASS</div>
+      <h3>Policy Master Database → High Score, Cleared for AI Consumption</h3>
+      <p><strong>Assessment:</strong> Schema stable across all monitored periods. Referential integrity strong — foreign keys resolve cleanly to downstream tables. Completeness meets threshold on all required fields. Freshness within SLA (updated within the last 24 hours). No statistical anomalies detected. Provenance verified through known ETL pipeline from system of record.</p>
+      <p><strong>Outcome:</strong> Certified and published to Data Product Registry. AI agents and semantic layer consume with full confidence. Certification auto-renews on each pipeline run as long as scores remain above threshold.</p>
+      <p style="margin-top:16px;font-weight:600;color:#166534;">Status: Certified · Published to Registry · AI Consumption Approved</p>
+    </div>
+
+    <div class="challenge-card" style="border-top-color: #d97706;">
+      <div class="challenge-icon" style="background: #fffbeb; color: #d97706;">CONDITIONAL — REMEDIATE</div>
+      <h3>Claims Loss Run Documents → Medium Score, Routed for Review</h3>
+      <p><strong>Assessment:</strong> Processability issues — OCR confidence below threshold on scanned PDFs with poor image quality. Duplicate detection flagged repeated submissions of the same loss run across multiple claim files. Provenance unverified for a subset of documents received via email attachment rather than secure upload. Semantic coherence passed — content is logical where readable.</p>
+      <p><strong>Remediation:</strong> Re-scan low-quality documents at higher resolution. Deduplicate flagged submissions. Establish provenance verification for email-sourced documents. Post-remediation re-certification expected to clear the gate.</p>
+      <p style="margin-top:16px;font-weight:600;color:#d97706;">Status: Held for Remediation · Not Available to AI · Re-Certification Required</p>
+    </div>
+
+    <div class="challenge-card" style="border-top-color: #991b1b;">
+      <div class="challenge-icon" style="background: #fef2f2; color: #991b1b;">BLOCKED — STRUCTURAL REWORK</div>
+      <h3>Legacy Billing Extracts → Low Score, Blocked from AI Consumption</h3>
+      <p><strong>Assessment:</strong> Semantic coherence failed — field meanings shifted after a system migration two years ago, and column definitions no longer match actual content. Referential integrity broken — foreign keys reference tables in a decommissioned system. Currency violations — the most recent data refresh is over 18 months old. Completeness failures across core fields required for AI reasoning.</p>
+      <p><strong>Outcome:</strong> Blocked from Data Product Registry entirely. No certification path exists without structural rework — re-mapping field definitions, establishing new referential links, sourcing current data. AI agents cannot discover or consume this data product until the structural issues are resolved and re-certification passes.</p>
+      <p style="margin-top:16px;font-weight:600;color:#991b1b;">Status: Blocked · Structural Rework Required · AI Consumption Prohibited</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- CTA -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="cta-section">
+  <h2>Ready to Certify Your Data Before AI Consumes It?</h2>
+  <p>See how ElevateNow's AI-Certified Data platform can score, gate, and certify every data product — structured and unstructured — before it reaches your AI agents, semantic layers, and automation workflows.</p>
+  <div class="cta-buttons">
+    <a href="#" class="btn btn-primary">Request Certification Assessment</a>
+    <a href="#" class="btn btn-secondary">Technical Deep Dive</a>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  <p>
+    ElevateNow · AI-Certified Data: Data Quality Certification for AI Consumption<br>
+    © 2026 ElevateNow. Proprietary & Confidential.
+  </p>
+</div>
+
+</body>
+</html>

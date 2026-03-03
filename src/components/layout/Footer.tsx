@@ -4,6 +4,18 @@ export default function Footer() {
   const { isDark } = useTheme();
   const currentYear = new Date().getFullYear();
 
+  const handleSchedule = () => {
+    const subject = encodeURIComponent('Meeting Request - ElevateNow');
+    const body = encodeURIComponent(
+      `Hi,\n\nI'd like to schedule a meeting to discuss how ElevateNow can help our insurance operations.\n\nPlease let me know your available times.\n\nThank you.`
+    );
+    window.location.href = `mailto:gps@elevatenow.tech?subject=${subject}&body=${body}`;
+  };
+
+  const handleContact = () => {
+    window.location.href = 'mailto:gps@elevatenow.tech';
+  };
+
   return (
     <footer className={`py-12 px-6 border-t ${
       isDark 
@@ -11,7 +23,7 @@ export default function Footer() {
         : 'bg-white border-lt-border'
     }`}>
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div>
             <img 
@@ -19,14 +31,14 @@ export default function Footer() {
               alt="ElevateNow" 
               className="h-7 w-auto mb-3"
             />
-            <p className={`text-sm leading-relaxed ${
+            <p className={`text-sm leading-relaxed mb-4 ${
               isDark ? 'text-en-muted' : 'text-lt-text-secondary'
             }`}>
               Governance-first agentic AI for insurance operations
             </p>
           </div>
 
-          {/* Links */}
+          {/* Resources */}
           <div>
             <h3 className={`text-sm font-semibold mb-3 ${
               isDark ? 'text-en-white' : 'text-lt-text'
@@ -73,7 +85,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact Info */}
           <div>
             <h3 className={`text-sm font-semibold mb-3 ${
               isDark ? 'text-en-white' : 'text-lt-text'
@@ -104,6 +116,37 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
+          </div>
+
+          {/* Actions */}
+          <div>
+            <h3 className={`text-sm font-semibold mb-3 ${
+              isDark ? 'text-en-white' : 'text-lt-text'
+            }`}>
+              Connect
+            </h3>
+            <div className="space-y-3">
+              <button
+                onClick={handleContact}
+                className={`block w-full text-sm font-medium px-4 py-2.5 rounded-lg transition-all text-center ${
+                  isDark
+                    ? 'bg-en-cyan/10 text-en-cyan border border-en-cyan/30 hover:bg-en-cyan/20'
+                    : 'bg-en-blue/10 text-en-blue border border-en-blue/30 hover:bg-en-blue/20'
+                }`}
+              >
+                ✉️ Contact Us
+              </button>
+              <button
+                onClick={handleSchedule}
+                className={`block w-full text-sm font-medium px-4 py-2.5 rounded-lg transition-all text-center ${
+                  isDark
+                    ? 'bg-en-purple/10 text-en-purple border border-en-purple/30 hover:bg-en-purple/20'
+                    : 'bg-purple-600/10 text-purple-600 border border-purple-600/30 hover:bg-purple-600/20'
+                }`}
+              >
+                📅 Schedule a Meeting
+              </button>
+            </div>
           </div>
         </div>
 
