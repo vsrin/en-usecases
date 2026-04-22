@@ -13,10 +13,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
           {/* Left — brand + tagline */}
           <div className="flex items-center gap-3">
-            <img src="/EN-Blue.png" alt="" className="h-[18px] w-auto" aria-hidden="true" />
-            <span className="font-mono text-[11px] font-semibold tracking-[0.12em] uppercase text-ink">
-              ELEVATENOW
-            </span>
+            <img src="/Elevatenow-Logo.svg" alt="Elevatenow" className="h-[22px] w-auto" />
             <span className="font-mono text-[10px] tracking-[0.16em] uppercase text-ink-4 hidden sm:inline">
               · INSIGHTS
             </span>

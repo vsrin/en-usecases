@@ -17,12 +17,13 @@ export default function Navbar() {
       style={{ background: '#FFFFFF' }}
     >
       <div className="max-w-[1180px] mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
-        {/* Left — Logo + wordmark + subtitle */}
+        {/* Left — Full Elevatenow lockup (mark + wordmark) + Insights subtitle */}
         <Link to="/" className="flex items-center gap-3 group" aria-label="ElevateNow Insights home">
-          <img src="/EN-Blue.png" alt="" className="h-[18px] w-auto" aria-hidden="true" />
-          <span className="font-mono text-[11px] font-semibold tracking-[0.12em] uppercase text-ink group-hover:text-accent transition-colors">
-            ELEVATENOW
-          </span>
+          <img
+            src="/Elevatenow-Logo.svg"
+            alt="Elevatenow"
+            className="h-[22px] w-auto group-hover:opacity-80 transition-opacity"
+          />
           <span className="font-mono text-[10px] tracking-[0.16em] uppercase text-ink-4 hidden sm:inline">
             · INSIGHTS
           </span>
