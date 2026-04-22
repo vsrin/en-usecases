@@ -16,26 +16,26 @@ export default function Navbar() {
       className="sticky top-0 z-50 border-b border-rule"
       style={{ background: '#FFFFFF' }}
     >
-      <div className="max-w-[1180px] mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
+      <div className="max-w-[1180px] mx-auto px-6 md:px-12 h-[76px] flex items-center justify-between">
         {/* Left — Full Elevatenow lockup (mark + wordmark) + Insights subtitle */}
-        <Link to="/" className="flex items-center gap-3 group" aria-label="ElevateNow Insights home">
+        <Link to="/" className="flex items-center gap-4 group" aria-label="ElevateNow Insights home">
           <img
             src="/Elevatenow-Logo.svg"
             alt="Elevatenow"
-            className="h-[22px] w-auto group-hover:opacity-80 transition-opacity"
+            className="h-[34px] w-auto group-hover:opacity-80 transition-opacity"
           />
-          <span className="font-mono text-[10px] tracking-[0.16em] uppercase text-ink-4 hidden sm:inline">
+          <span className="font-mono text-[12px] tracking-[0.18em] uppercase text-ink-4 hidden sm:inline">
             · INSIGHTS
           </span>
         </Link>
 
         {/* Right — nav */}
-        <div className="flex items-center gap-5 md:gap-7">
+        <div className="flex items-center gap-7 md:gap-9">
           <NavLink
             to="/products"
             className={({ isActive }) =>
-              `font-sans text-[13px] tracking-[0.02em] transition-colors ${
-                isActive || pathname.startsWith('/product') ? 'text-accent' : 'text-ink-3 hover:text-ink'
+              `font-sans text-[15px] tracking-[0.01em] transition-colors ${
+                isActive || pathname.startsWith('/product') ? 'text-accent font-medium' : 'text-ink-2 hover:text-ink'
               }`
             }
           >
@@ -44,8 +44,8 @@ export default function Navbar() {
           <NavLink
             to="/usecases"
             className={({ isActive }) =>
-              `font-sans text-[13px] tracking-[0.02em] transition-colors ${
-                isActive || pathname.startsWith('/use-case') ? 'text-accent' : 'text-ink-3 hover:text-ink'
+              `font-sans text-[15px] tracking-[0.01em] transition-colors ${
+                isActive || pathname.startsWith('/use-case') ? 'text-accent font-medium' : 'text-ink-2 hover:text-ink'
               }`
             }
           >
@@ -55,9 +55,9 @@ export default function Navbar() {
             href="https://elevatenow.tech"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-sans text-[13px] tracking-[0.02em] text-ink-4 hover:text-accent transition-colors inline-flex items-center gap-1"
+            className="font-sans text-[15px] tracking-[0.01em] text-ink-3 hover:text-accent transition-colors inline-flex items-center gap-1.5"
           >
-            elevatenow.tech <ExternalLink size={11} />
+            elevatenow.tech <ExternalLink size={13} />
           </a>
         </div>
       </div>
