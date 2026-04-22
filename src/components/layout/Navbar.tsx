@@ -1,56 +1,63 @@
-import { Link, useLocation } from 'react-router-dom';
-import { Moon, Sun, ArrowLeft } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { ExternalLink } from 'lucide-react';
 
+/**
+ * ElevateNow Insights top bar — matches the demoboard brand block exactly.
+ *   [EN logo]  ELEVATENOW · INSIGHTS           Products   Usecases   ↗ elevatenow.tech
+ *
+ * Sticky, 95% white with blur, hairline bottom border. Feels native to the
+ * demoboard chrome so an embedded demoboard doesn't re-chrome.
+ */
 export default function Navbar() {
-  const { isDark, toggleTheme } = useTheme();
-  const location = useLocation();
-  const isDetailPage = location.pathname.startsWith('/use-case/');
+  const { pathname } = useLocation();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-en-navy/98 backdrop-blur-xl border-b border-en-border shadow-lg">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        {/* Left side - Logo or Back button */}
-        <div className="flex items-center gap-4">
-          {isDetailPage ? (
-            <Link 
-              to="/" 
-              className="inline-flex items-center gap-2 text-sm font-medium text-en-muted hover:text-en-white transition-colors"
-            >
-              <ArrowLeft size={18} />
-              Back to Library
-            </Link>
-          ) : (
-            <Link to="/" className="flex items-center gap-3 group">
-              <img 
-                src="/elevatenowlogo.png" 
-                alt="ElevateNow" 
-                className="h-8 w-auto"
-              />
-              <span className="text-sm px-3 py-1 rounded-full bg-en-cyan/10 text-en-cyan border border-en-cyan/20">
-                Use Cases
-              </span>
-            </Link>
-          )}
-        </div>
+    <nav
+      className="sticky top-0 z-50 border-b border-rule"
+      style={{ background: '#FFFFFF' }}
+    >
+      <div className="max-w-[1180px] mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
+        {/* Left — Logo + wordmark + subtitle */}
+        <Link to="/" className="flex items-center gap-3 group" aria-label="ElevateNow Insights home">
+          <img src="/EN-Blue.png" alt="" className="h-[18px] w-auto" aria-hidden="true" />
+          <span className="font-mono text-[11px] font-semibold tracking-[0.12em] uppercase text-ink group-hover:text-accent transition-colors">
+            ELEVATENOW
+          </span>
+          <span className="font-mono text-[10px] tracking-[0.16em] uppercase text-ink-4 hidden sm:inline">
+            · INSIGHTS
+          </span>
+        </Link>
 
-        {/* Right side - Actions */}
-        <div className="flex items-center gap-4">
+        {/* Right — nav */}
+        <div className="flex items-center gap-5 md:gap-7">
+          <NavLink
+            to="/products"
+            className={({ isActive }) =>
+              `font-sans text-[13px] tracking-[0.02em] transition-colors ${
+                isActive || pathname.startsWith('/product') ? 'text-accent' : 'text-ink-3 hover:text-ink'
+              }`
+            }
+          >
+            Products
+          </NavLink>
+          <NavLink
+            to="/usecases"
+            className={({ isActive }) =>
+              `font-sans text-[13px] tracking-[0.02em] transition-colors ${
+                isActive || pathname.startsWith('/use-case') ? 'text-accent' : 'text-ink-3 hover:text-ink'
+              }`
+            }
+          >
+            Usecases
+          </NavLink>
           <a
             href="https://elevatenow.tech"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-medium text-en-muted hover:text-en-white transition-colors"
+            className="font-sans text-[13px] tracking-[0.02em] text-ink-4 hover:text-accent transition-colors inline-flex items-center gap-1"
           >
-            Main Site
+            elevatenow.tech <ExternalLink size={11} />
           </a>
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg bg-white/10 hover:bg-white/15 text-en-white transition-all hover:scale-110"
-            aria-label="Toggle theme"
-          >
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
         </div>
       </div>
     </nav>

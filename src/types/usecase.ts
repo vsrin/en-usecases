@@ -1,3 +1,9 @@
+/**
+ * Use case = a field story / published analysis that exercises one or more
+ * ElevateNow products. The "category" label remains for LOB/function navigation;
+ * product linkage (via ProductMeta.useCaseSlugs) is the primary organizing axis.
+ */
+
 export type UseCaseCategory =
   | 'underwriting'
   | 'claims'
@@ -20,15 +26,15 @@ export interface UseCaseMeta {
   estimatedReadMin: number;
   detailType: 'component' | 'html';
   htmlPath?: string;
-  keyQuestion: string;           // The intellectual hook — why this matters
+  keyQuestion: string;
   summary: string;
 }
 
-export const CATEGORY_CONFIG: Record<UseCaseCategory, { label: string; color: string }> = {
-  underwriting:  { label: 'Underwriting',  color: '#3b82f6' },
-  claims:        { label: 'Claims',        color: '#f59e0b' },
-  actuarial:     { label: 'Actuarial',     color: '#8b5cf6' },
-  compliance:    { label: 'Compliance',    color: '#ef4444' },
-  operations:    { label: 'Operations',    color: '#14b8a6' },
-  distribution:  { label: 'Distribution',  color: '#ec4899' },
+export const CATEGORY_CONFIG: Record<UseCaseCategory, { label: string }> = {
+  underwriting: { label: 'Underwriting' },
+  claims:       { label: 'Claims' },
+  actuarial:    { label: 'Actuarial' },
+  compliance:   { label: 'Compliance' },
+  operations:   { label: 'Operations' },
+  distribution: { label: 'Distribution' },
 };

@@ -1,163 +1,45 @@
-import { useTheme } from '../../context/ThemeContext';
+import { Link } from 'react-router-dom';
 
+/**
+ * Minimal editorial footer — mono meta left, contact right, hairline top rule.
+ * Mirrors the footer convention of the demoboard exhibits.
+ */
 export default function Footer() {
-  const { isDark } = useTheme();
-  const currentYear = new Date().getFullYear();
-
-  const handleSchedule = () => {
-    const subject = encodeURIComponent('Meeting Request - ElevateNow');
-    const body = encodeURIComponent(
-      `Hi,\n\nI'd like to schedule a meeting to discuss how ElevateNow can help our insurance operations.\n\nPlease let me know your available times.\n\nThank you.`
-    );
-    window.location.href = `mailto:gps@elevatenow.tech?subject=${subject}&body=${body}`;
-  };
-
-  const handleContact = () => {
-    window.location.href = 'mailto:gps@elevatenow.tech';
-  };
+  const year = new Date().getFullYear();
 
   return (
-    <footer className={`py-12 px-6 border-t ${
-      isDark 
-        ? 'bg-en-navy border-en-border' 
-        : 'bg-white border-lt-border'
-    }`}>
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* Brand */}
-          <div>
-            <img 
-              src="/elevatenowlogo.png" 
-              alt="ElevateNow" 
-              className="h-7 w-auto mb-3"
-            />
-            <p className={`text-sm leading-relaxed mb-4 ${
-              isDark ? 'text-en-muted' : 'text-lt-text-secondary'
-            }`}>
-              Governance-first agentic AI for insurance operations
-            </p>
+    <footer className="border-t border-rule mt-20">
+      <div className="max-w-[1180px] mx-auto px-6 md:px-12 py-10">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+          {/* Left — brand + tagline */}
+          <div className="flex items-center gap-3">
+            <img src="/EN-Blue.png" alt="" className="h-[18px] w-auto" aria-hidden="true" />
+            <span className="font-mono text-[11px] font-semibold tracking-[0.12em] uppercase text-ink">
+              ELEVATENOW
+            </span>
+            <span className="font-mono text-[10px] tracking-[0.16em] uppercase text-ink-4 hidden sm:inline">
+              · INSIGHTS
+            </span>
           </div>
 
-          {/* Resources */}
-          <div>
-            <h3 className={`text-sm font-semibold mb-3 ${
-              isDark ? 'text-en-white' : 'text-lt-text'
-            }`}>
-              Resources
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <a 
-                  href="https://elevatenow.tech" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`text-sm transition-colors ${
-                    isDark ? 'text-en-muted hover:text-en-cyan' : 'text-lt-text-secondary hover:text-en-blue'
-                  }`}
-                >
-                  Main Website
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://elevatenow.tech" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`text-sm transition-colors ${
-                    isDark ? 'text-en-muted hover:text-en-cyan' : 'text-lt-text-secondary hover:text-en-blue'
-                  }`}
-                >
-                  Platform Overview
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://elevatenow.tech" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`text-sm transition-colors ${
-                    isDark ? 'text-en-muted hover:text-en-cyan' : 'text-lt-text-secondary hover:text-en-blue'
-                  }`}
-                >
-                  About Us
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h3 className={`text-sm font-semibold mb-3 ${
-              isDark ? 'text-en-white' : 'text-lt-text'
-            }`}>
-              Get in Touch
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <a 
-                  href="mailto:gps@elevatenow.tech"
-                  className={`text-sm transition-colors ${
-                    isDark ? 'text-en-muted hover:text-en-cyan' : 'text-lt-text-secondary hover:text-en-blue'
-                  }`}
-                >
-                  gps@elevatenow.tech
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://www.linkedin.com/company/elevatenow"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`text-sm transition-colors ${
-                    isDark ? 'text-en-muted hover:text-en-cyan' : 'text-lt-text-secondary hover:text-en-blue'
-                  }`}
-                >
-                  LinkedIn
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Actions */}
-          <div>
-            <h3 className={`text-sm font-semibold mb-3 ${
-              isDark ? 'text-en-white' : 'text-lt-text'
-            }`}>
-              Connect
-            </h3>
-            <div className="space-y-3">
-              <button
-                onClick={handleContact}
-                className={`block w-full text-sm font-medium px-4 py-2.5 rounded-lg transition-all text-center ${
-                  isDark
-                    ? 'bg-en-cyan/10 text-en-cyan border border-en-cyan/30 hover:bg-en-cyan/20'
-                    : 'bg-en-blue/10 text-en-blue border border-en-blue/30 hover:bg-en-blue/20'
-                }`}
-              >
-                ✉️ Contact Us
-              </button>
-              <button
-                onClick={handleSchedule}
-                className={`block w-full text-sm font-medium px-4 py-2.5 rounded-lg transition-all text-center ${
-                  isDark
-                    ? 'bg-en-purple/10 text-en-purple border border-en-purple/30 hover:bg-en-purple/20'
-                    : 'bg-purple-600/10 text-purple-600 border border-purple-600/30 hover:bg-purple-600/20'
-                }`}
-              >
-                📅 Schedule a Meeting
-              </button>
-            </div>
+          {/* Right — nav */}
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-sans text-[13px] text-ink-3">
+            <Link to="/products" className="ink-link">Products</Link>
+            <Link to="/usecases" className="ink-link">Usecases</Link>
+            <a href="mailto:gps@elevatenow.tech" className="ink-link">gps@elevatenow.tech</a>
+            <a href="https://elevatenow.tech" target="_blank" rel="noopener noreferrer" className="ink-link">
+              elevatenow.tech
+            </a>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className={`pt-8 border-t text-center ${
-          isDark ? 'border-en-border' : 'border-lt-border'
-        }`}>
-          <p className={`text-xs ${
-            isDark ? 'text-en-muted' : 'text-lt-text-muted'
-          }`}>
-            © {currentYear} ElevateNow. All rights reserved.
+        {/* Bottom meta line */}
+        <div className="pt-6 border-t border-rule-2 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+          <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-4">
+            © {year} Elevatenow · Insurance Intelligence Platform · Confidential
+          </p>
+          <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-4">
+            The publication arm of <a href="https://elevatenow.tech" target="_blank" rel="noopener noreferrer" className="ink-link">elevatenow.tech</a>
           </p>
         </div>
       </div>

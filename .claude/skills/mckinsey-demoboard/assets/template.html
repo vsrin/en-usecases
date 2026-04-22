@@ -1,0 +1,515 @@
+<!--
+  MCKINSEY DEMOBOARD TEMPLATE
+  ----------------------------
+  Copy this file as the starting point for every demoboard.
+  Replace content inside [SQUARE BRACKETS]; do not rewrite the CSS.
+  If you need a new layout pattern, compose from existing ones.
+
+  REPLACE THESE TOKENS GLOBALLY before editing content:
+  - [PRODUCT]        → your product name (e.g., Assure, ClaimsIQ)
+  - [COMPANY]        → your company (e.g., Elevatenow)
+  - [RECIPIENT]      → the named recipient or company (e.g., Aflac)
+  - [DATE]           → e.g., April 2026
+  - [AUTHORS]        → e.g., Vinod Srinivasan · Sudeep · Bhaskar
+  - [AUTHOR_ROLE]    → e.g., Co-founders · Elevatenow
+  - [VERSION]        → e.g., Pre-read v1
+  - [ACCENT_HEX]     → brand accent (default #0066A1). Also update in SVGs.
+  - [ACCENT_SOFT]    → tinted accent (default #E5EEF4). Also update in SVGs.
+  - [HINGE_ACCENT]   → lighter accent for use in italics on the dark hinge page (default #5FB0E5)
+
+  Every exhibit should have:
+  1. An exhibit label above
+  2. A source caption inside the SVG, bottom-left
+  3. A "so what" note below, starting with a bolded lead phrase
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>[PRODUCT] — Pre-read for [RECIPIENT]</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0A0A0A;
+    --ink-2:      #1F1F1F;
+    --ink-3:      #3D3D3D;
+    --ink-4:      #6B6B6B;
+    --ink-5:      #9A9A9A;
+    --rule:       #D8D8D8;
+    --rule-2:     #E8E8E8;
+    --paper:      #FFFFFF;
+    --paper-2:    #F5F5F3;
+    --paper-3:    #EDEDEA;
+    --accent:     [ACCENT_HEX];
+    --accent-2:   #004A75;
+    --accent-soft:[ACCENT_SOFT];
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    font-size: 15px; line-height: 1.55;
+    color: var(--ink); background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 48px; }
+  .page { padding: 72px 0 80px; border-bottom: 1px solid var(--rule); }
+  .page:last-of-type { border-bottom: none; }
+  @media (max-width: 720px) {
+    .wrap { padding: 0 24px; }
+    .page { padding: 48px 0 56px; }
+  }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px;
+  }
+  .topbar .brand { display: flex; align-items: center; gap: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; font-size: 11px; color: var(--ink); }
+  .topbar .brand .mark { width: 16px; height: 16px; background: var(--accent); display: inline-block; }
+  .topbar .meta { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-4); }
+  @media (max-width: 720px) { .topbar { padding: 14px 24px; } .topbar .meta { display: none; } }
+
+  /* Page header */
+  .ph {
+    display: flex; align-items: baseline; gap: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-4);
+    padding-bottom: 10px; border-bottom: 1px solid var(--ink);
+    margin-bottom: 24px;
+  }
+  .ph .ph-num { color: var(--accent); font-weight: 600; }
+  .ph .ph-cat { color: var(--ink-3); }
+  .ph .ph-spacer { flex: 1; }
+
+  /* Assertion headline */
+  .assertion {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 400; font-size: clamp(26px, 3.2vw, 38px);
+    line-height: 1.15; letter-spacing: -0.015em;
+    color: var(--ink); max-width: 980px; margin-bottom: 12px;
+  }
+  .assertion em { font-style: italic; font-weight: 500; }
+  .assertion .accent { color: var(--accent); font-style: normal; font-weight: 500; }
+  .subhead { font-size: 14.5px; color: var(--ink-3); max-width: 820px; line-height: 1.55; margin-bottom: 36px; }
+
+  /* Exhibit label */
+  .exhibit-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-4); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .exhibit-label::before { content: "EXHIBIT"; color: var(--accent); font-weight: 600; }
+  .exhibit-label .line { flex: 1; height: 1px; background: var(--rule); }
+
+  /* Exhibit (SVG container) */
+  .ex-svg { width: 100%; height: auto; display: block; background: var(--paper); border: 1px solid var(--rule); }
+  .ex-svg-container { margin-bottom: 0; }
+
+  /* "So what" note */
+  .ex-note {
+    font-family: 'Inter', sans-serif; font-size: 11.5px;
+    color: var(--ink-4); line-height: 1.5;
+    padding-top: 10px; margin-top: 14px;
+    border-top: 1px solid var(--rule-2); max-width: 820px;
+  }
+  .ex-note strong { color: var(--ink-3); font-weight: 600; }
+
+  /* Cover */
+  .cover { padding: 100px 0 80px; border-bottom: 1px solid var(--rule); }
+  .cover-mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; }
+  .cover h1 {
+    font-family: 'Source Serif 4', serif; font-weight: 300;
+    font-size: clamp(40px, 5.8vw, 72px);
+    line-height: 1.02; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 32px; max-width: 980px;
+  }
+  .cover h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
+  .cover .lede {
+    font-family: 'Source Serif 4', serif; font-weight: 300;
+    font-size: clamp(17px, 1.6vw, 20px);
+    line-height: 1.5; color: var(--ink-2);
+    max-width: 780px; margin-bottom: 56px;
+  }
+  .cover-meta { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); }
+  .cover-meta > div { padding: 16px 20px 16px 0; border-right: 1px solid var(--rule); }
+  .cover-meta > div:last-child { border-right: none; padding-right: 0; }
+  .cover-meta > div:not(:first-child) { padding-left: 20px; }
+  .cm-label { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-4); margin-bottom: 8px; }
+  .cm-value { font-size: 14px; font-weight: 500; color: var(--ink); }
+  @media (max-width: 720px) {
+    .cover-meta { grid-template-columns: repeat(2, 1fr); }
+    .cover-meta > div { padding: 14px 16px; }
+    .cover-meta > div:nth-child(1), .cover-meta > div:nth-child(2) { border-bottom: 1px solid var(--rule); }
+    .cover-meta > div:nth-child(2), .cover-meta > div:nth-child(4) { border-right: none; }
+  }
+
+  /* Takeaways grid (exec summary) */
+  .takeaways { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--ink); border-left: 1px solid var(--rule); }
+  .tk { border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 22px 24px 24px; display: flex; gap: 18px; background: var(--paper); }
+  .tk .n { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); font-weight: 600; letter-spacing: 0.1em; line-height: 1.4; flex-shrink: 0; }
+  .tk h4 { font-family: 'Source Serif 4', serif; font-weight: 500; font-size: 17px; line-height: 1.3; color: var(--ink); margin-bottom: 6px; }
+  .tk p { font-size: 13.5px; color: var(--ink-3); line-height: 1.55; }
+  @media (max-width: 720px) { .takeaways { grid-template-columns: 1fr; border-left: none; } .tk { border-right: none; } }
+
+  /* MECE three-column */
+  .mece { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--ink); border-left: 1px solid var(--rule); }
+  .mece-col { border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--paper); padding: 28px 24px 26px; }
+  .mece-code { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--accent); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; }
+  .mece-title { font-family: 'Source Serif 4', serif; font-size: 22px; font-weight: 500; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .mece-sub { font-size: 13px; color: var(--ink-4); margin-bottom: 18px; line-height: 1.5; padding-bottom: 14px; border-bottom: 1px solid var(--rule-2); }
+  .mece-section-label { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-4); margin-top: 14px; margin-bottom: 8px; }
+  .mece-list { list-style: none; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+  .mece-list li { padding: 5px 0 5px 14px; position: relative; }
+  .mece-list li::before { content: ""; position: absolute; left: 0; top: 11px; width: 6px; height: 1px; background: var(--accent); }
+  .mece-callout { margin-top: 20px; padding: 14px 16px; background: var(--accent-soft); border-left: 2px solid var(--accent); font-size: 12px; line-height: 1.55; color: var(--ink-2); }
+  .mece-callout-label { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 6px; }
+  @media (max-width: 860px) { .mece { grid-template-columns: 1fr; border-left: none; } .mece-col { border-right: none; } }
+
+  /* Hinge page */
+  .hinge { padding: 80px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); background: var(--ink); color: var(--paper); }
+  .hinge .wrap { max-width: 1180px; }
+  .hinge-mono { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.25); }
+  .hinge h2 { font-family: 'Source Serif 4', serif; font-size: clamp(28px, 3.2vw, 40px); font-weight: 300; line-height: 1.2; letter-spacing: -0.015em; max-width: 960px; }
+  .hinge h2 em { color: [HINGE_ACCENT]; font-style: italic; }
+  .hinge .attr { margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.12em; text-transform: uppercase; }
+
+  /* Agenda */
+  .agenda-list { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--ink); border-left: 1px solid var(--rule); }
+  .agenda-item { border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 22px 24px 24px; display: flex; gap: 18px; background: var(--paper); }
+  .agenda-item .n { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--accent); font-size: 12px; letter-spacing: 0.08em; line-height: 1.4; flex-shrink: 0; }
+  .agenda-item h4 { font-family: 'Source Serif 4', serif; font-weight: 500; font-size: 17px; line-height: 1.3; margin-bottom: 6px; }
+  .agenda-item p { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
+  @media (max-width: 720px) { .agenda-list { grid-template-columns: 1fr; border-left: none; } .agenda-item { border-right: none; } }
+
+  /* Sign-off */
+  .signoff { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--ink); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
+  .signoff .names { font-family: 'Source Serif 4', serif; font-size: 18px; font-weight: 500; color: var(--ink); }
+  .signoff .role { font-size: 12.5px; color: var(--ink-4); margin-top: 4px; }
+  .signoff .co { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-4); text-align: right; }
+  @media (max-width: 600px) { .signoff { flex-direction: column; align-items: flex-start; } .signoff .co { text-align: left; } }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease-out, transform .6s ease-out; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* SVG helpers */
+  .svg-title { font-family: 'Source Serif 4', serif; font-weight: 500; }
+  .svg-label { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; }
+  .svg-body  { font-family: 'Inter', sans-serif; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><span class="mark"></span><span>[COMPANY] · [PRODUCT]</span></div>
+  <div class="meta">Confidential · Pre-read for [RECIPIENT] · [DATE]</div>
+</header>
+
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <div class="wrap">
+    <div class="cover-mono reveal">Pre-read · Prepared exclusively for [RECIPIENT]</div>
+    <h1 class="reveal">[COVER HEADLINE — AN ASSERTION, NOT A LABEL.<br>Include one italicized or <em>accent phrase</em> for emphasis.]</h1>
+    <p class="lede reveal">[LEDE — 2-4 sentences. Name the recipient's situation and position the document as a tool for a specific decision. Serif, light weight.]</p>
+    <div class="cover-meta reveal">
+      <div><div class="cm-label">Document</div><div class="cm-value">[PRODUCT] Pre-read</div></div>
+      <div><div class="cm-label">Audience</div><div class="cm-value">[RECIPIENT role / team]</div></div>
+      <div><div class="cm-label">Read time</div><div class="cm-value">[N] minutes</div></div>
+      <div><div class="cm-label">Purpose</div><div class="cm-value">[Frame our meeting / etc.]</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<section class="page" id="summary">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">01</span>
+      <span class="ph-cat">Executive summary</span>
+      <span class="ph-spacer"></span>
+      <span>One page · Four takeaways</span>
+    </div>
+    <h2 class="assertion reveal">[ASSERTION stating the meta-argument —] <span class="accent">[accented hook phrase].</span></h2>
+    <p class="subhead reveal">Each of the four summarizes a section of this pre-read. If only one page is read, this is the one.</p>
+
+    <div class="takeaways reveal">
+      <div class="tk"><div class="n">I.</div><div><h4>[Takeaway 1 assertion headline.]</h4><p>[Two-sentence explanation. Maps to Section 02 below.]</p></div></div>
+      <div class="tk"><div class="n">II.</div><div><h4>[Takeaway 2 assertion headline.]</h4><p>[Two-sentence explanation. Maps to Section 03-04.]</p></div></div>
+      <div class="tk"><div class="n">III.</div><div><h4>[Takeaway 3 assertion headline.]</h4><p>[Two-sentence explanation. Maps to Section 05-06.]</p></div></div>
+      <div class="tk"><div class="n">IV.</div><div><h4>[Takeaway 4 assertion headline.]</h4><p>[Two-sentence explanation. Maps to Section 07.]</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 1: THE PROBLEM ============ -->
+<section class="page" id="problem">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">02</span>
+      <span class="ph-cat">The problem</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 1 of [N]</span>
+    </div>
+    <h2 class="assertion reveal">[PROBLEM STATEMENT as assertion —] <span class="accent">[the root cause in the reader's language].</span></h2>
+    <p class="subhead reveal">[One-sentence subhead telling the reader what the exhibit shows.]</p>
+
+    <div class="exhibit-label reveal">Exhibit 1 · [One-sentence description of the exhibit]<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <!-- INSERT Pattern 1 (Value chain) OR Pattern 2 (Three gaps) SVG HERE -->
+      <!-- Copy from references/svg_patterns.md -->
+    </div>
+
+    <div class="ex-note reveal"><strong>Implication for [RECIPIENT].</strong> [One or two sentences explaining why this matters for this specific reader.]</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 2: THE FRAME ============ -->
+<section class="page" id="frame">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">03</span>
+      <span class="ph-cat">[The three X / the analytical frame]</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 2 of [N]</span>
+    </div>
+    <h2 class="assertion reveal">[FRAME assertion — e.g., Three structural gaps — mutually exclusive, collectively exhaustive —] <span class="accent">[what they require].</span></h2>
+    <p class="subhead reveal">[Subhead setting up the frame as MECE.]</p>
+
+    <div class="exhibit-label reveal">Exhibit 2 · [Description]<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <!-- INSERT Pattern 2 (Three gaps) SVG HERE -->
+    </div>
+
+    <div class="ex-note reveal"><strong>So what.</strong> [Implication statement tying the three elements together into a single argument.]</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 3: POSITIONING ============ -->
+<section class="page" id="position">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">04</span>
+      <span class="ph-cat">Market positioning</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 3 of [N]</span>
+    </div>
+    <h2 class="assertion reveal">[POSITIONING assertion —] <span class="accent">[where we sit that nobody else does].</span></h2>
+    <p class="subhead reveal">[Subhead introducing the two axes of the 2×2.]</p>
+
+    <div class="exhibit-label reveal">Exhibit 3 · [Description — e.g., "The [category] landscape on two axes"]<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <!-- INSERT Pattern 3 (2×2 matrix) SVG HERE -->
+    </div>
+
+    <div class="ex-note reveal"><strong>So what.</strong> [Why the reader should care that we occupy this quadrant specifically.]</div>
+  </div>
+</section>
+
+<!-- ============ HINGE PAGE ============ -->
+<section class="hinge">
+  <div class="wrap">
+    <div class="hinge-mono reveal">[The company thesis · in one sentence]</div>
+    <h2 class="reveal">[THE ONE SENTENCE — the most quotable thing in the document. Use an <em>italicized phrase</em> for emphasis in the middle.]</h2>
+    <div class="attr reveal">— [COMPANY] · [DATE]</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 4: PRODUCT / ARCHITECTURE ============ -->
+<section class="page" id="product">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">05</span>
+      <span class="ph-cat">Product architecture</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 4 of [N]</span>
+    </div>
+    <h2 class="assertion reveal">[PRODUCT assertion — e.g., Three modules share one X and produce one Y —] <span class="accent">[the structural claim].</span></h2>
+    <p class="subhead reveal">[Subhead setting up the architecture diagram and the MECE breakdown below it.]</p>
+
+    <div class="exhibit-label reveal">Exhibit 4 · [Description]<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal" style="margin-bottom: 0; border-bottom: none;">
+      <!-- INSERT Pattern 5 (Architecture) SVG HERE -->
+    </div>
+
+    <!-- MECE three-column detail below the architecture -->
+    <div class="mece reveal" style="margin-top: 24px;">
+
+      <div class="mece-col">
+        <div class="mece-code">[MOD 01 · CODE]</div>
+        <div class="mece-title">[Module 1 name]</div>
+        <div class="mece-sub">[One-line description of this module's distinct job.]</div>
+
+        <div class="mece-section-label">What it does</div>
+        <ul class="mece-list">
+          <li>[Capability 1]</li>
+          <li>[Capability 2]</li>
+          <li>[Capability 3]</li>
+          <li>[Capability 4]</li>
+          <li>[Capability 5]</li>
+          <li>[Capability 6]</li>
+        </ul>
+
+        <div class="mece-callout">
+          <div class="mece-callout-label">[RECIPIENT] application</div>
+          [Two-sentence specific application of this module to the named recipient's context.]
+        </div>
+      </div>
+
+      <div class="mece-col">
+        <div class="mece-code">[MOD 02 · CODE]</div>
+        <div class="mece-title">[Module 2 name]</div>
+        <div class="mece-sub">[One-line description.]</div>
+
+        <div class="mece-section-label">What it does</div>
+        <ul class="mece-list">
+          <li>[Capability 1]</li>
+          <li>[Capability 2]</li>
+          <li>[Capability 3]</li>
+          <li>[Capability 4]</li>
+          <li>[Capability 5]</li>
+          <li>[Capability 6]</li>
+        </ul>
+
+        <div class="mece-callout">
+          <div class="mece-callout-label">[RECIPIENT] application</div>
+          [Two-sentence specific application.]
+        </div>
+      </div>
+
+      <div class="mece-col">
+        <div class="mece-code">[MOD 03 · CODE]</div>
+        <div class="mece-title">[Module 3 name]</div>
+        <div class="mece-sub">[One-line description.]</div>
+
+        <div class="mece-section-label">What it does</div>
+        <ul class="mece-list">
+          <li>[Capability 1]</li>
+          <li>[Capability 2]</li>
+          <li>[Capability 3]</li>
+          <li>[Capability 4]</li>
+          <li>[Capability 5]</li>
+          <li>[Capability 6]</li>
+        </ul>
+
+        <div class="mece-callout">
+          <div class="mece-callout-label">[RECIPIENT] application</div>
+          [Two-sentence specific application.]
+        </div>
+      </div>
+
+    </div>
+    <div class="ex-note reveal" style="margin-top: 0;"><strong>Read together.</strong> [Sentence explaining why the three modules are MECE and why the shared rail matters.]</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 5: KEY ARTIFACT ============ -->
+<section class="page" id="artifact">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">06</span>
+      <span class="ph-cat">[The key artifact]</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 5 of [N]</span>
+    </div>
+    <h2 class="assertion reveal">[THE ARTIFACT assertion —] <span class="accent">[one number / one thing / one output].</span></h2>
+    <p class="subhead reveal">[Subhead explaining what the reader is about to see and why it's the proof point.]</p>
+
+    <div class="exhibit-label reveal">Exhibit 5 · [Description — illustrative [artifact name]]<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <!-- INSERT Pattern 4 (Waterfall) SVG HERE -->
+    </div>
+
+    <div class="ex-note reveal"><strong>Why this matters.</strong> [What the artifact enables in the reader's specific operating context.]</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 6: ROLLOUT ============ -->
+<section class="page" id="rollout">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">07</span>
+      <span class="ph-cat">Engagement model</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 6 of [N]</span>
+    </div>
+    <h2 class="assertion reveal">[ROLLOUT assertion — e.g., A [specific outcome] by day 90 —] <span class="accent">[the anchoring claim].</span></h2>
+    <p class="subhead reveal">[Subhead: Milestones are fixed; customer scope fills them.]</p>
+
+    <div class="exhibit-label reveal">Exhibit 6 · [Product] [duration]-day engagement timeline<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <!-- INSERT Pattern 6 (Timeline) SVG HERE -->
+    </div>
+
+    <div class="ex-note reveal"><strong>The commitment.</strong> [What specifically has happened by the end date, as a named, dated deliverable.]</div>
+  </div>
+</section>
+
+<!-- ============ AGENDA ============ -->
+<section class="page" id="agenda">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">08</span>
+      <span class="ph-cat">Working session agenda</span>
+      <span class="ph-spacer"></span>
+      <span>Six items · [duration] minutes</span>
+    </div>
+    <h2 class="assertion reveal">The goal of our meeting is a working session, <span class="accent">not a demo.</span></h2>
+    <p class="subhead reveal">[Subhead framing the meeting as a collaborative working session with a specific intended outcome.]</p>
+
+    <ol class="agenda-list reveal">
+      <li class="agenda-item"><div class="n">01</div><div><h4>[Agenda item 1]</h4><p>[One sentence.]</p></div></li>
+      <li class="agenda-item"><div class="n">02</div><div><h4>[Agenda item 2]</h4><p>[One sentence.]</p></div></li>
+      <li class="agenda-item"><div class="n">03</div><div><h4>[Agenda item 3]</h4><p>[One sentence.]</p></div></li>
+      <li class="agenda-item"><div class="n">04</div><div><h4>[Agenda item 4]</h4><p>[One sentence.]</p></div></li>
+      <li class="agenda-item"><div class="n">05</div><div><h4>[Agenda item 5]</h4><p>[One sentence.]</p></div></li>
+      <li class="agenda-item"><div class="n">06</div><div><h4>Open questions</h4><p>The questions your team is already asking about any platform in this category — we'd like to hear them before we propose anything.</p></div></li>
+    </ol>
+
+    <div class="signoff reveal">
+      <div>
+        <div class="names">[AUTHORS]</div>
+        <div class="role">[AUTHOR_ROLE]</div>
+      </div>
+      <div class="co">
+        <div>Confidential · [VERSION]</div>
+        <div>[DATE]</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.cover .reveal').forEach((el, i) => {
+      setTimeout(() => el.classList.add('in'), 100 + i * 120);
+    });
+  });
+</script>
+
+</body>
+</html>

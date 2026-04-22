@@ -1,111 +1,73 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ArrowRight, Clock } from 'lucide-react';
 import { CATEGORY_CONFIG, type UseCaseMeta } from '../../types/usecase';
-import CategoryBadge from '../ui/CategoryBadge';
-import StatusIndicator from '../ui/StatusIndicator';
-import { useTheme } from '../../context/ThemeContext';
+import { getProductsForUseCase } from '../../data/products';
 
 interface UseCaseTileProps {
   useCase: UseCaseMeta;
   index: number;
 }
 
+/**
+ * Editorial tile — EX-NN meta, serif title, sub-argument, mono chips for
+ * product linkage and LOB. No motion framer spring — let the paper be still.
+ */
 export default function UseCaseTile({ useCase, index }: UseCaseTileProps) {
-  const { isDark } = useTheme();
-  const categoryConfig = CATEGORY_CONFIG[useCase.category];
+  const products = getProductsForUseCase(useCase.slug);
+  const categoryLabel = CATEGORY_CONFIG[useCase.category].label;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
+    <Link
+      to={`/use-case/${useCase.slug}`}
+      className="block p-6 bg-paper hover:bg-paper-2 transition-colors group border-r border-b border-rule h-full"
     >
-      <Link
-        to={`/use-case/${useCase.slug}`}
-        className={`block group rounded-2xl overflow-hidden transition-all duration-300 ${
-          isDark 
-            ? 'glass-card hover:border-en-blue/30' 
-            : 'glass-card-light hover:border-en-blue/40 hover:shadow-xl'
-        }`}
-      >
-        {/* Header Section */}
-        <div className="p-6 pb-4">
-          <div className="flex items-start justify-between gap-3 mb-4">
-            <CategoryBadge category={useCase.category} />
-            <StatusIndicator status={useCase.status} />
-          </div>
+      {/* Exhibit meta */}
+      <div className="flex items-center gap-3 mb-4">
+        <span className="font-mono text-[10px] tracking-[0.14em] uppercase text-accent font-semibold">
+          EX-{String(index + 1).padStart(2, '0')}
+        </span>
+        <span className="tag-mono">{categoryLabel}</span>
+        {useCase.status === 'coming-soon' && (
+          <span className="tag-mono !text-ink-4">Coming soon</span>
+        )}
+        <span className="tag-mono ml-auto inline-flex items-center gap-1 text-ink-4">
+          <Clock size={10} /> {useCase.estimatedReadMin} min
+        </span>
+      </div>
 
-          <h3 className={`font-display text-2xl font-bold mb-2 group-hover:text-en-blue transition-colors ${
-            isDark ? 'text-en-white' : 'text-lt-text'
-          }`}>
-            {useCase.title}
-          </h3>
+      {/* Title */}
+      <h3 className="font-serif text-[20px] font-medium leading-[1.25] text-ink mb-2 group-hover:text-accent transition-colors">
+        {useCase.title}
+      </h3>
 
-          <p className={`text-sm font-medium mb-3 ${
-            isDark ? 'text-en-cyan-dim' : 'text-en-blue'
-          }`}>
-            {useCase.subtitle}
-          </p>
+      {/* Sub-argument */}
+      <p className="font-sans text-[13.5px] text-ink-3 leading-relaxed mb-4 line-clamp-3">
+        {useCase.subtitle}
+      </p>
 
-          {/* Key Question */}
-          <div className={`p-4 rounded-lg mb-4 ${
-            isDark ? 'bg-white/5' : 'bg-lt-bg-tertiary border border-lt-border'
-          }`}>
-            <p className={`text-sm italic leading-relaxed ${
-              isDark ? 'text-en-muted' : 'text-lt-text-secondary'
-            }`}>
-              "{useCase.keyQuestion}"
-            </p>
-          </div>
-
-          {/* Summary */}
-          <p className={`text-sm leading-relaxed mb-4 ${
-            isDark ? 'text-en-muted' : 'text-lt-text-secondary'
-          }`}>
-            {useCase.summary}
-          </p>
-
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {useCase.tags.map((tag) => (
-              <span
-                key={tag}
-                className={`px-3 py-1 rounded-md text-xs font-medium ${
-                  isDark
-                    ? 'bg-white/5 text-en-muted'
-                    : 'bg-lt-bg-tertiary text-lt-text-secondary border border-lt-border'
-                }`}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className={`px-6 py-4 flex items-center justify-between border-t ${
-          isDark ? 'border-en-border' : 'border-lt-border'
-        }`}>
-          <div className="flex items-center gap-2 text-xs">
-            <Clock size={14} className={isDark ? 'text-en-muted' : 'text-lt-text-muted'} />
-            <span className={isDark ? 'text-en-muted' : 'text-lt-text-muted'}>
-              {useCase.estimatedReadMin} min read
+      {/* Product linkage */}
+      {products.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-4 pb-4 border-b border-rule-2">
+          {products.map((p) => (
+            <span
+              key={p.slug}
+              className="font-mono text-[9.5px] font-semibold tracking-[0.12em] uppercase text-accent bg-accent-soft px-2 py-1"
+            >
+              {p.wordmark ?? p.name.toUpperCase()}
             </span>
-          </div>
-
-          <div className="flex items-center gap-2 text-sm font-semibold text-en-blue group-hover:gap-3 transition-all">
-            {useCase.status === 'published' ? 'Read More' : 'Coming Soon'}
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </div>
+          ))}
         </div>
+      )}
 
-        {/* Hover Effect Bar */}
-        <div 
-          className="h-1 w-0 group-hover:w-full transition-all duration-300 ease-out"
-          style={{ backgroundColor: categoryConfig.color }}
-        />
-      </Link>
-    </motion.div>
+      {/* Key question (pulled quote) */}
+      <blockquote className="font-serif text-[14px] italic text-ink-3 leading-relaxed border-l-2 border-rule pl-4 mb-4">
+        {useCase.keyQuestion}
+      </blockquote>
+
+      <span className="font-sans text-[13px] text-accent inline-flex items-center gap-1.5">
+        {useCase.status === 'published' ? 'Read' : 'Preview'}
+        <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+      </span>
+    </Link>
   );
 }

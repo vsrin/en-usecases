@@ -4,18 +4,15 @@ interface CategoryBadgeProps {
   category: UseCaseCategory;
 }
 
+/**
+ * Minimal mono-typeface LOB tag. No color per category — in the editorial
+ * palette color is reserved for the single accent. LOBs differentiate by
+ * typography + position, not color.
+ */
 export default function CategoryBadge({ category }: CategoryBadgeProps) {
   const config = CATEGORY_CONFIG[category];
-
   return (
-    <span
-      className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wide"
-      style={{
-        backgroundColor: `${config.color}15`,
-        color: config.color,
-        border: `1px solid ${config.color}30`,
-      }}
-    >
+    <span className="tag-mono">
       {config.label}
     </span>
   );

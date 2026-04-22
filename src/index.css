@@ -1,110 +1,155 @@
-@import url('https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @import "tailwindcss";
 
 @theme {
-  --color-en-navy: #0a0e1a;
-  --color-en-navy-light: #111827;
-  --color-en-navy-mid: #1a2236;
-  --color-en-slate: #1e293b;
-  --color-en-cyan: #00e5cc;
-  --color-en-cyan-dim: #00c4ad;
-  --color-en-teal: #14b8a6;
-  --color-en-purple: #8b5cf6;
-  --color-en-amber: #f59e0b;
-  --color-en-red: #ef4444;
-  --color-en-white: #f8fafc;
-  --color-en-muted: #94a3b8;
-  --color-en-border: rgba(255, 255, 255, 0.08);
-  --color-en-border-light: rgba(255, 255, 255, 0.12);
-  --color-en-glass: rgba(17, 24, 39, 0.7);
+  /* ─────────── Ink (text) ─────────── */
+  --color-ink:     #0A0A0A;
+  --color-ink-2:   #1F1F1F;
+  --color-ink-3:   #3D3D3D;
+  --color-ink-4:   #6B6B6B;
+  --color-ink-5:   #9A9A9A;
 
-  /* ── Blue accent system ── */
-  --color-en-blue: #2563eb;
-  --color-en-blue-light: #3b82f6;
-  --color-en-blue-dim: #1d4ed8;
-  --color-en-blue-bg: #eff6ff;
+  /* ─────────── Rules & paper ─────────── */
+  --color-rule:    #D8D8D8;
+  --color-rule-2:  #E8E8E8;
+  --color-paper:   #FFFFFF;
+  --color-paper-2: #F5F5F3;
+  --color-paper-3: #EDEDEA;
 
-  /* ── Light palette - Enhanced Contrast ── */
-  --color-lt-bg: #ffffff;
-  --color-lt-bg-secondary: #f5f7fa;
-  --color-lt-bg-tertiary: #e8ecf2;
-  --color-lt-text: #1a1a2e;
-  --color-lt-text-secondary: #334155;
-  --color-lt-text-muted: #64748b;
-  --color-lt-border: #cbd5e1;
-  --color-lt-border-light: #e2e8f0;
-  --color-lt-card: #ffffff;
-  --color-lt-glass: rgba(255, 255, 255, 0.95);
+  /* ─────────── Single accent (blue) ─────────── */
+  --color-accent:      #0066A1;
+  --color-accent-2:    #004A75;
+  --color-accent-soft: #E5EEF4;
 
-  /* ── Paper (detail pages) ── */
-  --color-en-paper: #fafaf8;
-  --color-en-ink: #1a1a2e;
-  --color-en-paper-border: #d0cdc5;
-  --color-en-paper-muted: #5a5a5a;
-
-  --font-display: 'Onest', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-heading: 'Onest', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'Onest', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'Onest', -apple-system, BlinkMacSystemFont, monospace;
+  /* ─────────── Fonts ─────────── */
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --font-sans:  'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono:  'JetBrains Mono', 'Menlo', monospace;
 }
 
 @layer base {
+  html { scroll-behavior: smooth; }
   body {
-    font-family: var(--font-body);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--color-ink);
+    background: var(--color-paper);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   ::selection {
-    background: var(--color-en-blue);
-    color: white;
+    background: var(--color-accent);
+    color: var(--color-paper);
   }
-  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar { width: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--color-en-blue); }
-  .dark ::-webkit-scrollbar-track { background: var(--color-en-navy); }
-  .dark ::-webkit-scrollbar-thumb { background: var(--color-en-slate); }
+  ::-webkit-scrollbar-thumb { background: var(--color-rule); border-radius: 0; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-ink-4); }
 }
 
 @layer utilities {
-  .text-gradient-blue {
-    background: linear-gradient(135deg, var(--color-en-blue), var(--color-en-blue-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  /* ─────────── Typography utilities ─────────── */
+  .font-serif { font-family: var(--font-serif); }
+  .font-sans  { font-family: var(--font-sans); }
+  .font-mono  { font-family: var(--font-mono); }
+
+  /* Assertion-style headline (McKinsey: title IS the argument) */
+  .assertion {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(26px, 3.2vw, 38px);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--color-ink);
   }
-  .text-gradient-cyan {
-    background: linear-gradient(135deg, var(--color-en-cyan), var(--color-en-teal));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .assertion em { font-style: italic; font-weight: 500; }
+  .assertion .accent { color: var(--color-accent); font-style: normal; font-weight: 500; }
+
+  /* Page header meta (EX-01 / CATEGORY) */
+  .ph-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-4);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-ink);
+    margin-bottom: 24px;
   }
-  .bg-grid-pattern {
-    background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
+  .ph-meta .ph-num { color: var(--color-accent); font-weight: 600; }
+  .ph-meta .ph-cat { color: var(--color-ink-3); }
+  .ph-meta .ph-spacer { flex: 1; }
+
+  /* Sub-head under assertion */
+  .subhead {
+    font-size: 14.5px;
+    color: var(--color-ink-3);
+    line-height: 1.55;
+    max-width: 820px;
   }
-  .bg-grid-pattern-light {
-    background-image:
-      linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
+
+  /* Exhibit label ("EXHIBIT —— ————") */
+  .exhibit-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-4);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
   }
-  .glow-blue {
-    box-shadow: 0 0 20px rgba(37, 99, 235, 0.12), 0 0 60px rgba(37, 99, 235, 0.04);
+  .exhibit-label::before {
+    content: "EXHIBIT";
+    color: var(--color-accent);
+    font-weight: 600;
   }
-  .glass-card-light {
-    background: var(--color-lt-glass);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--color-lt-border);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  .exhibit-label .line { flex: 1; height: 1px; background: var(--color-rule); }
+
+  /* Footnote under exhibits */
+  .ex-note {
+    font-size: 11.5px;
+    color: var(--color-ink-4);
+    line-height: 1.5;
+    padding-top: 10px;
+    margin-top: 14px;
+    border-top: 1px solid var(--color-rule-2);
+    max-width: 820px;
   }
-  .glass-card {
-    background: var(--color-en-glass);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--color-en-border-light);
+  .ex-note strong { color: var(--color-ink-3); font-weight: 600; }
+
+  /* Small mono tags for categories, status */
+  .tag-mono {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-4);
+  }
+
+  /* Ink-on-paper link hover */
+  .ink-link {
+    color: var(--color-ink-2);
+    border-bottom: 1px solid transparent;
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .ink-link:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
   }
 }
+
+/* ─────────── HTML-viewer wrapper for legacy usecases ───────────
+   Legacy usecase HTML files were authored standalone with their own
+   body-level margins. Scope them so we don't fight the editorial chrome.
+*/
+.html-viewer { background: var(--color-paper); }
+.html-viewer > body,
+.html-viewer body { margin: 0; padding: 0; }
