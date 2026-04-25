@@ -177,19 +177,19 @@ export const products: ProductMeta[] = [
     slug: 'workbench',
     name: 'Workbench',
     wordmark: 'WORKBENCH',
-    tagline: 'Personified workbenches for claims, underwriting, and specialty personas.',
+    tagline: 'AI-driven claim adjudication — from FNOL intake to authority-gated decision.',
     layer: 'apps',
     status: 'ga',
     metrics: [
-      { label: 'Persona-native', description: 'intake adjuster to claims director — each role gets its surface' },
-      { label: 'Governance-first', description: 'every decision on-screen carries its chunk id and version' },
-      { label: 'Trust Modes',    description: 'Full Queue · Guided · Autonomous — dial autonomy by confidence' },
+      { label: 'Day 1 intelligence', description: 'facts, coverage, liability, and subrogation surfaced at intake — before an examiner opens the file' },
+      { label: 'Authority-gated',    description: 'every claim routed to the right level — intake adjuster to claims director — based on what the intelligence found' },
+      { label: 'Evidence-anchored',  description: 'every conclusion traceable to a verbatim quote from the FNOL document' },
     ],
     summary:
-      'The application surface where AI-generated analysis meets the human decision. Role-native workspaces for underwriters and claims staff: a hub, a toolkit, and a research workspace — each rendering governed analysis with decision trace, governing chunk, and version attached. Designed as a companion to core systems of record, not a replacement.',
+      'The claims examiner\'s intelligence workspace. A three-column cockpit — Facts, Intelligence, Evidence — renders governed analysis at FNOL intake across Auto, GL, Property, and Workers Comp. Coverage determined, liability scored, subrogation theories identified, authority level set. The examiner validates and acts. Nothing is built from scratch.',
     demoboardPath: 'demoboards/workbench.html',
-    demoboardVariant: 'PoC Pathway — Claims Intelligence',
-    useCaseSlugs: ['fnol-claims-intelligence', 'submission-intake'],
+    demoboardVariant: 'PoC Pathway — Claims FNOL',
+    useCaseSlugs: ['fnol-claims-intelligence'],
   },
 ];
 
