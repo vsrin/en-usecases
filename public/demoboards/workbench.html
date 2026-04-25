@@ -10,262 +10,198 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --paper:       #faf9f7;
-      --ink:         #111827;
-      --accent:      #0066A1;
-      --accent-bg:   #dbeeff;
-      --accent-mid:  #90c4e4;
-      --rule:        #e5e7eb;
-      --muted:       #6b7280;
-      --muted-bg:    #f3f4f6;
-      --gold:        #92680a;
-      --gold-bg:     #fef3c7;
-      --gold-border: #f6d860;
+      --paper:      #faf9f7;
+      --ink:        #111827;
+      --accent:     #0066A1;
+      --accent-bg:  #dbeeff;
+      --accent-mid: #90c4e4;
+      --rule:       #e5e7eb;
+      --muted:      #6b7280;
+      --muted-bg:   #f3f4f6;
+      --gold:       #92680a;
+      --gold-bg:    #fef3c7;
+      --gold-bdr:   #f6d860;
     }
 
     body {
       background: var(--paper);
       color: var(--ink);
       font-family: 'Inter', system-ui, sans-serif;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
     /* ── HEADER ── */
     header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 40px;
       border-bottom: 1px solid var(--rule);
       background: #fff;
     }
-    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo { display: flex; align-items: center; gap: 9px; }
     .logo-mark {
-      width: 28px; height: 28px;
-      background: var(--accent); border-radius: 5px;
+      width: 26px; height: 26px; background: var(--accent); border-radius: 5px;
       display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 13px; color: #fff;
+      font-weight: 800; font-size: 12px; color: #fff;
     }
-    .logo-name {
-      font-size: 14px; font-weight: 700;
-      color: var(--ink); letter-spacing: 0.2px;
-    }
-    .header-right { text-align: right; }
+    .logo-name { font-size: 13px; font-weight: 700; color: var(--ink); }
     .board-label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px; letter-spacing: 1.4px; text-transform: uppercase;
-      color: var(--muted);
+      font-size: 9px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--muted);
     }
     .board-title {
       font-family: 'Source Serif 4', Georgia, serif;
-      font-size: 15px; font-weight: 600; color: var(--ink); margin-top: 2px;
+      font-size: 14px; font-weight: 600; color: var(--ink); margin-top: 2px; text-align: right;
     }
 
     /* ── MAIN ── */
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 28px 40px 20px;
-      gap: 20px;
-    }
+    main { padding: 26px 40px 20px; display: flex; flex-direction: column; gap: 18px; }
 
     /* ── FRAMING ── */
-    .framing {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 32px;
-    }
+    .framing { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
     .exhibit-label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px; letter-spacing: 1.8px; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 8px;
+      font-size: 9px; letter-spacing: 1.8px; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 7px;
     }
     .headline {
       font-family: 'Source Serif 4', Georgia, serif;
-      font-size: 21px; font-weight: 700; line-height: 1.25; color: var(--ink);
+      font-size: 20px; font-weight: 700; line-height: 1.25; color: var(--ink);
     }
     .headline em { font-style: italic; color: var(--accent); }
-    .sub {
-      font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.55;
-      max-width: 500px;
-    }
+    .sub { font-size: 11.5px; color: var(--muted); margin-top: 5px; line-height: 1.55; max-width: 460px; }
     .axis-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 9px; letter-spacing: 1.4px; text-transform: uppercase;
-      color: var(--muted); display: flex; align-items: center; gap: 8px;
-      white-space: nowrap;
+      color: var(--muted); display: flex; align-items: center; gap: 7px; white-space: nowrap;
     }
-    .axis-arrow {
-      height: 1px; width: 64px;
-      background: linear-gradient(to right, var(--muted), var(--accent));
-    }
+    .axis-arrow { height: 1px; width: 56px; background: linear-gradient(to right, var(--muted), var(--accent)); }
 
-    /* ── CARD ROW — accordion ── */
-    .card-row {
-      display: flex;
-      gap: 8px;
-      min-height: 300px;
+    /* ── CAROUSEL TABS ── */
+    .carousel-tabs {
+      display: flex; gap: 0;
+      border-bottom: 1px solid var(--rule);
     }
-
-    .tier-card {
-      border: 1px solid var(--rule);
-      border-radius: 8px;
-      background: #fff;
-      overflow: hidden;
+    .ctab {
+      flex: 1;
+      padding: 10px 12px;
       cursor: pointer;
-      transition: flex 0.42s cubic-bezier(.4,0,.2,1),
-                  border-color 0.2s, box-shadow 0.2s;
-      flex: 0.75;
+      border: none; background: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .ctab:hover { background: var(--muted-bg); }
+    .ctab.active { border-bottom-color: var(--accent); background: var(--accent-bg); }
+    .ctab-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .ctab.active .ctab-code { color: var(--accent); }
+    .ctab-weeks {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.5px; color: var(--muted);
+    }
+    .ctab.active .ctab-weeks { color: var(--accent); }
+
+    /* ── CAROUSEL VIEWPORT ── */
+    .carousel-wrap {
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      border-radius: 0 0 8px 8px;
+      background: #fff;
+      border-top: none;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.38s cubic-bezier(.4,0,.2,1);
+      will-change: transform;
+    }
+    .carousel-card {
+      min-width: 100%;
+      padding: 22px 28px 20px;
       display: flex;
       flex-direction: column;
-      position: relative;
+      gap: 14px;
     }
-    .tier-card.active {
-      flex: 4.8;
-      border-color: var(--accent);
-      box-shadow: 0 2px 18px rgba(0,102,161,0.10);
-      cursor: default;
-    }
-    .tier-card:not(.active):hover { border-color: var(--accent-mid); }
 
-    /* collapsed: vertical label */
-    .card-collapsed {
-      display: none;
-      position: absolute; inset: 0;
-      flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 12px; padding: 12px 0;
+    /* card inner layout */
+    .card-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
     }
-    .tier-card:not(.active) .card-collapsed { display: flex; }
-    .tier-card.active .card-collapsed { display: none; }
-
-    .cv-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10.5px; font-weight: 500; letter-spacing: 1.2px;
-      text-transform: uppercase; color: var(--accent);
-      writing-mode: vertical-rl;
-    }
-    .cv-weeks {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px; color: var(--muted);
-      writing-mode: vertical-rl;
-    }
-    .cv-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--rule);
-    }
-    .tier-card:not(.active):hover .cv-dot { background: var(--accent-mid); }
-
-    /* expanded content */
-    .card-expanded {
-      display: none;
-      flex-direction: column;
-      height: 100%;
-      padding: 22px 22px 18px;
-      animation: fadeIn 0.25s ease;
-    }
-    @keyframes fadeIn { from { opacity: 0; transform: translateX(6px); } to { opacity: 1; transform: none; } }
-    .tier-card.active .card-expanded { display: flex; }
-
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-    .tier-code {
+    .card-code {
       font-family: 'JetBrains Mono', monospace;
       font-size: 9.5px; letter-spacing: 1.6px; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 5px;
+      color: var(--accent); margin-bottom: 4px;
     }
-    .tier-name {
+    .card-name {
       font-family: 'Source Serif 4', Georgia, serif;
-      font-size: 17px; font-weight: 700; line-height: 1.2; color: var(--ink);
+      font-size: 18px; font-weight: 700; line-height: 1.2; color: var(--ink);
     }
-    .tier-badge {
+    .card-badge {
       font-family: 'JetBrains Mono', monospace;
       font-size: 8px; letter-spacing: 1.2px; text-transform: uppercase;
-      padding: 3px 9px; border-radius: 20px; white-space: nowrap;
-      flex-shrink: 0; margin-top: 2px;
+      padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; margin-top: 3px;
     }
-    .b-start    { background: var(--gold-bg); color: var(--gold); border: 1px solid var(--gold-border); }
-    .b-sitl     { background: var(--muted-bg); color: var(--muted); border: 1px solid var(--rule); }
-    .b-next     { background: var(--accent-bg); color: var(--accent); border: 1px solid var(--accent-mid); }
+    .b-start { background: var(--gold-bg);  color: var(--gold);   border: 1px solid var(--gold-bdr); }
+    .b-sitl  { background: var(--muted-bg); color: var(--muted);  border: 1px solid var(--rule); }
+    .b-next  { background: var(--accent-bg);color: var(--accent); border: 1px solid var(--accent-mid); }
 
-    .pills-row {
-      display: flex; gap: 6px; margin-bottom: 12px;
-    }
+    .pills { display: flex; gap: 6px; }
     .pill {
       font-family: 'JetBrains Mono', monospace;
       font-size: 9.5px; padding: 2px 10px; border-radius: 20px;
     }
-    .pill-weeks { background: var(--accent); color: #fff; font-weight: 500; }
-    .pill-lob   { background: var(--muted-bg); color: var(--muted); border: 1px solid var(--rule); }
+    .pill-w { background: var(--accent); color: #fff; font-weight: 500; }
+    .pill-l { background: var(--muted-bg); color: var(--muted); border: 1px solid var(--rule); }
 
-    .tier-scope {
-      font-size: 12px; color: var(--muted); line-height: 1.55;
-      margin-bottom: 14px;
+    .card-scope {
+      font-size: 12.5px; color: var(--muted); line-height: 1.6;
     }
-    .tier-scope strong { color: var(--ink); font-weight: 600; }
+    .card-scope strong { color: var(--ink); font-weight: 600; }
 
-    .metrics-row {
-      display: flex; gap: 7px; margin-bottom: 14px;
+    .metrics { display: flex; gap: 8px; }
+    .metric {
+      flex: 1; padding: 10px 11px; border-radius: 6px; min-width: 0;
+      background: var(--muted-bg); border: 1px solid var(--rule);
     }
-    .metric-chip {
-      flex: 1;
-      padding: 10px 10px;
-      border-radius: 6px;
-      background: var(--muted-bg);
-      border: 1px solid var(--rule);
-      min-width: 0;
+    .carousel-card:nth-child(1) .metric {
+      background: var(--accent-bg); border-color: var(--accent-mid);
     }
-    .tier-card[data-id="ignite"].active .metric-chip {
-      background: var(--accent-bg);
-      border-color: var(--accent-mid);
-    }
-    .m-val {
+    .m-v {
       font-family: 'JetBrains Mono', monospace;
       font-size: 10.5px; font-weight: 500; color: var(--accent); margin-bottom: 3px;
     }
-    .m-desc { font-size: 9.5px; color: var(--muted); line-height: 1.4; }
+    .m-d { font-size: 9.5px; color: var(--muted); line-height: 1.4; }
 
-    .tier-note {
-      margin-top: auto;
-      padding-top: 12px;
-      border-top: 1px solid var(--rule);
-      font-size: 11px; color: var(--muted); line-height: 1.5; font-style: italic;
+    .card-note {
+      padding-top: 12px; border-top: 1px solid var(--rule);
+      font-size: 11px; color: var(--muted); line-height: 1.55; font-style: italic;
     }
-    .tier-note strong { color: var(--ink); font-weight: 600; font-style: normal; }
+    .card-note strong { color: var(--ink); font-weight: 600; font-style: normal; }
 
-    /* ── ASSUMPTION STRIP ── */
+    /* ── ASSUMPTION ── */
     .assumption {
-      display: flex; align-items: center; gap: 16px;
-      padding: 11px 18px;
-      background: var(--muted-bg);
-      border: 1px solid var(--rule);
-      border-radius: 6px;
+      display: flex; align-items: center; gap: 14px;
+      padding: 10px 16px;
+      background: var(--muted-bg); border: 1px solid var(--rule); border-radius: 6px;
     }
     .assumption-tag {
       font-family: 'JetBrains Mono', monospace;
       font-size: 8.5px; letter-spacing: 1.5px; text-transform: uppercase;
       color: var(--accent); white-space: nowrap;
     }
-    .assumption-rule { width: 1px; height: 26px; background: var(--rule); flex-shrink: 0; }
-    .assumption-text {
-      font-size: 11.5px; color: var(--muted); line-height: 1.5;
-    }
+    .assumption-rule { width: 1px; height: 24px; background: var(--rule); flex-shrink: 0; }
+    .assumption-text { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
     .assumption-text strong { color: var(--ink); font-weight: 600; }
 
     /* ── FOOTER ── */
     footer {
-      padding: 12px 40px;
-      border-top: 1px solid var(--rule);
+      padding: 11px 40px;
+      border-top: 1px solid var(--rule); background: #fff;
       display: flex; align-items: center; justify-content: space-between;
-      background: #fff;
     }
     .footer-text {
       font-family: 'Source Serif 4', Georgia, serif;
@@ -274,7 +210,7 @@
     .footer-text strong { font-style: normal; font-weight: 600; color: var(--ink); }
     .footer-meta {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px; color: var(--muted); text-align: right; letter-spacing: 0.5px;
+      font-size: 9px; color: var(--muted); text-align: right;
     }
   </style>
 </head>
@@ -285,7 +221,7 @@
       <div class="logo-mark">EN</div>
       <span class="logo-name">ElevateNow</span>
     </div>
-    <div class="header-right">
+    <div>
       <div class="board-label">Exhibit · PoC Pathway</div>
       <div class="board-title">AI-Driven Claim Adjudication</div>
     </div>
@@ -297,7 +233,7 @@
       <div>
         <div class="exhibit-label">Engagement Options</div>
         <div class="headline">Four ways to start.<br><em>One right answer for most carriers.</em></div>
-        <div class="sub">Each tier is a bounded proof with bilateral gates. Click a tier to see scope, gate metrics, and the one condition that makes it the wrong choice.</div>
+        <div class="sub">Each tier is a bounded proof with bilateral gates. Use the tabs to explore scope, gate metrics, and the condition that makes each the wrong starting point.</div>
       </div>
       <div class="axis-label">
         <span>1 LOB</span>
@@ -306,175 +242,171 @@
       </div>
     </div>
 
-    <div class="card-row">
-
-      <!-- IGNITE -->
-      <div class="tier-card active" data-id="ignite" onclick="select('ignite')">
-        <div class="card-collapsed">
-          <div class="cv-code">IGNITE</div>
-          <div class="cv-dot"></div>
-          <div class="cv-weeks">10–12 wks</div>
-        </div>
-        <div class="card-expanded">
-          <div class="card-top">
-            <div>
-              <div class="tier-code">IGNITE</div>
-              <div class="tier-name">Single line,<br>single shot.</div>
-            </div>
-            <span class="tier-badge b-start">★ Start Here</span>
-          </div>
-          <div class="pills-row">
-            <span class="pill pill-weeks">10 – 12 weeks</span>
-            <span class="pill pill-lob">1 LOB · Auto or Property</span>
-          </div>
-          <div class="tier-scope">
-            Intelligence runs <strong>in parallel with your adjusters</strong> — same claim, two reads. Carrier playbooks and SOPs ingested. Knowledge layer built as you go. Human-in-the-loop throughout.
-          </div>
-          <div class="metrics-row">
-            <div class="metric-chip">
-              <div class="m-val">Cycle time ↓</div>
-              <div class="m-desc">FNOL intake to adjudication assign</div>
-            </div>
-            <div class="metric-chip">
-              <div class="m-val">Handle time ↓</div>
-              <div class="m-desc">Per-claim examiner touch time</div>
-            </div>
-            <div class="metric-chip">
-              <div class="m-val">Leakage bps</div>
-              <div class="m-desc">Subrogation & coverage flags — Day 1 vs. Day 30</div>
-            </div>
-          </div>
-          <div class="tier-note">Gate: accuracy vs. <strong>your adjuster baseline</strong> — not a vendor benchmark. At the gate, you own a permanent carrier knowledge layer. Every subsequent tier expands from it.</div>
-        </div>
+    <!-- Tabs + Carousel -->
+    <div>
+      <div class="carousel-tabs">
+        <button class="ctab active" onclick="goTo(0)">
+          <span class="ctab-code">IGNITE</span>
+          <span class="ctab-weeks">10–12 wks</span>
+        </button>
+        <button class="ctab" onclick="goTo(1)">
+          <span class="ctab-code">PRISM</span>
+          <span class="ctab-weeks">12–14 wks</span>
+        </button>
+        <button class="ctab" onclick="goTo(2)">
+          <span class="ctab-code">NEXUS–DUAL</span>
+          <span class="ctab-weeks">16–20 wks</span>
+        </button>
+        <button class="ctab" onclick="goTo(3)">
+          <span class="ctab-code">NEXUS–APEX</span>
+          <span class="ctab-weeks">22–28 wks</span>
+        </button>
       </div>
 
-      <!-- PRISM -->
-      <div class="tier-card" data-id="prism" onclick="select('prism')">
-        <div class="card-collapsed">
-          <div class="cv-code">PRISM</div>
-          <div class="cv-dot"></div>
-          <div class="cv-weeks">12–14 wks</div>
-        </div>
-        <div class="card-expanded">
-          <div class="card-top">
-            <div>
-              <div class="tier-code">PRISM</div>
-              <div class="tier-name">One line,<br>many jurisdictions.</div>
+      <div class="carousel-wrap">
+        <div class="carousel-track" id="track">
+
+          <!-- IGNITE -->
+          <div class="carousel-card">
+            <div class="card-head">
+              <div>
+                <div class="card-code">IGNITE</div>
+                <div class="card-name">Single line, single shot.</div>
+              </div>
+              <span class="card-badge b-start">★ Start Here</span>
             </div>
-            <span class="tier-badge b-sitl">Situational</span>
-          </div>
-          <div class="pills-row">
-            <span class="pill pill-weeks">12 – 14 weeks</span>
-            <span class="pill pill-lob">1 LOB · Multi-state</span>
-          </div>
-          <div class="tier-scope">
-            IGNITE extended across <strong>regulatory and procedural variation</strong> — state jurisdiction rules, authority matrices, SOPs per region. Best fit: national single-line carriers where geographic variance is the primary operational problem.
-          </div>
-          <div class="metrics-row">
-            <div class="metric-chip">
-              <div class="m-val">Jurisdiction TTR</div>
-              <div class="m-desc">Days to onboard a new state</div>
+            <div class="pills">
+              <span class="pill pill-w">10 – 12 weeks</span>
+              <span class="pill pill-l">1 LOB · Auto or Property</span>
             </div>
-            <div class="metric-chip">
-              <div class="m-val">Reg. accuracy</div>
-              <div class="m-desc">Per-jurisdiction rule application</div>
+            <div class="card-scope">
+              Intelligence runs <strong>in parallel with your adjusters</strong> — same claim, two reads. Carrier playbooks and SOPs ingested. Knowledge layer built as you go. Human-in-the-loop throughout.
             </div>
-            <div class="metric-chip">
-              <div class="m-val">SOP reuse %</div>
-              <div class="m-desc">Shared procedures across regions</div>
+            <div class="metrics">
+              <div class="metric">
+                <div class="m-v">Cycle time ↓</div>
+                <div class="m-d">FNOL intake to adjudication assign</div>
+              </div>
+              <div class="metric">
+                <div class="m-v">Handle time ↓</div>
+                <div class="m-d">Per-claim examiner touch time</div>
+              </div>
+              <div class="metric">
+                <div class="m-v">Leakage bps</div>
+                <div class="m-d">Subrogation &amp; coverage flags — Day 1 vs. Day 30</div>
+              </div>
             </div>
+            <div class="card-note">Gate: accuracy vs. <strong>your adjuster baseline</strong> — not a vendor benchmark. At the gate you own a permanent carrier knowledge layer. Every subsequent tier expands from it.</div>
           </div>
-          <div class="tier-note">Right path only if <strong>jurisdiction variance is the core proof</strong>. If line expansion is the goal, skip to NEXUS-DUAL after IGNITE.</div>
+
+          <!-- PRISM -->
+          <div class="carousel-card">
+            <div class="card-head">
+              <div>
+                <div class="card-code">PRISM</div>
+                <div class="card-name">One line, many jurisdictions.</div>
+              </div>
+              <span class="card-badge b-sitl">Situational</span>
+            </div>
+            <div class="pills">
+              <span class="pill pill-w">12 – 14 weeks</span>
+              <span class="pill pill-l">1 LOB · Multi-state</span>
+            </div>
+            <div class="card-scope">
+              IGNITE extended across <strong>regulatory and procedural variation</strong> — state jurisdiction rules, authority matrices, SOPs per region. Best fit: national single-line carriers where geographic variance is the primary operational problem.
+            </div>
+            <div class="metrics">
+              <div class="metric">
+                <div class="m-v">Jurisdiction TTR</div>
+                <div class="m-d">Days to onboard a new state</div>
+              </div>
+              <div class="metric">
+                <div class="m-v">Reg. accuracy</div>
+                <div class="m-d">Per-jurisdiction rule application</div>
+              </div>
+              <div class="metric">
+                <div class="m-v">SOP reuse %</div>
+                <div class="m-d">Shared procedures across regions</div>
+              </div>
+            </div>
+            <div class="card-note">Right path only if <strong>jurisdiction variance is the core proof</strong>. If line expansion is the goal, skip to NEXUS-DUAL after IGNITE.</div>
+          </div>
+
+          <!-- NEXUS-DUAL -->
+          <div class="carousel-card">
+            <div class="card-head">
+              <div>
+                <div class="card-code">NEXUS – DUAL</div>
+                <div class="card-name">Auto + Workers Comp.<br>Two lines, one architecture.</div>
+              </div>
+              <span class="card-badge b-next">Phase 2</span>
+            </div>
+            <div class="pills">
+              <span class="pill pill-w">16 – 20 weeks</span>
+              <span class="pill pill-l">2 LOBs · Auto + WC</span>
+            </div>
+            <div class="card-scope">
+              The <strong>architectural moat</strong>. Proves the same intelligence layer absorbs divergent line logic — auto liability and WC compensability — on a shared platform. Medium and high complexity in one proof.
+            </div>
+            <div class="metrics">
+              <div class="metric">
+                <div class="m-v">LOB TTR</div>
+                <div class="m-d">Weeks to onboard the second line</div>
+              </div>
+              <div class="metric">
+                <div class="m-v">Shared components %</div>
+                <div class="m-d">Platform reuse across lines</div>
+              </div>
+              <div class="metric">
+                <div class="m-v">Playbook reuse</div>
+                <div class="m-d">Carrier layer carryover from IGNITE</div>
+              </div>
+            </div>
+            <div class="card-note"><strong>Natural next phase after IGNITE.</strong> Starting here without a prior proof skips the validation that earns the expanded commitment.</div>
+          </div>
+
+          <!-- NEXUS-APEX -->
+          <div class="carousel-card">
+            <div class="card-head">
+              <div>
+                <div class="card-code">NEXUS – APEX</div>
+                <div class="card-name">Auto + WC + GL.<br>If GL works, everything works.</div>
+              </div>
+              <span class="card-badge b-sitl">Full Scope</span>
+            </div>
+            <div class="pills">
+              <span class="pill pill-w">22 – 28 weeks</span>
+              <span class="pill pill-l">3 LOBs · Auto + WC + GL</span>
+            </div>
+            <div class="card-scope">
+              NEXUS-DUAL extended to General Liability — coverage analysis, premises liability theory, risk transfer, contractor indemnification. <strong>The "we own commercial P&amp;C" proof.</strong>
+            </div>
+            <div class="metrics">
+              <div class="metric">
+                <div class="m-v">3-line accuracy</div>
+                <div class="m-d">All LOBs vs. adjuster baseline</div>
+              </div>
+              <div class="metric">
+                <div class="m-v">Carrier layer %</div>
+                <div class="m-d">Institutional knowledge encoded</div>
+              </div>
+              <div class="metric">
+                <div class="m-v">Governance trail</div>
+                <div class="m-d">Chunk version + trace across all lines</div>
+              </div>
+            </div>
+            <div class="card-note"><strong>Appropriate after value is proven on at least one line.</strong> The carrier layer from IGNITE makes this dramatically faster than starting cold.</div>
+          </div>
+
         </div>
       </div>
-
-      <!-- NEXUS-DUAL -->
-      <div class="tier-card" data-id="nexus-dual" onclick="select('nexus-dual')">
-        <div class="card-collapsed">
-          <div class="cv-code">NEXUS–DUAL</div>
-          <div class="cv-dot"></div>
-          <div class="cv-weeks">16–20 wks</div>
-        </div>
-        <div class="card-expanded">
-          <div class="card-top">
-            <div>
-              <div class="tier-code">NEXUS – DUAL</div>
-              <div class="tier-name">Auto + Workers Comp.<br>Two lines, one architecture.</div>
-            </div>
-            <span class="tier-badge b-next">Phase 2</span>
-          </div>
-          <div class="pills-row">
-            <span class="pill pill-weeks">16 – 20 weeks</span>
-            <span class="pill pill-lob">2 LOBs · Auto + WC</span>
-          </div>
-          <div class="tier-scope">
-            The <strong>architectural moat</strong>. Proves the same intelligence layer absorbs divergent line logic — auto liability and WC compensability — on a shared platform. Medium and high complexity in one proof.
-          </div>
-          <div class="metrics-row">
-            <div class="metric-chip">
-              <div class="m-val">LOB TTR</div>
-              <div class="m-desc">Weeks to onboard the second line</div>
-            </div>
-            <div class="metric-chip">
-              <div class="m-val">Shared components %</div>
-              <div class="m-desc">Platform reuse across lines</div>
-            </div>
-            <div class="metric-chip">
-              <div class="m-val">Playbook reuse</div>
-              <div class="m-desc">Carrier layer carryover from IGNITE</div>
-            </div>
-          </div>
-          <div class="tier-note"><strong>Natural next phase after IGNITE.</strong> Starting here without a prior proof skips the validation that earns the expanded commitment.</div>
-        </div>
-      </div>
-
-      <!-- NEXUS-APEX -->
-      <div class="tier-card" data-id="nexus-apex" onclick="select('nexus-apex')">
-        <div class="card-collapsed">
-          <div class="cv-code">NEXUS–APEX</div>
-          <div class="cv-dot"></div>
-          <div class="cv-weeks">22–28 wks</div>
-        </div>
-        <div class="card-expanded">
-          <div class="card-top">
-            <div>
-              <div class="tier-code">NEXUS – APEX</div>
-              <div class="tier-name">Auto + WC + GL.<br>If GL works, everything works.</div>
-            </div>
-            <span class="tier-badge b-sitl">Full Scope</span>
-          </div>
-          <div class="pills-row">
-            <span class="pill pill-weeks">22 – 28 weeks</span>
-            <span class="pill pill-lob">3 LOBs · Auto + WC + GL</span>
-          </div>
-          <div class="tier-scope">
-            NEXUS-DUAL extended to General Liability — coverage analysis, premises liability theory, risk transfer, contractor indemnification. <strong>The "we own commercial P&C" proof.</strong>
-          </div>
-          <div class="metrics-row">
-            <div class="metric-chip">
-              <div class="m-val">3-line accuracy</div>
-              <div class="m-desc">All LOBs vs. adjuster baseline</div>
-            </div>
-            <div class="metric-chip">
-              <div class="m-val">Carrier layer %</div>
-              <div class="m-desc">Institutional knowledge encoded</div>
-            </div>
-            <div class="metric-chip">
-              <div class="m-val">Governance trail</div>
-              <div class="m-desc">Chunk version + trace across all lines</div>
-            </div>
-          </div>
-          <div class="tier-note"><strong>Appropriate after value is proven on at least one line.</strong> The carrier layer from IGNITE makes this dramatically faster than starting here cold.</div>
-        </div>
-      </div>
-
     </div>
 
     <div class="assumption">
       <div class="assumption-tag">PoC Scope</div>
       <div class="assumption-rule"></div>
       <div class="assumption-text">
-        <strong>Content injection only — no system-of-record integration required.</strong> The platform operates independently alongside your existing claims system. Integration is a post-validation conversation, scoped after the gate proves intelligence quality.
+        <strong>Content injection only — no system-of-record integration required.</strong> The platform operates independently alongside your existing claims system. Integration is scoped after the gate proves intelligence quality.
       </div>
     </div>
 
@@ -488,9 +420,15 @@
   </footer>
 
   <script>
-    function select(id) {
-      document.querySelectorAll('.tier-card').forEach(function(card) {
-        card.classList.toggle('active', card.dataset.id === id);
+    var current = 0;
+    var track = document.getElementById('track');
+    var tabs = document.querySelectorAll('.ctab');
+
+    function goTo(idx) {
+      current = idx;
+      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      tabs.forEach(function(t, i) {
+        t.classList.toggle('active', i === idx);
       });
     }
   </script>
