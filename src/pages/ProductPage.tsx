@@ -19,14 +19,14 @@ export default function ProductPage() {
   const { slug } = useParams<{ slug: string }>();
   const product = slug ? getProductBySlug(slug) : undefined;
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [iframeHeight, setIframeHeight] = useState<number>(3200);
+  const [iframeHeight, setIframeHeight] = useState<number>(600);
 
   // Scroll to top on mount / slug change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  // Auto-resize the iframe to its content height (re-measures on load + on window resize)
+  // Auto-resize the iframe to its content height
   useEffect(() => {
     const measure = () => {
       const doc = iframeRef.current?.contentDocument;
@@ -35,11 +35,13 @@ export default function ProductPage() {
         doc.documentElement.scrollHeight,
         doc.body?.scrollHeight ?? 0,
       );
-      if (h > 0) setIframeHeight(h);
+      if (h > 100) setIframeHeight(h);
     };
-    const onLoad = () => measure();
-    const onResize = () => measure();
     const el = iframeRef.current;
+    // Measure immediately (iframe may already be loaded), on load, and after fonts settle
+    measure();
+    const onLoad = () => { measure(); setTimeout(measure, 600); };
+    const onResize = () => measure();
     if (el) el.addEventListener('load', onLoad);
     window.addEventListener('resize', onResize);
     return () => {
