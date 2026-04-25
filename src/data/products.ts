@@ -187,6 +187,8 @@ export const products: ProductMeta[] = [
     ],
     summary:
       'The application surface where AI-generated analysis meets the human decision. Role-native workspaces for underwriters and claims staff: a hub, a toolkit, and a research workspace — each rendering governed analysis with decision trace, governing chunk, and version attached. Designed as a companion to core systems of record, not a replacement.',
+    demoboardPath: 'demoboards/workbench.html',
+    demoboardVariant: 'PoC Pathway — Claims Intelligence',
     useCaseSlugs: ['fnol-claims-intelligence', 'submission-intake'],
   },
 ];

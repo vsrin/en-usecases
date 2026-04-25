@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElevateNow — PoC Pathway · AI-Driven Claim Adjudication</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0b1120;
+      --surface:   #131d31;
+      --surface2:  #1a2640;
+      --border:    #253352;
+      --blue:      #2a6cf6;
+      --blue-dim:  #1a4aaa;
+      --blue-glow: rgba(42,108,246,0.15);
+      --gold:      #f0a500;
+      --gold-dim:  rgba(240,165,0,0.12);
+      --emerald:   #10b981;
+      --red-soft:  #ef4444;
+      --text:      #e8edf5;
+      --text-mid:  #8fa0be;
+      --text-dim:  #4b6080;
+      --rule:      #1e2e48;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      border-bottom: 1px solid var(--rule);
+      background: var(--surface);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 32px; height: 32px;
+      background: var(--blue);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 15px; color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.3px;
+    }
+
+    .header-right {
+      text-align: right;
+    }
+
+    .board-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.2px;
+    }
+
+    .board-subtitle {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-mid);
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 36px 48px 28px;
+      gap: 28px;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* ── SPECTRUM ── */
+    .spectrum-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .spectrum-headline {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+    }
+
+    .spectrum-sub {
+      font-size: 12px;
+      color: var(--text-mid);
+      margin-top: 4px;
+      max-width: 540px;
+    }
+
+    .observe-transform {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    .ot-arrow {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--text-dim), var(--blue));
+      min-width: 60px;
+    }
+
+    /* ── OPTION CARDS ── */
+    .options-row {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    .option-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .option-card.passive {
+      opacity: 0.72;
+    }
+
+    .option-card.target {
+      background: linear-gradient(145deg, #111e3a 0%, #0f1c35 100%);
+      border: 1.5px solid var(--blue);
+      box-shadow: 0 0 28px var(--blue-glow), inset 0 0 40px rgba(42,108,246,0.04);
+      opacity: 1;
+    }
+
+    .option-num {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .option-card.target .option-num {
+      color: var(--blue);
+    }
+
+    .option-badge {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: #0b1120;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .option-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .option-card.target .option-name {
+      font-size: 15px;
+      color: #fff;
+    }
+
+    .option-timeline {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-mid);
+    }
+
+    .option-card.target .option-timeline {
+      color: #90b8ff;
+    }
+
+    .timeline-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--text-dim);
+    }
+
+    .option-card.target .timeline-dot { background: var(--blue); }
+
+    .option-what {
+      font-size: 11.5px;
+      color: var(--text-mid);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .option-card.target .option-what {
+      color: #c0d0ee;
+    }
+
+    .option-divider {
+      height: 1px;
+      background: var(--rule);
+      margin: 2px 0;
+    }
+
+    .option-output-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .option-card.target .option-output-label {
+      color: var(--blue);
+    }
+
+    .option-output {
+      font-size: 11px;
+      color: var(--text-mid);
+      line-height: 1.45;
+    }
+
+    .option-card.target .option-output {
+      color: #a8c4f0;
+    }
+
+    .option-weakness {
+      font-size: 10px;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-top: 2px;
+    }
+
+    .gate-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    .option-card.target .gate-tag {
+      background: rgba(42,108,246,0.1);
+      border-color: rgba(42,108,246,0.3);
+      color: #90b8ff;
+    }
+
+    .gate-icon { font-size: 9px; }
+
+    /* ── BOTTOM ROW ── */
+    .bottom-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 24px;
+    }
+
+    .panel-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    /* Two-layer model */
+    .layer-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .layer {
+      padding: 14px 18px;
+    }
+
+    .layer-carrier {
+      background: linear-gradient(135deg, #1a2f52, #162440);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .layer-platform {
+      background: var(--surface2);
+    }
+
+    .layer-tag {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .layer-carrier .layer-tag { color: var(--gold); }
+    .layer-platform .layer-tag { color: var(--blue); }
+
+    .layer-desc {
+      font-size: 10.5px;
+      color: var(--text-mid);
+      margin-bottom: 8px;
+    }
+
+    .layer-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .layer-chip {
+      font-size: 9.5px;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+
+    .layer-carrier .layer-chip {
+      background: rgba(240,165,0,0.1);
+      color: #c8a040;
+      border: 1px solid rgba(240,165,0,0.2);
+    }
+
+    .layer-platform .layer-chip {
+      background: rgba(42,108,246,0.1);
+      color: #7baff0;
+      border: 1px solid rgba(42,108,246,0.2);
+    }
+
+    .layer-note {
+      font-size: 10px;
+      color: var(--gold);
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    /* Outcomes panel */
+    .outcome-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .outcome-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .outcome-icon {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-size: 9px;
+      color: var(--emerald);
+    }
+
+    .outcome-text {
+      font-size: 12px;
+      color: var(--text-mid);
+      line-height: 1.45;
+    }
+
+    .outcome-text strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .outcome-coda {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--rule);
+      font-size: 11px;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .outcome-coda em {
+      color: var(--blue);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 14px 48px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-tagline {
+      font-size: 12px;
+      color: var(--text-dim);
+      font-style: italic;
+      max-width: 680px;
+      line-height: 1.5;
+    }
+
+    .footer-tagline strong {
+      color: var(--text-mid);
+      font-style: normal;
+    }
+
+    .footer-meta {
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="logo">
+      <div class="logo-mark">EN</div>
+      <span class="logo-name">ElevateNow</span>
+    </div>
+    <div class="header-right">
+      <div class="board-title">AI-Driven Claim Adjudication</div>
+      <div class="board-subtitle">PoC Pathway · Content Injection · No System Integration Required</div>
+    </div>
+  </header>
+
+  <!-- ── MAIN ── -->
+  <main>
+
+    <!-- Spectrum Header -->
+    <div>
+      <div class="spectrum-header">
+        <div>
+          <div class="section-label">PoC Pathway Options</div>
+          <div class="spectrum-headline" style="margin-top:6px">Prove value on one line. Build the foundation for all of them.</div>
+          <div class="spectrum-sub">Each option is a self-contained proof with clear metrics and a bilateral gate. Platform lives independently — no workflow changes, no system integration required for the PoC.</div>
+        </div>
+        <div class="observe-transform" style="min-width:220px; justify-content:flex-end;">
+          <span>ONE LINE</span>
+          <div class="ot-arrow"></div>
+          <span>ALL LINES</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option Cards -->
+    <div class="options-row">
+
+      <!-- IGNITE — TARGET -->
+      <div class="option-card target">
+        <div class="option-badge">★ Recommended Starting Point</div>
+        <div class="option-num">IGNITE</div>
+        <div class="option-name">Single Line, Single Shot</div>
+        <div class="option-timeline"><span class="timeline-dot"></span>10 – 12 weeks · Auto or Property · Claims</div>
+        <div class="option-what">
+          Ingest carrier playbooks and SOPs. Intelligence layer runs across FNOL → triage → adjudication assist with human-in-the-loop validation — on live claims, in parallel with your adjusters.<br/><br/>
+          One line of business. Bounded scope. Clear metrics. Your carrier knowledge is encoded on the platform base as you go — authority matrices, handling procedures, jurisdiction overrides.<br/><br/>
+          At the gate, the intelligence is validated against your adjusters on your claim patterns. The carrier layer is yours to keep and expand.
+        </div>
+        <div class="option-divider"></div>
+        <div class="option-output-label">Gate Metrics</div>
+        <div class="option-output">Cycle time ↓ · Handle time ↓ · Adjudication accuracy vs. adjuster baseline · Leakage bps recovered</div>
+        <div class="gate-tag"><span class="gate-icon">◆</span> Gate: Intelligence quality validated · Carrier layer complete · Expansion blueprint ready</div>
+      </div>
+
+      <!-- PRISM -->
+      <div class="option-card passive">
+        <div class="option-num">PRISM</div>
+        <div class="option-name">One Line, Many Jurisdictions</div>
+        <div class="option-timeline"><span class="timeline-dot"></span>12 – 14 weeks</div>
+        <div class="option-what">
+          IGNITE + localization. Same line of business refracted across regulatory and procedural variation — state-by-state jurisdiction rules, SOPs, authority matrices.
+          <br/><br/>
+          Best fit: carriers with a national single-line footprint where jurisdictional variance is the primary operational problem.
+        </div>
+        <div class="option-divider"></div>
+        <div class="option-output-label">Gate Metrics</div>
+        <div class="option-output">Time-to-onboard new jurisdiction · Regulatory accuracy per jurisdiction · % SOP reuse across regions</div>
+        <div class="gate-tag"><span class="gate-icon">◆</span> Gate: Jurisdiction accuracy threshold met · Reuse ratio validated</div>
+        <div class="option-weakness">Right path only if geographic variation is the core problem — not line expansion.</div>
+      </div>
+
+      <!-- NEXUS-DUAL -->
+      <div class="option-card passive">
+        <div class="option-num">NEXUS–DUAL</div>
+        <div class="option-name">Auto + Workers Comp</div>
+        <div class="option-timeline"><span class="timeline-dot"></span>16 – 20 weeks</div>
+        <div class="option-what">
+          IGNITE extended to a second line. Proves the same intelligence architecture absorbs divergent line logic — auto liability vs. WC compensability — on a shared platform.
+          <br/><br/>
+          Medium and high complexity lines in one proof. The "architectural moat" begins here.
+        </div>
+        <div class="option-divider"></div>
+        <div class="option-output-label">Gate Metrics</div>
+        <div class="option-output">Time-to-onboard second LOB · % shared components across lines · Model and playbook reuse ratio</div>
+        <div class="gate-tag"><span class="gate-icon">◆</span> Gate: Both lines meet accuracy threshold · Shared architecture validated</div>
+        <div class="option-weakness">Natural next phase after IGNITE. Starting here skips the validation step.</div>
+      </div>
+
+      <!-- NEXUS-APEX -->
+      <div class="option-card passive">
+        <div class="option-num">NEXUS–APEX</div>
+        <div class="option-name">Auto + WC + GL</div>
+        <div class="option-timeline"><span class="timeline-dot"></span>22 – 28 weeks</div>
+        <div class="option-what">
+          NEXUS-DUAL extended to General Liability — the hardest commercial line. Adds coverage analysis, premises liability theory, risk transfer, and contractor indemnification.
+          <br/><br/>
+          If GL works, everything works. This is the "we own commercial P&C" proof.
+        </div>
+        <div class="option-divider"></div>
+        <div class="option-output-label">Gate Metrics</div>
+        <div class="option-output">LOB onboarding velocity · % shared components at three lines · Full carrier layer coverage</div>
+        <div class="gate-tag"><span class="gate-icon">◆</span> Gate: All three lines validated · Carrier layer enterprise-ready</div>
+        <div class="option-weakness">Maximum scope. Appropriate after value is already proven on at least one line.</div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Row -->
+    <div class="bottom-row">
+
+      <!-- Two-Layer Model -->
+      <div class="panel">
+        <div class="panel-title">What Gets Built — The Knowledge Architecture</div>
+        <div class="layer-stack">
+          <div class="layer layer-carrier">
+            <div class="layer-tag">Carrier Layer — Built During IGNITE</div>
+            <div class="layer-desc">Your institutional knowledge, encoded and governed on top of the platform base. Built as part of the engagement — not a prerequisite or a follow-on project.</div>
+            <div class="layer-items">
+              <span class="layer-chip">Authority matrices</span>
+              <span class="layer-chip">Handling procedures</span>
+              <span class="layer-chip">Carrier SOPs</span>
+              <span class="layer-chip">Manuscript endorsements</span>
+              <span class="layer-chip">Jurisdiction overrides</span>
+            </div>
+            <div class="layer-note">You own this permanently. Every subsequent LOB expands on the same layer.</div>
+          </div>
+          <div class="layer layer-platform">
+            <div class="layer-tag">Platform Layer — In the Box on Day 1</div>
+            <div class="layer-desc">Industry-common. Maintained by ElevateNow. No build required.</div>
+            <div class="layer-items">
+              <span class="layer-chip">ISO CGL forms</span>
+              <span class="layer-chip">GKR rules engine</span>
+              <span class="layer-chip">Jurisdiction tables</span>
+              <span class="layer-chip">Liability theories</span>
+              <span class="layer-chip">FMCSA regulations</span>
+              <span class="layer-chip">Weather verification</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:14px; padding:10px 14px; background:rgba(42,108,246,0.06); border:1px solid rgba(42,108,246,0.2); border-radius:6px;">
+          <div style="font-size:9px; font-weight:800; letter-spacing:1.8px; text-transform:uppercase; color:var(--blue); margin-bottom:5px;">PoC Assumption</div>
+          <div style="font-size:10.5px; color:var(--text-mid); line-height:1.5;">Content injection only. The platform operates independently — no system-of-record integration, no workflow change, no FNMS connectivity required for the PoC. Integration is a post-validation conversation.</div>
+        </div>
+      </div>
+
+      <!-- IGNITE Gate Outcomes -->
+      <div class="panel">
+        <div class="panel-title">What IGNITE Proves at the Gate</div>
+        <div class="outcome-items">
+          <div class="outcome-item">
+            <div class="outcome-icon">✓</div>
+            <div class="outcome-text"><strong>Cycle time reduction</strong> quantified against your adjuster baseline on live claims — not a vendor benchmark.</div>
+          </div>
+          <div class="outcome-item">
+            <div class="outcome-icon">✓</div>
+            <div class="outcome-text"><strong>Handle time reduction</strong> measured per claim on the IGNITE line — FNOL intake through adjudication assist.</div>
+          </div>
+          <div class="outcome-item">
+            <div class="outcome-icon">✓</div>
+            <div class="outcome-text"><strong>Adjudication accuracy</strong> validated head-to-head: platform intelligence vs. adjuster read on the same claim, same facts.</div>
+          </div>
+          <div class="outcome-item">
+            <div class="outcome-icon">✓</div>
+            <div class="outcome-text"><strong>Leakage recovery in basis points</strong> — subrogation opportunities flagged Day 1 vs. Day 30, coverage gaps surfaced before payment.</div>
+          </div>
+          <div class="outcome-item">
+            <div class="outcome-icon">✓</div>
+            <div class="outcome-text"><strong>Carrier knowledge layer complete</strong> — owned, versioned, governed. NEXUS-DUAL starts from here, not from zero.</div>
+          </div>
+        </div>
+        <div class="outcome-coda">
+          The first LOB is the beachhead. Once IGNITE gate-proves the intelligence, every subsequent line expands on the <em>same carrier layer, same architecture, same governance model</em>.
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-tagline">
+      <strong>IGNITE is not a pilot. It is a proof.</strong> The carrier knowledge layer built during IGNITE is a permanent asset — every subsequent LOB in PRISM, NEXUS-DUAL, or NEXUS-APEX expands on the same foundation. Faster onboarding, lower risk, higher reuse.
+    </div>
+    <div class="footer-meta">
+      ElevateNow Claims Intelligence Platform<br/>
+      Confidential · For discussion only
+    </div>
+  </footer>
+
+</body>
+</html>
