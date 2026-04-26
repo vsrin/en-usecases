@@ -170,6 +170,97 @@ section:last-child { border-bottom: none; }
   background: #FFFFFF !important;
   color: #0A0A0A !important;
 }
+
+/* ── Normalize container horizontal padding ──────────── */
+.container {
+  padding-left: 48px !important;
+  padding-right: 48px !important;
+}
+
+/* ── Kill all hover transforms and transitions ────────── */
+*, *::before, *::after {
+  transition: none !important;
+  animation: none !important;
+}
+.lob-card:hover, .value-card:hover, .proof-card:hover,
+.btn:hover, .btn-primary:hover, .btn-secondary:hover,
+a:hover, [class*="card"]:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ── Flatten .problem-backdrop ────────────────────────── */
+.problem-backdrop, [class*="problem"] {
+  background: #F5F5F3 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: 1px solid #D8D8D8 !important;
+  padding: 40px !important;
+}
+
+/* ── Stat cards — editorial left rule ────────────────── */
+.stat-card {
+  border-radius: 0 !important;
+  border-left: 3px solid #0066A1 !important;
+  box-shadow: none !important;
+}
+.stat-number { color: #0066A1 !important; }
+
+/* ── Flatten CTA section — paper style ───────────────── */
+.cta-section {
+  background: #F5F5F3 !important;
+  color: #0A0A0A !important;
+  border-radius: 0 !important;
+  border: 1px solid #D8D8D8 !important;
+  padding: 56px 48px !important;
+  box-shadow: none !important;
+}
+.cta-section h2 { color: #0A0A0A !important; font-size: clamp(22px, 2.8vw, 34px) !important; }
+.cta-section p { color: #3D3D3D !important; opacity: 1 !important; }
+.btn-primary {
+  background: #0066A1 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+}
+.btn-secondary {
+  background: transparent !important;
+  color: #0066A1 !important;
+  border: 1px solid #0066A1 !important;
+}
+
+/* ── Architecture diagram — flatten ─────────────────── */
+.arch-diagram {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: 1px solid #D8D8D8 !important;
+  padding: 32px !important;
+}
+.arch-box {
+  border-radius: 0 !important;
+  border-left: 3px solid #0066A1 !important;
+}
+
+/* ── LOB / value / proof cards — no border-radius ────── */
+.lob-card, .value-card, .proof-card {
+  border-radius: 0 !important;
+}
+.lob-icon, .value-icon, .proof-badge {
+  border-radius: 0 !important;
+}
+
+/* ── Section headings — editorial scale ─────────────── */
+.section h2 {
+  font-size: clamp(22px, 2.8vw, 34px) !important;
+  font-weight: 300 !important;
+}
+.section-intro {
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+}
+
+/* ── Diff grid labels ─────────────────────────────────── */
+.diff-column.generic h4 { color: #6B6B6B !important; }
+.diff-column.elevatenow h4 { color: #0066A1 !important; }
 `;
 
 /**
