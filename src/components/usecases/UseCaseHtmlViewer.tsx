@@ -17,41 +17,47 @@ interface UseCaseHtmlViewerProps {
 const INSIGHTS_OVERRIDE_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-/* ── Normalize theme variables ────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   THEME TOKENS — Normalize all files to ElevateNow editorial
+   ───────────────────────────────────────────────────────────── */
 :root {
   --ink: #0A0A0A !important;
-  --ink-2: #1F1F1F !important;
-  --ink-3: #3D3D3D !important;
-  --ink-4: #6B6B6B !important;
   --paper: #FFFFFF !important;
   --paper-2: #F5F5F3 !important;
   --accent: #0066A1 !important;
   --accent-light: #0066A1 !important;
-  --accent-2: #004A75 !important;
   --accent-bg: #E5EEF4 !important;
-  --accent-soft: #E5EEF4 !important;
   --tool-blue: #0066A1 !important;
   --agent-green: #0066A1 !important;
   --border: #D8D8D8 !important;
-  --border-2: #E8E8E8 !important;
-  --rule: #D8D8D8 !important;
   --muted: #6B6B6B !important;
+  --warning: #0066A1 !important;
+  --warning-bg: #E5EEF4 !important;
   --shadow: none !important;
   --shadow-lg: none !important;
 }
 
-/* ── Global reset ─────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   GLOBAL BASE
+   ───────────────────────────────────────────────────────────── */
 html, body {
   font-family: 'Inter', -apple-system, system-ui, sans-serif !important;
   font-size: 15px !important;
-  line-height: 1.55 !important;
+  line-height: 1.6 !important;
   background: #FFFFFF !important;
   color: #0A0A0A !important;
   -webkit-font-smoothing: antialiased;
 }
-*, *::before, *::after { box-shadow: none !important; }
+*, *::before, *::after {
+  box-shadow: none !important;
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+}
 
-/* ── Headings: serif, light weight, negative letter-spacing ── */
+/* ─────────────────────────────────────────────────────────────
+   TYPOGRAPHY
+   ───────────────────────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Source Serif 4', Georgia, serif !important;
   font-weight: 400 !important;
@@ -60,85 +66,390 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.15 !important;
 }
 h1 { font-weight: 300 !important; }
-
-/* ── Strong emphasis uses serif italic medium ────────────── */
-em, i { font-style: italic; font-weight: 500; }
-
-/* ── Meta / mono labels across all files ─────────────────── */
-.meta, .label, .category-tag, .section-label, .tag, .eyebrow,
-[class*="badge"], [class*="label"], [class*="tag"], [class*="meta"],
-code, pre {
+em, i { font-style: italic; }
+.section-label, .hero-label, .lob-icon, .value-icon, .proof-badge,
+.arch-box h4, .stat-label, code, pre {
   font-family: 'JetBrains Mono', 'Menlo', monospace !important;
+  letter-spacing: 0.06em !important;
 }
+a { color: #0066A1 !important; text-decoration: none; }
+strong { color: inherit; }
 
-/* ── Kill dark gradient heros across every file, restyle as paper ── */
-.hero, [class*="hero"], section.hero {
+/* ─────────────────────────────────────────────────────────────
+   HERO — flatten dark gradient to paper, scale typography down
+   ───────────────────────────────────────────────────────────── */
+.hero {
   min-height: auto !important;
   background: #F5F5F3 !important;
   color: #0A0A0A !important;
-  padding: 64px 48px !important;
+  padding: 72px 48px 64px !important;
   border-bottom: 1px solid #D8D8D8 !important;
+  display: block !important;
 }
-.hero::before, .hero::after,
-[class*="hero"]::before, [class*="hero"]::after { display: none !important; }
-.hero h1, .hero h2, .hero h3, .hero h4,
-[class*="hero"] h1, [class*="hero"] h2, [class*="hero"] h3, [class*="hero"] h4 {
+.hero::before, .hero::after { display: none !important; }
+.hero h1 {
+  font-size: clamp(28px, 3.6vw, 46px) !important;
+  font-weight: 300 !important;
   color: #0A0A0A !important;
+  max-width: 820px !important;
+  margin-bottom: 20px !important;
 }
-.hero p, .hero span, .hero .subtitle, .hero .tagline,
-[class*="hero"] p, [class*="hero"] .subtitle {
-  color: #1F1F1F !important;
+.hero h1 span { color: #0066A1 !important; }
+.hero-label {
+  font-size: 10.5px !important;
+  letter-spacing: 0.14em !important;
+  color: #6B6B6B !important;
+  opacity: 1 !important;
+  margin-bottom: 20px !important;
 }
-.hero strong, [class*="hero"] strong { color: #0066A1 !important; }
+.hero-sub {
+  font-size: 16px !important;
+  color: #3D3D3D !important;
+  opacity: 1 !important;
+  max-width: 680px !important;
+  margin-bottom: 32px !important;
+  line-height: 1.65 !important;
+}
+.hero-meta {
+  font-size: 11.5px !important;
+  color: #6B6B6B !important;
+  opacity: 1 !important;
+  gap: 32px !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: 0.05em !important;
+}
+.hero[style] { background: #F5F5F3 !important; }
 
-/* Strip any inline-style gradient/solid-dark bg on the hero */
-.hero[style], [class*="hero"][style] {
+/* ─────────────────────────────────────────────────────────────
+   CONTAINER — consistent horizontal gutter
+   ───────────────────────────────────────────────────────────── */
+.container {
+  padding-left: 48px !important;
+  padding-right: 48px !important;
+  padding-top: 0 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SECTIONS
+   ───────────────────────────────────────────────────────────── */
+.section {
+  margin-bottom: 60px !important;
+  padding-top: 60px !important;
+  border-top: 1px solid #D8D8D8 !important;
+}
+.section:first-child { border-top: none !important; padding-top: 48px !important; }
+.section-label {
+  font-size: 10.5px !important;
+  letter-spacing: 0.14em !important;
+  color: #0066A1 !important;
+  margin-bottom: 10px !important;
+  font-weight: 500 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  text-transform: uppercase !important;
+}
+.section h2 {
+  font-size: clamp(22px, 2.8vw, 34px) !important;
+  font-weight: 300 !important;
+  margin-bottom: 14px !important;
+}
+.section-intro {
+  font-size: 15px !important;
+  color: #6B6B6B !important;
+  max-width: 700px !important;
+  margin-bottom: 32px !important;
+  line-height: 1.65 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   PROBLEM SECTION — flatten warm-red tint to paper
+   ───────────────────────────────────────────────────────────── */
+.problem-backdrop {
   background: #F5F5F3 !important;
-}
-
-/* ── Color accents: all previously-colorful accents become editorial blue ── */
-a { color: #0066A1 !important; }
-a:hover { color: #004A75 !important; }
-.accent, .highlight, [class*="accent"], .text-accent { color: #0066A1 !important; }
-
-/* ── Buttons: outline style, no dark fill ───────────────── */
-button, .btn, .cta, a.btn, .button, [class*="button"] {
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
-
-/* ── Cards: flatten shadows, use hairline rules ─────────── */
-.card, [class*="card"], .panel, [class*="panel"], .tile, [class*="tile"] {
-  box-shadow: none !important;
   border-radius: 0 !important;
   border: 1px solid #D8D8D8 !important;
+  padding: 40px !important;
+}
+.stat-card {
+  border-radius: 0 !important;
+  border: 1px solid #D8D8D8 !important;
+  border-left: 3px solid #0066A1 !important;
+  box-shadow: none !important;
   background: #FFFFFF !important;
 }
+.stat-number {
+  font-family: 'Source Serif 4', Georgia, serif !important;
+  font-size: 38px !important;
+  font-weight: 300 !important;
+  color: #0066A1 !important;
+  margin-bottom: 8px !important;
+}
+.stat-label {
+  font-size: 11px !important;
+  color: #6B6B6B !important;
+  letter-spacing: 0.04em !important;
+}
+.problem-backdrop > p {
+  font-size: 15px !important;
+  color: #3D3D3D !important;
+  line-height: 1.65 !important;
+  margin-top: 24px !important;
+}
 
-/* ── Tables: editorial style ────────────────────────────── */
-table {
-  border-collapse: collapse !important;
-  border-top: 1px solid #0A0A0A !important;
+/* ─────────────────────────────────────────────────────────────
+   LOB CARDS
+   ───────────────────────────────────────────────────────────── */
+.lob-grid {
+  gap: 16px !important;
 }
-th, td {
-  border-bottom: 1px solid #D8D8D8 !important;
-  padding: 10px 12px !important;
+.lob-card {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: 1px solid #D8D8D8 !important;
+  border-top: 3px solid #0066A1 !important;
+  padding: 28px 24px !important;
+  background: #FFFFFF !important;
+}
+.lob-icon {
+  border-radius: 0 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1em !important;
+  background: #E5EEF4 !important;
+  color: #0066A1 !important;
+  padding: 5px 10px !important;
+  margin-bottom: 14px !important;
+}
+.lob-card h3 {
+  font-size: 17px !important;
+  font-weight: 400 !important;
+  margin-bottom: 10px !important;
+  line-height: 1.25 !important;
+}
+.lob-card p {
   font-size: 13.5px !important;
+  line-height: 1.6 !important;
+  color: #6B6B6B !important;
 }
+.lob-complexity {
+  font-size: 12px !important;
+  color: #0066A1 !important;
+  font-weight: 500 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DIFFERENTIATION GRID
+   ───────────────────────────────────────────────────────────── */
+.diff-grid { gap: 24px !important; }
+.diff-column h4 {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  border-bottom: 1px solid #D8D8D8 !important;
+  padding-bottom: 10px !important;
+  margin-bottom: 12px !important;
+}
+.diff-column.generic h4 { color: #6B6B6B !important; }
+.diff-column.elevatenow h4 { color: #0066A1 !important; }
+.diff-item {
+  font-size: 13.5px !important;
+  padding: 10px 0 !important;
+  border-bottom: 1px solid #F0F0F0 !important;
+  line-height: 1.5 !important;
+}
+.diff-column.generic .diff-item { color: #999 !important; }
+.diff-column.elevatenow .diff-item { color: #0A0A0A !important; font-weight: 400 !important; }
+
+/* ─────────────────────────────────────────────────────────────
+   ARCHITECTURE DIAGRAM
+   ───────────────────────────────────────────────────────────── */
+.arch-diagram {
+  border-radius: 0 !important;
+  border: 1px solid #D8D8D8 !important;
+  padding: 32px !important;
+  margin: 32px 0 !important;
+  background: #FAFAFA !important;
+}
+.arch-row { margin-bottom: 20px !important; gap: 16px !important; }
+.arch-box {
+  border-radius: 0 !important;
+  border: 1px solid #D8D8D8 !important;
+  border-left: 3px solid #0066A1 !important;
+  background: #FFFFFF !important;
+  padding: 20px !important;
+}
+.arch-box h4 {
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  color: #0066A1 !important;
+  margin-bottom: 6px !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+.arch-box p {
+  font-size: 13px !important;
+  color: #6B6B6B !important;
+  line-height: 1.5 !important;
+}
+.arch-arrow { color: #D8D8D8 !important; font-size: 20px !important; }
+
+/* ─────────────────────────────────────────────────────────────
+   VALUE CARDS
+   ───────────────────────────────────────────────────────────── */
+.value-grid { gap: 16px !important; }
+.value-card {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: 1px solid #D8D8D8 !important;
+  border-top: 3px solid #0066A1 !important;
+  padding: 28px 24px !important;
+  background: #FFFFFF !important;
+}
+.value-icon {
+  border-radius: 0 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 9.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.12em !important;
+  background: #0066A1 !important;
+  color: #FFFFFF !important;
+  padding: 4px 10px !important;
+  margin-bottom: 12px !important;
+}
+.value-card h4 {
+  font-size: 17px !important;
+  font-weight: 400 !important;
+  margin-bottom: 10px !important;
+}
+.value-card p {
+  font-size: 13.5px !important;
+  color: #6B6B6B !important;
+  line-height: 1.6 !important;
+}
+.value-metric {
+  font-size: 11.5px !important;
+  color: #0066A1 !important;
+  font-weight: 500 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: 0.04em !important;
+  padding-top: 12px !important;
+  border-top: 1px solid #D8D8D8 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   PROOF CARDS
+   ───────────────────────────────────────────────────────────── */
+.proof-grid { gap: 16px !important; }
+.proof-card {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: 1px solid #D8D8D8 !important;
+  border-top: 3px solid #0066A1 !important;
+  padding: 28px 24px !important;
+  background: #FFFFFF !important;
+}
+.proof-card.wc  { border-top-color: #0066A1 !important; }
+.proof-card.auto { border-top-color: #0066A1 !important; }
+.proof-card.cross { border-top-color: #0066A1 !important; }
+.proof-badge {
+  border-radius: 0 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 9.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1em !important;
+  background: #E5EEF4 !important;
+  color: #0066A1 !important;
+  padding: 4px 10px !important;
+  margin-bottom: 12px !important;
+}
+.proof-card.wc .proof-badge,
+.proof-card.auto .proof-badge,
+.proof-card.cross .proof-badge {
+  background: #E5EEF4 !important;
+  color: #0066A1 !important;
+}
+.proof-card h3 {
+  font-size: 17px !important;
+  font-weight: 400 !important;
+  margin-bottom: 10px !important;
+}
+.proof-card p {
+  font-size: 13.5px !important;
+  color: #6B6B6B !important;
+  line-height: 1.6 !important;
+}
+.proof-result {
+  font-size: 11.5px !important;
+  color: #0066A1 !important;
+  font-weight: 500 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: 0.03em !important;
+  padding-top: 12px !important;
+  border-top: 1px solid #D8D8D8 !important;
+  line-height: 1.5 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CTA SECTION — flatten dark gradient to paper
+   ───────────────────────────────────────────────────────────── */
+.cta-section {
+  background: #F5F5F3 !important;
+  color: #0A0A0A !important;
+  border-radius: 0 !important;
+  border: 1px solid #D8D8D8 !important;
+  padding: 56px 48px !important;
+  margin: 0 0 60px !important;
+}
+.cta-section h2 {
+  font-size: clamp(22px, 2.8vw, 32px) !important;
+  font-weight: 300 !important;
+  color: #0A0A0A !important;
+  margin-bottom: 14px !important;
+}
+.cta-section p {
+  font-size: 15px !important;
+  color: #6B6B6B !important;
+  opacity: 1 !important;
+}
+.btn {
+  border-radius: 0 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  padding: 12px 28px !important;
+  letter-spacing: 0.02em !important;
+}
+.btn-primary {
+  background: #0066A1 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #0066A1 !important;
+}
+.btn-secondary {
+  background: transparent !important;
+  color: #0066A1 !important;
+  border: 1px solid #0066A1 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TABLES
+   ───────────────────────────────────────────────────────────── */
+table { border-collapse: collapse !important; border-top: 1px solid #0A0A0A !important; }
+th, td { border-bottom: 1px solid #D8D8D8 !important; padding: 10px 12px !important; font-size: 13px !important; }
 th {
   background: #F5F5F3 !important;
   font-family: 'JetBrains Mono', monospace !important;
-  font-size: 10.5px !important;
-  letter-spacing: 0.14em !important;
+  font-size: 10px !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
   color: #3D3D3D !important;
   font-weight: 600 !important;
 }
 
-/* ── Horizontal rules: hairline ─────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   MISC
+   ───────────────────────────────────────────────────────────── */
 hr { border: none !important; border-top: 1px solid #D8D8D8 !important; margin: 32px 0 !important; }
-
-/* ── Blockquotes: left-bar editorial ─────────────────────── */
 blockquote {
   border-left: 2px solid #0066A1 !important;
   padding-left: 16px !important;
@@ -147,120 +458,22 @@ blockquote {
   font-style: italic !important;
   color: #1F1F1F !important;
 }
-
-/* ── Muted stat numbers keep large serif ─────────────────── */
-.number, .metric, .stat, [class*="number"], [class*="metric"], [class*="stat"] {
-  font-family: 'Source Serif 4', Georgia, serif !important;
-  font-weight: 300 !important;
+.footer {
+  font-size: 12px !important;
+  color: #6B6B6B !important;
+  border-top: 1px solid #D8D8D8 !important;
+  padding: 32px 48px !important;
+  text-align: center !important;
 }
-
-/* ── Section dividers hairline ─────────────────────────── */
-section { border-bottom: 1px solid #D8D8D8; }
-section:last-child { border-bottom: none; }
-
-/* ── Sanitize any dark-background sections past the hero ─── */
 [style*="background:#0"], [style*="background: #0"],
 [style*="background:rgb(0"], [style*="background: rgb(0"] {
   background: #F5F5F3 !important;
   color: #0A0A0A !important;
 }
-
-/* ── Soften hardcoded dark-mode color classes ─────────── */
 [class*="dark"], [class*="night"] {
   background: #FFFFFF !important;
   color: #0A0A0A !important;
 }
-
-/* ── Normalize container horizontal padding ──────────── */
-.container {
-  padding-left: 48px !important;
-  padding-right: 48px !important;
-}
-
-/* ── Kill all hover transforms and transitions ────────── */
-*, *::before, *::after {
-  transition: none !important;
-  animation: none !important;
-}
-.lob-card:hover, .value-card:hover, .proof-card:hover,
-.btn:hover, .btn-primary:hover, .btn-secondary:hover,
-a:hover, [class*="card"]:hover {
-  transform: none !important;
-  box-shadow: none !important;
-}
-
-/* ── Flatten .problem-backdrop ────────────────────────── */
-.problem-backdrop, [class*="problem"] {
-  background: #F5F5F3 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  border: 1px solid #D8D8D8 !important;
-  padding: 40px !important;
-}
-
-/* ── Stat cards — editorial left rule ────────────────── */
-.stat-card {
-  border-radius: 0 !important;
-  border-left: 3px solid #0066A1 !important;
-  box-shadow: none !important;
-}
-.stat-number { color: #0066A1 !important; }
-
-/* ── Flatten CTA section — paper style ───────────────── */
-.cta-section {
-  background: #F5F5F3 !important;
-  color: #0A0A0A !important;
-  border-radius: 0 !important;
-  border: 1px solid #D8D8D8 !important;
-  padding: 56px 48px !important;
-  box-shadow: none !important;
-}
-.cta-section h2 { color: #0A0A0A !important; font-size: clamp(22px, 2.8vw, 34px) !important; }
-.cta-section p { color: #3D3D3D !important; opacity: 1 !important; }
-.btn-primary {
-  background: #0066A1 !important;
-  color: #FFFFFF !important;
-  border: none !important;
-}
-.btn-secondary {
-  background: transparent !important;
-  color: #0066A1 !important;
-  border: 1px solid #0066A1 !important;
-}
-
-/* ── Architecture diagram — flatten ─────────────────── */
-.arch-diagram {
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  border: 1px solid #D8D8D8 !important;
-  padding: 32px !important;
-}
-.arch-box {
-  border-radius: 0 !important;
-  border-left: 3px solid #0066A1 !important;
-}
-
-/* ── LOB / value / proof cards — no border-radius ────── */
-.lob-card, .value-card, .proof-card {
-  border-radius: 0 !important;
-}
-.lob-icon, .value-icon, .proof-badge {
-  border-radius: 0 !important;
-}
-
-/* ── Section headings — editorial scale ─────────────── */
-.section h2 {
-  font-size: clamp(22px, 2.8vw, 34px) !important;
-  font-weight: 300 !important;
-}
-.section-intro {
-  font-size: 15px !important;
-  line-height: 1.6 !important;
-}
-
-/* ── Diff grid labels ─────────────────────────────────── */
-.diff-column.generic h4 { color: #6B6B6B !important; }
-.diff-column.elevatenow h4 { color: #0066A1 !important; }
 `;
 
 /**
