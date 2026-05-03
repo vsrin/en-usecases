@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ElevateNow — AI-Powered Public Sector Underwriting</title>
+<title>ElevateNow — Public Sector Underwriting Intelligence</title>
 <style>
   :root {
     --ink: #0D1534;
@@ -31,7 +31,6 @@
     font-size: 16px;
   }
 
-  /* ── Hero Section ── */
   .hero {
     min-height: 90vh;
     display: flex;
@@ -93,14 +92,12 @@
     z-index: 1;
   }
 
-  /* ── Container ── */
   .container {
     max-width: 1100px;
     margin: 0 auto;
     padding: 50px 60px;
   }
 
-  /* ── Section ── */
   .section {
     margin-bottom: 80px;
     page-break-before: always;
@@ -129,13 +126,11 @@
     line-height: 1.7;
   }
 
-  /* ── Problem Section (Backdrop) ── */
   .problem-backdrop {
     background: linear-gradient(to bottom, var(--warning-bg) 0%, #fafaf8 100%);
     padding: 48px 40px;
     border-radius: 16px;
     box-shadow: inset 0 2px 0 rgba(192,57,43,0.1);
-    page-break-inside: avoid;
   }
   .problem-stat {
     display: grid;
@@ -165,7 +160,6 @@
     line-height: 1.3;
   }
 
-  /* ── Challenge Cards ── */
   .challenge-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -178,7 +172,6 @@
     border-radius: 12px;
     box-shadow: var(--shadow);
     border-top: 3px solid var(--muted);
-    page-break-inside: avoid;
   }
   .challenge-icon {
     font-size: 12px;
@@ -191,25 +184,15 @@
     display: inline-block;
     margin-bottom: 20px;
   }
-  .challenge-card h3 {
-    font-size: 20px;
-    margin-bottom: 12px;
-    color: var(--ink);
-  }
-  .challenge-card p {
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.6;
-  }
+  .challenge-card h3 { font-size: 20px; margin-bottom: 12px; color: var(--ink); }
+  .challenge-card p { color: var(--muted); font-size: 15px; line-height: 1.6; }
 
-  /* ── Traditional Approach ── */
   .traditional-flow {
     background: white;
     padding: 48px;
     border-radius: 12px;
     box-shadow: var(--shadow);
     margin: 48px 0;
-    page-break-inside: avoid;
   }
   .flow-step {
     display: flex;
@@ -217,13 +200,11 @@
     gap: 24px;
     padding: 24px 0;
     border-bottom: 1px solid var(--border);
-    page-break-inside: avoid;
   }
   .flow-step:last-child { border-bottom: none; }
   .flow-number {
     flex-shrink: 0;
-    width: 48px;
-    height: 48px;
+    width: 48px; height: 48px;
     background: #f5f5f5;
     border-radius: 50%;
     display: flex;
@@ -233,14 +214,8 @@
     font-size: 18px;
     color: var(--muted);
   }
-  .flow-content h4 {
-    margin-bottom: 8px;
-    font-size: 17px;
-  }
-  .flow-content p {
-    color: var(--muted);
-    font-size: 15px;
-  }
+  .flow-content h4 { margin-bottom: 8px; font-size: 17px; }
+  .flow-content p { color: var(--muted); font-size: 15px; }
   .flow-pain {
     display: inline-block;
     background: var(--warning-bg);
@@ -252,33 +227,31 @@
     margin-top: 12px;
   }
 
-  /* ── ElevateNow Principles ── */
-  .principle-grid {
+  /* Intelligence Brief tabs */
+  .brief-tabs {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin: 48px 0;
+    gap: 16px;
+    margin: 40px 0;
   }
-  .principle-card {
+  .brief-tab {
     background: white;
-    padding: 32px;
+    border: 1px solid var(--border);
     border-radius: 12px;
+    padding: 24px;
     box-shadow: var(--shadow);
-    border-top: 4px solid var(--accent);
-    page-break-inside: avoid;
   }
-  .principle-card h3 {
-    font-size: 18px;
-    margin-bottom: 12px;
+  .brief-tab-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
     color: var(--accent);
+    margin-bottom: 10px;
   }
-  .principle-card p {
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
+  .brief-tab h4 { font-size: 16px; margin-bottom: 8px; }
+  .brief-tab p { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
 
-  /* ── Workflow ── */
   .workflow-container {
     background: linear-gradient(to bottom, var(--accent-bg) 0%, #fafaf8 100%);
     padding: 48px 40px;
@@ -292,7 +265,6 @@
     margin-bottom: 24px;
     box-shadow: var(--shadow);
     border-left: 4px solid var(--accent);
-    page-break-inside: avoid;
   }
   .workflow-phase:last-child { margin-bottom: 0; }
   .workflow-header {
@@ -310,10 +282,13 @@
     font-weight: 700;
     letter-spacing: 1px;
   }
-  .workflow-title {
-    font-size: 20px;
-    font-weight: 700;
+  .workflow-badge.new {
+    background: #1e6e3e;
   }
+  .workflow-badge.proprietary {
+    background: #6b21a8;
+  }
+  .workflow-title { font-size: 20px; font-weight: 700; }
   .workflow-desc {
     color: var(--muted);
     font-size: 15px;
@@ -335,55 +310,82 @@
     font-size: 13px;
     font-weight: 500;
   }
-  .outcome-icon {
-    color: var(--accent);
-    font-weight: 700;
-  }
+  .outcome-icon { color: var(--accent); font-weight: 700; }
 
-  /* ── Value Grid ── */
-  .value-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 48px;
+  /* SIP engine callout */
+  .sip-callout {
+    background: linear-gradient(135deg, #2e1065 0%, #4c1d95 100%);
+    color: white;
+    padding: 48px;
+    border-radius: 16px;
+    margin: 32px 0;
   }
-  .value-card {
-    background: white;
-    padding: 32px;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    page-break-inside: avoid;
-  }
-  .value-icon {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: var(--accent);
-    background: var(--accent-bg);
-    padding: 8px 14px;
-    border-radius: 6px;
-    display: inline-block;
-    margin-bottom: 20px;
-  }
-  .value-card h4 {
-    font-size: 18px;
-    margin-bottom: 12px;
-  }
-  .value-card p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.6;
+  .sip-callout h3 {
+    font-family: Georgia, serif;
+    font-size: 28px;
     margin-bottom: 16px;
   }
-  .value-metric {
-    font-size: 13px;
+  .sip-callout p { font-size: 16px; opacity: 0.85; line-height: 1.7; max-width: 740px; margin-bottom: 24px; }
+  .sip-factors {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .sip-factor {
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .sip-factor-label {
+    font-size: 11px;
     font-weight: 700;
-    color: var(--accent);
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 8px;
+  }
+  .sip-factor h4 { font-size: 16px; margin-bottom: 6px; }
+  .sip-factor p { font-size: 13px; opacity: 0.75; line-height: 1.5; }
+
+  /* Minutes signal grid */
+  .minutes-signals {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 32px 0;
+  }
+  .minutes-signal {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+  .minutes-signal-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--agent-green);
+    margin-bottom: 8px;
+  }
+  .minutes-signal h4 { font-size: 16px; margin-bottom: 8px; }
+  .minutes-signal p { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+  .callout-box {
+    background: var(--accent-bg);
+    border-left: 4px solid var(--accent);
+    padding: 24px 28px;
+    border-radius: 0 10px 10px 0;
+    margin: 28px 0;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.6;
   }
 
-  /* ── Governance Section ── */
   .governance-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -397,18 +399,42 @@
     box-shadow: var(--shadow);
     border-left: 4px solid var(--agent-green);
   }
-  .governance-card h4 {
-    font-size: 17px;
-    margin-bottom: 10px;
-    color: var(--agent-green);
+  .governance-card h4 { font-size: 17px; margin-bottom: 10px; color: var(--agent-green); }
+  .governance-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
   }
-  .governance-card p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.6;
+  .value-card {
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  .value-icon {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 8px 14px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  .value-card h4 { font-size: 18px; margin-bottom: 12px; }
+  .value-card p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+  .value-metric {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
   }
 
-  /* ── CTA Section ── */
   .cta-section {
     background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 100%);
     color: white;
@@ -417,23 +443,9 @@
     text-align: center;
     margin: 60px 0;
   }
-  .cta-section h2 {
-    font-family: Georgia, serif;
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  .cta-section p {
-    font-size: 18px;
-    opacity: 0.8;
-    max-width: 600px;
-    margin: 0 auto 40px;
-    line-height: 1.6;
-  }
-  .cta-buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-  }
+  .cta-section h2 { font-family: Georgia, serif; font-size: 36px; margin-bottom: 20px; }
+  .cta-section p { font-size: 18px; opacity: 0.8; max-width: 600px; margin: 0 auto 40px; line-height: 1.6; }
+  .cta-buttons { display: flex; gap: 20px; justify-content: center; }
   .btn {
     padding: 16px 32px;
     border-radius: 10px;
@@ -442,19 +454,11 @@
     text-decoration: none;
     transition: all 0.2s;
   }
-  .btn-primary {
-    background: #5dade2;
-    color: #0d1b2a;
-  }
+  .btn-primary { background: #5dade2; color: #0d1b2a; }
   .btn-primary:hover { background: #85c1e9; }
-  .btn-secondary {
-    background: transparent;
-    color: white;
-    border: 2px solid rgba(255,255,255,0.3);
-  }
+  .btn-secondary { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.3); }
   .btn-secondary:hover { border-color: white; }
 
-  /* ── Footer ── */
   .footer {
     text-align: center;
     padding: 40px;
@@ -463,7 +467,6 @@
     border-top: 1px solid var(--border);
   }
 
-  /* ── Key Question Callout ── */
   .key-question {
     background: linear-gradient(135deg, #1b263b 0%, #2d3a4a 100%);
     color: white;
@@ -477,8 +480,7 @@
     font-family: Georgia, serif;
     font-size: 120px;
     position: absolute;
-    top: -20px;
-    left: 30px;
+    top: -20px; left: 30px;
     opacity: 0.1;
   }
   .key-question p {
@@ -487,6 +489,16 @@
     line-height: 1.5;
     font-style: italic;
     max-width: 800px;
+  }
+
+  @media (max-width: 768px) {
+    .hero { padding: 100px 32px 60px; }
+    .container { padding: 40px 24px; }
+    .brief-tabs { grid-template-columns: 1fr; }
+    .sip-factors { grid-template-columns: 1fr; }
+    .minutes-signals { grid-template-columns: 1fr; }
+    .value-grid { grid-template-columns: 1fr; }
+    .governance-grid { grid-template-columns: 1fr; }
   }
 </style>
   <link rel="stylesheet" href="/usecases/shared.css">
@@ -501,41 +513,33 @@
   </div>
 </nav>
 
-<!-- ══════════════════════════════════════════════════════════════════ -->
-<!-- HERO -->
-<!-- ══════════════════════════════════════════════════════════════════ -->
 <div class="hero">
-  <div class="hero-label">ElevateNow Agentic Recipe</div>
-  <h1>Municipal Budgets Tell <span>Risk Stories</span>. Most Underwriters Never Hear Them.</h1>
+  <div class="hero-label">ElevateNow · Field Research · Underwriting</div>
+  <h1>The Documents You Don't Have Time to Read Are the Ones That <span>Contain the Risk.</span></h1>
   <p class="hero-sub">
-    Transform 200-page county budget PDFs into actionable underwriting intelligence, with every claim traced to evidence and every supplemental form justified by rule.
+    Budget PDFs, board meeting minutes, circuit court filings, environmental records — a county's true risk portrait is scattered across public records most underwriters never reach. We built a system that reads all of them.
   </p>
   <div class="hero-meta">
     <span>Public Sector Underwriting</span>
-    <span>Counties · Special Districts · Municipalities</span>
-    <span>AI-Powered Risk Assessment</span>
+    <span>Counties · Municipalities · Special Districts</span>
+    <span>12 min read</span>
   </div>
 </div>
 
 <div class="container">
 
-<!-- ══════════════════════════════════════════════════════════════════ -->
-<!-- KEY QUESTION -->
-<!-- ══════════════════════════════════════════════════════════════════ -->
 <div class="key-question">
   <p>
-    How much risk signal is buried in budget documents that no underwriter has time to decode, and what happens when that signal surfaces after a loss?
+    A county disclosed no losses over $50K. Their board minutes show $1.2M in approved settlements over the same period. Which number should an underwriter trust?
   </p>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════ -->
 <!-- THE CHALLENGE -->
-<!-- ══════════════════════════════════════════════════════════════════ -->
 <div class="section">
-  <div class="section-label">The Challenge</div>
-  <h2>Public Sector Complexity Exceeds Manual Capacity</h2>
+  <div class="section-label">The Real Problem</div>
+  <h2>Public Sector Risk Is Documented. Just Not Where Underwriters Look.</h2>
   <p class="section-intro">
-    Counties and municipalities operate jails, water treatment plants, law enforcement, transit systems, and healthcare facilities. Each carries distinct liability profiles. Yet underwriters receive the same 200-page budget PDF and 15 minutes to figure it out.
+    Counties and municipalities are unusual risks — they operate jails, water treatment plants, law enforcement agencies, transit systems, and healthcare facilities. The documentation is largely public: budgets, board minutes, environmental compliance records, court filings. The problem isn't that the information doesn't exist. It's that reading it at scale is humanly impossible.
   </p>
 
   <div class="problem-backdrop">
@@ -545,12 +549,12 @@
         <div class="stat-label">U.S. Counties<br>Each with unique risk profile</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">87</div>
-        <div class="stat-label">Department Types<br>Requiring classification</div>
+        <div class="stat-number">108</div>
+        <div class="stat-label">Department Types<br>Requiring insurance classification</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">15 min</div>
-        <div class="stat-label">Typical Review Time<br>For 200+ page budget</div>
+        <div class="stat-number">10</div>
+        <div class="stat-label">Risk Signal Categories<br>Extractable from board minutes alone</div>
       </div>
       <div class="stat-card">
         <div class="stat-number">$2.4M</div>
@@ -560,43 +564,35 @@
 
     <div class="challenge-grid">
       <div class="challenge-card">
+        <div class="challenge-icon">DISCLOSURE GAP</div>
+        <h3>What Was Submitted vs. What the Record Shows</h3>
+        <p>Board meeting minutes are public record and contain board-approved claim settlements, reserve fund transfers for litigation, and carrier complaint discussions. Most applications never surface these. The gap between the submitted loss history and the board-approved settlement register is a disclosure problem, not a data problem.</p>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-icon">SOCIAL INFLATION</div>
+        <h3>Jury Awards Vary by County, Not Just by State</h3>
+        <p>State-level tort reform data misses the variance that actually matters. Plaintiff attorney concentration, population density, and actual circuit court filing rates differ dramatically county to county. An account in Wayne County, Michigan carries a fundamentally different LEL exposure than one in Keweenaw — same state, different universe.</p>
+      </div>
+      <div class="challenge-card">
         <div class="challenge-icon">SIGNAL BURIED</div>
-        <h3>Budget Data Is Unstructured</h3>
-        <p>
-          Department names vary wildly. "Public Safety" might mean sheriff, fire, and EMS combined, or just code enforcement. Without classification, concentration risk hides in plain sight.
-        </p>
-      </div>
-      <div class="challenge-card">
-        <div class="challenge-icon">INTEL SCATTERED</div>
-        <h3>External Risk Is Invisible</h3>
-        <p>
-          PFAS litigation, consent decrees, ransomware attacks: the intelligence exists in news articles and public filings, but searching takes hours. And even when found, validating it relates to <em>this</em> county (not a similarly named one) requires expertise.
-        </p>
-      </div>
-      <div class="challenge-card">
-        <div class="challenge-icon">RULES IMPLICIT</div>
-        <h3>Supplemental Logic Is Undocumented</h3>
-        <p>
-          "Why did we request the Law Enforcement form?" Senior UWs know intuitively. The rule lives in their heads, not in a system auditors can verify.
-        </p>
+        <h3>The Pattern Is Negligence. The Incident Is Just the Evidence.</h3>
+        <p>A single deferred maintenance mention in a board meeting is a budget choice. The same infrastructure complaint raised at six consecutive meetings with no resolution creates a documented negligence trail. Pattern detection across the minutes record is where the real exposure signal lives.</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════ -->
-<!-- TRADITIONAL APPROACH -->
-<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- HOW IT'S DONE TODAY -->
 <div class="section">
   <div class="section-label">Current State</div>
-  <h2>How Public Sector Gets Underwritten Today</h2>
+  <h2>What the Manual Process Actually Misses</h2>
 
   <div class="traditional-flow">
     <div class="flow-step">
       <div class="flow-number">1</div>
       <div class="flow-content">
         <h4>Broker Submits Budget PDF</h4>
-        <p>A 200-page PDF lands in the underwriter's queue. Maybe Excel exports if they're lucky. Usually just scanned images of printed pages.</p>
+        <p>A 200-page PDF arrives. Sometimes Excel exports. Typically scanned images of printed pages. Day one is consumed by extraction before any analysis begins.</p>
         <span class="flow-pain">⏱ Day 1 lost to extraction</span>
       </div>
     </div>
@@ -604,280 +600,357 @@
       <div class="flow-number">2</div>
       <div class="flow-content">
         <h4>Manual Department Scan</h4>
-        <p>UW scrolls through looking for "red flag" words: jail, sheriff, water, transit. Concentration analysis? Only if there's time (there isn't).</p>
-        <span class="flow-pain">⚠️ 40% of high-relevance departments missed</span>
+        <p>Underwriter scans for red-flag keywords: jail, sheriff, water, transit. Concentration analysis and year-over-year budget shifts don't happen — there isn't time.</p>
+        <span class="flow-pain">⚠️ High-relevance departments routinely missed</span>
       </div>
     </div>
     <div class="flow-step">
       <div class="flow-number">3</div>
       <div class="flow-content">
-        <h4>Google Search for News</h4>
-        <p>Quick search for "[County Name] lawsuit" or "PFAS." Results mixed with other jurisdictions. No systematic coverage of all risk domains.</p>
-        <span class="flow-pain">🎲 Hit-or-miss intelligence</span>
+        <h4>Quick Google Search</h4>
+        <p>A search for "[County Name] lawsuit" returns mixed results across multiple jurisdictions with similar names. Systematic coverage across 13 risk domains doesn't happen.</p>
+        <span class="flow-pain">🎲 Hit-or-miss, entity-unvalidated intelligence</span>
       </div>
     </div>
     <div class="flow-step">
       <div class="flow-number">4</div>
       <div class="flow-content">
-        <h4>Supplemental Requests by Gut</h4>
-        <p>Experienced UW knows to request LE Supplemental when jail budget is "big." But what's big? Why? No documented threshold or rule chain.</p>
-        <span class="flow-pain">📋 Undocumented decision logic</span>
+        <h4>Board Minutes Never Reviewed</h4>
+        <p>Meeting minutes are public record, but finding, downloading, and reading 12 months of PDFs for a single submission takes hours. In practice, it doesn't happen. The shadow settlement register, program stability signal, and recurring issue pattern stay invisible.</p>
+        <span class="flow-pain">🔍 The richest risk signal in the file never opened</span>
       </div>
     </div>
     <div class="flow-step">
       <div class="flow-number">5</div>
       <div class="flow-content">
-        <h4>Briefing Memo from Memory</h4>
-        <p>Senior UW writes assessment based on what they noticed and remember. No link to source data. No audit trail. No year-over-year comparison.</p>
-        <span class="flow-pain">🔍 Unverifiable conclusions</span>
+        <h4>Jurisdiction Risk Assessed by State, Not County</h4>
+        <p>Social inflation adjustments apply at the state level. The actual judicial climate — circuit court filing rates, plaintiff attorney density — varies by county in ways state-level adjustments cannot capture.</p>
+        <span class="flow-pain">📍 Granularity that changes the pricing decision is absent</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════ -->
-<!-- ELEVATENOW APPROACH -->
-<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- INTELLIGENCE BRIEF ARCHITECTURE -->
 <div class="section">
-  <div class="section-label">The ElevateNow Approach</div>
-  <h2>Underwriting Intelligence with Governance Built In</h2>
+  <div class="section-label">The Architecture</div>
+  <h2>A Due Diligence Intelligence Brief, Not a Risk Score</h2>
   <p class="section-intro">
-    Not a black-box risk score. A transparent, auditable system where every claim links to evidence, every supplemental traces to a rule, and the underwriter remains in control.
+    The output is a structured intelligence brief — six analytical layers, each with a specific job. The underwriter reads the assessment narrative first, then drills into the evidence that produced it. Every claim is traceable. Every supplemental form shows the rule that triggered it.
   </p>
 
-  <div class="principle-grid">
-    <div class="principle-card">
-      <h3>Narrative First, Not Dashboard First</h3>
-      <p>
-        Underwriters read prose, not pivot tables. The system synthesizes findings into executive narrative with <strong>clickable citations</strong>. Hover to see the source, click to drill into evidence.
-      </p>
+  <div class="callout-box">
+    This is a due diligence tool, not a quoting tool. There is no bind/decline recommendation. The underwriter carries the findings into the separate submission workflow — informed by a complete picture, not a black-box verdict.
+  </div>
+
+  <div class="brief-tabs">
+    <div class="brief-tab">
+      <div class="brief-tab-label">Tab 1</div>
+      <h4>Executive Briefing</h4>
+      <p>Composite risk signal (Routine / Standard / Elevated / Critical), narrative synthesis, evidence hotspots, and supplemental forms required — all in a single view before any tab is opened.</p>
     </div>
-    <div class="principle-card">
-      <h3>Logic Chains, Not Black Boxes</h3>
-      <p>
-        Every supplemental form shows a 3-step reasoning trace: <strong>Detection → Association → Determination</strong>. Auditors see exactly why Law Enforcement Supplemental was required.
-      </p>
+    <div class="brief-tab">
+      <div class="brief-tab-label">Tab 2</div>
+      <h4>Budget Analysis</h4>
+      <p>108-department taxonomy with 4-column YoY view (Prior / Adopted / Amended / Proposed). Budget signal per department, financial stress composite, deferred maintenance indicators.</p>
     </div>
-    <div class="principle-card">
-      <h3>Flagged for Review, Not Hidden</h3>
-      <p>
-        When confidence is low or entity validation uncertain, findings surface with <strong>yellow flags</strong>, not buried in logs. The underwriter decides, not the algorithm.
-      </p>
+    <div class="brief-tab">
+      <div class="brief-tab-label">Tab 3</div>
+      <h4>Meeting Minutes</h4>
+      <p>10 signal categories extracted from board PDFs: program stability, shadow settlement register, recurring issues, LEL governance, financial stress composite, and more.</p>
+    </div>
+    <div class="brief-tab">
+      <div class="brief-tab-label">Tab 4</div>
+      <h4>Risk Intelligence</h4>
+      <p>13-domain external intelligence organized by coverage line — not search domain. Active incidents, disclosure cross-check against submitted loss history, trajectory signals.</p>
+    </div>
+    <div class="brief-tab">
+      <div class="brief-tab-label">Tab 5</div>
+      <h4>Environmental</h4>
+      <p>PFAS compliance against 2024 EPA MCL thresholds. Water system ownership determination — county liability vs. third-party authority. Per-compound ppt levels with violation status.</p>
+    </div>
+    <div class="brief-tab">
+      <div class="brief-tab-label">Tab 6 — SIP Map</div>
+      <h4>Social Inflation Proxy</h4>
+      <p>Geospatial county-level SIP scores across 5 LOBs. Estimated (Perplexity synthesis) and Actual (SCAO circuit court filings) grades. LOB-tunable weights for GL, LEL, WC, Auto, Property.</p>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════ -->
 <!-- CAPABILITIES -->
-<!-- ══════════════════════════════════════════════════════════════════ -->
 <div class="section">
   <div class="section-label">The Capabilities</div>
-  <h2>From Budget PDF to Underwriting Briefing</h2>
-  <p class="section-intro">
-    A coordinated set of capabilities transforms raw budget data into classified departments, verified external intelligence, and audit-ready supplemental logic. All findings persist to enable year-over-year benchmarking and trend analysis.
-  </p>
+  <h2>Seven Tools. One Coordinated Pipeline.</h2>
 
   <div class="workflow-container">
+
     <div class="workflow-phase">
       <div class="workflow-header">
-        <div class="workflow-badge">CAPABILITY</div>
-        <div class="workflow-title">Budget Classification</div>
+        <div class="workflow-badge">BUDGET</div>
+        <div class="workflow-title">Budget Classification — 108 Department Taxonomy</div>
       </div>
       <p class="workflow-desc">
-        Vendor-extracted budget data flows through pattern matching and alias resolution. Each line item maps to one of <strong>87 canonical departments</strong> with confidence scores. High-relevance departments like Sheriff, Jail, and Water Treatment trigger coverage analysis. Results persist to enable year-over-year comparison of allocation shifts and concentration changes.
+        Every line item in the submitted budget maps to one of 108 canonical department types using a four-stage deterministic matching pipeline — exact alias, normalized alias, token similarity, then LLM fallback. Each department carries underwriting relevance tier (Very High / High / Medium / Low), associated coverage lines, and supplemental form triggers. The 4-column YoY view (Prior / Current Adopted / Current Amended / Proposed) surfaces mid-year amendments where financial stress hides. 108 departments with 522 match aliases ensures the jail buried under "Department of Corrections and Rehabilitation" gets classified correctly.
       </p>
       <div class="workflow-outcomes">
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Department classification</div>
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Concentration analysis</div>
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Coverage triggers identified</div>
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Year-over-year benchmarking</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>108-department taxonomy</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>4-column YoY budget view</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Financial stress signals</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Coverage line mapping</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>28+ supplemental form triggers</div>
       </div>
     </div>
 
     <div class="workflow-phase">
       <div class="workflow-header">
-        <div class="workflow-badge">CAPABILITY</div>
-        <div class="workflow-title">Dynamic Risk Intelligence</div>
+        <div class="workflow-badge new">NEW</div>
+        <div class="workflow-title">Meeting Minutes Intelligence — 10 Signal Categories</div>
       </div>
       <p class="workflow-desc">
-        The system dynamically scans public domain sources including news articles, government filings, court records, and regulatory announcements across 8 risk domains. Findings are validated to confirm they relate to the correct entity, not a similarly named jurisdiction. Source credibility is scored. Boilerplate language from audit documents is filtered. Uncertain findings surface for human review. All intelligence persists to track how a county's risk profile evolves over time.
+        Meeting minutes are the entity's unfiltered self-portrait. Every other data source is the entity presenting itself to the outside world. Minutes are the entity talking to itself — and that's where the real risk profile lives. The tool discovers, downloads, and reads board meeting PDFs from official government domains, extracting 10 signal categories that no other underwriting intelligence source reaches.
       </p>
+
+      <div class="minutes-signals">
+        <div class="minutes-signal">
+          <div class="minutes-signal-num">Signal 01</div>
+          <h4>Program Stability Score</h4>
+          <p>Annual re-bid authorizations, broker changes, board-approved coverage reductions. Classifies as Stable (same carrier 3+ years), Shopping (annual bids), or Distressed (coverage reductions, pool exits, self-insured discussions).</p>
+        </div>
+        <div class="minutes-signal">
+          <div class="minutes-signal-num">Signal 02</div>
+          <h4>Shadow Settlement Register</h4>
+          <p>Every claim settlement approved by board vote — dollar amount, type, department. Cross-checkable against stated loss history. A board-approved $1.2M in settlements against a submitted "no losses over $50K" is a disclosure problem surfaced before quoting begins.</p>
+        </div>
+        <div class="minutes-signal">
+          <div class="minutes-signal-num">Signal 03</div>
+          <h4>Recurring Issue Tracker</h4>
+          <p>Topics that appear across multiple meetings in the review period. A single deferred maintenance mention is a budget choice. The same issue raised at six consecutive meetings with no resolution action creates a documented negligence trail a plaintiff's attorney will use.</p>
+        </div>
+        <div class="minutes-signal">
+          <div class="minutes-signal-num">Signal 04</div>
+          <h4>Exposure Change Log</h4>
+          <p>New construction approvals, property acquisitions, fleet purchases — capital and property changes that affect coverage but haven't yet been reported to the carrier. Mid-term coverage gaps identified before they become post-loss surprises.</p>
+        </div>
+        <div class="minutes-signal">
+          <div class="minutes-signal-num">Signal 05</div>
+          <h4>LEL Governance Block</h4>
+          <p>Use of force policy changes (proactive vs. reactive), body camera policy votes, consent decree or DOJ engagement mentions, jail/detention conditions. Dedicated law enforcement liability signals, not buried in general legal findings.</p>
+        </div>
+        <div class="minutes-signal">
+          <div class="minutes-signal-num">Signal 06</div>
+          <h4>Financial Stress Composite</h4>
+          <p>Short-term borrowing resolutions, fund balance warnings, tax revenue shortfalls, pension/OPEB discussions, grant dependency risks. Financial stress is the upstream predictor of deferred maintenance, reduced risk management, and aggressive claim disputes.</p>
+        </div>
+        <div class="minutes-signal">
+          <div class="minutes-signal-num">Signal 07</div>
+          <h4>Closed Session Pattern</h4>
+          <p>Agenda descriptions of closed sessions (legally public even if content is not). Volume and subject distribution — litigation, personnel, labor, real property — reveals active problems being managed quietly. 18 closed sessions in a year reads differently than 3.</p>
+        </div>
+        <div class="minutes-signal">
+          <div class="minutes-signal-num">Signal 08</div>
+          <h4>Contractor & Vendor Risk</h4>
+          <p>Low-bid awards with on-record objections, large infrastructure contracts without COI discussion, performance disputes and bond calls. Board-record objections create future liability exposure admissible in negligence claims.</p>
+        </div>
+        <div class="minutes-signal">
+          <div class="minutes-signal-num">Signal 09</div>
+          <h4>Cyber & Technology Signals</h4>
+          <p>Large system implementations (ERP, payroll, 911 dispatch) during which cyber exposure spikes, IT vendor contracts with data custody implications, any breach or incident references in session agendas.</p>
+        </div>
+        <div class="minutes-signal">
+          <div class="minutes-signal-num">Signal 10</div>
+          <h4>Employee & HR Signals</h4>
+          <p>Safety committee activity and budget trends, return-to-work program references (WC claim management indicator), FMLA/ADA accommodation disputes (EPL exposure), union grievances and labor negotiations.</p>
+        </div>
+      </div>
+
       <div class="workflow-outcomes">
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Real-time public domain scanning</div>
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Entity validation</div>
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Credibility scoring</div>
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Historical trend tracking</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Program stability score</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Shadow settlement register</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Recurring issue pattern detection</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Mid-term exposure change log</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Official domain source validation</div>
       </div>
     </div>
 
     <div class="workflow-phase">
       <div class="workflow-header">
-        <div class="workflow-badge">CAPABILITY</div>
-        <div class="workflow-title">Environmental Compliance</div>
+        <div class="workflow-badge proprietary">PROPRIETARY</div>
+        <div class="workflow-title">Social Inflation Proxy (SIP) Engine</div>
       </div>
       <p class="workflow-desc">
-        When water departments are detected, the system gathers PFAS levels and checks EPA and state compliance thresholds. Active contamination proceedings and consent orders are identified. With a $2.4M average settlement per event, this capability pays for itself on the first catch. Historical compliance data enables trending of environmental exposure.
+        Social inflation — the tendency of jury awards and settlement values to increase faster than economic inflation — is not uniform across a state. It varies by county, driven by population density, plaintiff-favorable judicial venues, and concentration of plaintiff law firms. Most carriers apply state-level tort reform flags or zip code premium loads. Neither captures the county-level variance that actually determines litigation exposure. The SIP Engine makes this quantifiable.
       </p>
+
+      <div class="sip-callout">
+        <h3>County-Level, Not State-Level</h3>
+        <p>Wayne County, Michigan (Detroit) carries a J_scao score of 1.000 based on 15,871 circuit court filings. Keweenaw County scores 0.168 based on 4 filings. Same state. Same tort reform environment. Underwriting them identically on LEL or auto liability is a pricing error, not a conservative choice.</p>
+        <div class="sip-factors">
+          <div class="sip-factor">
+            <div class="sip-factor-label">Factor D</div>
+            <h4>Population Density</h4>
+            <p>Higher density correlates with more claims, larger jury pools drawn from urban environments, and media attention on high-value verdicts.</p>
+          </div>
+          <div class="sip-factor">
+            <div class="sip-factor-label">Factor J</div>
+            <h4>Judicial Climate</h4>
+            <p>Actual SCAO circuit court civil filing rates per county — not estimated, not synthesized. Sourced directly from Michigan Supreme Court Administrative Office data.</p>
+          </div>
+          <div class="sip-factor">
+            <div class="sip-factor-label">Factor L</div>
+            <h4>Legal Presence</h4>
+            <p>Plaintiff law firm concentration and legal services density at the county level. Where attorneys are concentrated, claims get filed and pursued more aggressively.</p>
+          </div>
+        </div>
+      </div>
+
       <div class="workflow-outcomes">
-        <div class="outcome-item"><span class="outcome-icon">✓</span>PFAS levels (ppt)</div>
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Compliance status</div>
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Active violations</div>
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Compliance trend analysis</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>83 Michigan counties scored</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>5 LOBs (GL, LEL, WC, Auto, Property)</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Estimated + Actual judicial grade</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>SCAO circuit court data (actual filings)</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>LOB-tunable factor weights</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Geospatial choropleth map</div>
       </div>
     </div>
 
     <div class="workflow-phase">
       <div class="workflow-header">
-        <div class="workflow-badge">CAPABILITY</div>
-        <div class="workflow-title">Underwriting Synthesis</div>
+        <div class="workflow-badge">INTELLIGENCE</div>
+        <div class="workflow-title">External Risk Intelligence — 13 Domains, Coverage-Line Organized</div>
       </div>
       <p class="workflow-desc">
-        All findings synthesize into an executive narrative with <strong>hotspot citations</strong> linking each claim to its source. Logic chains explain every supplemental form requirement. A composite risk signal summarizes overall exposure. Underwriters get prose they can read and evidence they can verify.
+        Thirteen search domains scan public domain sources including news articles, government filings, court records, and regulatory announcements. Five domains activate conditionally based on detected departments — law enforcement intelligence only runs when a Sheriff or Police budget is present. All findings are entity-validated (this county, not a similarly named one), credibility-scored, and organized by coverage line rather than search domain. The result is not a list of 30 web findings — it's a disclosure cross-check against the submitted application and an active incident tracker by coverage line.
       </p>
       <div class="workflow-outcomes">
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Narrative summary</div>
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Clickable hotspots</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>13 domains (8 always-on, 5 conditional)</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Entity validation per finding</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Coverage-line organized output</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Disclosure cross-check logic</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Active vs. historical incident classification</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">ENVIRONMENTAL</div>
+        <div class="workflow-title">Environmental Compliance — PFAS Against 2024 EPA MCL</div>
+      </div>
+      <p class="workflow-desc">
+        When water or wastewater departments are detected in the budget, the system determines whether the county directly owns and operates the water system — or whether a separate utility authority holds that liability. For county-operated systems, PFAS compound levels are checked against 2024 EPA Maximum Contaminant Levels (PFOA: 4 ppt, PFOS: 4 ppt, PFHxS: 10 ppt). Compliance status, active violation proceedings, and remediation history feed directly into the underwriting assessment and pollution liability trigger analysis.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Water system ownership determination</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Per-compound ppt levels</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>2024 EPA MCL compliance check</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Pollution liability trigger signal</div>
+      </div>
+    </div>
+
+    <div class="workflow-phase">
+      <div class="workflow-header">
+        <div class="workflow-badge">SYNTHESIS</div>
+        <div class="workflow-title">Underwriting Assessment — Escalation Tier + Narrative + Logic Chains</div>
+      </div>
+      <p class="workflow-desc">
+        The synthesis layer reads all upstream outputs — budget, minutes, intelligence, environmental — and produces an escalation tier (Routine / Standard / Elevated / Critical) through a deterministic pre-analysis pass before any LLM synthesis runs. The LLM can match or raise the pre-signal but cannot lower it. Every supplemental form requirement traces to a logic chain: Detection (which department or finding), Association (which coverage line), Determination (which rule applied). Hotspot citations in the narrative link every claim back to its source evidence.
+      </p>
+      <div class="workflow-outcomes">
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Deterministic escalation tier</div>
+        <div class="outcome-item"><span class="outcome-icon">✓</span>Narrative with hotspot citations</div>
         <div class="outcome-item"><span class="outcome-icon">✓</span>Supplemental logic chains</div>
         <div class="outcome-item"><span class="outcome-icon">✓</span>Composite risk signal</div>
       </div>
     </div>
 
-    <div class="workflow-phase" style="border-bottom: none;">
-      <div class="workflow-header">
-        <div class="workflow-badge">CAPABILITY</div>
-        <div class="workflow-title">Persistent Intelligence Layer</div>
-      </div>
-      <p class="workflow-desc">
-        Every submission, classification, and intelligence finding persists to a structured data layer. This enables powerful benchmarking: compare this year's budget allocation against last year's, track how detention spending trends across similar-sized counties, monitor whether flagged litigation has resolved. The underwriter sees not just a snapshot, but a trajectory.
-      </p>
-      <div class="workflow-outcomes">
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Multi-year budget comparison</div>
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Peer county benchmarking</div>
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Intelligence trend tracking</div>
-        <div class="outcome-item"><span class="outcome-icon">✓</span>Complete audit trail</div>
-      </div>
-    </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════ -->
 <!-- GOVERNANCE -->
-<!-- ══════════════════════════════════════════════════════════════════ -->
 <div class="section">
   <div class="section-label">Governance by Design</div>
-  <h2>Trust Through Transparency</h2>
+  <h2>Every Conclusion Is Verifiable. That's the Architecture.</h2>
   <p class="section-intro">
-    AI assistance only earns underwriter trust when every conclusion can be verified. The system is designed for auditability, not as an afterthought, but as architecture.
+    AI assistance earns underwriter trust only when every conclusion can be traced to evidence. Auditability is not a feature added after the system was built — it is the structural requirement the system was designed around.
   </p>
 
   <div class="governance-grid">
     <div class="governance-card">
       <h4>Hotspot Citations</h4>
-      <p>Every claim in the narrative links to source evidence. "14% expansion in Detention" leads directly to the budget line item, page number, and classification confidence.</p>
+      <p>Every claim in the narrative links to its source. "14% expansion in Detention" leads directly to the budget line item, classification confidence, and matching rule. Nothing is asserted without a traceable origin.</p>
     </div>
     <div class="governance-card">
-      <h4>Logic Chains</h4>
-      <p>Supplemental forms show reasoning: Step 1 (Detection), Step 2 (Risk Association), Step 3 (Rule Application). Auditors trace the path from data to decision.</p>
+      <h4>Supplemental Logic Chains</h4>
+      <p>Each required form shows a 3-step reasoning trace: Step 1 Detection, Step 2 Risk Association, Step 3 Rule Application. Auditors trace the full path from raw data to the supplemental request — documented, not recalled.</p>
     </div>
     <div class="governance-card">
-      <h4>Flagged Findings</h4>
-      <p>Low-confidence items do not disappear. They surface with yellow flags and "Requires UW Review" status. The human makes the call, informed by AI but not replaced by it.</p>
+      <h4>Deterministic Pre-Analysis</h4>
+      <p>Escalation tier is computed deterministically from rule-based signals before any LLM synthesis runs. The LLM can raise the tier but cannot lower it. Governance constraints are architectural, not instructional.</p>
     </div>
     <div class="governance-card">
-      <h4>Full Audit Trail</h4>
-      <p>Every operation logged with timestamp, version, and duration. Reproducible runs. Compliance-ready documentation generated automatically.</p>
+      <h4>Source Quality Scoring</h4>
+      <p>Findings carry credibility scores. A federal court filing is weighted differently from a local newspaper article. Low-confidence findings surface with explicit review flags — they don't disappear into a filtered list the underwriter never sees.</p>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════ -->
-<!-- VALUE PROPOSITION -->
-<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- IMPACT -->
 <div class="section">
-  <div class="section-label">The Impact</div>
-  <h2>Measurable Value for Underwriting Teams</h2>
+  <div class="section-label">What It Enables</div>
+  <h2>The Underwriter Gets Their Time Back. The Portfolio Gets Better Data.</h2>
 
   <div class="value-grid">
     <div class="value-card">
       <div class="value-icon">SPEED</div>
       <h4>Hours to Minutes</h4>
-      <p>
-        Transform multi-day manual review into sub-minute automated analysis. Underwriters spend time on judgment calls, not data extraction and news searches.
-      </p>
-      <div class="value-metric">95%+ faster initial triage</div>
+      <p>Budget classification, 12 months of meeting minutes, 13-domain external intelligence, and PFAS compliance — all before the underwriter opens the brief. Manual review of each would take a full day.</p>
+      <div class="value-metric">Full pipeline in under 10 minutes</div>
     </div>
-
     <div class="value-card">
-      <div class="value-icon">COVERAGE</div>
-      <h4>Nothing Missed</h4>
-      <p>
-        Systematic classification of all 87 department types. Intelligence search across 8 risk domains. No more "we didn't know they had a jail."
-      </p>
-      <div class="value-metric">100% department classification</div>
+      <div class="value-icon">DISCLOSURE</div>
+      <h4>Disclosure Problems Surface Before Quoting</h4>
+      <p>Shadow settlement register from meeting minutes cross-checked against submitted loss history before a price is set. Application accuracy problems are caught at intake, not after a loss.</p>
+      <div class="value-metric">Minutes register vs. application comparison</div>
     </div>
-
     <div class="value-card">
-      <div class="value-icon">ACCURACY</div>
-      <h4>Entity Validation</h4>
-      <p>
-        AI verifies that findings relate to <em>this</em> county, not a similarly named district. Boilerplate filtered. Source credibility scored. False positives caught before they mislead.
-      </p>
-      <div class="value-metric">90%+ citation confidence</div>
+      <div class="value-icon">PRECISION</div>
+      <h4>County-Level Judicial Risk Pricing</h4>
+      <p>SIP scores across 5 LOBs at the county level — not state-level approximations. Actual SCAO circuit court filings as the judicial component. Pricing decisions informed by the venue risk that actually governs claim outcomes.</p>
+      <div class="value-metric">83 counties scored, 5 LOBs, actual judicial data</div>
     </div>
-
     <div class="value-card">
-      <div class="value-icon">INSIGHT</div>
-      <h4>Year-Over-Year Trends</h4>
-      <p>
-        Persistent data enables benchmarking: How did detention spending change? Did that PFAS issue resolve? What are peer counties allocating? Context transforms snapshots into trajectories.
-      </p>
-      <div class="value-metric">Multi-year trend visibility</div>
+      <div class="value-icon">PATTERNS</div>
+      <h4>Negligence Patterns Before the Claim</h4>
+      <p>Recurring issue tracking across the minutes record identifies deferred maintenance patterns, unresolved governance failures, and infrastructure complaints documented over time — before they produce a loss.</p>
+      <div class="value-metric">Multi-meeting pattern detection</div>
     </div>
-
     <div class="value-card">
       <div class="value-icon">CONSISTENCY</div>
-      <h4>Standardized Process</h4>
-      <p>
-        Same budget, same rules, same classification, regardless of which UW handles it. Eliminate analyst-to-analyst variation. Codify institutional knowledge.
-      </p>
-      <div class="value-metric">Reproducible risk assessment</div>
+      <h4>Institutional Knowledge, Systematized</h4>
+      <p>The rules that trigger supplemental forms, the departments that matter for each coverage line, the signals that indicate financial stress — documented, versioned, applied consistently regardless of which underwriter handles the account.</p>
+      <div class="value-metric">Reproducible across 3,144 counties</div>
     </div>
-
     <div class="value-card">
-      <div class="value-icon">SCALE</div>
-      <h4>Portfolio Intelligence</h4>
-      <p>
-        Pre-curate intelligence for 3,144 counties. Refresh quarterly. When submissions arrive, cached data is ready. New customer? Same-day turnaround.
-      </p>
-      <div class="value-metric">Proactive risk monitoring</div>
+      <div class="value-icon">AUDIT</div>
+      <h4>Compliance-Ready Documentation</h4>
+      <p>Every tool invocation logged with timestamp and version. Every finding traced to source. Every supplemental form justified by rule. The audit trail is generated as a byproduct of the analysis — not assembled after the fact.</p>
+      <div class="value-metric">Complete provenance on every decision</div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════ -->
-<!-- CTA SECTION -->
-<!-- ══════════════════════════════════════════════════════════════════ -->
 <div class="cta-section">
-  <h2>Ready to Transform Public Sector Underwriting?</h2>
-  <p>
-    Join forward-thinking underwriting teams using AI to uncover risk signals, justify decisions, and move faster, without sacrificing governance or control.
-  </p>
+  <h2>Built for Underwriters Who Have Seen a Lot of AI Demos.</h2>
+  <p>We don't show a dashboard. We show a brief an underwriter can defend to a claims director. Conversations start with the problem, not the product.</p>
   <div class="cta-buttons">
-    <a href="#" class="btn btn-primary">Schedule a Demo</a>
-    <a href="#" class="btn btn-secondary">Request Technical Brief</a>
+    <a href="mailto:gps@elevatenow.tech" class="btn btn-primary">Start a Conversation</a>
+    <a href="https://elevatenow.tech/" class="btn btn-secondary" target="_blank" rel="noopener">elevatenow.tech</a>
   </div>
 </div>
 
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════════ -->
-<!-- FOOTER -->
-<!-- ══════════════════════════════════════════════════════════════════ -->
 <div class="footer">
-  <p>
-    ElevateNow Agentic Recipe | AI-Powered Public Sector Underwriting<br>
-    © 2026 ElevateNow. Proprietary & Confidential.
-  </p>
+  <p>ElevateNow · Public Sector Underwriting Intelligence<br>© 2026 ElevateNow. Proprietary &amp; Confidential.</p>
 </div>
 
 </body>
