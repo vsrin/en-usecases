@@ -88,16 +88,17 @@ nav.raised { box-shadow:0 1px 24px rgba(13,21,52,0.09); }
 .nav-item { position:relative; }
 .nav-item > a { display:flex; align-items:center; gap:4px; }
 .nav-item > a::after {
-  content:''; display:inline-block; width:8px; height:5px; flex-shrink:0;
-  background:currentColor;
-  clip-path:polygon(0 0,100% 0,50% 100%);
-  opacity:.45; transition:transform .18s, opacity .18s;
+  content:''; display:inline-block; width:7px; height:4.5px; flex-shrink:0;
+  background:currentColor; clip-path:polygon(0 0,100% 0,50% 100%);
+  opacity:.40; transition:transform .18s, opacity .18s;
 }
-.nav-item:hover > a::after, .nav-item:focus-within > a::after { opacity:.8; transform:rotate(180deg); }
+.nav-item:hover > a::after, .nav-item:focus-within > a::after { opacity:.75; transform:rotate(180deg); }
+
+/* Simple dropdown (Evidence Lab) */
 .nav-drop {
   position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%);
   background:#fff; border:1px solid var(--border); border-radius:10px;
-  box-shadow:var(--shadow-m); min-width:190px; padding:6px; z-index:300;
+  box-shadow:var(--shadow-m); min-width:170px; padding:6px; z-index:300;
   opacity:0; pointer-events:none; transform:translateX(-50%) translateY(-6px);
   transition:opacity .16s var(--ease), transform .16s var(--ease);
 }
@@ -110,6 +111,31 @@ nav.raised { box-shadow:0 1px 24px rgba(13,21,52,0.09); }
   transition:background .12s, color .12s;
 }
 .nav-drop a:hover { background:var(--blue-bg); color:var(--blue); }
+
+/* Mega-menu (Proven Results) */
+.nav-mega {
+  position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%);
+  background:#fff; border:1px solid var(--border); border-radius:12px;
+  box-shadow:var(--shadow-h); width:480px; padding:20px; z-index:300;
+  opacity:0; pointer-events:none; transform:translateX(-50%) translateY(-8px);
+  transition:opacity .18s var(--ease), transform .18s var(--ease);
+  display:grid; grid-template-columns:1fr 1px 1fr; gap:0 16px;
+}
+.nav-item:hover .nav-mega, .nav-item:focus-within .nav-mega {
+  opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);
+}
+.nav-mega-col { display:flex; flex-direction:column; gap:2px; }
+.nav-mega-head {
+  font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink4); padding:2px 10px 8px; border-bottom:1px solid var(--border-s); margin-bottom:4px;
+}
+.nav-mega a {
+  display:block; padding:7px 10px; font-size:12.5px; font-weight:500; color:var(--ink2);
+  border-radius:6px; text-decoration:none; line-height:1.3;
+  transition:background .12s, color .12s;
+}
+.nav-mega a:hover { background:var(--blue-bg); color:var(--blue); }
+.nav-mega-div { background:var(--border); width:1px; }
 
 /* ── LAYOUT ── */
 .wrap { max-width:var(--max); margin:0 auto; padding:0 32px; }
@@ -323,7 +349,7 @@ nav.raised { box-shadow:0 1px 24px rgba(13,21,52,0.09); }
 }
 
 /* ── EVIDENCE LAB ── */
-.ev-grid { display:grid; grid-template-columns:5fr 3fr 3fr; gap:16px; }
+.ev-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 .ev-card {
   background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09);
   border-radius:12px; padding:28px 24px; display:flex; flex-direction:column;
@@ -357,13 +383,32 @@ nav.raised { box-shadow:0 1px 24px rgba(13,21,52,0.09); }
 }
 .ev-link:hover { gap:9px; }
 
-/* Framework preview grid */
-.fw-preview { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:8px; padding:18px; margin-top:16px; }
-.fw-groups { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:10px; }
-.fw-g { background:rgba(255,255,255,0.04); border-radius:6px; padding:10px; }
-.fw-g-lbl { font-size:9.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:5px; }
-.fw-g h4  { font-size:12px; font-weight:700; color:rgba(255,255,255,0.82); margin-bottom:4px; }
-.fw-g p   { font-size:10.5px; line-height:1.50; color:rgba(255,255,255,0.46); }
+/* Benchmark group rows */
+.bm-groups { display:flex; flex-direction:column; gap:0; margin-top:28px; border:1px solid rgba(255,255,255,0.09); border-radius:10px; overflow:hidden; }
+.bm-g {
+  display:grid; grid-template-columns:100px 1fr auto;
+  gap:0 24px; align-items:start; padding:18px 22px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  transition:background .15s;
+}
+.bm-g:last-child { border-bottom:none; }
+.bm-g:hover { background:rgba(255,255,255,0.03); }
+.bm-g-num {
+  font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase;
+  color:rgba(255,255,255,0.32); padding-top:2px;
+}
+.bm-g-name { font-size:14px; font-weight:700; color:rgba(255,255,255,0.88); margin-bottom:5px; }
+.bm-g-desc { font-size:12.5px; line-height:1.62; color:rgba(255,255,255,0.52); }
+.bm-g-thresh {
+  font-size:11.5px; font-weight:600; color:#57CBFF; white-space:nowrap;
+  background:rgba(87,203,255,0.10); border:1px solid rgba(87,203,255,0.20);
+  padding:4px 10px; border-radius:6px; margin-top:2px; flex-shrink:0;
+}
+.bm-g-gate {
+  font-size:11.5px; font-weight:600; color:#F87171; white-space:nowrap;
+  background:rgba(248,113,113,0.10); border:1px solid rgba(248,113,113,0.25);
+  padding:4px 10px; border-radius:6px; margin-top:2px; flex-shrink:0;
+}
 
 /* ── WHAT WE BUILD ON ── */
 .stack-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:40px; }
@@ -449,6 +494,10 @@ footer {
   .fw-groups { grid-template-columns:repeat(3,1fr); }
   .ev-grid { grid-template-columns:1fr; }
   .stack-grid { grid-template-columns:1fr 1fr; }
+  .nav-mega { width:90vw; grid-template-columns:1fr; }
+  .nav-mega-div { display:none; }
+  .bm-g { grid-template-columns:1fr; gap:8px 0; }
+  .bm-g-thresh, .bm-g-gate { align-self:start; }
 }
 @media (max-width:580px) {
   .uc-grid { grid-template-columns:1fr; }
@@ -456,6 +505,7 @@ footer {
   .hero h1 { font-size:30px; }
   .hero-stats { gap:0; }
   .hero-stat { padding:0 20px 0 0; margin-right:20px; }
+  .bm-g-num { font-size:9px; padding:3px 7px; }
 }
 </style>
 </head>
@@ -470,10 +520,24 @@ footer {
     <li><a href="#perspectives">Perspectives</a></li>
     <li class="nav-item">
       <a href="#results">Proven Results</a>
-      <div class="nav-drop">
-        <a href="#results">All Cases</a>
-        <a href="#results-insurance">Insurance Use Cases</a>
-        <a href="#results-datasolutions">Data Solutions</a>
+      <div class="nav-mega">
+        <div class="nav-mega-col">
+          <div class="nav-mega-head">Insurance</div>
+          <a href="/usecases/SubmissionIntake">Submission Triage</a>
+          <a href="/usecases/ElevateNow_MultiLOB_FNOL">FNOL Intelligence</a>
+          <a href="/usecases/WCFNOL-ElevatenowRecipe">WC Jurisdiction Rules</a>
+          <a href="/usecases/LossRunIntelligence">Loss Run Analysis</a>
+          <a href="/usecases/PSUW-ElevatenowRecipe">Municipal Risk Intel</a>
+        </div>
+        <div class="nav-mega-div"></div>
+        <div class="nav-mega-col">
+          <div class="nav-mega-head">Data Solutions</div>
+          <a href="/usecases/pre-mdm-assessment">MDM Pre-Assessment</a>
+          <a href="/usecases/mdm-lite">MDM Lite</a>
+          <a href="/usecases/data-quality-certification">Data Quality Certification</a>
+          <a href="/usecases/ProactiveAuditMonitoring">Proactive Audit</a>
+          <a href="/usecases/cohort-analysis">Cohort Analysis</a>
+        </div>
       </div>
     </li>
     <li><a href="#stack">The Stack</a></li>
@@ -517,11 +581,11 @@ footer {
       </div>
       <div class="hero-stat">
         <div class="hero-stat-val">4</div>
-        <div class="hero-stat-label">Domains: Underwriting, Claims, Operations, Actuarial</div>
+        <div class="hero-stat-label">Practice areas across the insurance value chain</div>
       </div>
       <div class="hero-stat">
         <div class="hero-stat-val"><span>0</span> LLM</div>
-        <div class="hero-stat-label">Required for 80%+ of structured insurance document fields</div>
+        <div class="hero-stat-label">Needed on 80%+ of structured fields in our extraction work</div>
       </div>
       <div class="hero-stat">
         <div class="hero-stat-val">10<span>×</span></div>
@@ -595,7 +659,7 @@ footer {
       <div class="r">
         <div class="eyebrow">Proven Results</div>
         <h2 class="section-title" style="max-width:520px;margin-bottom:8px;">10 implemented workflows.<br>Documented as practitioners.</h2>
-        <p class="section-sub" style="max-width:480px;">Each case documents the real problem, why generic approaches fall short, and what an architecture that actually solves it looks like. No NDA — but no implementation blueprints either.</p>
+        <p class="section-sub" style="max-width:480px;">Each case documents what the real problem is, why standard approaches don't solve it, and what an architecture that does actually looks like — without giving away the blueprints.</p>
       </div>
     </div>
 
@@ -866,128 +930,126 @@ footer {
 <!-- ── EVIDENCE LAB ── -->
 <section class="section section-dark" id="evidence">
   <div class="wrap">
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:44px;gap:24px;flex-wrap:wrap;">
-      <div>
-        <div class="eyebrow eyebrow-light r">Evidence Lab</div>
-        <h2 class="section-title r" style="color:#fff;transition-delay:.06s;max-width:520px;">How we evaluate tools.<br>Our benchmarks, open for scrutiny.</h2>
-        <p class="section-sub r" style="transition-delay:.10s;">Framework assessments and benchmark studies grounded in insurance document realities — not vendor marketing. Updated as we conduct new research.</p>
+
+    <div style="max-width:740px;margin-bottom:56px;" class="r">
+      <div class="eyebrow eyebrow-light">Evidence Lab</div>
+      <h2 class="section-title" style="color:#fff;max-width:580px;margin-bottom:20px;">We publish the criteria before we publish the results.</h2>
+      <p style="font-size:16px;line-height:1.75;color:rgba(255,255,255,0.58);margin-bottom:16px;">Standard OCR benchmarks — DocVQA, SROIE, FUNSD — were built for document understanding tasks, not insurance extraction. They measure whether a model can answer questions about a document. That's not the problem. The problem is whether a VIN extracted from a scanned police report is byte-perfect, whether the same document produces the same output on every run, and whether that output can be traced back to a specific location in the source when a regulator asks.</p>
+      <p style="font-size:16px;line-height:1.75;color:rgba(255,255,255,0.52);">The framework below is what we actually use to evaluate tools. We share it because the evaluation criteria are as important as the results — and because vendors who cherry-pick generic benchmarks are counting on you not asking the right questions.</p>
+    </div>
+
+    <!-- OCR Benchmark Framework — full width treatment -->
+    <div class="r" style="background:rgba(33,69,234,0.12);border:1px solid rgba(33,69,234,0.30);border-radius:16px;padding:40px;margin-bottom:20px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:12px;">
+        <div class="ev-status pub" style="margin:0;"><span class="ev-status-dot"></span>Published</div>
+        <div class="ev-topics" style="margin:0;">
+          <span class="ev-topic">OCR Quality</span><span class="ev-topic">Extraction Architecture</span>
+          <span class="ev-topic">Data Sovereignty</span><span class="ev-topic">Audit Trail</span>
+        </div>
+      </div>
+      <h3 style="font-size:22px;font-weight:700;color:#fff;line-height:1.25;letter-spacing:-.02em;margin-bottom:12px;">OCR &amp; Extraction Benchmark Framework for Insurance Documents</h3>
+      <p style="font-size:14px;line-height:1.72;color:rgba(255,255,255,0.60);max-width:700px;margin-bottom:4px;">Five evaluation groups. The first four map to standard document intelligence dimensions. The fifth — audit and compliance — is the one that determines whether output is actually deployable in a regulated insurance workflow. Most tools pass the first four. Group 5 is where the field narrows.</p>
+
+      <div class="bm-groups r" style="transition-delay:.08s">
+
+        <div class="bm-g">
+          <div class="bm-g-num">Group 1</div>
+          <div>
+            <div class="bm-g-name">Text Accuracy</div>
+            <div class="bm-g-desc">Character error rate and word error rate measure overall text quality. For insurance, what matters more is field-level exact match on structured fields — dates, amounts, VINs, policy numbers, DL#, ICD-10 codes. A tool that achieves 99% CER but drops one digit from a policy number fails the insurance test.</div>
+          </div>
+          <div class="bm-g-thresh">EM ≥ 95%</div>
+        </div>
+
+        <div class="bm-g">
+          <div class="bm-g-num">Group 2</div>
+          <div>
+            <div class="bm-g-name">Structure Fidelity</div>
+            <div class="bm-g-desc">Table TEDS (Tree Edit Distance Score) measures whether table structure is preserved — rows, columns, merged cells, reading order. Loss run schedules, ACORD endorsement tables, and IA report summaries are the primary stress test. Split-page tables and merged headers are the most common failure modes.</div>
+          </div>
+          <div class="bm-g-thresh">TEDS ≥ 0.90</div>
+        </div>
+
+        <div class="bm-g">
+          <div class="bm-g-num">Group 3</div>
+          <div>
+            <div class="bm-g-name">Robustness Under Real Conditions</div>
+            <div class="bm-g-desc">A DPI degradation curve (300 / 200 / 150 / 75 DPI) simulates fax-chain degradation common in police reports and older IA documents. Scan quality classes A through D characterize the document population. A tool that performs well on clean scans but collapses at 150 DPI isn't usable in production.</div>
+          </div>
+          <div class="bm-g-thresh">&lt;10% drift 300→150</div>
+        </div>
+
+        <div class="bm-g">
+          <div class="bm-g-num">Group 4</div>
+          <div>
+            <div class="bm-g-name">Operational Performance</div>
+            <div class="bm-g-desc">Throughput, P95 latency, memory footprint, cold-start time, and GPU vs. CPU dependency. For high-volume carriers these matter. For AMICA-scale operations (~80K docs/year), throughput is rarely the constraint — latency for real-time FNOL workflows and memory footprint for in-premise deployment are the actual concerns.</div>
+          </div>
+          <div class="bm-g-thresh">≤8s/page OCR</div>
+        </div>
+
+        <div class="bm-g">
+          <div class="bm-g-num">Group 5</div>
+          <div>
+            <div class="bm-g-name">Audit &amp; Compliance</div>
+            <div class="bm-g-desc">Grounding rate: what percentage of extracted field values can be traced to a specific character offset or bounding box in the source document. Hallucination rate: what percentage of field values have no textual basis in the source at all. Run variance: whether the same document produces the same output across ten identical runs. Data sovereignty posture: whether PHI ever leaves the customer's infrastructure boundary during processing.</div>
+          </div>
+          <div class="bm-g-gate">Hallucination = 0</div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+        <p style="font-size:12.5px;color:rgba(255,255,255,0.38);font-style:italic;">Group 5 is a compliance gate, not a performance metric. A tool can pass Groups 1–4 and be disqualified by Group 5 alone.</p>
+        <a href="#contact" class="ev-link" style="margin-top:0;">Request the full framework →</a>
       </div>
     </div>
 
-    <div class="ev-grid">
+    <!-- Secondary cards: Tier Stack + active studies -->
+    <div class="ev-grid r" style="transition-delay:.12s">
 
-      <!-- Featured: OCR Benchmark Framework -->
-      <div class="ev-card ev-featured r">
-        <div class="ev-status pub"><span class="ev-status-dot"></span>Published</div>
-        <h3>OCR & Extraction Benchmark Framework for Insurance Documents</h3>
-        <p>A five-group evaluation methodology for selecting OCR and extraction approaches. Covers text accuracy (CER/WER + field-level exact match), structure fidelity (Table TEDS, section boundaries), robustness under real-world conditions (DPI degradation curve, scan quality Classes A–D), operational performance, and the audit/compliance group that determines whether output is deployable in regulated insurance.</p>
-
-        <div class="fw-preview">
-          <div style="font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,0.38);">The Five Evaluation Groups</div>
-          <div class="fw-groups">
-            <div class="fw-g">
-              <div class="fw-g-lbl">Group 1</div>
-              <h4>Text Accuracy</h4>
-              <p>CER, WER, field-level EM. VIN and policy # must be byte-perfect.</p>
-            </div>
-            <div class="fw-g">
-              <div class="fw-g-lbl">Group 2</div>
-              <h4>Structure Fidelity</h4>
-              <p>Table TEDS, reading order, section boundaries, form field linkage.</p>
-            </div>
-            <div class="fw-g">
-              <div class="fw-g-lbl">Group 3</div>
-              <h4>Robustness</h4>
-              <p>DPI curve 300/200/150/75, scan class A–D, jurisdiction variance.</p>
-            </div>
-            <div class="fw-g">
-              <div class="fw-g-lbl">Group 4</div>
-              <h4>Operational</h4>
-              <p>Throughput, latency P50/P95, footprint, CPU vs. GPU dependency.</p>
-            </div>
-            <div class="fw-g">
-              <div class="fw-g-lbl">Group 5</div>
-              <h4>Audit & Compliance</h4>
-              <p>Grounding rate, hallucination = 0, determinism, data sovereignty posture.</p>
-            </div>
-          </div>
-        </div>
-        <div class="ev-topics">
-          <span class="ev-topic">OCR Quality</span><span class="ev-topic">Extraction Architecture</span>
-          <span class="ev-topic">Data Sovereignty</span><span class="ev-topic">Audit Trail</span>
-          <span class="ev-topic">Auto Claims</span><span class="ev-topic">FNOL</span>
-        </div>
-        <a href="#contact" class="ev-link">Request the full framework →</a>
-      </div>
-
-      <!-- Tier Stack -->
-      <div class="ev-card r" style="transition-delay:.07s">
+      <div class="ev-card">
         <div class="ev-status pub"><span class="ev-status-dot"></span>Published</div>
         <h3>The Six-Tier Extraction Stack</h3>
-        <p style="margin-bottom:14px;">Why the question "which tool should we use?" is wrong. The right question is "which tier does this field require?" — and the tier determines the tool, the infrastructure, and the sovereignty posture.</p>
-        <div style="display:flex;flex-direction:column;gap:5px;margin-top:4px;">
-          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.70);">
-            <span style="display:inline-block;padding:2px 7px;border-radius:4px;background:rgba(5,150,105,0.20);color:#4ADE80;font-size:11px;font-weight:700;flex-shrink:0;">T0</span>
-            pdfplumber / PyMuPDF — <span style="color:#4ADE80;font-size:11px;font-weight:600;">No LLM · No GPU</span>
+        <p style="margin-bottom:16px;">"Which tool should we use?" is the wrong question. The right question is which tier the field requires — and that determines the tool, the infrastructure, and the sovereignty posture.</p>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.68);">
+            <span style="padding:2px 8px;border-radius:4px;background:rgba(5,150,105,0.20);color:#4ADE80;font-size:11px;font-weight:700;flex-shrink:0;">T0–T2</span>
+            pdfplumber, Tesseract, regex — no LLM, no GPU, data-sovereign
           </div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.70);">
-            <span style="display:inline-block;padding:2px 7px;border-radius:4px;background:rgba(5,150,105,0.15);color:#6EE7B7;font-size:11px;font-weight:700;flex-shrink:0;">T1</span>
-            Tesseract / PaddleOCR — <span style="color:#4ADE80;font-size:11px;font-weight:600;">No LLM · Optional GPU</span>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.68);">
+            <span style="padding:2px 8px;border-radius:4px;background:rgba(33,69,234,0.25);color:#93AFFF;font-size:11px;font-weight:700;flex-shrink:0;">T2.5</span>
+            Granite-Docling-258M (IBM) — document VLM, 8GB, Apache 2.0
           </div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.70);">
-            <span style="display:inline-block;padding:2px 7px;border-radius:4px;background:rgba(14,165,200,0.20);color:#67E8F9;font-size:11px;font-weight:700;flex-shrink:0;">T2</span>
-            Regex / spaCy / Lookup tables — <span style="color:#4ADE80;font-size:11px;font-weight:600;">No LLM · No GPU</span>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.68);">
+            <span style="padding:2px 8px;border-radius:4px;background:rgba(217,119,6,0.20);color:#FCD34D;font-size:11px;font-weight:700;flex-shrink:0;">T4</span>
+            Ollama + Llama 3.3 70B — local LLM, in-premise, Cat 4 fields only
           </div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.70);">
-            <span style="display:inline-block;padding:2px 7px;border-radius:4px;background:rgba(33,69,234,0.25);color:#93AFFF;font-size:11px;font-weight:700;flex-shrink:0;">T2.5</span>
-            Granite-Docling-258M (IBM, Apache 2.0) — <span style="color:#93AFFF;font-size:11px;font-weight:600;">Doc VLM · 8GB</span>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.68);">
+            <span style="padding:2px 8px;border-radius:4px;background:rgba(239,68,68,0.20);color:#FCA5A5;font-size:11px;font-weight:700;flex-shrink:0;">T5</span>
+            Groq / OpenAI — external API, fast, PHI risk at posture B/C
           </div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.70);">
-            <span style="display:inline-block;padding:2px 7px;border-radius:4px;background:rgba(217,119,6,0.20);color:#FCD34D;font-size:11px;font-weight:700;flex-shrink:0;">T4</span>
-            Ollama + Llama 3.3 70B — <span style="color:#FCD34D;font-size:11px;font-weight:600;">Local LLM · Cat 4 only</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.70);">
-            <span style="display:inline-block;padding:2px 7px;border-radius:4px;background:rgba(239,68,68,0.20);color:#FCA5A5;font-size:11px;font-weight:700;flex-shrink:0;">T5</span>
-            Groq / OpenAI API — <span style="color:#FCA5A5;font-size:11px;font-weight:600;">External LLM · PHI risk</span>
-          </div>
-        </div>
-        <div class="ev-topics" style="margin-top:16px;">
-          <span class="ev-topic">Tool Selection</span><span class="ev-topic">Architecture</span><span class="ev-topic">Cost Model</span>
         </div>
       </div>
 
-      <!-- Study 1 -->
-      <div class="ev-card r" style="transition-delay:.12s">
+      <div class="ev-card" style="transition-delay:.05s">
         <div class="ev-status active"><span class="ev-status-dot"></span>In Progress</div>
-        <h3>Cat 1 Field Study: Regex vs. LLM on Structured Fields</h3>
-        <p>Direct comparison of compiled regex against Groq LLM on Cat 1 fields (VIN, plate, DOB, DL#, policy number) across 200 FNOL and police report documents. Metrics: field-level exact match, hallucination rate, run variance.</p>
-        <p style="margin-top:10px;font-size:12px;color:rgba(255,255,255,0.40);">Hypothesis: regex F1 ≥ 0.97, hallucination = 0.00, variance = 0.00. LLM F1 0.85–0.93, non-zero variance.</p>
-        <div class="ev-topics">
-          <span class="ev-topic">FNOL</span><span class="ev-topic">Police Reports</span><span class="ev-topic">Deterministic</span>
+        <h3>Regex vs. LLM on Structured Fields</h3>
+        <p>Head-to-head on Cat 1 fields — VIN, DL#, DOB, policy number, claim number — across 200 FNOL and police report documents. Measuring field-level exact match, hallucination rate, and run variance side by side.</p>
+        <div class="ev-topics" style="margin-top:14px;">
+          <span class="ev-topic">FNOL</span><span class="ev-topic">Police Reports</span>
         </div>
         <a href="#contact" class="ev-link">Notify when published →</a>
       </div>
 
-      <!-- Study 2 -->
-      <div class="ev-card r" style="transition-delay:.16s">
+      <div class="ev-card" style="transition-delay:.09s">
         <div class="ev-status active"><span class="ev-status-dot"></span>In Progress</div>
-        <h3>Scanned Document Quality: Tesseract vs. Granite-Docling-258M</h3>
-        <p>DPI degradation curve study at 300/200/150/75 DPI. Table TEDS, Cat 1 exact match, and DPI sensitivity coefficient across 50 scanned insurance documents.</p>
-        <p style="margin-top:10px;font-size:12px;color:rgba(255,255,255,0.40);">Hypothesis: T2.5 degrades &lt;10% vs. Tesseract at 25–30%. Table TEDS 0.90+ vs. 0.72.</p>
-        <div class="ev-topics">
-          <span class="ev-topic">OCR Quality</span><span class="ev-topic">Scanned Docs</span><span class="ev-topic">Table Extraction</span>
+        <h3>Scanned Doc Quality: Tesseract vs. Granite-Docling</h3>
+        <p>DPI degradation curve at 300/200/150/75 DPI. Table TEDS and Cat 1 exact match across 50 scanned insurance documents. Testing the hypothesis that Granite degrades under 10% vs. Tesseract at 25–30%.</p>
+        <div class="ev-topics" style="margin-top:14px;">
+          <span class="ev-topic">Scanned Docs</span><span class="ev-topic">Tables</span>
         </div>
         <a href="#contact" class="ev-link">Notify when published →</a>
-      </div>
-
-      <!-- Study 3 -->
-      <div class="ev-card r" style="transition-delay:.20s">
-        <div class="ev-status plan"><span class="ev-status-dot"></span>Planned</div>
-        <h3>Local vs. Cloud LLM for Cat 4: Subrogation Analysis</h3>
-        <p>Accuracy comparison of Ollama + Llama 3.3 70B (T4, in-premise) versus Groq API (T5, cloud) on subrogation indicator detection in IA reports. Includes T2 trigger pre-filter effectiveness study.</p>
-        <div class="ev-topics">
-          <span class="ev-topic">Local LLM</span><span class="ev-topic">Subrogation</span><span class="ev-topic">Data Sovereignty</span>
-        </div>
       </div>
 
     </div>

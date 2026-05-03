@@ -6,12 +6,12 @@
 <title>ElevateNow — Proactive Audit Monitoring for Commercial Insurance</title>
 <style>
   :root {
-    --ink: #1a1a2e;
+    --ink: #0D1534;
     --paper: #fafaf8;
-    --accent: #c0392b;
-    --accent-light: #e74c3c;
-    --accent-bg: #fdf2f0;
-    --tool-blue: #1a5276;
+    --accent: #2145EA;
+    --accent-light: #3d5ef5;
+    --accent-bg: #EEF2FF;
+    --tool-blue: #1a3a8a;
     --agent-green: #1e6e3e;
     --border: #e0ddd5;
     --muted: #6b6b6b;
@@ -36,7 +36,7 @@
     flex-direction: column;
     justify-content: center;
     padding: 100px 80px;
-    background: linear-gradient(135deg, #0f2027 0%, #203a43 40%, #2c5364 100%);
+    background: linear-gradient(150deg, #080e2e 0%, #0d1a5c 45%, #0f2070 100%);
     color: #fff;
     position: relative;
     overflow: hidden;
@@ -47,7 +47,7 @@
     top: -300px; right: -300px;
     width: 800px; height: 800px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(231,76,60,0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(33,69,234,0.22) 0%, transparent 70%);
   }
   .hero::after {
     content: '';
@@ -74,7 +74,7 @@
     margin-bottom: 28px;
     z-index: 1;
   }
-  .hero h1 span { color: #e74c3c; }
+  .hero h1 span { color: #93AFFF; }
   .hero-sub {
     font-size: 22px;
     opacity: 0.8;
@@ -581,7 +581,7 @@
   .cta-section {
     text-align: center;
     padding: 80px 60px;
-    background: linear-gradient(135deg, #0f2027 0%, #203a43 40%, #2c5364 100%);
+    background: linear-gradient(150deg, #080e2e 0%, #0d1a5c 45%, #0f2070 100%);
     color: white;
     border-radius: 16px;
     margin: 60px 0;
@@ -633,6 +633,14 @@
 </style>
 </head>
 <body>
+<nav style="position:sticky;top:0;z-index:200;background:rgba(13,21,52,0.97);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.07);padding:0 40px;">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;">
+    <a href="/" style="display:flex;align-items:center;text-decoration:none;">
+      <img src="/enow_logo.svg" alt="ElevateNow" style="height:22px;filter:brightness(0) invert(1);opacity:0.9;">
+    </a>
+    <a href="/#results" style="font-size:13px;font-weight:500;color:rgba(255,255,255,0.50);text-decoration:none;display:flex;align-items:center;gap:5px;letter-spacing:.01em;transition:color .15s;" onmouseover="this.style.color='rgba(255,255,255,0.85)'" onmouseout="this.style.color='rgba(255,255,255,0.50)'">&#8592; Proven Results</a>
+  </div>
+</nav>
 
 <!-- Hero Section -->
 <div class="hero">
