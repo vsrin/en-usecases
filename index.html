@@ -607,42 +607,42 @@ footer {
       <div>
         <div class="beliefs-grid r" style="transition-delay:.07s">
           <div class="belief">
-            <div class="belief-num">01 · The real objection</div>
-            <h3>Clients don't object to token cost. They object to the audit trail.</h3>
-            <p>When an insurer says "we're concerned about LLM cost," the underlying question is: can you show a regulator exactly why a specific value was extracted from a specific document? Cost is the proxy for a governance concern that's harder to articulate.</p>
+            <div class="belief-num">01 · The data problem</div>
+            <h3>A single bad data point doesn't fail quietly in an agentic workflow — it propagates.</h3>
+            <p>Every downstream decision an agent makes inherits the error that entered upstream. Trust in AI outcomes is not a function of the model — it's a function of the data pipeline. Carriers who treat data certification as a pre-deployment step, not a foundation, will keep hitting the same wall.</p>
           </div>
           <div class="belief">
-            <div class="belief-num">02 · The extraction problem</div>
-            <h3>Most extraction stacks use LLM where regex would be more accurate.</h3>
-            <p>A 70B parameter model extracting a VIN from a police report is engineering theater. Compiled regex against a 17-character alphanumeric pattern achieves 99% exact match, zero variance, zero hallucination, and produces a verifiable character offset. The LLM is worse on this task by every measure that matters.</p>
+            <div class="belief-num">02 · The governance reality</div>
+            <h3>AI is entering regulated decisions. The audit standard is the same as for human decisions.</h3>
+            <p>When an AI agent participates in an underwriting decision or claims adjudication, regulators apply the same explainability and audit requirements as they do to a human adjuster. You can't build a governed outcome on an ungoverned pipeline. The architecture has to be designed for accountability from the start.</p>
           </div>
           <div class="belief">
-            <div class="belief-num">03 · Data sovereignty</div>
-            <h3>PHI to external APIs isn't a cost decision — it's a compliance decision.</h3>
-            <p>FNOL documents, police reports, and IA reports contain DOB, DL#, medical codes, and policy numbers. Every external LLM API call with these documents is a potential HIPAA exposure. No anonymization wrapper fixes this — the architecture has to ensure PHI never leaves the carrier's environment.</p>
+            <div class="belief-num">03 · The knowledge problem</div>
+            <h3>The platform handles the computation. The knowledge stays yours.</h3>
+            <p>Your appetite rules, jurisdiction requirements, and SOPs should be encoded, versioned, and applied consistently — not recalled probabilistically from a model that may have drifted since last training. Every AI decision should trace back to your procedures, your expertise, your institutional knowledge.</p>
           </div>
           <div class="belief">
-            <div class="belief-num">04 · What governed AI means</div>
-            <h3>Governance isn't a compliance layer you add at the end. It's the architecture.</h3>
-            <p>A governed system means every field value traces to a document position, every rule traces to a versioned definition, and every decision can be reconstructed from first principles. You can't retrofit this onto a black-box LLM pipeline. It requires the right structure from the start.</p>
+            <div class="belief-num">04 · The market shift</div>
+            <h3>Boards are moving from pilot to P&L. The architecture has to move with them.</h3>
+            <p>Proof-of-value expectations have shifted from "interesting" to "in production." Scaling agentic AI at this stage requires a method, not just a model — one that certifies the data before agents consume it, contextualizes institutional knowledge so agents reason correctly, and composes workflows that are auditable end to end.</p>
           </div>
         </div>
         <div class="philosophy-strip r" style="transition-delay:.14s">
           <div class="phil-item">
-            <h4>Deterministic first</h4>
-            <p>Every field that can be extracted without inference, should be. LLM adds cost and variance without improving quality on structured fields.</p>
+            <h4>Certify before you compose</h4>
+            <p>Bad data in an agentic workflow doesn't fail at the source — it compounds across every downstream decision. Every data product needs a trust score before an agent touches it.</p>
           </div>
           <div class="phil-item">
-            <h4>Every value traced</h4>
-            <p>Char offset for text, bounding box for images, section ID for documents. "The model said so" is not an audit trail for insurance operations.</p>
+            <h4>Knowledge encoded, not recalled</h4>
+            <p>Appetite, jurisdiction rules, and SOPs as versioned, governed definitions — not floating in model weights where they can drift, hallucinate, or become unauditable.</p>
           </div>
           <div class="phil-item">
-            <h4>Infrastructure sovereign</h4>
-            <p>For carrier-cloud and air-gapped deployments, the full pipeline runs within the carrier's environment. Nothing leaves.</p>
+            <h4>Regulated decisions need regulated systems</h4>
+            <p>Underwriting and claims AI faces the same audit standards as human decisions. Explainability has to be designed in — it cannot be retrofitted onto a black-box pipeline.</p>
           </div>
           <div class="phil-item">
-            <h4>Human escalation is a feature</h4>
-            <p>Low-confidence fields surface to handlers by design. AMICA said it directly: "duplicative, unclear data escalated to a representative." That's the right model.</p>
+            <h4>Composable, not captive</h4>
+            <p>Solutions that plug into the stack you already run — Snowflake, Databricks, AWS, Azure. You keep the code. You own the outcome. No platform lock-in.</p>
           </div>
         </div>
       </div>
