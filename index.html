@@ -84,6 +84,33 @@ nav.raised { box-shadow:0 1px 24px rgba(13,21,52,0.09); }
 .nav-cta { background:var(--blue)!important; color:#fff!important; font-weight:600!important; }
 .nav-cta:hover { opacity:.88!important; }
 
+/* ── NAV DROPDOWNS ── */
+.nav-item { position:relative; }
+.nav-item > a { display:flex; align-items:center; gap:4px; }
+.nav-item > a::after {
+  content:''; display:inline-block; width:8px; height:5px; flex-shrink:0;
+  background:currentColor;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  opacity:.45; transition:transform .18s, opacity .18s;
+}
+.nav-item:hover > a::after, .nav-item:focus-within > a::after { opacity:.8; transform:rotate(180deg); }
+.nav-drop {
+  position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%);
+  background:#fff; border:1px solid var(--border); border-radius:10px;
+  box-shadow:var(--shadow-m); min-width:190px; padding:6px; z-index:300;
+  opacity:0; pointer-events:none; transform:translateX(-50%) translateY(-6px);
+  transition:opacity .16s var(--ease), transform .16s var(--ease);
+}
+.nav-item:hover .nav-drop, .nav-item:focus-within .nav-drop {
+  opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);
+}
+.nav-drop a {
+  display:block; padding:8px 12px; font-size:13px; font-weight:500; color:var(--ink2);
+  border-radius:7px; text-decoration:none; white-space:nowrap;
+  transition:background .12s, color .12s;
+}
+.nav-drop a:hover { background:var(--blue-bg); color:var(--blue); }
+
 /* ── LAYOUT ── */
 .wrap { max-width:var(--max); margin:0 auto; padding:0 32px; }
 
@@ -218,6 +245,7 @@ nav.raised { box-shadow:0 1px 24px rgba(13,21,52,0.09); }
   background:rgba(255,255,255,0.25);
 }
 .filter-btn:not(.active) .filter-count { background:var(--bg2); color:var(--ink3); }
+.filter-btn-sub { font-size:12.5px; padding:6px 11px; }
 
 /* ── USE CASE GRID ── */
 .uc-grid {
@@ -436,22 +464,25 @@ footer {
 <!-- ── NAV ── -->
 <nav id="nav">
   <a href="#" class="nav-brand">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="110 120 210 200" fill="#2145EA" width="26" height="26">
-      <rect x="116.9" y="156.8" width="57.9" height="57.9"/>
-      <rect x="174.8" y="156.8" width="57.9" height="57.9"/>
-      <rect x="116.9" y="255.7" width="57.9" height="57.9"/>
-      <rect x="215.8" y="197.8" width="57.9" height="57.9"/>
-      <rect x="244.7" y="127.8" width="57.9" height="57.9" transform="translate(-30.7 239.5) rotate(-45)"/>
-      <rect x="215.8" y="255.7" width="57.9" height="57.9"/>
-    </svg>
-    <span class="nav-brand-name">ElevateNow</span>
-    <span class="nav-brand-tag">Insights</span>
+    <img src="/enow_logo.svg" alt="ElevateNow" style="height:26px; filter:brightness(0) saturate(100%) invert(19%) sepia(80%) hue-rotate(215deg) saturate(600%) brightness(90%);">
   </a>
   <ul class="nav-links">
     <li><a href="#perspectives">Perspectives</a></li>
-    <li><a href="#research">Field Research</a></li>
-    <li><a href="#evidence">Evidence Lab</a></li>
+    <li class="nav-item">
+      <a href="#results">Proven Results</a>
+      <div class="nav-drop">
+        <a href="#results">All Cases</a>
+        <a href="#results-insurance">Insurance Use Cases</a>
+        <a href="#results-datasolutions">Data Solutions</a>
+      </div>
+    </li>
     <li><a href="#stack">The Stack</a></li>
+    <li class="nav-item">
+      <a href="#evidence">Evidence Lab</a>
+      <div class="nav-drop">
+        <a href="#evidence">Benchmarking</a>
+      </div>
+    </li>
     <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
   </ul>
 </nav>
@@ -476,7 +507,7 @@ footer {
       We architect governed AI systems for insurers and MGAs. This is where we publish the work — implemented workflows, benchmark studies, and the reasoning behind every architectural decision.
     </p>
     <div class="hero-actions r" style="transition-delay:.17s">
-      <a href="#research" class="btn-p">Browse Field Research ↓</a>
+      <a href="#results" class="btn-p">Browse Proven Results ↓</a>
       <a href="#evidence" class="btn-g">Evidence Lab</a>
     </div>
     <div class="hero-stats r" style="transition-delay:.24s">
@@ -557,12 +588,12 @@ footer {
 
 <div class="hdiv"></div>
 
-<!-- ── FIELD RESEARCH ── -->
-<section class="section section-tinted" id="research">
+<!-- ── PROVEN RESULTS ── -->
+<section class="section section-tinted" id="results">
   <div class="wrap">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:36px;flex-wrap:wrap;">
       <div class="r">
-        <div class="eyebrow">Field Research</div>
+        <div class="eyebrow">Proven Results</div>
         <h2 class="section-title" style="max-width:520px;margin-bottom:8px;">10 implemented workflows.<br>Documented as practitioners.</h2>
         <p class="section-sub" style="max-width:480px;">Each case documents the real problem, why generic approaches fall short, and what an architecture that actually solves it looks like. No NDA — but no implementation blueprints either.</p>
       </div>
@@ -570,10 +601,13 @@ footer {
 
     <div class="filter-bar r" style="transition-delay:.08s">
       <button class="filter-btn active" data-filter="all">All <span class="filter-count">10</span></button>
-      <button class="filter-btn" data-filter="underwriting">Underwriting <span class="filter-count">3</span></button>
-      <button class="filter-btn" data-filter="claims">Claims <span class="filter-count">2</span></button>
-      <button class="filter-btn" data-filter="operations">Operations & Compliance <span class="filter-count">4</span></button>
-      <button class="filter-btn" data-filter="actuarial">Actuarial <span class="filter-count">1</span></button>
+      <button class="filter-btn" data-filter="insurance">Insurance <span class="filter-count">5</span></button>
+      <button class="filter-btn" data-filter="datasolutions">Data Solutions <span class="filter-count">5</span></button>
+      <span style="width:1px;height:18px;background:var(--border);margin:0 2px;align-self:center;display:inline-block;"></span>
+      <button class="filter-btn filter-btn-sub" data-filter="underwriting">Underwriting <span class="filter-count">3</span></button>
+      <button class="filter-btn filter-btn-sub" data-filter="claims">Claims <span class="filter-count">2</span></button>
+      <button class="filter-btn filter-btn-sub" data-filter="operations">Operations <span class="filter-count">4</span></button>
+      <button class="filter-btn filter-btn-sub" data-filter="actuarial">Actuarial <span class="filter-count">1</span></button>
     </div>
 
     <!-- Featured row: Submission Intake + FNOL -->
@@ -762,7 +796,72 @@ footer {
   </div>
 </section>
 
-<div class="hdiv"></div>
+<!-- ── THE STACK ── -->
+<section class="section section-dark" id="stack">
+  <div class="wrap">
+    <div style="display:grid;grid-template-columns:320px 1fr;gap:64px;align-items:start;">
+      <div class="r">
+        <div class="eyebrow eyebrow-light">The Stack</div>
+        <h2 class="section-title" style="color:#fff;">What we build on.</h2>
+        <p style="font-size:15px;line-height:1.68;color:rgba(255,255,255,0.55);margin-top:0;">The governed intelligence stack behind the use cases above. Ten capabilities across four layers — from AI-ready data pipelines to personified workbenches.</p>
+        <p style="font-size:13px;color:rgba(255,255,255,0.35);margin-top:16px;">This isn't a product pitch — it's context for what makes the architectures in the field cases possible.</p>
+      </div>
+      <div class="stack-grid r" style="transition-delay:.08s">
+        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">AI-Ready Pipelines</div>
+          <h4 style="color:#fff;">Assure</h4>
+          <p style="color:rgba(255,255,255,0.55);">Data quality certification — structured and unstructured — before AI consumes it. 10-dimension composite trust score.</p>
+          <span class="stack-status status-ga">GA</span>
+        </div>
+        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">AI-Ready Pipelines</div>
+          <h4 style="color:#fff;">Redact</h4>
+          <p style="color:rgba(255,255,255,0.55);">1,100+ sensitive data types detected and redacted in-pipeline before egress. PHI, PII, PCI, HIPAA, GDPR.</p>
+          <span class="stack-status status-ga">GA</span>
+        </div>
+        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">AI-Ready Pipelines</div>
+          <h4 style="color:#fff;">DataDNA</h4>
+          <p style="color:rgba(255,255,255,0.55);">Pipeline-native lineage registry. The trust control plane for AI data consumption across Snowflake and Databricks.</p>
+          <span class="stack-status status-preview">Preview</span>
+        </div>
+        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">Semantic</div>
+          <h4 style="color:#fff;">Semantic Hub</h4>
+          <p style="color:rgba(255,255,255,0.55);">Insurance ontology + document intelligence + knowledge repository. The context layer for governed AI.</p>
+          <span class="stack-status status-ga">GA</span>
+        </div>
+        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">Semantic</div>
+          <h4 style="color:#fff;">Resolve</h4>
+          <p style="color:rgba(255,255,255,0.55);">AI-powered entity resolution. MDM pre-assessment in days, not weeks. Customer identity that carriers trust.</p>
+          <span class="stack-status status-ga">GA</span>
+        </div>
+        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">Governance</div>
+          <h4 style="color:#fff;">AI Compliance Hub</h4>
+          <p style="color:rgba(255,255,255,0.55);">Every AI decision reconstructible from governing chunks, version, effective date, and trace path.</p>
+          <span class="stack-status status-preview">Preview</span>
+        </div>
+        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">Workflow</div>
+          <h4 style="color:#fff;">Recipe Packs</h4>
+          <p style="color:rgba(255,255,255,0.55);">Insurance agentic workflows for WC/Auto/Property claims and commercial underwriting. Each tool invocation is traceable.</p>
+          <span class="stack-status status-ga">GA</span>
+        </div>
+        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
+          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">Apps</div>
+          <h4 style="color:#fff;">Workbench</h4>
+          <p style="color:rgba(255,255,255,0.55);">Claims examiner intelligence workspace. Facts, intelligence, and evidence in a single cockpit from FNOL intake.</p>
+          <span class="stack-status status-ga">GA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="hdiv" style="background:rgba(255,255,255,0.07)"></div>
 
 <!-- ── EVIDENCE LAB ── -->
 <section class="section section-dark" id="evidence">
@@ -894,73 +993,6 @@ footer {
     </div>
   </div>
 </section>
-
-<div class="hdiv" style="background:rgba(255,255,255,0.07)"></div>
-
-<!-- ── THE STACK ── -->
-<section class="section section-dark" id="stack">
-  <div class="wrap">
-    <div style="display:grid;grid-template-columns:320px 1fr;gap:64px;align-items:start;">
-      <div class="r">
-        <div class="eyebrow eyebrow-light">The Stack</div>
-        <h2 class="section-title" style="color:#fff;">What we build on.</h2>
-        <p style="font-size:15px;line-height:1.68;color:rgba(255,255,255,0.55);margin-top:0;">The governed intelligence stack behind the use cases above. Ten capabilities across four layers — from AI-ready data pipelines to personified workbenches.</p>
-        <p style="font-size:13px;color:rgba(255,255,255,0.35);margin-top:16px;">This isn't a product pitch — it's context for what makes the architectures in the field cases possible.</p>
-      </div>
-      <div class="stack-grid r" style="transition-delay:.08s">
-        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
-          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">AI-Ready Pipelines</div>
-          <h4 style="color:#fff;">Assure</h4>
-          <p style="color:rgba(255,255,255,0.55);">Data quality certification — structured and unstructured — before AI consumes it. 10-dimension composite trust score.</p>
-          <span class="stack-status status-ga">GA</span>
-        </div>
-        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
-          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">AI-Ready Pipelines</div>
-          <h4 style="color:#fff;">Redact</h4>
-          <p style="color:rgba(255,255,255,0.55);">1,100+ sensitive data types detected and redacted in-pipeline before egress. PHI, PII, PCI, HIPAA, GDPR.</p>
-          <span class="stack-status status-ga">GA</span>
-        </div>
-        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
-          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">AI-Ready Pipelines</div>
-          <h4 style="color:#fff;">DataDNA</h4>
-          <p style="color:rgba(255,255,255,0.55);">Pipeline-native lineage registry. The trust control plane for AI data consumption across Snowflake and Databricks.</p>
-          <span class="stack-status status-preview">Preview</span>
-        </div>
-        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
-          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">Semantic</div>
-          <h4 style="color:#fff;">Semantic Hub</h4>
-          <p style="color:rgba(255,255,255,0.55);">Insurance ontology + document intelligence + knowledge repository. The context layer for governed AI.</p>
-          <span class="stack-status status-ga">GA</span>
-        </div>
-        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
-          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">Semantic</div>
-          <h4 style="color:#fff;">Resolve</h4>
-          <p style="color:rgba(255,255,255,0.55);">AI-powered entity resolution. MDM pre-assessment in days, not weeks. Customer identity that carriers trust.</p>
-          <span class="stack-status status-ga">GA</span>
-        </div>
-        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
-          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">Governance</div>
-          <h4 style="color:#fff;">AI Compliance Hub</h4>
-          <p style="color:rgba(255,255,255,0.55);">Every AI decision reconstructible from governing chunks, version, effective date, and trace path.</p>
-          <span class="stack-status status-preview">Preview</span>
-        </div>
-        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
-          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">Workflow</div>
-          <h4 style="color:#fff;">Recipe Packs</h4>
-          <p style="color:rgba(255,255,255,0.55);">Insurance agentic workflows for WC/Auto/Property claims and commercial underwriting. Each tool invocation is traceable.</p>
-          <span class="stack-status status-ga">GA</span>
-        </div>
-        <div class="stack-card" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08);">
-          <div class="stack-card-layer" style="color:rgba(255,255,255,0.35);">Apps</div>
-          <h4 style="color:#fff;">Workbench</h4>
-          <p style="color:rgba(255,255,255,0.55);">Claims examiner intelligence workspace. Facts, intelligence, and evidence in a single cockpit from FNOL intake.</p>
-          <span class="stack-status status-ga">GA</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ── CTA ── -->
 <section class="cta-section" id="contact">
   <div class="wrap">
@@ -990,7 +1022,7 @@ footer {
     </a>
     <div class="footer-links">
       <a href="#perspectives">Perspectives</a>
-      <a href="#research">Field Research</a>
+      <a href="#results">Proven Results</a>
       <a href="#evidence">Evidence Lab</a>
       <a href="#stack">The Stack</a>
       <a href="mailto:vs@artifidata.ai">Contact</a>
@@ -1018,37 +1050,53 @@ setTimeout(() => document.querySelectorAll('.hero .r').forEach(el => el.classLis
 // Category filter
 const filterBtns = document.querySelectorAll('.filter-btn');
 const ucCards    = document.querySelectorAll('.uc-grid .uc-card, .uc-featured .uc-card');
+const SUPER = {
+  insurance:    ['underwriting', 'claims'],
+  datasolutions: ['operations', 'actuarial']
+};
+
+function applyFilter(filter) {
+  filterBtns.forEach(b => b.classList.remove('active'));
+  const activeBtn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  const allowed = SUPER[filter] || (filter === 'all' ? null : [filter]);
+  const featuredRow = document.getElementById('featured-row');
+
+  ucCards.forEach(card => {
+    const cat = card.dataset.category;
+    const show = !allowed || allowed.includes(cat);
+    card.classList.toggle('hidden', !show);
+    if (show) { card.classList.remove('on'); setTimeout(() => card.classList.add('on'), 20); }
+  });
+
+  if (featuredRow) {
+    const featuredCats = Array.from(featuredRow.querySelectorAll('.uc-card')).map(c => c.dataset.category);
+    const anyVisible = !allowed || featuredCats.some(c => allowed.includes(c));
+    featuredRow.style.display = anyVisible ? '' : 'none';
+    featuredRow.querySelectorAll('.uc-card').forEach(card => {
+      if (allowed && !allowed.includes(card.dataset.category)) card.classList.add('hidden');
+    });
+  }
+}
 
 filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter = btn.dataset.filter;
-
-    const featuredRow = document.getElementById('featured-row');
-
-    ucCards.forEach(card => {
-      const cat = card.dataset.category;
-      const show = filter === 'all' || cat === filter;
-      card.classList.toggle('hidden', !show);
-      // small re-trigger for visible cards
-      if (show) { card.classList.remove('on'); setTimeout(() => card.classList.add('on'), 20); }
-    });
-
-    // Hide featured row if filtered to a category that doesn't include both featured cards
-    if (featuredRow) {
-      const featuredCats = Array.from(featuredRow.querySelectorAll('.uc-card')).map(c => c.dataset.category);
-      const anyVisible = filter === 'all' || featuredCats.includes(filter);
-      featuredRow.style.display = anyVisible ? '' : 'none';
-      // If only some featured cards match, hide the non-matching ones
-      featuredRow.querySelectorAll('.uc-card').forEach(card => {
-        if (filter !== 'all' && card.dataset.category !== filter) {
-          card.classList.add('hidden');
-        }
-      });
-    }
-  });
+  btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
 });
+
+// Hash-based direct filter navigation (#results-insurance, #results-datasolutions)
+function handleHash() {
+  const h = location.hash;
+  if (h === '#results-insurance') {
+    document.getElementById('results')?.scrollIntoView({ behavior: 'smooth' });
+    applyFilter('insurance');
+  } else if (h === '#results-datasolutions') {
+    document.getElementById('results')?.scrollIntoView({ behavior: 'smooth' });
+    applyFilter('datasolutions');
+  }
+}
+window.addEventListener('hashchange', handleHash);
+handleHash();
 </script>
 </body>
 </html>
