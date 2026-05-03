@@ -75,3 +75,152 @@
   transition: color .15s;
 }
 .uc-nav-back:hover { color: rgba(255,255,255,0.85); }
+
+/* ══════════════════════════════════════════════════════
+   Mobile responsiveness — all use case detail pages
+   ══════════════════════════════════════════════════════ */
+
+/* ── Tablet / large phone (≤ 768px) ── */
+@media (max-width: 768px) {
+  /* Nav */
+  .uc-nav { padding: 0 20px !important; }
+
+  /* Hero */
+  .hero {
+    min-height: auto !important;
+    padding: 90px 24px 48px !important;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 7vw, 42px) !important;
+    line-height: 1.18 !important;
+  }
+  .hero-sub {
+    font-size: 17px !important;
+    margin-bottom: 28px !important;
+  }
+  .hero-label {
+    letter-spacing: 3px !important;
+    font-size: 11px !important;
+  }
+  .hero-meta {
+    flex-wrap: wrap !important;
+    gap: 12px 24px !important;
+    font-size: 12px !important;
+  }
+
+  /* Layout */
+  .container {
+    padding: 32px 20px !important;
+  }
+  .section-intro {
+    font-size: 16px !important;
+    margin-bottom: 24px !important;
+  }
+  .section h2 {
+    font-size: clamp(24px, 5vw, 36px) !important;
+  }
+  .problem-backdrop {
+    padding: 28px 20px !important;
+    border-radius: 12px !important;
+  }
+  .workflow-container {
+    padding: 28px 20px !important;
+    border-radius: 12px !important;
+    margin: 28px 0 !important;
+  }
+  .workflow-phase {
+    padding: 24px 20px !important;
+  }
+  .workflow-header {
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    align-items: flex-start !important;
+  }
+  .workflow-title {
+    font-size: 18px !important;
+  }
+
+  /* Hard-coded multi-col grids → single column */
+  .brief-tabs,
+  .principle-grid,
+  .value-grid,
+  .governance-grid,
+  .sip-factors,
+  .minutes-signals,
+  .challenge-grid,
+  .scenario-split,
+  .metrics-grid,
+  .workflow-outcomes {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Tables: prevent horizontal overflow */
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Card padding */
+  .lob-card,
+  .principle-card,
+  .value-card,
+  .governance-card,
+  .brief-tab,
+  .challenge-card,
+  .scenario-card,
+  .stat-card {
+    padding: 22px !important;
+  }
+}
+
+/* ── Phone (≤ 480px) ── */
+@media (max-width: 480px) {
+  .hero {
+    padding: 80px 16px 40px !important;
+  }
+  .hero h1 {
+    font-size: clamp(22px, 8vw, 32px) !important;
+  }
+  .container {
+    padding: 24px 16px !important;
+  }
+  .section-intro {
+    font-size: 15px !important;
+  }
+  .section h2 {
+    font-size: clamp(22px, 6vw, 30px) !important;
+  }
+
+  /* Also collapse auto-fit grids with large minmax that overflow on phones */
+  .lob-grid,
+  .proof-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Tighter card padding on phones */
+  .lob-card,
+  .principle-card,
+  .value-card,
+  .governance-card,
+  .brief-tab,
+  .challenge-card,
+  .scenario-card,
+  .workflow-phase {
+    padding: 18px !important;
+  }
+
+  .uc-nav-back { font-size: 12px; }
+
+  .workflow-badge {
+    font-size: 11px !important;
+    padding: 5px 10px !important;
+  }
+  .workflow-title {
+    font-size: 16px !important;
+  }
+  .workflow-desc {
+    font-size: 14px !important;
+  }
+}

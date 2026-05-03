@@ -494,7 +494,9 @@ footer {
   .uc-grid { grid-template-columns:1fr 1fr; }
   .beliefs-grid { grid-template-columns:1fr; }
   .philosophy-strip { grid-template-columns:1fr; gap:20px; }
-  .nav-links li:not(:last-child) { display:none; }
+  .nav-links { display:none; }
+  .nav-ham { display:flex; }
+  .section { padding:60px 0; }
   .fw-groups { grid-template-columns:repeat(3,1fr); }
   .ev-grid { grid-template-columns:1fr; }
   .stack-grid { grid-template-columns:1fr 1fr; }
@@ -505,12 +507,56 @@ footer {
 }
 @media (max-width:580px) {
   .uc-grid { grid-template-columns:1fr; }
-  .stack-grid { grid-template-columns:1fr 1fr; }
-  .hero h1 { font-size:30px; }
-  .hero-stats { gap:0; }
-  .hero-stat { padding:0 20px 0 0; margin-right:20px; }
+  .stack-grid { grid-template-columns:1fr; }
+  .fw-groups { grid-template-columns:1fr 1fr; }
+  .hero h1 { font-size:28px; }
+  .hero-stats { gap:0; flex-wrap:wrap; }
+  .hero-stat { padding:0 24px 0 0; margin-right:24px; }
+  .hero-actions { flex-direction:column; align-items:flex-start; gap:8px; }
+  .cta-section { padding:48px 0; }
+  .footer-inner { flex-direction:column; align-items:flex-start; gap:20px; }
+  .footer-links { flex-wrap:wrap; gap:12px; }
+  .section { padding:48px 0; }
   .bm-g-num { font-size:9px; padding:3px 7px; }
 }
+
+/* ── HAMBURGER BUTTON ── */
+.nav-ham {
+  display:none; flex-direction:column; justify-content:center; gap:5px;
+  background:none; border:none; cursor:pointer; padding:8px 4px; margin-left:8px;
+  flex-shrink:0;
+}
+.nav-ham span {
+  display:block; width:22px; height:2px; border-radius:2px; background:var(--ink);
+  transition:transform .22s var(--ease), opacity .18s;
+}
+.nav-ham.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.nav-ham.open span:nth-child(2) { opacity:0; }
+.nav-ham.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+/* ── MOBILE NAV DRAWER ── */
+.nav-mob {
+  display:none; position:fixed; top:60px; left:0; right:0; bottom:0;
+  background:rgba(255,255,255,0.98); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  z-index:199; padding:8px 20px 40px; flex-direction:column; overflow-y:auto;
+}
+.nav-mob.open { display:flex; }
+.nav-mob-head {
+  font-size:10px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--ink4); padding:20px 8px 8px; flex-shrink:0;
+}
+.nav-mob a {
+  font-size:16px; font-weight:600; color:var(--ink); text-decoration:none;
+  padding:15px 8px; border-bottom:1px solid var(--border-s); transition:color .15s;
+  display:block; flex-shrink:0;
+}
+.nav-mob a:hover { color:var(--blue); }
+.nav-mob a.nav-mob-cta {
+  margin-top:16px; background:var(--blue); color:#fff;
+  border-radius:8px; text-align:center; border-bottom:none;
+  padding:16px 8px;
+}
+.nav-mob a.nav-mob-cta:hover { opacity:.88; color:#fff; }
 </style>
 </head>
 <body>
@@ -553,7 +599,30 @@ footer {
     </li>
     <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
   </ul>
+  <button class="nav-ham" id="navHam" aria-label="Open navigation">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile nav drawer — visible only at ≤860px -->
+<div class="nav-mob" id="navMob">
+  <a href="#perspectives">Perspectives</a>
+  <div class="nav-mob-head">Insurance Use Cases</div>
+  <a href="/usecases/SubmissionIntake">Submission Triage</a>
+  <a href="/usecases/ElevateNow_MultiLOB_FNOL">FNOL Intelligence</a>
+  <a href="/usecases/WCFNOL-ElevatenowRecipe">WC Jurisdiction Rules</a>
+  <a href="/usecases/LossRunIntelligence">Loss Run Analysis</a>
+  <a href="/usecases/PSUW-ElevatenowRecipe">Municipal Risk Intel</a>
+  <div class="nav-mob-head">Data Solutions</div>
+  <a href="/usecases/pre-mdm-assessment">MDM Pre-Assessment</a>
+  <a href="/usecases/mdm-lite">MDM Lite</a>
+  <a href="/usecases/data-quality-certification">Data Quality Certification</a>
+  <a href="/usecases/ProactiveAuditMonitoring">Proactive Audit</a>
+  <a href="/usecases/cohort-analysis">Cohort Analysis</a>
+  <a href="#stack">The Stack</a>
+  <a href="#evidence">Evidence Lab</a>
+  <a href="#contact" class="nav-mob-cta">Let's Talk</a>
+</div>
 
 <!-- ── HERO ── -->
 <section class="hero">
@@ -1184,6 +1253,25 @@ function handleHash() {
 }
 window.addEventListener('hashchange', handleHash);
 handleHash();
+
+// Mobile hamburger menu
+(function() {
+  const ham = document.getElementById('navHam');
+  const mob = document.getElementById('navMob');
+  if (!ham || !mob) return;
+  ham.addEventListener('click', () => {
+    const isOpen = ham.classList.toggle('open');
+    mob.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  mob.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      ham.classList.remove('open');
+      mob.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+})();
 </script>
 </body>
 </html>
