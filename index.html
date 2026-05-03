@@ -254,10 +254,9 @@ nav.raised { box-shadow:0 1px 24px rgba(13,21,52,0.09); }
 
 .philosophy-strip {
   background:var(--ink); border-radius:12px; padding:32px 36px;
-  display:flex; gap:0; margin-top:16px; flex-wrap:wrap;
+  display:grid; grid-template-columns:1fr 1fr; gap:28px 48px; margin-top:16px;
 }
-.phil-item { flex:1; min-width:180px; padding:0 28px 0 0; margin-right:28px; border-right:1px solid rgba(255,255,255,0.10); }
-.phil-item:last-child { border-right:none; padding-right:0; margin-right:0; }
+.phil-item { }
 .phil-item h4 { font-size:14px; font-weight:700; color:#fff; margin-bottom:6px; }
 .phil-item p  { font-size:12.5px; line-height:1.68; color:rgba(255,255,255,0.55); }
 
@@ -494,9 +493,7 @@ footer {
   .uc-featured { grid-template-columns:1fr; }
   .uc-grid { grid-template-columns:1fr 1fr; }
   .beliefs-grid { grid-template-columns:1fr; }
-  .philosophy-strip { flex-direction:column; gap:20px; }
-  .phil-item { border-right:none; padding-right:0; margin-right:0; border-bottom:1px solid rgba(255,255,255,0.10); padding-bottom:20px; }
-  .phil-item:last-child { border-bottom:none; padding-bottom:0; }
+  .philosophy-strip { grid-template-columns:1fr; gap:20px; }
   .nav-links li:not(:last-child) { display:none; }
   .fw-groups { grid-template-columns:repeat(3,1fr); }
   .ev-grid { grid-template-columns:1fr; }
