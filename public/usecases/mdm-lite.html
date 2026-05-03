@@ -477,14 +477,15 @@
     .cta-section { display: none; }
   }
 </style>
+  <link rel="stylesheet" href="/usecases/shared.css">
 </head>
 <body>
-<nav style="position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(13,21,52,0.97);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.07);padding:0 48px;">
-  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;">
-    <a href="/" style="display:flex;align-items:center;text-decoration:none;">
-      <img src="/enow_logo.svg" alt="ElevateNow" style="height:22px;filter:brightness(0) invert(1);opacity:0.9;">
+<nav class="uc-nav">
+  <div class="uc-nav-inner">
+    <a href="/" class="uc-nav-logo">
+      <img src="/enow_logo.svg" alt="ElevateNow">
     </a>
-    <a href="/#results" style="font-size:13px;font-weight:500;color:rgba(255,255,255,0.50);text-decoration:none;display:flex;align-items:center;gap:5px;letter-spacing:.01em;transition:color .15s;" onmouseover="this.style.color='rgba(255,255,255,0.85)'" onmouseout="this.style.color='rgba(255,255,255,0.50)'">&#8592; Proven Results</a>
+    <a href="/#results" class="uc-nav-back">&#8592; Proven Results</a>
   </div>
 </nav>
 

@@ -1,0 +1,77 @@
+/*
+  ElevateNow Insights — shared theme for all use case detail pages.
+  Loaded last in <head> so it overrides any per-file CSS variables and hero styles.
+*/
+
+/* ── Brand color tokens ── */
+:root {
+  --accent:       #2145EA;
+  --accent-light: #3d5ef5;
+  --accent-bg:    #EEF2FF;
+  --tool-blue:    #1a3a8a;
+  --ink:          #0D1534;
+  --agent-green:  #1e6e3e;
+}
+
+/* ── Hero gradient ── */
+.hero {
+  background: linear-gradient(150deg, #080e2e 0%, #0d1a5c 45%, #0f2070 100%) !important;
+}
+
+/* ── Hero orbs ── */
+.hero::before {
+  background: radial-gradient(circle, rgba(33,69,234,0.22) 0%, transparent 70%) !important;
+}
+.hero::after {
+  background: radial-gradient(circle, rgba(33,69,234,0.14) 0%, transparent 70%) !important;
+}
+
+/* ── Accent word in hero headline ── */
+.hero h1 span,
+.hero h1 em {
+  color: #93AFFF !important;
+  font-style: normal;
+}
+
+/* ── Nav bar (fixed, 60px, ElevateNow dark) ── */
+.uc-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  height: 60px;
+  background: rgba(13,21,52,0.97);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 0 48px;
+}
+.uc-nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+.uc-nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.uc-nav-logo img {
+  height: 22px;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+.uc-nav-back {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.50);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  letter-spacing: .01em;
+  transition: color .15s;
+}
+.uc-nav-back:hover { color: rgba(255,255,255,0.85); }
