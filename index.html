@@ -92,17 +92,24 @@ nav.raised { box-shadow:0 1px 24px rgba(13,21,52,0.09); }
   background:currentColor; clip-path:polygon(0 0,100% 0,50% 100%);
   opacity:.40; transition:transform .18s, opacity .18s;
 }
-.nav-item:hover > a::after, .nav-item:focus-within > a::after { opacity:.75; transform:rotate(180deg); }
+.nav-item.open > a::after { opacity:.75; transform:rotate(180deg); }
+
+/* Transparent bridge — fills the gap between nav link and panel so diagonal mouse movement doesn't close the menu */
+.nav-item::after {
+  content:''; position:absolute; top:100%; left:-20px; right:-20px; height:16px;
+  display:none;
+}
+.nav-item.open::after { display:block; }
 
 /* Simple dropdown (Evidence Lab) */
 .nav-drop {
-  position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%);
+  position:absolute; top:calc(100% + 8px); left:50%;
   background:#fff; border:1px solid var(--border); border-radius:10px;
   box-shadow:var(--shadow-m); min-width:170px; padding:6px; z-index:300;
   opacity:0; pointer-events:none; transform:translateX(-50%) translateY(-6px);
   transition:opacity .16s var(--ease), transform .16s var(--ease);
 }
-.nav-item:hover .nav-drop, .nav-item:focus-within .nav-drop {
+.nav-item.open .nav-drop {
   opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);
 }
 .nav-drop a {
@@ -114,14 +121,14 @@ nav.raised { box-shadow:0 1px 24px rgba(13,21,52,0.09); }
 
 /* Mega-menu (Proven Results) */
 .nav-mega {
-  position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%);
+  position:absolute; top:calc(100% + 8px); left:50%;
   background:#fff; border:1px solid var(--border); border-radius:12px;
   box-shadow:var(--shadow-h); width:480px; padding:20px; z-index:300;
   opacity:0; pointer-events:none; transform:translateX(-50%) translateY(-8px);
   transition:opacity .18s var(--ease), transform .18s var(--ease);
   display:grid; grid-template-columns:1fr 1px 1fr; gap:0 16px;
 }
-.nav-item:hover .nav-mega, .nav-item:focus-within .nav-mega {
+.nav-item.open .nav-mega {
   opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);
 }
 .nav-mega-col { display:flex; flex-direction:column; gap:2px; }
@@ -1099,6 +1106,30 @@ const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('raised', window.scrollY > 6);
 }, { passive: true });
+
+// Nav dropdowns — sticky open with close delay
+(function() {
+  const CLOSE_DELAY = 220; // ms before menu closes after mouse leaves
+  document.querySelectorAll('.nav-item').forEach(item => {
+    let closeTimer = null;
+    const open  = () => { clearTimeout(closeTimer); item.classList.add('open'); };
+    const close = () => { closeTimer = setTimeout(() => item.classList.remove('open'), CLOSE_DELAY); };
+    item.addEventListener('mouseenter', open);
+    item.addEventListener('mouseleave', close);
+    // Keep open while moving through the transparent bridge or the panel itself
+    const panel = item.querySelector('.nav-mega, .nav-drop');
+    if (panel) {
+      panel.addEventListener('mouseenter', open);
+      panel.addEventListener('mouseleave', close);
+    }
+  });
+  // Close on outside click
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.nav-item')) {
+      document.querySelectorAll('.nav-item.open').forEach(i => i.classList.remove('open'));
+    }
+  });
+})();
 
 // Reveal animation
 const obs = new IntersectionObserver(entries => {
