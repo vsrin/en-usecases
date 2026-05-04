@@ -76,151 +76,157 @@
 }
 .uc-nav-back:hover { color: rgba(255,255,255,0.85); }
 
-/* ══════════════════════════════════════════════════════
-   Mobile responsiveness — all use case detail pages
-   ══════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════════════
+   MOBILE — all use case detail pages
+   Strategy: universal containment + pattern selectors + explicit fallbacks.
+   Loaded last so every rule wins the cascade.
+   ══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Tablet / large phone (≤ 768px) ── */
+/* ── Global: prevent horizontal bleed on every detail page ── */
+body { overflow-x: hidden; }
+img, video, iframe, svg { max-width: 100%; }
+
+/* ════════════════════════════════
+   Tablet + large phone  (≤ 768px)
+   ════════════════════════════════ */
 @media (max-width: 768px) {
+
   /* Nav */
   .uc-nav { padding: 0 20px !important; }
 
-  /* Hero */
+  /* ── Hero: kill min-height, compact padding ── */
   .hero {
-    min-height: auto !important;
-    padding: 90px 24px 48px !important;
+    min-height: 0 !important;
+    padding: 88px 24px 48px !important;
   }
   .hero h1 {
     font-size: clamp(26px, 7vw, 42px) !important;
     line-height: 1.18 !important;
+    max-width: 100% !important;
   }
-  .hero-sub {
-    font-size: 17px !important;
-    margin-bottom: 28px !important;
-  }
-  .hero-label {
-    letter-spacing: 3px !important;
-    font-size: 11px !important;
-  }
-  .hero-meta {
-    flex-wrap: wrap !important;
-    gap: 12px 24px !important;
-    font-size: 12px !important;
-  }
+  .hero-sub    { font-size: 17px !important; margin-bottom: 28px !important; max-width: 100% !important; }
+  .hero-label  { letter-spacing: 3px !important; font-size: 11px !important; }
+  .hero-meta   { flex-wrap: wrap !important; gap: 12px 24px !important; font-size: 12px !important; }
+  .key-question,
+  .hero blockquote { font-size: 18px !important; padding: 24px !important; }
 
-  /* Layout */
-  .container {
-    padding: 32px 20px !important;
-  }
-  .section-intro {
-    font-size: 16px !important;
-    margin-bottom: 24px !important;
-  }
-  .section h2 {
-    font-size: clamp(24px, 5vw, 36px) !important;
-  }
-  .problem-backdrop {
-    padding: 28px 20px !important;
-    border-radius: 12px !important;
-  }
-  .workflow-container {
-    padding: 28px 20px !important;
-    border-radius: 12px !important;
-    margin: 28px 0 !important;
-  }
-  .workflow-phase {
-    padding: 24px 20px !important;
-  }
-  .workflow-header {
-    flex-wrap: wrap !important;
-    gap: 10px !important;
-    align-items: flex-start !important;
-  }
-  .workflow-title {
-    font-size: 18px !important;
-  }
+  /* ── Section containers ── */
+  .container    { padding: 32px 20px !important; }
+  .section      { margin-bottom: 48px !important; }
+  .section h2   { font-size: clamp(24px, 5vw, 36px) !important; max-width: 100% !important; }
+  .section-intro,
+  .hero-sub     { font-size: 16px !important; margin-bottom: 24px !important; }
+  .section-label { margin-bottom: 8px !important; }
 
-  /* Hard-coded multi-col grids → single column */
-  .brief-tabs,
-  .principle-grid,
-  .value-grid,
-  .governance-grid,
-  .sip-factors,
-  .minutes-signals,
-  .challenge-grid,
-  .scenario-split,
-  .metrics-grid,
-  .workflow-outcomes {
+  /* ── Background-strip sections ── */
+  .problem-backdrop,
+  .cta-section,
+  .workflow-container,
+  [class*="backdrop"],
+  [class*="-strip"]  { padding: 32px 20px !important; border-radius: 12px !important; }
+  .cta-section       { text-align: center; }
+
+  /* ── Workflow ── */
+  .workflow-phase  { padding: 24px 20px !important; }
+  .workflow-header { flex-wrap: wrap !important; gap: 10px !important; align-items: flex-start !important; }
+  .workflow-title  { font-size: 18px !important; }
+  .workflow-desc   { font-size: 14px !important; }
+  /* Pipeline arrows go vertical */
+  .arch-row        { flex-direction: column !important; gap: 12px !important; }
+  .arch-arrow      { transform: rotate(90deg); align-self: center; }
+  .arch-box        { width: 100% !important; }
+
+  /* ── Universal grid collapse ──────────────────────────────────────────
+     Pattern selectors catch every grid container without needing to know
+     the class name. No harm if matched element isn't display:grid — CSS
+     ignores grid-template-columns on non-grid elements.
+     ──────────────────────────────────────────────────────────────────── */
+  [class*="-grid"],
+  [class*="grid-"],
+  [class*="-tabs"],
+  [class*="-split"],
+  [class*="-factors"],
+  [class*="-signals"],
+  [class*="-outcomes"],
+  [class*="-steps"]:not(.flow-step) {
     grid-template-columns: 1fr !important;
   }
+  /* Explicit names for belt-and-suspenders coverage */
+  .brief-tabs, .principle-grid, .value-grid, .governance-grid,
+  .sip-factors, .minutes-signals, .challenge-grid, .scenario-split,
+  .metrics-grid, .workflow-outcomes, .state-grid, .proof-grid { grid-template-columns: 1fr !important; }
 
-  /* Tables: prevent horizontal overflow */
+  /* ── Tables: horizontal scroll ── */
   table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    display: block; width: 100%;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
   }
 
-  /* Card padding */
-  .lob-card,
-  .principle-card,
-  .value-card,
-  .governance-card,
+  /* ── Cards: unified mobile padding + lighter shadow ──────────────────
+     Pattern [class*="-card"] catches every *-card variant automatically.
+     ──────────────────────────────────────────────────────────────────── */
+  [class*="-card"],
   .brief-tab,
-  .challenge-card,
-  .scenario-card,
   .stat-card {
-    padding: 22px !important;
+    padding: 20px !important;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.09), 0 4px 12px rgba(0,0,0,0.06) !important;
   }
+
+  /* ── CTA button rows: stack on mobile ── */
+  .cta-actions,
+  .hero-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+  .cta-actions a,
+  .hero-actions a { text-align: center !important; }
 }
 
-/* ── Phone (≤ 480px) ── */
+/* ════════════════════
+   Phone only  (≤ 480px)
+   ════════════════════ */
 @media (max-width: 480px) {
-  .hero {
-    padding: 80px 16px 40px !important;
-  }
-  .hero h1 {
-    font-size: clamp(22px, 8vw, 32px) !important;
-  }
-  .container {
-    padding: 24px 16px !important;
-  }
-  .section-intro {
-    font-size: 15px !important;
-  }
-  .section h2 {
-    font-size: clamp(22px, 6vw, 30px) !important;
-  }
 
-  /* Also collapse auto-fit grids with large minmax that overflow on phones */
-  .lob-grid,
-  .proof-grid {
+  /* Hero tighter */
+  .hero    { padding: 80px 16px 40px !important; }
+  .hero h1 { font-size: clamp(22px, 8vw, 32px) !important; }
+
+  /* Containers */
+  .container  { padding: 24px 16px !important; }
+  .section    { margin-bottom: 36px !important; }
+  .section h2 { font-size: clamp(22px, 6vw, 30px) !important; }
+  .section-intro,
+  .hero-sub   { font-size: 15px !important; }
+
+  /* Section backgrounds tighter */
+  .problem-backdrop,
+  .cta-section,
+  .workflow-container,
+  [class*="backdrop"],
+  [class*="-strip"] { padding: 24px 16px !important; }
+
+  /* Workflow */
+  .workflow-phase  { padding: 18px 16px !important; }
+  .workflow-badge  { font-size: 11px !important; padding: 5px 10px !important; }
+  .workflow-title  { font-size: 16px !important; }
+  .workflow-desc   { font-size: 13px !important; }
+
+  /* All grids still collapsed (repeat to ensure no cascade gap) */
+  [class*="-grid"], [class*="grid-"], [class*="-tabs"], [class*="-split"],
+  [class*="-factors"], [class*="-signals"], [class*="-outcomes"] {
     grid-template-columns: 1fr !important;
   }
 
-  /* Tighter card padding on phones */
-  .lob-card,
-  .principle-card,
-  .value-card,
-  .governance-card,
+  /* Cards tighter */
+  [class*="-card"],
   .brief-tab,
-  .challenge-card,
-  .scenario-card,
-  .workflow-phase {
-    padding: 18px !important;
-  }
+  .stat-card { padding: 16px !important; }
 
+  /* Nav back link */
   .uc-nav-back { font-size: 12px; }
 
-  .workflow-badge {
-    font-size: 11px !important;
-    padding: 5px 10px !important;
-  }
-  .workflow-title {
-    font-size: 16px !important;
-  }
-  .workflow-desc {
-    font-size: 14px !important;
-  }
+  /* Key quote / callout */
+  .key-question,
+  .hero blockquote { font-size: 16px !important; padding: 18px !important; }
 }
