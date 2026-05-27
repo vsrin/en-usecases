@@ -598,9 +598,11 @@ footer {
     </li>
     <li><a href="#stack">The Stack</a></li>
     <li class="nav-item">
-      <a href="#evidence">Evidence Lab</a>
+      <a href="/evidence-lab">Evidence Lab</a>
       <div class="nav-drop">
-        <a href="#evidence">Benchmarking</a>
+        <a href="/evidence-lab">All Studies</a>
+        <a href="/evidence-lab/ocr-benchmark">OCR Benchmark Framework</a>
+        <a href="/evidence-lab/six-tier-stack">Six-Tier Extraction Stack</a>
       </div>
     </li>
     <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
@@ -627,7 +629,9 @@ footer {
   <a href="/usecases/ProactiveAuditMonitoring">Proactive Audit</a>
   <a href="/usecases/cohort-analysis">Cohort Analysis</a>
   <a href="#stack">The Stack</a>
-  <a href="#evidence">Evidence Lab</a>
+  <a href="/evidence-lab">Evidence Lab</a>
+  <a href="/evidence-lab/ocr-benchmark" style="padding-left:20px;font-size:14px;font-weight:500;opacity:0.8;">OCR Benchmark Framework</a>
+  <a href="/evidence-lab/six-tier-stack" style="padding-left:20px;font-size:14px;font-weight:500;opacity:0.8;">Six-Tier Extraction Stack</a>
   <a href="#contact" class="nav-mob-cta">Let's Talk</a>
 </div>
 
@@ -652,7 +656,7 @@ footer {
     </p>
     <div class="hero-actions r" style="transition-delay:.17s">
       <a href="#results" class="btn-p">Browse Proven Results ↓</a>
-      <a href="#evidence" class="btn-g">Evidence Lab</a>
+      <a href="/evidence-lab" class="btn-g">Evidence Lab</a>
     </div>
     <div class="hero-stats r" style="transition-delay:.24s">
       <div class="hero-stat">
@@ -1001,136 +1005,6 @@ footer {
 </section>
 
 
-<div class="hdiv" style="background:rgba(255,255,255,0.07)"></div>
-
-<!-- ── EVIDENCE LAB ── -->
-<section class="section section-dark" id="evidence">
-  <div class="wrap">
-
-    <div style="max-width:740px;margin-bottom:56px;" class="r">
-      <div class="eyebrow eyebrow-light">Evidence Lab</div>
-      <h2 class="section-title" style="color:#fff;max-width:580px;margin-bottom:20px;">We publish the criteria before we publish the results.</h2>
-      <p style="font-size:16px;line-height:1.75;color:rgba(255,255,255,0.58);margin-bottom:16px;">Standard OCR benchmarks — DocVQA, SROIE, FUNSD — were built for document understanding tasks, not insurance extraction. They measure whether a model can answer questions about a document. That's not the problem. The problem is whether a VIN extracted from a scanned police report is byte-perfect, whether the same document produces the same output on every run, and whether that output can be traced back to a specific location in the source when a regulator asks.</p>
-      <p style="font-size:16px;line-height:1.75;color:rgba(255,255,255,0.52);">The framework below is what we actually use to evaluate tools. We share it because the evaluation criteria are as important as the results — and because vendors who cherry-pick generic benchmarks are counting on you not asking the right questions.</p>
-    </div>
-
-    <!-- OCR Benchmark Framework — full width treatment -->
-    <div class="r" style="background:rgba(33,69,234,0.12);border:1px solid rgba(33,69,234,0.30);border-radius:16px;padding:40px;margin-bottom:20px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:12px;">
-        <div class="ev-status pub" style="margin:0;"><span class="ev-status-dot"></span>Published</div>
-        <div class="ev-topics" style="margin:0;">
-          <span class="ev-topic">OCR Quality</span><span class="ev-topic">Extraction Architecture</span>
-          <span class="ev-topic">Data Sovereignty</span><span class="ev-topic">Audit Trail</span>
-        </div>
-      </div>
-      <h3 style="font-size:22px;font-weight:700;color:#fff;line-height:1.25;letter-spacing:-.02em;margin-bottom:12px;">OCR &amp; Extraction Benchmark Framework for Insurance Documents</h3>
-      <p style="font-size:14px;line-height:1.72;color:rgba(255,255,255,0.60);max-width:700px;margin-bottom:4px;">Five evaluation groups. The first four map to standard document intelligence dimensions. The fifth — audit and compliance — is the one that determines whether output is actually deployable in a regulated insurance workflow. Most tools pass the first four. Group 5 is where the field narrows.</p>
-
-      <div class="bm-groups r" style="transition-delay:.08s">
-
-        <div class="bm-g">
-          <div class="bm-g-num">Group 1</div>
-          <div>
-            <div class="bm-g-name">Text Accuracy</div>
-            <div class="bm-g-desc">Character error rate and word error rate measure overall text quality. For insurance, what matters more is field-level exact match on structured fields — dates, amounts, VINs, policy numbers, DL#, ICD-10 codes. A tool that achieves 99% CER but drops one digit from a policy number fails the insurance test.</div>
-          </div>
-          <div class="bm-g-thresh">EM ≥ 95%</div>
-        </div>
-
-        <div class="bm-g">
-          <div class="bm-g-num">Group 2</div>
-          <div>
-            <div class="bm-g-name">Structure Fidelity</div>
-            <div class="bm-g-desc">Table TEDS (Tree Edit Distance Score) measures whether table structure is preserved — rows, columns, merged cells, reading order. Loss run schedules, ACORD endorsement tables, and IA report summaries are the primary stress test. Split-page tables and merged headers are the most common failure modes.</div>
-          </div>
-          <div class="bm-g-thresh">TEDS ≥ 0.90</div>
-        </div>
-
-        <div class="bm-g">
-          <div class="bm-g-num">Group 3</div>
-          <div>
-            <div class="bm-g-name">Robustness Under Real Conditions</div>
-            <div class="bm-g-desc">A DPI degradation curve (300 / 200 / 150 / 75 DPI) simulates fax-chain degradation common in police reports and older IA documents. Scan quality classes A through D characterize the document population. A tool that performs well on clean scans but collapses at 150 DPI isn't usable in production.</div>
-          </div>
-          <div class="bm-g-thresh">&lt;10% drift 300→150</div>
-        </div>
-
-        <div class="bm-g">
-          <div class="bm-g-num">Group 4</div>
-          <div>
-            <div class="bm-g-name">Operational Performance</div>
-            <div class="bm-g-desc">Throughput, P95 latency, memory footprint, cold-start time, and GPU vs. CPU dependency. For high-volume carriers these matter. For AMICA-scale operations (~80K docs/year), throughput is rarely the constraint — latency for real-time FNOL workflows and memory footprint for in-premise deployment are the actual concerns.</div>
-          </div>
-          <div class="bm-g-thresh">≤8s/page OCR</div>
-        </div>
-
-        <div class="bm-g">
-          <div class="bm-g-num">Group 5</div>
-          <div>
-            <div class="bm-g-name">Audit &amp; Compliance</div>
-            <div class="bm-g-desc">Grounding rate: what percentage of extracted field values can be traced to a specific character offset or bounding box in the source document. Hallucination rate: what percentage of field values have no textual basis in the source at all. Run variance: whether the same document produces the same output across ten identical runs. Data sovereignty posture: whether PHI ever leaves the customer's infrastructure boundary during processing.</div>
-          </div>
-          <div class="bm-g-gate">Hallucination = 0</div>
-        </div>
-
-      </div>
-
-      <div style="margin-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-        <p style="font-size:12.5px;color:rgba(255,255,255,0.38);font-style:italic;">Group 5 is a compliance gate, not a performance metric. A tool can pass Groups 1–4 and be disqualified by Group 5 alone.</p>
-        <a href="#contact" class="ev-link" style="margin-top:0;">Request the full framework →</a>
-      </div>
-    </div>
-
-    <!-- Secondary cards: Tier Stack + active studies -->
-    <div class="ev-grid r" style="transition-delay:.12s">
-
-      <div class="ev-card">
-        <div class="ev-status pub"><span class="ev-status-dot"></span>Published</div>
-        <h3>The Six-Tier Extraction Stack</h3>
-        <p style="margin-bottom:16px;">"Which tool should we use?" is the wrong question. The right question is which tier the field requires — and that determines the tool, the infrastructure, and the sovereignty posture.</p>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.68);">
-            <span style="padding:2px 8px;border-radius:4px;background:rgba(5,150,105,0.20);color:#4ADE80;font-size:11px;font-weight:700;flex-shrink:0;">T0–T2</span>
-            pdfplumber, Tesseract, regex — no LLM, no GPU, data-sovereign
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.68);">
-            <span style="padding:2px 8px;border-radius:4px;background:rgba(33,69,234,0.25);color:#93AFFF;font-size:11px;font-weight:700;flex-shrink:0;">T2.5</span>
-            Granite-Docling-258M (IBM) — document VLM, 8GB, Apache 2.0
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.68);">
-            <span style="padding:2px 8px;border-radius:4px;background:rgba(217,119,6,0.20);color:#FCD34D;font-size:11px;font-weight:700;flex-shrink:0;">T4</span>
-            Ollama + Llama 3.3 70B — local LLM, in-premise, Cat 4 fields only
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,0.68);">
-            <span style="padding:2px 8px;border-radius:4px;background:rgba(239,68,68,0.20);color:#FCA5A5;font-size:11px;font-weight:700;flex-shrink:0;">T5</span>
-            Groq / OpenAI — external API, fast, PHI risk at posture B/C
-          </div>
-        </div>
-      </div>
-
-      <div class="ev-card" style="transition-delay:.05s">
-        <div class="ev-status active"><span class="ev-status-dot"></span>In Progress</div>
-        <h3>Regex vs. LLM on Structured Fields</h3>
-        <p>Head-to-head on Cat 1 fields — VIN, DL#, DOB, policy number, claim number — across 200 FNOL and police report documents. Measuring field-level exact match, hallucination rate, and run variance side by side.</p>
-        <div class="ev-topics" style="margin-top:14px;">
-          <span class="ev-topic">FNOL</span><span class="ev-topic">Police Reports</span>
-        </div>
-        <a href="#contact" class="ev-link">Notify when published →</a>
-      </div>
-
-      <div class="ev-card" style="transition-delay:.09s">
-        <div class="ev-status active"><span class="ev-status-dot"></span>In Progress</div>
-        <h3>Scanned Doc Quality: Tesseract vs. Granite-Docling</h3>
-        <p>DPI degradation curve at 300/200/150/75 DPI. Table TEDS and Cat 1 exact match across 50 scanned insurance documents. Testing the hypothesis that Granite degrades under 10% vs. Tesseract at 25–30%.</p>
-        <div class="ev-topics" style="margin-top:14px;">
-          <span class="ev-topic">Scanned Docs</span><span class="ev-topic">Tables</span>
-        </div>
-        <a href="#contact" class="ev-link">Notify when published →</a>
-      </div>
-
-    </div>
-  </div>
-</section>
 <!-- ── CTA ── -->
 <section class="cta-section" id="contact">
   <div class="wrap">
@@ -1162,7 +1036,7 @@ footer {
     <div class="footer-links">
       <a href="#perspectives">Perspectives</a>
       <a href="#results">Proven Results</a>
-      <a href="#evidence">Evidence Lab</a>
+      <a href="/evidence-lab">Evidence Lab</a>
       <a href="#stack">The Stack</a>
       <a href="mailto:gps@elevatenow.tech">Contact</a>
     </div>
