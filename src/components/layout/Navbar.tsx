@@ -1,24 +1,18 @@
+import { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Menu, X } from 'lucide-react';
 
-/**
- * ElevateNow Insights top bar — matches the demoboard brand block exactly.
- *   [EN logo]  ELEVATENOW · INSIGHTS           Products   Usecases   ↗ elevatenow.tech
- *
- * Sticky, 95% white with blur, hairline bottom border. Feels native to the
- * demoboard chrome so an embedded demoboard doesn't re-chrome.
- */
 export default function Navbar() {
   const { pathname } = useLocation();
+  const [open, setOpen] = useState(false);
+
+  const close = () => setOpen(false);
 
   return (
-    <nav
-      className="sticky top-0 z-50 border-b border-rule"
-      style={{ background: '#FFFFFF' }}
-    >
+    <nav className="sticky top-0 z-50 border-b border-rule" style={{ background: '#FFFFFF' }}>
       <div className="max-w-[1180px] mx-auto px-6 md:px-12 h-[76px] flex items-center justify-between">
-        {/* Left — Full Elevatenow lockup (mark + wordmark) + Insights subtitle */}
-        <Link to="/" className="flex items-center gap-4 group" aria-label="ElevateNow Insights home">
+        {/* Left — logo + wordmark */}
+        <Link to="/" className="flex items-center gap-4 group" aria-label="ElevateNow Insights home" onClick={close}>
           <img
             src="/Elevatenow-Logo.svg"
             alt="Elevatenow"
@@ -29,8 +23,8 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Right — nav */}
-        <div className="flex items-center gap-7 md:gap-9">
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-9">
           <NavLink
             to="/products"
             className={({ isActive }) =>
@@ -60,7 +54,53 @@ export default function Navbar() {
             elevatenow.tech <ExternalLink size={13} />
           </a>
         </div>
+
+        {/* Mobile burger */}
+        <button
+          className="md:hidden flex items-center justify-center w-10 h-10 text-ink-2 hover:text-ink transition-colors"
+          onClick={() => setOpen(o => !o)}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
+
+      {/* Mobile dropdown */}
+      {open && (
+        <div className="md:hidden border-t border-rule bg-white px-6 py-4 flex flex-col gap-5">
+          <NavLink
+            to="/products"
+            onClick={close}
+            className={({ isActive }) =>
+              `font-sans text-[16px] tracking-[0.01em] transition-colors ${
+                isActive || pathname.startsWith('/product') ? 'text-accent font-medium' : 'text-ink-2'
+              }`
+            }
+          >
+            Products
+          </NavLink>
+          <NavLink
+            to="/usecases"
+            onClick={close}
+            className={({ isActive }) =>
+              `font-sans text-[16px] tracking-[0.01em] transition-colors ${
+                isActive || pathname.startsWith('/use-case') ? 'text-accent font-medium' : 'text-ink-2'
+              }`
+            }
+          >
+            Usecases
+          </NavLink>
+          <a
+            href="https://elevatenow.tech"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-sans text-[16px] tracking-[0.01em] text-ink-3 inline-flex items-center gap-1.5"
+            onClick={close}
+          >
+            elevatenow.tech <ExternalLink size={13} />
+          </a>
+        </div>
+      )}
     </nav>
   );
 }
