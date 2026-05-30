@@ -95,7 +95,7 @@ export const products: ProductMeta[] = [
     ],
     summary:
       'AI cannot reason over data it cannot find, connect, or trust. Semantic Hub makes enterprise data discoverable, connected, and consumable by governed AI workflows — via three pillars: a shared insurance ontology (anchor and meaning layer), document intelligence (RAG pipeline for PDFs, loss runs, ACORD forms), and a knowledge repository (guidelines, appetite rules, authority matrices — curated, versioned, ontology-anchored).',
-    demoboardPath: 'demoboards/semantic-hub/',
+    demoboardPath: 'demoboards/semantic-hub.html',
     demoboardVariant: 'Architectural Directive — Binding Authority',
     useCaseSlugs: ['submission-intake', 'loss-run-intelligence', 'public-sector-underwriting'],
   },

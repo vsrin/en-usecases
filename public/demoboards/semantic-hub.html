@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+/* Access gate — validated against ElevateNow backend */
+(function(){
+  var PAPER='semantic-hub';
+  var API='https://en-workspace-backend.enowclear360.com/api/access/validate';
+  var KEY='el_email_'+PAPER;
+  function unlock(){document.documentElement.classList.add('el-unlocked');}
+  var stored=localStorage.getItem(KEY);
+  if(stored){
+    fetch(API+'?email='+encodeURIComponent(stored)+'&artifact='+encodeURIComponent(PAPER))
+      .then(function(r){return r.json();})
+      .then(function(d){if(d.allowed){unlock();}else{localStorage.removeItem(KEY);}})
+      .catch(function(){unlock();});
+  }
+  window._elSubmit=function(e){
+    e.preventDefault();
+    var inp=document.getElementById('el-inp');
+    var msg=document.getElementById('el-msg');
+    var btn=document.getElementById('el-btn');
+    var email=(inp.value||'').trim();
+    if(!email)return;
+    btn.textContent='Verifying…';btn.disabled=true;
+    fetch(API+'?email='+encodeURIComponent(email)+'&artifact='+encodeURIComponent(PAPER))
+      .then(function(r){return r.json();})
+      .then(function(d){
+        if(d.allowed){localStorage.setItem(KEY,email);unlock();}
+        else{msg.textContent='Access not found for this email. Contact gps@elevatenow.tech.';btn.textContent='Unlock';btn.disabled=false;}
+      })
+      .catch(function(){msg.textContent='Unable to reach verification server. Try again.';btn.textContent='Unlock';btn.disabled=false;});
+  };
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Ready Insurance Intelligence: Architectural Directive</title>
+<style>
+  :root {
+    --navy:       #0A1628;
+    --navy-mid:   #162744;
+    --navy-light: #1E3A5F;
+    --blue:       #1A4A8A;
+    --blue-light: #2563EB;
+    --gold:       #C8A951;
+    --gold-light: #E8C96A;
+    --slate:      #475569;
+    --slate-light:#64748B;
+    --border:     #CBD5E1;
+    --bg:         #F8FAFC;
+    --white:      #FFFFFF;
+    --green:      #16A34A;
+    --red:        #DC2626;
+    --amber:      #D97706;
+    --font:       'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--navy);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .page { max-width: 1200px; margin: 0 auto; padding: 0 32px 80px; }
+
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, var(--blue) 100%);
+    color: var(--white);
+    padding: 64px 48px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 40px,
+      rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 80px
+    );
+  }
+  .hero-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 36px; font-weight: 300; line-height: 1.2;
+    max-width: 760px; margin-bottom: 8px;
+  }
+  .hero h1 strong { font-weight: 700; color: var(--gold-light); }
+  .hero-sub {
+    font-size: 15px; color: rgba(255,255,255,0.72);
+    max-width: 660px; margin-top: 16px; line-height: 1.7;
+  }
+  .hero-meta {
+    display: flex; gap: 32px; margin-top: 36px;
+    font-size: 11px; color: rgba(255,255,255,0.5);
+    letter-spacing: 0.06em;
+  }
+  .hero-meta strong { color: var(--gold); font-weight: 600; }
+
+  .section { margin-top: 64px; }
+  .section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-size: 24px; font-weight: 300; color: var(--navy);
+    border-bottom: 2px solid var(--gold); padding-bottom: 10px;
+    margin-bottom: 6px;
+  }
+  .section-title strong { font-weight: 700; }
+  .section-subtitle {
+    font-size: 13px; color: var(--slate); margin-bottom: 28px;
+    max-width: 720px; line-height: 1.65;
+  }
+
+  .callout {
+    background: var(--navy);
+    color: var(--white);
+    border-left: 4px solid var(--gold);
+    padding: 20px 28px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 32px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .callout strong { color: var(--gold-light); }
+
+  .callout-light {
+    background: #EFF6FF;
+    border-left: 4px solid var(--blue-light);
+    padding: 16px 24px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 24px;
+    font-size: 13.5px;
+    color: var(--navy-mid);
+  }
+  .callout-warning {
+    background: #FEF9C3;
+    border-left: 4px solid var(--amber);
+    padding: 16px 24px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 24px;
+    font-size: 13.5px;
+    color: #7C5804;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .card-navy {
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .card-blue {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .card h3 { font-size: 14px; font-weight: 700; margin-bottom: 10px; color: var(--navy); }
+  .card-navy h3 { color: var(--gold-light); }
+  .card-blue h3 { color: var(--blue); }
+  .card p { font-size: 13px; color: var(--slate); line-height: 1.6; }
+  .card-navy p { color: rgba(255,255,255,0.75); }
+  .card-blue p { color: #1E40AF; }
+  .card-tag {
+    display: inline-block;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 3px 10px;
+    border-radius: 100px; margin-bottom: 10px;
+  }
+  .tag-gold    { background: var(--gold); color: var(--navy); }
+  .tag-blue    { background: #BFDBFE; color: #1E40AF; }
+  .tag-green   { background: #DCFCE7; color: #166534; }
+  .tag-amber   { background: #FEF9C3; color: #7C5804; }
+  .tag-red     { background: #FEE2E2; color: #991B1B; }
+  .tag-slate   { background: #E2E8F0; color: var(--slate); }
+
+  .arch {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .arch-row {
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 20px;
+  }
+  .arch-row:last-child { border-bottom: none; }
+  .arch-row-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    min-width: 28px; color: var(--slate-light);
+  }
+  .arch-row-content { flex: 1; }
+  .arch-row-title {
+    font-size: 12px; font-weight: 700; color: var(--navy);
+    margin-bottom: 10px; letter-spacing: 0.03em;
+  }
+  .arch-blocks { display: flex; gap: 10px; flex-wrap: wrap; }
+  .arch-block {
+    padding: 10px 16px; border-radius: 6px;
+    font-size: 12px; font-weight: 600;
+    flex: 1; min-width: 120px; text-align: center;
+  }
+  .ab-use   { background: #F1F5F9; color: var(--navy); border: 1px solid var(--border); }
+  .ab-plat  { background: var(--navy); color: var(--gold-light); border: none; }
+  .ab-kit   { background: #FEF9C3; color: #7C5804; border: 1px solid #FDE68A; }
+  .ab-src   { background: #F8FAFC; color: var(--slate); border: 1px dashed var(--border); }
+  .arch-arrow {
+    text-align: center; padding: 6px; color: var(--slate-light);
+    font-size: 16px; font-weight: 300;
+  }
+  .arch-arrow span { font-size: 11px; color: var(--slate-light); margin-left: 6px; }
+
+  .principle {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 20px 0; border-bottom: 1px solid var(--border);
+  }
+  .principle:last-child { border-bottom: none; }
+  .principle-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--navy); color: var(--gold-light);
+    font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .principle-body h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .principle-body p  { font-size: 13px; color: var(--slate); line-height: 1.6; }
+  .principle-body .rule {
+    display: inline-block; background: #FEE2E2; color: #991B1B;
+    font-size: 11px; font-weight: 700; padding: 2px 8px;
+    border-radius: 4px; margin-top: 6px; letter-spacing: 0.04em;
+  }
+  .principle-body .ok {
+    display: inline-block; background: #DCFCE7; color: #166534;
+    font-size: 11px; font-weight: 700; padding: 2px 8px;
+    border-radius: 4px; margin-top: 6px; letter-spacing: 0.04em;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--navy); color: var(--white); }
+  thead th { padding: 12px 16px; text-align: left; font-weight: 600; font-size: 12px; letter-spacing: 0.04em; }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:nth-child(even) { background: var(--bg); }
+  tbody td { padding: 11px 16px; color: var(--navy); vertical-align: top; }
+  tbody td.muted { color: var(--slate); }
+  .table-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+
+  .roadmap { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; }
+  .roadmap-phase { padding: 28px; border-right: 1px solid var(--border); }
+  .roadmap-phase:last-child { border-right: none; }
+  .phase-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .phase-1 .phase-label { color: var(--blue); }
+  .phase-2 .phase-label { color: var(--green); }
+  .phase-3 .phase-label { color: var(--gold); }
+  .phase-title { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
+  .phase-item { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
+  .phase-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .d-blue  { background: var(--blue-light); }
+  .d-green { background: var(--green); }
+  .d-gold  { background: var(--gold); }
+  .phase-item p { font-size: 12.5px; color: var(--slate); line-height: 1.5; }
+  .phase-item strong { color: var(--navy); }
+
+  .dim-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+    border-top: 3px solid;
+  }
+  .dim-ontology  { border-top-color: var(--blue-light); }
+  .dim-context   { border-top-color: var(--green); }
+  .dim-lineage   { border-top-color: var(--gold); }
+  .dim-discovery { border-top-color: #7C3AED; }
+  .dim-card .dim-icon { font-size: 22px; margin-bottom: 10px; }
+  .dim-card h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .dim-card .gap-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--red); margin-bottom: 2px;
+  }
+  .dim-card .resp-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--green); margin-bottom: 2px; margin-top: 8px;
+  }
+  .dim-card p { font-size: 12px; color: var(--slate); line-height: 1.55; }
+
+  .flow {
+    display: flex; align-items: stretch; gap: 0;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .flow-step {
+    flex: 1; padding: 18px 20px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .flow-step:last-child { border-right: none; }
+  .flow-step::after {
+    content: '›';
+    position: absolute; right: -9px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px; color: var(--slate-light);
+    z-index: 1;
+  }
+  .flow-step:last-child::after { display: none; }
+  .flow-step-num { font-size: 11px; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+  .flow-step h5 { font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .flow-step p  { font-size: 11.5px; color: var(--slate); line-height: 1.5; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 9px; border-radius: 100px;
+    font-size: 11px; font-weight: 600;
+  }
+  .badge-gold   { background: #FEF9C3; color: #7C5804; border: 1px solid #FDE68A; }
+  .badge-blue   { background: #DBEAFE; color: #1E40AF; border: 1px solid #BFDBFE; }
+  .badge-navy   { background: var(--navy); color: var(--gold-light); }
+  .badge-green  { background: #DCFCE7; color: #166534; border: 1px solid #BBF7D0; }
+  .badge-red    { background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+
+  .footer {
+    margin-top: 80px;
+    border-top: 2px solid var(--navy);
+    padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px; color: var(--slate-light);
+  }
+  .footer strong { color: var(--navy); }
+
+  .mt8  { margin-top: 8px; }
+  .mt16 { margin-top: 16px; }
+  .mt24 { margin-top: 24px; }
+  .mt32 { margin-top: 32px; }
+  .mb16 { margin-bottom: 16px; }
+  .ul-clean { list-style: none; }
+  .ul-clean li { padding: 4px 0; font-size: 13px; color: var(--slate); }
+  .ul-clean li::before { content: '›  '; color: var(--gold); font-weight: 700; }
+  .card-navy .ul-clean li { color: rgba(255,255,255,0.92); }
+  ul.checkmarks { list-style: none; }
+  ul.checkmarks li { padding: 3px 0; font-size: 13px; color: var(--slate); }
+  ul.checkmarks li::before { content: '✓  '; color: var(--green); font-weight: 700; }
+  ul.xmarks { list-style: none; }
+  ul.xmarks li { padding: 3px 0; font-size: 13px; color: var(--slate); }
+  ul.xmarks li::before { content: '✕  '; color: var(--red); font-weight: 700; }
+
+/* ── ACCESS GATE ── */
+#el-protected{display:none;}
+.el-unlocked #el-protected{display:contents;}
+#el-gate{display:flex;position:fixed;inset:0;z-index:9999;background:#0A1628;align-items:center;justify-content:center;}
+.el-unlocked #el-gate{display:none;}
+.el-gate-box{background:#fff;border-radius:12px;padding:48px 40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+.el-gate-icon{font-size:32px;margin-bottom:16px;}
+.el-gate-box h2{font-family:Georgia,serif;font-size:20px;font-weight:700;color:#0A1628;margin-bottom:10px;}
+.el-gate-box p{font-size:14px;color:#475569;line-height:1.65;margin-bottom:24px;}
+.el-gate-box a{display:inline-block;background:#1A4A8A;color:#fff;padding:11px 24px;border-radius:7px;text-decoration:none;font-size:13.5px;font-weight:600;transition:opacity .2s;}
+.el-gate-box a:hover{opacity:.88;}
+</style>
+</head>
+<body>
+
+<div id="el-gate">
+  <div class="el-gate-box">
+    <div class="el-gate-icon">🔒</div>
+    <h2>Access Required</h2>
+    <p style="margin-bottom:8px;">Enter the email address associated with your access grant.</p>
+    <form onsubmit="_elSubmit(event)" style="margin-top:16px;">
+      <input id="el-inp" type="email" placeholder="your@email.com" required style="width:100%;padding:10px 14px;border:1.5px solid #d1d5db;border-radius:7px;font-size:14px;font-family:inherit;margin-bottom:10px;outline:none;color:#0A1628;">
+      <button id="el-btn" type="submit" style="width:100%;padding:11px;background:#1A4A8A;color:#fff;border:none;border-radius:7px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .2s;">Unlock</button>
+    </form>
+    <p id="el-msg" style="margin-top:10px;margin-bottom:0;font-size:12.5px;color:#dc2626;min-height:18px;"></p>
+    <p style="margin-top:14px;margin-bottom:0;font-size:12px;color:#94a3b8;">No access? <a href="mailto:gps@elevatenow.tech" style="color:#1A4A8A;text-decoration:none;">Request here →</a></p>
+  </div>
+</div>
+
+<div id="el-protected">
+<div class="hero">
+  <div class="page" style="padding-top:0;padding-bottom:0;">
+    <div class="hero-label">Architectural Directive · Insurance AI Platform</div>
+    <h1>Building <strong>AI-Ready Insurance Intelligence</strong></h1>
+    <p class="hero-sub">
+      A canonical foundation that makes carrier data trusted, machine-readable, governed, and discoverable
+      so that every AI workflow built on top of it works safely and can be explained.
+      This is the primer for what we are building, why each piece belongs where it does,
+      and how clients overlay their own reality without rebuilding from scratch.
+    </p>
+    <div class="hero-meta">
+      <div><strong>Confidential</strong> · ElevateNow Architecture Directive</div>
+      <div><strong>Status:</strong> Active Build</div>
+      <div><strong>Version:</strong> 1.0 · May 2026</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ======================================================
+     SECTION 1 — THE THESIS
+====================================================== -->
+<div class="section">
+  <div class="section-label">Section 1</div>
+  <h2 class="section-title">The <strong>Strategic Thesis</strong></h2>
+  <p class="section-subtitle">The single argument this entire architecture rests on. Every design decision below traces back to this.</p>
+
+  <div class="callout">
+    Carriers do not have an AI problem. They have a <strong>data readiness problem</strong>.
+    AI models exist and work. What fails is the layer beneath them: siloed data with no shared vocabulary,
+    unstructured documents AI cannot parse, decisions with no traceable lineage, and knowledge locked in
+    PDFs and tribal memory. <strong>The platform we are building closes that gap before the AI runs,
+    not after it fails.</strong>
+  </div>
+
+  <div class="grid-3 mt24">
+    <div class="card">
+      <div class="card-tag tag-red">THE GAP TODAY</div>
+      <h3>Data is siloed and semantically inconsistent</h3>
+      <p>Policy admin says "Named Insured." Submission intake says "Insured Name." Claims says "Claimant." Same concept, three systems, zero linkage. AI cannot reason across boundaries it cannot see.</p>
+    </div>
+    <div class="card">
+      <div class="card-tag tag-amber">THE CONSEQUENCE</div>
+      <h3>Every AI project rebuilds the same foundation</h3>
+      <p>Each use case — eligibility, FNOL triage, BA check — hand-codes its own entity lookups, confidence logic, and lineage tracking. There is no reuse. There is no governance. There is no carrier portability.</p>
+    </div>
+    <div class="card">
+      <div class="card-tag tag-green">THE RESPONSE</div>
+      <h3>A governed platform that every use case inherits</h3>
+      <p>One insurance ontology. One document intelligence pipeline. One knowledge governance layer. Use cases call the platform. They do not rebuild it. New use cases take weeks, not months.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ======================================================
+     SECTION 2 — PLATFORM vs USE CASE
+====================================================== -->
+<div class="section">
+  <div class="section-label">Section 2</div>
+  <h2 class="section-title">The <strong>Hard Boundary</strong>: Platform vs. Use Case</h2>
+  <p class="section-subtitle">This is the most critical architectural principle. Conflating the two is the single most common failure mode in enterprise AI platform builds.</p>
+
+  <div class="callout-warning">
+    <strong>Non-negotiable rule:</strong> Binding Authority is a use case. Underwriting eligibility is a use case. FNOL triage is a use case.
+    The Semantic Layer, Document Intelligence, and Knowledge Studio are the platform. Platform components are
+    domain-agnostic. Use cases call platform services. They do not embed platform logic.
+  </div>
+
+  <div class="arch mt24">
+    <div class="arch-row" style="background:#F8FAFC;">
+      <div class="arch-row-label">USE CASES</div>
+      <div class="arch-row-content">
+        <div class="arch-row-title">Swappable · Additive · Domain-Specific · Built on top of platform</div>
+        <div class="arch-blocks">
+          <div class="arch-block ab-use">Binding Authority<br><small style="font-weight:400;font-size:11px;">BA Steward + Broker Portal</small></div>
+          <div class="arch-block ab-use">UW Eligibility<br><small style="font-weight:400;font-size:11px;">Three-gate pipeline</small></div>
+          <div class="arch-block ab-use">FNOL Triage<br><small style="font-weight:400;font-size:11px;">Claims Hub + authority</small></div>
+          <div class="arch-block ab-use">Risk &amp; Compliance<br><small style="font-weight:400;font-size:11px;">Portfolio + Analytics</small></div>
+          <div class="arch-block ab-use" style="background:#F1F5F9;color:#94A3B8;border-style:dashed;">Future Use Cases<br><small style="font-weight:400;font-size:11px;">...</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="arch-arrow">↕ <span>Use cases call platform services. Platform has no knowledge of use cases.</span></div>
+    <div class="arch-row" style="background:#FFF8E1;">
+      <div class="arch-row-label" style="color:#7C5804;">PLATFORM</div>
+      <div class="arch-row-content">
+        <div class="arch-row-title" style="color:#7C5804;">Domain-Agnostic · Carrier-Portable · Three Pillars</div>
+        <div class="arch-blocks">
+          <div class="arch-block ab-plat" style="background:#0A1628;">Semantic Layer<br><small style="font-weight:400;font-size:11px;color:rgba(255,255,255,0.6);">Entity graph · Resolution · Standards export</small></div>
+          <div class="arch-block ab-plat" style="background:#162744;">Document Intelligence<br><small style="font-weight:400;font-size:11px;color:rgba(255,255,255,0.6);">OCR · Extraction · Institutional + Transactional</small></div>
+          <div class="arch-block ab-plat" style="background:#1E3A5F;">Knowledge Studio<br><small style="font-weight:400;font-size:11px;color:rgba(255,255,255,0.6);">Governance · Curation lifecycle · CI/CD</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="arch-arrow">↕ <span>Platform anchors to starter kit. Starter kit is read-only reference. Never modified.</span></div>
+    <div class="arch-row" style="background:#FEFCE8;">
+      <div class="arch-row-label" style="color:#7C5804;">STARTER KIT</div>
+      <div class="arch-row-content">
+        <div class="arch-row-title" style="color:#7C5804;">Insurance Ontology · Canonical · Carrier-Neutral · Industry Standard Format</div>
+        <div class="arch-blocks">
+          <div class="arch-block ab-kit">Commercial Lines Submission<br><small style="font-weight:400;font-size:11px;">291 entities · 275 relationships · 9 source mappings</small></div>
+          <div class="arch-block ab-kit">Claims Ontology<br><small style="font-weight:400;font-size:11px;">Industry upper ontology · carrier-extension ready</small></div>
+          <div class="arch-block ab-kit">Code Lists + Source Maps<br><small style="font-weight:400;font-size:11px;">ACORD-aligned enumerations · field-level lineage</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="arch-arrow">↕ <span>Existing systems are preserved as systems of record. Overlay, not replacement.</span></div>
+    <div class="arch-row">
+      <div class="arch-row-label">SOURCES</div>
+      <div class="arch-row-content">
+        <div class="arch-row-title">Carrier Source Systems · All Preserved</div>
+        <div class="arch-blocks">
+          <div class="arch-block ab-src">Policy Admin<br><small>(DuckCreek, Majesco, Guidewire)</small></div>
+          <div class="arch-block ab-src">Submission Intake<br><small>(Bold Penguin, AMS360, Applied)</small></div>
+          <div class="arch-block ab-src">Claims Systems<br><small>(ClaimCenter, Snapsheet, Reserv)</small></div>
+          <div class="arch-block ab-src">Analytics<br><small>(Snowflake, Databricks, GRisk)</small></div>
+          <div class="arch-block ab-src">Enrichment<br><small>(HazardHub, COPE, Verisk)</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ======================================================
+     SECTION 3 — FOUR DIMENSIONS
+====================================================== -->
+<div class="section">
+  <div class="section-label">Section 3</div>
+  <h2 class="section-title">The <strong>Four Dimensions</strong> of AI-Ready Data</h2>
+  <p class="section-subtitle">
+    AI-ready data is trusted, machine-readable data with the context and governance required for AI to work safely and effectively.
+    These four dimensions define the gap between data that exists and data AI can use.
+    Every platform capability maps to one of these dimensions.
+  </p>
+
+  <div class="grid-4">
+    <div class="dim-card dim-ontology">
+      <div class="dim-icon">🔗</div>
+      <h4>Unified Ontology</h4>
+      <div class="gap-label">The Gap</div>
+      <p>Data is siloed. Attribute definitions are inconsistent across product lines. No enterprise MDM sync.</p>
+      <div class="resp-label">The Response</div>
+      <p>A shared insurance ontology defining key entities and relationships. Knowledge graph physicalizes connections. Semantic interoperability across all domains.</p>
+    </div>
+    <div class="dim-card dim-context">
+      <div class="dim-icon">⚙️</div>
+      <h4>Machine-Ready Context</h4>
+      <div class="gap-label">The Gap</div>
+      <p>Manual processes and unstructured data — emails, PDFs, endorsements — slow decision-making. AI cannot consume what it cannot parse.</p>
+      <div class="resp-label">The Response</div>
+      <p>Document Intelligence makes unstructured content searchable and extractable. Semantic layer provides machine-ready context for AI access and consumption.</p>
+    </div>
+    <div class="dim-card dim-lineage">
+      <div class="dim-icon">👁</div>
+      <h4>Governed Lineage</h4>
+      <div class="gap-label">The Gap</div>
+      <p>Limited ability to trace how data was enriched or used in automated decisions. No audit trail connecting AI output to data source.</p>
+      <div class="resp-label">The Response</div>
+      <p>Every enrichment step, every AI recommendation carries full provenance. Lineage from source through transformation to analytical output. Audit-ready by design.</p>
+    </div>
+    <div class="dim-card dim-discovery">
+      <div class="dim-icon">🔍</div>
+      <h4>Discovery &amp; Access</h4>
+      <div class="gap-label">The Gap</div>
+      <p>No unified catalog. Teams do not know what data exists across the enterprise, where it lives, or how to access it for AI workloads.</p>
+      <div class="resp-label">The Response</div>
+      <p>Catalog of catalogs provides enterprise-wide data discovery. Federated query across all source systems. Data becomes findable and consumable for AI workflows.</p>
+    </div>
+  </div>
+
+  <div class="callout-light mt24">
+    <strong>Mapping to our platform:</strong> Unified Ontology = Semantic Layer + Starter Kit.
+    Machine-Ready Context = Document Intelligence.
+    Governed Lineage = Knowledge Studio curation lifecycle + version history + decision tracing.
+    Discovery &amp; Access = Semantic Resolution layer + governed query + Catalog of Catalogs.
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ======================================================
+     SECTION 4 — THE STARTER KIT
+====================================================== -->
+<div class="section">
+  <div class="section-label">Section 4</div>
+  <h2 class="section-title">The <strong>Insurance Ontology Starter Kit</strong></h2>
+  <p class="section-subtitle">
+    The two reference ontologies — Commercial Lines Submission and Claims — are the canonical foundation every client starts from.
+    They are not built from scratch. They are overlaid. This distinction is what makes onboarding weeks, not months.
+  </p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-tag tag-gold">Commercial Lines Submission</div>
+      <h3>291 Entities · 275 Relationships · 9 Source Systems</h3>
+      <p style="margin-bottom:12px;">The complete intake-to-issuance entity model. Covers the full commercial lines lifecycle — submission, quote, binder, policy — plus every LOB exposure, location, hazard, coverage, rating, and regulatory entity a carrier needs.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;">
+        <span class="badge badge-blue">Core Lifecycle</span>
+        <span class="badge badge-blue">Party + Firmographics</span>
+        <span class="badge badge-blue">SIC / NAICS Classification</span>
+        <span class="badge badge-blue">Location + Building</span>
+        <span class="badge badge-blue">GL + WC + Auto + Property</span>
+        <span class="badge badge-blue">Hazard Assessment</span>
+        <span class="badge badge-blue">Journey + STP</span>
+        <span class="badge badge-blue">Data Provenance</span>
+        <span class="badge badge-blue">Rating + Premium</span>
+        <span class="badge badge-blue">State Regulatory</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-tag tag-gold">Claims Ontology</div>
+      <h3>Industry Standard Format · Upper Ontology Anchored · Carrier-Extensible</h3>
+      <p style="margin-bottom:12px;">Claims domain entities serialized as machine-readable ontology, anchored to an established industry upper ontology. ElevateNow's canonical base is carrier-neutral. Each carrier extends it in their own namespace without modifying the shared foundation.</p>
+      <ul class="checkmarks" style="margin-top:12px;">
+        <li>Claim, Payment, Reserve, Subrogation (financial)</li>
+        <li>Fraud Case, Investigation (fraud domain)</li>
+        <li>Injury, Medical Treatment (injury domain)</li>
+        <li>File Note, Attachment (adjuster file)</li>
+        <li>External Party, Participant, Performer (party roles)</li>
+        <li>Line, Item, Vehicle, Article (claim items)</li>
+        <li>Repair Service (service domain)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout-light mt24">
+    <strong>How a carrier overlays their reality:</strong> The starter kit ships as a neutral foundation covering all commercial lines entities.
+    A carrier adds their system-specific field names, enumerations, and carrier rules on top — never modifying the base.
+    Their configuration stacks above the canonical model, the same way an endorsement layers above a standard policy form.
+    When the foundation improves, every carrier that builds on it benefits automatically.
+  </div>
+
+  <div style="margin-top:32px;">
+    <div style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">USE CASE ILLUSTRATION — COMMERCIAL LINES DOMAIN</div>
+    <p style="font-size:13px;color:var(--slate);margin-bottom:16px;max-width:820px;line-height:1.65;">
+      Binding Authority is a use case within the commercial lines domain. Its rule types — geographic restrictions, hazard score gates, rating rules, coverage gates, class appetite — each correspond to entity groups that already exist in the commercial lines starter kit. The table below is not a separate layer. It is a concrete example of a use case drawing directly from what the ontology already provides.
+    </p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>BA Rule Type (Use Case)</th>
+          <th>Draws From Starter Kit Entity</th>
+          <th>Commercial Lines Entity Group</th>
+          <th>How the Knowledge Graph Connects It</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Geographic Restriction</td><td>State Requirement + Wildfire / Flood Hazard</td><td class="muted">Regulatory + Hazard</td><td>Governs geographic eligibility by state and hazard exposure level</td></tr>
+        <tr><td>Hazard Score Gate</td><td>Crime Hazard / Wildfire Hazard / Flood Hazard</td><td class="muted">Hazard Assessment</td><td>Applies score thresholds to hazard severity classifications</td></tr>
+        <tr><td>Rating Rule</td><td>Minimum Premium / Rating Factor</td><td class="muted">Rating + Premium</td><td>Governs minimum premium floors and rating factor requirements</td></tr>
+        <tr><td>Coverage Gate</td><td>Building Construction + Wind Hazard + Endorsement Form</td><td class="muted">Location + Hazard + Coverage</td><td>Controls multi-variable coverage eligibility requirements</td></tr>
+        <tr><td>Class Appetite</td><td>Industry Classification + Line of Business</td><td class="muted">SIC / NAICS + LOB</td><td>Classifies by industry code and governs which lines of business are eligible</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ======================================================
+     SECTION 5 — THREE PLATFORM PILLARS
+====================================================== -->
+<div class="section">
+  <div class="section-label">Section 5</div>
+  <h2 class="section-title">The <strong>Three Platform Pillars</strong></h2>
+  <p class="section-subtitle">Each pillar has a distinct owner, a distinct concern, and a defined interface to the others. They do not bleed into each other.</p>
+
+  <div class="grid-3">
+    <div class="card-navy">
+      <div class="card-tag tag-gold" style="margin-bottom:14px;">PILLAR 1</div>
+      <h3 style="font-size:16px;font-weight:700;color:var(--gold-light);margin-bottom:12px;">Semantic Layer</h3>
+      <p style="margin-bottom:14px;color:rgba(255,255,255,0.85);"><strong style="color:white;">The queryable knowledge graph.</strong> Domain-agnostic. It resolves entity context on request without knowing whether it is serving a BA check or a UW submission.</p>
+      <ul class="ul-clean">
+        <li>Entity registry (81 to 291+ entities)</li>
+        <li>Structural relationship graph</li>
+        <li>Knowledge anchoring to canonical entities</li>
+        <li>Semantic resolution function</li>
+        <li>Standards-compliant export for analytics delivery</li>
+        <li>Semantic query layer</li>
+      </ul>
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.15);">
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.06em;margin-bottom:4px;">INPUT</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.8);">Industry class, state, lines of business, carrier</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.06em;margin-top:8px;margin-bottom:4px;">OUTPUT</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.8);">Assembled knowledge context + confidence trace</div>
+      </div>
+    </div>
+
+    <div class="card-navy" style="background:var(--navy-mid);">
+      <div class="card-tag tag-blue" style="margin-bottom:14px;">PILLAR 2</div>
+      <h3 style="font-size:16px;font-weight:700;color:#7DD3FC;margin-bottom:12px;">Document Intelligence</h3>
+      <p style="margin-bottom:14px;color:rgba(255,255,255,0.85);"><strong style="color:white;">Two modes, one pipeline.</strong> Makes unstructured content consumable. Domain-agnostic by design.</p>
+      <div style="margin-bottom:12px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7DD3FC;margin-bottom:6px;">INSTITUTIONAL MODE</div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.9);">Bulletins, appetite guides, authority matrices extracted into governed rules through the Knowledge Studio curation lifecycle and into active knowledge in the Semantic Layer</p>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7DD3FC;margin-bottom:6px;">TRANSACTIONAL MODE</div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.9);">FNOL documents, loss runs, submission packages, ACORD forms extracted into structured data scoped to individual cases and kept separate from the governed rule base</p>
+      </div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.15);">
+        <div style="font-size:12px;color:rgba(255,255,255,0.75);">The two modes share extraction infrastructure but are governed separately. Institutional content enters the knowledge lifecycle. Transactional content stays case-scoped and ephemeral.</div>
+      </div>
+    </div>
+
+    <div class="card-navy" style="background:var(--navy-light);">
+      <div class="card-tag" style="background:rgba(200,169,81,0.2);color:var(--gold-light);margin-bottom:14px;">PILLAR 3</div>
+      <h3 style="font-size:16px;font-weight:700;color:var(--gold-light);margin-bottom:12px;">Knowledge Studio</h3>
+      <p style="margin-bottom:14px;color:rgba(255,255,255,0.85);"><strong style="color:white;">Governance and authoring layer.</strong> Infrastructure product. Not a business user tool. Maintains the knowledge that use cases query.</p>
+      <ul class="ul-clean">
+        <li>Entity registry management</li>
+        <li>Rule curation lifecycle (draft through sanctioned)</li>
+        <li>Institutional document pipeline execution</li>
+        <li>Standards-compliant export for carrier integration</li>
+        <li>Ontology consistency validation</li>
+        <li>Immutable audit trail for all knowledge changes</li>
+      </ul>
+      <div style="margin-top:16px;padding:12px;background:rgba(255,255,255,0.05);border-radius:6px;">
+        <div style="font-size:12px;color:rgba(255,255,255,0.75);">
+          <strong style="color:var(--gold-light);">Principle:</strong> Every business role — underwriter, claims director, BA steward — lives in the Workbench.
+          Knowledge Studio is permanently the knowledge engineering backend.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ======================================================
+     SECTION 6 — KNOWLEDGE STUDIO LAYER IN DETAIL
+====================================================== -->
+<div class="section">
+  <div class="section-label">Section 6</div>
+  <h2 class="section-title">How <strong>Knowledge Studio Layers In</strong></h2>
+  <p class="section-subtitle">Knowledge Studio is the bridge between the static starter kit and the live, queryable knowledge graph. It has a precise role at each step of the carrier journey.</p>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-step-num">STEP 1</div>
+      <h5>Starter Kit Delivered</h5>
+      <p>Insurance ontology imported into Knowledge Studio. 291 entities loaded into the registry. Structural relationships derived. Source system field mappings registered.</p>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">STEP 2</div>
+      <h5>Carrier Overlays Their Model</h5>
+      <p>Carrier system field names, enumerations, and carrier-specific extensions added via Knowledge Studio. Carrier layer stacks above the canonical foundation without modifying it.</p>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">STEP 3</div>
+      <h5>Institutional Knowledge Authored</h5>
+      <p>Bulletins, appetite guides, authority matrices flow through the DocIntel pipeline. Extracted rules are anchored to canonical entities. Curation lifecycle: draft, steward review, sanction, active.</p>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">STEP 4</div>
+      <h5>CI/CD Export</h5>
+      <p>Knowledge Studio serializes the live entity graph and active rules as industry-standard JSON-LD. Validated and deployed to the carrier's analytics environment in approximately 5 minutes.</p>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">STEP 5</div>
+      <h5>Use Cases Query Platform</h5>
+      <p>BA check, UW eligibility, FNOL triage all call the same platform resolution layer. It traverses the live entity graph and active rules. No use case rebuilds entity logic independently.</p>
+    </div>
+  </div>
+
+  <div class="grid-2 mt24">
+    <div class="card">
+      <div class="card-tag tag-green">WHAT KNOWLEDGE STUDIO OWNS</div>
+      <ul class="checkmarks mt8">
+        <li>Entity registry (add, modify, version entities)</li>
+        <li>Rule curation lifecycle (all status transitions)</li>
+        <li>Institutional document pipeline execution</li>
+        <li>Standards-compliant CI/CD export for carrier integration</li>
+        <li>Ontology consistency validation</li>
+        <li>Immutable audit trail (all knowledge changes)</li>
+        <li>Ontology visualization and coverage reporting</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-tag tag-red">WHAT KNOWLEDGE STUDIO DOES NOT OWN</div>
+      <ul class="xmarks mt8">
+        <li>BA eligibility gate logic</li>
+        <li>UW three-gate pipeline decisions</li>
+        <li>FNOL triage routing rules</li>
+        <li>End-user workflows (those live in the Workbench)</li>
+        <li>Transactional document case management</li>
+        <li>Premium calculation or rating engine logic</li>
+        <li>Workflow orchestration</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ======================================================
+     SECTION 7 — DESIGN PRINCIPLES
+====================================================== -->
+<div class="section">
+  <div class="section-label">Section 7</div>
+  <h2 class="section-title">The <strong>Design Principles</strong> That Make This Work</h2>
+  <p class="section-subtitle">These are architectural commitments, not preferences. Holding these boundaries is what keeps the platform flexible as use cases grow and carriers change.</p>
+
+  <div class="card" style="padding:28px;">
+    <div class="principle">
+      <div class="principle-num">1</div>
+      <div class="principle-body">
+        <h4>The platform serves every use case without being shaped by any one of them</h4>
+        <p>The intelligence platform answers the same question for any workflow that calls it: what do we know about this risk, in this geography, for these lines of business? It works identically whether the caller is a BA check, a UW submission, or a future use case we have not built yet. Domain logic belongs in the use case, not in the shared foundation.</p>
+        <span class="rule">NEVER: Platform logic tailored to a specific use case</span>
+        <span class="ok" style="margin-left:8px;">OK: Use case applies its own decision logic on top of platform context</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-num">2</div>
+      <div class="principle-body">
+        <h4>Use cases draw from one governed source. They do not rebuild it.</h4>
+        <p>When a BA check needs to know about hazard exposure, geographic restrictions, or class eligibility, it draws from the same governed knowledge base every other workflow uses. There is no separate copy maintained for BA, a separate copy for UW, a separate copy for Claims. One source. Every decision traceable to it.</p>
+        <span class="rule">NEVER: Duplicate knowledge into use-case-specific stores</span>
+        <span class="ok" style="margin-left:8px;">OK: All use cases query the same governed knowledge layer</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-num">3</div>
+      <div class="principle-body">
+        <h4>The starter kit is a shared foundation, not a template to rebuild from scratch</h4>
+        <p>Carriers extend the starter kit by adding their system field names, enumerations, and carrier-specific rules on top. They do not edit the base. This is what makes the platform portable across carriers: when a rule changes at the foundation level, every carrier configuration that builds on it benefits automatically.</p>
+        <span class="rule">NEVER: Edit base ontology entities for a carrier-specific need</span>
+        <span class="ok" style="margin-left:8px;">OK: Carrier adds their configuration layer on top; foundation stays intact and shared</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-num">4</div>
+      <div class="principle-body">
+        <h4>Knowledge governance is a backstage function, not a business workflow</h4>
+        <p>Underwriters, claims directors, and BA stewards do their daily work in the business workbench. The knowledge engineering layer — where rules are authored, reviewed, and sanctioned — operates behind that interface. Business users never interact with the governance infrastructure directly. This separation is what keeps the audit trail clean and reliable.</p>
+        <span class="rule">NEVER: Expose the governance layer as a business user workflow tool</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-num">5</div>
+      <div class="principle-body">
+        <h4>Institutional rules and case-specific data are kept separate by design</h4>
+        <p>Binding authority bulletins, appetite guides, and authority matrices define how decisions are made. They are institutional, durable, governed. Individual submissions, FNOL reports, and claim documents describe a specific case. They are transactional, ephemeral, case-scoped. Keeping them separate ensures governed rules remain clean and every decision remains auditable.</p>
+        <span class="rule">NEVER: Mix institutional rule content with case-specific document data</span>
+        <span class="ok" style="margin-left:8px;">OK: Each stream has its own pipeline, storage, and lifecycle</span>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-num">6</div>
+      <div class="principle-body">
+        <h4>AI accelerates rule authoring. Runtime decisions stay deterministic and traceable.</h4>
+        <p>AI is valuable when a new BA bulletin arrives: it accelerates extraction and proposes structured rule entries for steward review. But when a BA check runs at decision time, every gate is evaluated against rules that have been reviewed, approved, and sanctioned by a human steward. This distinction is what makes decisions explainable and defensible to regulators and auditors.</p>
+        <span class="rule">NEVER: Generate a runtime authority or eligibility verdict without a traceable, governed rule</span>
+        <span class="ok" style="margin-left:8px;">OK: AI assists authoring; humans sanction; governed lookup executes at decision time</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ======================================================
+     SECTION 8 — TECHNOLOGY ALIGNMENT
+====================================================== -->
+<div class="section">
+  <div class="section-label">Section 8</div>
+  <h2 class="section-title">Technology <strong>Alignment</strong></h2>
+  <p class="section-subtitle">Each component maps to a platform layer. The approach is additive and technology-agnostic at the carrier layer. We deliver standards-based artifacts that feed into whatever analytics and AI infrastructure the carrier operates.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Layer</th>
+          <th>What It Does</th>
+          <th>Integration Path</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Operational Knowledge Store</strong><br><small class="muted">Knowledge graph database</small></td>
+          <td><span class="badge badge-navy">Semantic Layer</span></td>
+          <td>Houses the entity registry, relationship graph, governed rules, and reference data. The queryable foundation every use case draws from. Schema evolves incrementally as the ontology grows.</td>
+          <td>Current. No change required. Adaptable to carrier's preferred database infrastructure.</td>
+        </tr>
+        <tr>
+          <td><strong>OWL Ontology Library</strong><br><small class="muted">Python-native, open source</small></td>
+          <td><span class="badge badge-navy">Semantic Layer</span></td>
+          <td>Serializes the entity registry as industry-standard JSON-LD for delivery to carrier analytics environments. Enables logical reasoning over the knowledge graph for derived decision gates without LLM dependency at runtime.</td>
+          <td>Added to platform dependencies. Powers standards-compliant export and ontology validation.</td>
+        </tr>
+        <tr>
+          <td><strong>Ontology Authoring Tool</strong><br><small class="muted">Open source, desktop and web</small></td>
+          <td><span class="badge badge-gold" style="background:#FEF9C3;color:#7C5804;">Knowledge Studio</span></td>
+          <td>GUI used by knowledge engineers during carrier onboarding to review and extend the entity model. Supports direct import from Excel entity registries, accelerating initial setup for carriers with existing data dictionaries.</td>
+          <td>Knowledge engineering workflow only. Not a runtime dependency.</td>
+        </tr>
+        <tr>
+          <td><strong>OWL Standards Layer</strong><br><small class="muted">Industry-standard ontology interface</small></td>
+          <td><span class="badge badge-gold" style="background:#FEF9C3;color:#7C5804;">Knowledge Studio</span></td>
+          <td>The JSON-LD we produce is compatible with industry-standard OWL tooling. Carriers that already have ontology infrastructure in their analytics environment can consume ElevateNow output without changes to their existing pipelines.</td>
+          <td>Compatibility layer. No carrier tooling changes required.</td>
+        </tr>
+        <tr>
+          <td><strong>Knowledge Studio Backend</strong><br><small class="muted">Python · REST API</small></td>
+          <td><span class="badge badge-gold" style="background:#FEF9C3;color:#7C5804;">Knowledge Studio</span></td>
+          <td>All curation lifecycle management, entity registry, document intelligence pipeline, and standards-compliant export. The production governance backend that powers the entire knowledge layer.</td>
+          <td>Current. Continuous improvement as platform matures.</td>
+        </tr>
+        <tr>
+          <td><strong>Carrier Analytics Platform</strong><br><small class="muted">Snowflake, Databricks, or equivalent</small></td>
+          <td><span class="badge badge-blue">Carrier System</span></td>
+          <td>AI and analytics consumption layer receiving the JSON-LD knowledge manifests from ElevateNow. Carriers query semantic views rather than raw tables, accelerating AI and BI workload development on governed data.</td>
+          <td>ElevateNow delivers standards-based JSON-LD. Carrier's own CI/CD handles deployment. No ElevateNow code lives in the carrier's analytics environment.</td>
+        </tr>
+        <tr>
+          <td><strong>Workflow Orchestration</strong><br><small class="muted">Use case workflow engine</small></td>
+          <td><span class="badge badge-blue">Use Case Layer</span></td>
+          <td>Orchestrates use case workflows — BA bulletin ingestion, submission intake, FNOL processing. Calls platform services as discrete, auditable workflow steps. Each use case defines its own workflow independently.</td>
+          <td>Current. New use cases add their own workflows. Platform layer does not change.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ======================================================
+     SECTION 9 — AI READINESS ACROSS DOMAINS
+====================================================== -->
+<div class="section">
+  <div class="section-label">Section 9</div>
+  <h2 class="section-title">AI Readiness <strong>Across Insurance Domains</strong></h2>
+  <p class="section-subtitle">Each domain requires specific structured and unstructured data to be AI-ready before automation is achievable. The platform — built once — serves all four domains simultaneously. A carrier that implements Binding Authority gets Underwriting, Claims, and Risk for the marginal cost of the domain extension.</p>
+
+  <div class="grid-4">
+    <div class="card" style="border-top: 3px solid var(--gold);">
+      <div class="card-tag tag-gold">Binding Authority</div>
+      <div style="margin:12px 0 8px;font-size:11px;font-weight:700;color:var(--navy);letter-spacing:0.06em;">STRUCTURED MUST BE AI-READY</div>
+      <ul class="ul-clean" style="margin-bottom:12px;">
+        <li>Appetite parameters and class restrictions</li>
+        <li>Geographic eligibility rules by state and hazard</li>
+        <li>Authority thresholds by class and amount</li>
+        <li>Rating rules and minimum premium requirements</li>
+      </ul>
+      <div style="margin:12px 0 8px;font-size:11px;font-weight:700;color:var(--navy);letter-spacing:0.06em;">UNSTRUCTURED MUST BE AI-READY</div>
+      <ul class="ul-clean" style="margin-bottom:12px;">
+        <li>BA bulletins and carrier circulars</li>
+        <li>Underwriting guidelines and appetite guides</li>
+        <li>Endorsement forms and authority letters</li>
+      </ul>
+      <div style="border-top:1px solid var(--border);padding-top:12px;margin-top:8px;">
+        <div style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px;">WORKFLOW STAGES</div>
+        <p style="font-size:12px;color:var(--slate);">Bulletin Ingestion, Rule Extraction, Authority Assignment, Submission Check, Audit Trail</p>
+      </div>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--blue-light);">
+      <div class="card-tag tag-blue">Underwriting Value Chain</div>
+      <div style="margin:12px 0 8px;font-size:11px;font-weight:700;color:var(--navy);letter-spacing:0.06em;">STRUCTURED MUST BE AI-READY</div>
+      <ul class="ul-clean" style="margin-bottom:12px;">
+        <li>Submission, policy, quote records</li>
+        <li>Customer and location attributes</li>
+        <li>Risk scores and classifications</li>
+      </ul>
+      <div style="margin:12px 0 8px;font-size:11px;font-weight:700;color:var(--navy);letter-spacing:0.06em;">UNSTRUCTURED MUST BE AI-READY</div>
+      <ul class="ul-clean" style="margin-bottom:12px;">
+        <li>Broker emails and cover notes</li>
+        <li>Loss run PDFs and SOVs</li>
+        <li>Prior endorsements and UW notes</li>
+      </ul>
+      <div style="border-top:1px solid var(--border);padding-top:12px;margin-top:8px;">
+        <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:6px;">WORKFLOW STAGES</div>
+        <p style="font-size:12px;color:var(--slate);">Account Creation, Data Enrichment, Technical Rating, UW Review, Policy Issuance</p>
+      </div>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--slate-light);">
+      <div class="card-tag tag-slate">Claims Lifecycle</div>
+      <div style="margin:12px 0 8px;font-size:11px;font-weight:700;color:var(--navy);letter-spacing:0.06em;">STRUCTURED MUST BE AI-READY</div>
+      <ul class="ul-clean" style="margin-bottom:12px;">
+        <li>Claim events and FNOL data</li>
+        <li>Reserve amounts and payment history</li>
+        <li>Litigation status and regulatory flags</li>
+      </ul>
+      <div style="margin:12px 0 8px;font-size:11px;font-weight:700;color:var(--navy);letter-spacing:0.06em;">UNSTRUCTURED MUST BE AI-READY</div>
+      <ul class="ul-clean" style="margin-bottom:12px;">
+        <li>Adjuster file notes and correspondence</li>
+        <li>Demand packages and medical records</li>
+        <li>Police reports and legal documents</li>
+      </ul>
+      <div style="border-top:1px solid var(--border);padding-top:12px;margin-top:8px;">
+        <div style="font-size:11px;font-weight:700;color:var(--slate);margin-bottom:6px;">WORKFLOW STAGES</div>
+        <p style="font-size:12px;color:var(--slate);">FNOL Intake, Assignment, Evaluation, Litigation, Continuous Feedback</p>
+      </div>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--amber);">
+      <div class="card-tag tag-amber">Risk &amp; Compliance</div>
+      <div style="margin:12px 0 8px;font-size:11px;font-weight:700;color:var(--navy);letter-spacing:0.06em;">STRUCTURED MUST BE AI-READY</div>
+      <ul class="ul-clean" style="margin-bottom:12px;">
+        <li>Enterprise exposure positions by line</li>
+        <li>Treaty and facultative structures</li>
+        <li>Appetite parameters and thresholds</li>
+      </ul>
+      <div style="margin:12px 0 8px;font-size:11px;font-weight:700;color:var(--navy);letter-spacing:0.06em;">UNSTRUCTURED MUST BE AI-READY</div>
+      <ul class="ul-clean" style="margin-bottom:12px;">
+        <li>Treaty wordings and slip documents</li>
+        <li>Manuscript endorsements</li>
+        <li>Emerging risk bulletins</li>
+      </ul>
+      <div style="border-top:1px solid var(--border);padding-top:12px;margin-top:8px;">
+        <div style="font-size:11px;font-weight:700;color:var(--amber);margin-bottom:6px;">WORKFLOW STAGES</div>
+        <p style="font-size:12px;color:var(--slate);">Exposure Aggregation, Clash &amp; Accumulation, Compliance, Scenario Testing, Emerging Risk Signals</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout mt24">
+    <strong>Why binding authority is more than a rule engine:</strong> A BA solution built on this platform is not a lookup against a spreadsheet of rules.
+    It is a governed intelligence layer where every BA decision traces back to the specific bulletin that authorized it,
+    runs against a knowledge graph connecting hazard, geography, class, and rating entities,
+    and produces an audit trail a carrier can defend to regulators.
+    <strong>That foundation — once built for BA — extends to every other AI workflow at near-zero marginal cost.</strong>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ======================================================
+     SECTION 10 — ROADMAP
+====================================================== -->
+<div class="section">
+  <div class="section-label">Section 10</div>
+  <h2 class="section-title">Build <strong>Roadmap</strong></h2>
+  <p class="section-subtitle">Three milestones. Each delivers tangible business capability. Organized by the four dimensions of AI-ready data.</p>
+
+  <div class="arch" style="border-radius:12px;overflow:hidden;">
+    <div class="roadmap">
+      <div class="roadmap-phase phase-1" style="background:#EFF6FF;">
+        <div class="phase-label">MILESTONE 1: FOUNDATION</div>
+        <div class="phase-title">Platform Established</div>
+
+        <div class="phase-item">
+          <div class="phase-dot d-blue"></div>
+          <p><strong>Unified Ontology:</strong> Full starter kit entity model loaded and validated. Structural relationship graph complete. Carrier source system mappings registered.</p>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot d-blue"></div>
+          <p><strong>Machine-Ready Context:</strong> Submission documents and BA bulletins extractable via Document Intelligence. ACORD form extraction feeding intake workflows.</p>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot d-blue"></div>
+          <p><strong>Governed Lineage:</strong> Every extraction step traceable to source document and field. BA rules linked to the specific bulletins that authorized them.</p>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot d-blue"></div>
+          <p><strong>Discovery:</strong> Semantic resolution layer live with full BA domain awareness. Platform and use case logic cleanly separated.</p>
+        </div>
+      </div>
+
+      <div class="roadmap-phase phase-2" style="background:#F0FDF4;">
+        <div class="phase-label">MILESTONE 2: OPERATIONAL</div>
+        <div class="phase-title">Use Cases Running on Platform</div>
+
+        <div class="phase-item">
+          <div class="phase-dot d-green"></div>
+          <p><strong>Unified Ontology:</strong> Claims domain entities added. Cross-domain entity resolution live — submission to claim to loss history.</p>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot d-green"></div>
+          <p><strong>Machine-Ready Context:</strong> Loss runs, endorsements, BA bulletins all searchable. Document Intelligence feeding UW, Claims, and BA workflows.</p>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot d-green"></div>
+          <p><strong>Governed Lineage:</strong> End-to-end provenance captured. Audit trail connects automated decisions to the source data and the specific rules applied.</p>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot d-green"></div>
+          <p><strong>Discovery:</strong> Standards-compliant CI/CD export operational. Carrier's analytics environment updated on each Knowledge Studio publish.</p>
+        </div>
+      </div>
+
+      <div class="roadmap-phase phase-3" style="background:#FFFBEB;">
+        <div class="phase-label">MILESTONE 3: INTELLIGENCE</div>
+        <div class="phase-title">Platform-Driven Differentiation</div>
+
+        <div class="phase-item">
+          <div class="phase-dot d-gold"></div>
+          <p><strong>Unified Ontology:</strong> Enterprise ontology covering all priority lines. Derived decision gates replace hand-coded logic. New lines of business onboard in days, not months.</p>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot d-gold"></div>
+          <p><strong>Machine-Ready Context:</strong> Full Document Intelligence across UW and Claims. Unstructured content is a queryable asset, not a manual bottleneck.</p>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot d-gold"></div>
+          <p><strong>Governed Lineage:</strong> Any regulatory question about how a decision was made is answerable directly from the system. Rule changes propagate automatically to all affected workflows.</p>
+        </div>
+        <div class="phase-item">
+          <div class="phase-dot d-gold"></div>
+          <p><strong>Discovery:</strong> Impact preview: changing a rule shows which submissions are affected before the change goes live. Full semantic query across the enterprise knowledge graph.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ======================================================
+     SECTION 11 — WHAT WE BUILD FIRST
+====================================================== -->
+<div class="section">
+  <div class="section-label">Section 11</div>
+  <h2 class="section-title">What We <strong>Build First</strong></h2>
+  <p class="section-subtitle">Four deliverables that establish the governed foundation and activate the binding authority use case. Every item is additive. Nothing in your current environment is disrupted.</p>
+
+  <div class="grid-2">
+    <div class="card" style="border-top: 3px solid var(--gold);">
+      <div class="card-tag tag-gold">FIRST DELIVERABLE</div>
+      <h3>A complete, governed rule base for binding authority</h3>
+      <p style="margin:10px 0;">We ingest your binding authority bulletins, appetite guides, and authority matrices through the document intelligence pipeline. Every rule is extracted, linked to its source bulletin, reviewed by a human steward, and entered into the governed knowledge base. From day one, every BA decision is traceable to the specific document that authorized it.</p>
+      <p style="color:var(--green);font-size:12px;font-weight:600;">✓ Every BA decision is explainable, auditable, and defensible</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--blue-light);">
+      <div class="card-tag tag-blue">SECOND DELIVERABLE</div>
+      <h3>Your carrier rules layered above a neutral foundation</h3>
+      <p style="margin:10px 0;">We deliver the full commercial lines ontology and overlay your carrier's specific rules, geographic parameters, class eligibility logic, and rating requirements on top. Your rules extend the foundation — they do not overwrite it. When the foundation improves, your configuration benefits automatically. No proprietary lock-in.</p>
+      <p style="color:var(--green);font-size:12px;font-weight:600;">✓ Your BA rules are portable assets, not embedded code</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <div class="card-tag tag-green">THIRD DELIVERABLE</div>
+      <h3>One source of truth that every workflow draws from</h3>
+      <p style="margin:10px 0;">When a BA bulletin changes a geographic restriction or a hazard threshold, the update enters the governed rule base once. The BA check, the UW eligibility pipeline, and every future workflow calling the platform inherit the update automatically. No manual synchronization across systems. No drift between teams.</p>
+      <p style="color:var(--green);font-size:12px;font-weight:600;">✓ Rule changes propagate automatically — one update, consistent everywhere</p>
+    </div>
+    <div class="card" style="border-top: 3px solid #7C3AED;">
+      <div class="card-tag" style="background:#F3E8FF;color:#6B21A8;">FOURTH DELIVERABLE</div>
+      <h3>A knowledge foundation you own, in a format you can use</h3>
+      <p style="margin:10px 0;">The governed knowledge foundation we build with you is serialized in industry-standard formats and delivered to feed your existing analytics infrastructure — whether Snowflake, Databricks, or your carrier's current AI and BI platform. You retain the asset. No proprietary format. No ongoing dependency on ElevateNow for data access.</p>
+      <p style="color:var(--green);font-size:12px;font-weight:600;">✓ Standards-based output consumable by any downstream AI or analytics stack</p>
+    </div>
+  </div>
+
+  <div class="callout mt24">
+    <strong>The question insurance data leaders are asking is not "Can we use AI for binding authority?"</strong>
+    It is: "How do we ensure that AI-assisted BA decisions are explainable, consistent with our rules, and defensible to regulators?"
+    The answer is not a better AI model. <strong>It is a governed knowledge foundation that every decision traces back to.</strong>
+    That is what we build first — and it becomes the foundation for every AI workflow that follows.
+  </div>
+</div>
+
+<div class="footer">
+  <div><strong>Elevatenow</strong> · AI-Ready Insurance Intelligence · Architectural Directive v1.0</div>
+  <div>May 2026 · Confidential</div>
+</div>
+
+</div>
+</div><!-- /el-protected -->
+</body>
+</html>
