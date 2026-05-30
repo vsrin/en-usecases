@@ -8,12 +8,12 @@
   var API='https://en-workspace-backend.enowclear360.com/api/access/validate';
   var KEY='el_email_'+PAPER;
   function unlock(){document.documentElement.classList.add('el-unlocked');}
-  var stored=localStorage.getItem(KEY);
+  localStorage.removeItem('el_'+PAPER);var stored=localStorage.getItem(KEY);
   if(stored){
     fetch(API+'?email='+encodeURIComponent(stored)+'&artifact='+encodeURIComponent(PAPER))
       .then(function(r){return r.json();})
       .then(function(d){if(d.allowed){unlock();}else{localStorage.removeItem(KEY);}})
-      .catch(function(){unlock();});
+      .catch(function(){});
   }
   window._elSubmit=function(e){
     e.preventDefault();
