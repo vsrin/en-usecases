@@ -384,6 +384,63 @@
 .el-gate-box p{font-size:14px;color:#475569;line-height:1.65;margin-bottom:24px;}
 .el-gate-box a{display:inline-block;background:#1A4A8A;color:#fff;padding:11px 24px;border-radius:7px;text-decoration:none;font-size:13.5px;font-weight:600;transition:opacity .2s;}
 .el-gate-box a:hover{opacity:.88;}
+
+  /* ── MOBILE RESPONSIVE ── */
+  @media (max-width: 767px) {
+    .page { padding: 0 16px 60px; }
+
+    .hero { padding: 36px 20px 32px; }
+    .hero h1 { font-size: 24px; line-height: 1.25; }
+    .hero-sub { font-size: 13.5px; margin-top: 12px; }
+    .hero-meta { flex-wrap: wrap; gap: 10px 20px; margin-top: 20px; }
+
+    .section { margin-top: 40px; }
+    .section-title { font-size: 20px; }
+    .section-subtitle { font-size: 12.5px; }
+
+    .grid-2 { grid-template-columns: 1fr; gap: 14px; }
+    .grid-3 { grid-template-columns: 1fr; gap: 14px; }
+    .grid-4 { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .card { padding: 18px; }
+    .card-navy { padding: 18px; }
+    .card-blue { padding: 18px; }
+    .dim-card { padding: 16px; }
+
+    .callout { padding: 16px 18px; font-size: 13.5px; }
+    .callout-light,
+    .callout-warning { padding: 14px 18px; font-size: 12.5px; }
+
+    .arch-row { flex-direction: column; padding: 14px 16px; gap: 10px; }
+    .arch-row-label {
+      writing-mode: horizontal-tb;
+      transform: none;
+      min-width: auto;
+      font-size: 9px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .arch-block { min-width: calc(50% - 5px); flex-basis: calc(50% - 5px); font-size: 11px; }
+    .arch-arrow { padding: 4px 8px; font-size: 14px; }
+
+    .flow { flex-direction: column; }
+    .flow-step { border-right: none; border-bottom: 1px solid var(--border); padding: 14px 16px; }
+    .flow-step:last-child { border-bottom: none; }
+    .flow-step::after { display: none; }
+
+    .roadmap { grid-template-columns: 1fr; }
+    .roadmap-phase { border-right: none; border-bottom: 1px solid var(--border); padding: 20px; }
+    .roadmap-phase:last-child { border-bottom: none; }
+
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { min-width: 560px; }
+
+    .principle { gap: 12px; }
+    .principle-body .rule,
+    .principle-body .ok { display: block; margin-left: 0; margin-top: 6px; }
+
+    .footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
 </style>
 </head>
 <body>

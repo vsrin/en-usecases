@@ -51,19 +51,19 @@ export default function HomePage() {
 
         {/* Meta grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 border-t border-ink">
-          <div className="py-4 pr-6 border-r border-rule">
+          <div className="py-4 pr-4 md:pr-6 border-r border-b md:border-b-0 border-rule">
             <p className="font-mono text-[9.5px] tracking-[0.16em] uppercase text-ink-4 mb-2">Products</p>
             <p className="font-sans text-[14px] font-medium text-ink">{products.length} accelerators</p>
           </div>
-          <div className="py-4 px-6 border-r border-rule">
+          <div className="py-4 px-4 md:px-6 border-b md:border-b-0 md:border-r border-rule">
             <p className="font-mono text-[9.5px] tracking-[0.16em] uppercase text-ink-4 mb-2">Use cases</p>
             <p className="font-sans text-[14px] font-medium text-ink">{usecases.length} published</p>
           </div>
-          <div className="py-4 px-6 border-r border-rule">
+          <div className="py-4 px-4 md:px-6 border-r border-rule">
             <p className="font-mono text-[9.5px] tracking-[0.16em] uppercase text-ink-4 mb-2">Home</p>
             <p className="font-sans text-[14px] font-medium text-ink"><a href="https://elevatenow.tech" target="_blank" rel="noopener noreferrer" className="ink-link">elevatenow.tech</a></p>
           </div>
-          <div className="py-4 pl-6">
+          <div className="py-4 pl-4 md:pl-6">
             <p className="font-mono text-[9.5px] tracking-[0.16em] uppercase text-ink-4 mb-2">Contact</p>
             <p className="font-sans text-[14px] font-medium text-ink"><a href="mailto:gps@elevatenow.tech" className="ink-link">gps@elevatenow.tech</a></p>
           </div>
@@ -159,7 +159,7 @@ export default function HomePage() {
                 )),
               )}
             </svg>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {['LLM', 'LLM', 'DB', 'Content'].map((x, i) => (
                 <div key={i} className="bg-rule-2 text-ink-3 font-mono text-[10px] tracking-[0.08em] uppercase px-2 py-2 text-center">{x}</div>
               ))}
@@ -180,7 +180,7 @@ export default function HomePage() {
               <p className="font-mono text-[10px] tracking-[0.16em] uppercase font-semibold">Data & Agentic Intelligence</p>
               <p className="font-mono text-[9px] tracking-[0.12em] uppercase opacity-85 mt-1">Integration · Orchestration · Governance</p>
             </div>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {['LLM', 'Data', 'DB', 'Content'].map((x, i) => (
                 <div key={i} className="bg-rule-2 text-ink-3 font-mono text-[10px] tracking-[0.08em] uppercase px-2 py-2 text-center">{x}</div>
               ))}
@@ -226,7 +226,7 @@ export default function HomePage() {
                 className={`flex flex-col md:flex-row ${i < layers.length - 1 ? 'border-b border-rule' : ''}`}
               >
                 {/* Dark layer label cell — matches pitch-deck navy bars */}
-                <div className="md:w-[280px] bg-ink text-paper p-5 md:border-r border-rule flex flex-col justify-center">
+                <div className="md:w-[280px] bg-ink text-paper p-5 md:border-r border-b md:border-b-0 border-rule flex flex-col justify-center">
                   <p className="font-mono text-[10px] tracking-[0.14em] uppercase font-semibold mb-2" style={{ color: '#7DB3D4' }}>
                     Layer {String(cfg.order).padStart(2, '0')}
                   </p>
