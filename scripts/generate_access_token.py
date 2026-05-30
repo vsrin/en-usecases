@@ -30,8 +30,9 @@ import sys
 SECRET = "en-el-2026-xK9mPvQ8rT5nLj3"
 
 PAPERS = {
-    "ocr-benchmark":  "OCR & Extraction Benchmark Framework",
-    "six-tier-stack": "Six-Tier Extraction Stack Architecture",
+    "ocr-benchmark":         "OCR & Extraction Benchmark Framework",
+    "six-tier-stack":        "Six-Tier Extraction Stack Architecture",
+    "extraction-benchmark":  "The Extraction Intelligence Benchmark",
 }
 
 BASE_URL = "https://insights.elevatenow.tech"
