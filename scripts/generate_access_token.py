@@ -33,6 +33,7 @@ PAPERS = {
     "ocr-benchmark":         "OCR & Extraction Benchmark Framework",
     "six-tier-stack":        "Six-Tier Extraction Stack Architecture",
     "extraction-benchmark":  "The Extraction Intelligence Benchmark",
+    "semantic-hub":          "AI-Ready Insurance Intelligence: Architectural Directive",
 }
 
 BASE_URL = "https://insights.elevatenow.tech"
