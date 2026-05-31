@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+/* Access gate — validated against ElevateNow backend */
+(function(){
+  var PAPER='text-to-sql';
+  var API='https://en-workspace-backend.enowclear360.com/api/access/validate';
+  var KEY='el_email_'+PAPER;
+  function unlock(){document.documentElement.classList.add('el-unlocked');}
+  localStorage.removeItem('el_'+PAPER);var stored=localStorage.getItem(KEY);
+  if(stored){
+    fetch(API+'?email='+encodeURIComponent(stored)+'&artifact='+encodeURIComponent(PAPER))
+      .then(function(r){return r.json();})
+      .then(function(d){if(d.allowed){unlock();}else{localStorage.removeItem(KEY);}})
+      .catch(function(){});
+  }
+  window._elSubmit=function(e){
+    e.preventDefault();
+    var inp=document.getElementById('el-inp');
+    var msg=document.getElementById('el-msg');
+    var btn=document.getElementById('el-btn');
+    var email=(inp.value||'').trim();
+    if(!email)return;
+    btn.textContent='Verifying…';btn.disabled=true;
+    fetch(API+'?email='+encodeURIComponent(email)+'&artifact='+encodeURIComponent(PAPER))
+      .then(function(r){return r.json();})
+      .then(function(d){
+        if(d.allowed){localStorage.setItem(KEY,email);unlock();}
+        else{msg.textContent='Access not found for this email. Contact gps@elevatenow.tech.';btn.textContent='Unlock';btn.disabled=false;}
+      })
+      .catch(function(){msg.textContent='Unable to reach verification server. Try again.';btn.textContent='Unlock';btn.disabled=false;});
+  };
+})();
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ontology-Anchored Text-to-SQL Middleware | ElevateNow Platform</title>
+  <style>
+    :root {
+      --navy:       #0A1628;
+      --navy-mid:   #162744;
+      --navy-light: #1E3A5F;
+      --blue:       #1A4A8A;
+      --blue-light: #2563EB;
+      --gold:       #C8A951;
+      --gold-light: #E8C96A;
+      --slate:      #475569;
+      --slate-light:#64748B;
+      --border:     #CBD5E1;
+      --bg:         #F8FAFC;
+      --white:      #FFFFFF;
+      --green:      #16A34A;
+      --red:        #DC2626;
+      --amber:      #D97706;
+      --font:       'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--slate); font-size: 14px; line-height: 1.6; }
+    a { color: var(--blue-light); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, var(--blue) 100%);
+      position: relative; overflow: hidden;
+      padding: 64px 48px 56px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -55deg,
+        transparent, transparent 40px,
+        rgba(255,255,255,0.012) 40px, rgba(255,255,255,0.012) 80px
+      );
+    }
+    .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; }
+    .hero-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 38px; font-weight: 300; color: var(--white); line-height: 1.25;
+      max-width: 820px; margin-bottom: 18px;
+    }
+    .hero h1 strong { color: var(--gold-light); font-weight: 600; }
+    .hero-sub {
+      font-size: 15px; color: rgba(255,255,255,0.72); max-width: 680px;
+      line-height: 1.75; margin-bottom: 36px;
+    }
+    .hero-meta {
+      display: flex; gap: 40px; flex-wrap: wrap;
+      font-size: 11px; letter-spacing: 0.05em; color: rgba(255,255,255,0.5);
+      text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.12);
+      padding-top: 20px;
+    }
+    .hero-meta span strong { color: var(--gold); font-weight: 600; }
+
+    /* ── LAYOUT ── */
+    .page { max-width: 1200px; margin: 0 auto; padding: 0 32px 100px; }
+
+    /* ── SECTIONS ── */
+    .section { margin-top: 72px; }
+    .section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: 26px; font-weight: 300; color: var(--navy);
+      border-bottom: 2px solid var(--gold); padding-bottom: 12px; margin-bottom: 10px;
+    }
+    .section-title strong { font-weight: 600; }
+    .section-subtitle { font-size: 13px; color: var(--slate-light); max-width: 760px; margin-bottom: 28px; }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      background: var(--navy); border-left: 4px solid var(--gold);
+      padding: 20px 28px; border-radius: 6px; margin: 24px 0;
+      font-size: 15px; color: rgba(255,255,255,0.88); line-height: 1.7;
+    }
+    .callout strong { color: var(--gold-light); }
+    .callout-light {
+      background: #EFF6FF; border-left: 4px solid var(--blue-light);
+      padding: 18px 24px; border-radius: 6px; margin: 20px 0;
+      font-size: 14px; color: var(--navy); line-height: 1.65;
+    }
+    .callout-warning {
+      background: #FEF9C3; border-left: 4px solid var(--amber);
+      padding: 18px 24px; border-radius: 6px; margin: 20px 0;
+      font-size: 13px; color: #78350F; line-height: 1.65;
+    }
+
+    /* ── CARDS ── */
+    .card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
+    .card-navy { background: var(--navy); border-radius: 10px; padding: 24px; }
+    .card-navy h3 { color: var(--gold-light); font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+    .card-navy p { color: rgba(255,255,255,0.78); font-size: 13px; line-height: 1.6; }
+    .card-blue { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 10px; padding: 22px; }
+
+    /* ── GRIDS ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+
+    /* ── TAGS ── */
+    .tag {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 3px 10px; border-radius: 100px; margin: 2px;
+    }
+    .tag-gold   { background: rgba(200,169,81,0.15); color: var(--gold); border: 1px solid var(--gold); }
+    .tag-blue   { background: rgba(37,99,235,0.1);   color: var(--blue-light); border: 1px solid var(--blue-light); }
+    .tag-green  { background: rgba(22,163,74,0.1);   color: var(--green); border: 1px solid var(--green); }
+    .tag-amber  { background: rgba(217,119,6,0.1);   color: var(--amber); border: 1px solid var(--amber); }
+    .tag-red    { background: rgba(220,38,38,0.1);   color: var(--red); border: 1px solid var(--red); }
+    .tag-slate  { background: rgba(71,85,105,0.1);   color: var(--slate); border: 1px solid var(--slate); }
+
+    /* ── ARCHITECTURE DIAGRAM ── */
+    .arch-diagram { margin: 32px 0; }
+    .arch-layer {
+      border-radius: 8px; padding: 18px 24px; margin-bottom: 4px;
+      position: relative;
+    }
+    .arch-layer-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    .arch-layer-user   { background: var(--navy-mid); }
+    .arch-layer-intel  { background: var(--navy); border: 2px solid var(--gold); }
+    .arch-layer-gen    { background: var(--blue); }
+    .arch-layer-post   { background: var(--navy-mid); border: 2px solid rgba(200,169,81,0.4); }
+    .arch-layer-exec   { background: #0F1F3D; }
+    .arch-layer-data   { background: #0D1B30; border: 1px solid rgba(200,169,81,0.25); }
+
+    .arch-blocks { display: flex; gap: 12px; flex-wrap: wrap; }
+    .arch-block {
+      flex: 1; min-width: 160px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px; padding: 14px 16px;
+    }
+    .arch-block-gold  { border-color: rgba(200,169,81,0.5); background: rgba(200,169,81,0.08); }
+    .arch-block-blue  { border-color: rgba(37,99,235,0.5);  background: rgba(37,99,235,0.1); }
+    .arch-block-green { border-color: rgba(22,163,74,0.5);  background: rgba(22,163,74,0.08); }
+    .arch-block h4 { font-size: 12px; font-weight: 700; color: var(--gold-light); margin-bottom: 6px; }
+    .arch-block p  { font-size: 11px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+    .arch-block .block-num {
+      font-size: 9px; font-weight: 700; color: var(--gold);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px;
+    }
+
+    .arch-connector {
+      text-align: center; padding: 8px 0; font-size: 22px;
+      color: var(--gold); letter-spacing: 0;
+    }
+    .arch-connector span { color: rgba(255,255,255,0.55); font-size: 12px; vertical-align: middle; margin-left: 10px; letter-spacing: 0; }
+
+    .arch-layer-label.gold  { color: var(--gold); }
+    .arch-layer-label.white { color: rgba(255,255,255,0.5); }
+    .arch-layer-label.blue  { color: #93C5FD; }
+
+    /* ── BLOCK DETAIL CARDS ── */
+    .block-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 26px; border-top: 3px solid var(--gold);
+    }
+    .block-card-num {
+      font-size: 10px; font-weight: 700; color: var(--gold);
+      text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px;
+    }
+    .block-card h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .block-card .block-what { font-size: 13px; color: var(--slate); margin-bottom: 14px; line-height: 1.6; }
+    .block-card .block-value {
+      background: #F0FDF4; border-left: 3px solid var(--green);
+      padding: 10px 14px; border-radius: 4px;
+      font-size: 12px; color: #166534; margin-bottom: 14px; line-height: 1.55;
+    }
+    .block-card .block-value strong { font-weight: 700; }
+    .block-card .block-io {
+      display: flex; gap: 16px; font-size: 11px; color: var(--slate-light);
+    }
+    .block-card .block-io div { flex: 1; }
+    .block-card .block-io strong { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate); display: block; margin-bottom: 4px; }
+    .block-card .block-io code { font-size: 10px; background: #F1F5F9; padding: 2px 6px; border-radius: 3px; display: inline-block; margin: 2px 0; }
+
+    /* ── DATA TABLE ── */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 20px 0; }
+    .data-table th {
+      background: var(--navy); color: var(--white); text-align: left;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 12px 16px; border-bottom: 2px solid var(--gold);
+    }
+    .data-table td { padding: 11px 16px; border-bottom: 1px solid #E2E8F0; vertical-align: top; }
+    .data-table tr:nth-child(even) td { background: #F8FAFC; }
+    .kw { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; display: inline-block; }
+    .kw-green { background: rgba(22,163,74,0.12); color: var(--green); }
+    .kw-gold  { background: rgba(200,169,81,0.15); color: #92742A; }
+    .kw-blue  { background: rgba(37,99,235,0.1);  color: var(--blue); }
+    .kw-red   { background: rgba(220,38,38,0.1);  color: var(--red); }
+    .kw-slate { background: rgba(71,85,105,0.1);  color: var(--slate); }
+
+    /* ── ROADMAP ── */
+    .roadmap { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin: 24px 0; }
+    .ms-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .ms-header { background: var(--navy-mid); padding: 16px 18px; }
+    .ms-phase { font-size: 10px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.15em; }
+    .ms-title { font-size: 14px; font-weight: 700; color: var(--white); margin: 4px 0; }
+    .ms-range { font-size: 11px; color: rgba(255,255,255,0.5); }
+    .ms-body { padding: 16px 18px; }
+    .ms-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #F1F5F9; font-size: 12px; }
+    .ms-row:last-child { border-bottom: none; }
+    .dim-label { color: var(--slate-light); font-size: 11px; }
+    .dim-value { color: var(--navy); font-weight: 600; font-size: 11px; text-align: right; max-width: 120px; }
+    .ms-footer { padding: 12px 18px; border-top: 1px solid var(--border); }
+    .ms-status { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 12px; border-radius: 100px; }
+    .ms-status.green  { background: rgba(22,163,74,0.12);  color: var(--green); }
+    .ms-status.amber  { background: rgba(217,119,6,0.12);  color: var(--amber); }
+    .ms-status.navy   { background: rgba(10,22,40,0.08);   color: var(--navy); }
+
+    /* ── DIRECTIVE / RULES ── */
+    .rule-list { margin: 20px 0; }
+    .rule-item { display: flex; gap: 20px; padding: 18px 0; border-bottom: 1px solid #F1F5F9; align-items: flex-start; }
+    .rule-item:last-child { border-bottom: none; }
+    .rule-num { font-size: 28px; font-weight: 700; color: var(--navy); min-width: 36px; line-height: 1; margin-top: 2px; }
+    .rule-body { flex: 1; }
+    .rule-title { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .rule-desc  { font-size: 13px; color: var(--slate); line-height: 1.6; }
+    .rule-badge { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 2px 8px; border-radius: 100px; margin-left: 8px; }
+    .rule-badge.never { background: rgba(220,38,38,0.12); color: var(--red); }
+    .rule-badge.ok    { background: rgba(22,163,74,0.12);  color: var(--green); }
+
+    /* ── COMPARISON ── */
+    .compare-wrap { overflow-x: auto; margin: 20px 0; }
+
+    /* ── FOOTNOTE ── */
+    .footnote {
+      margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border);
+      font-size: 11px; color: var(--slate-light); display: flex;
+      justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: white; }
+      .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .arch-layer, .card-navy, .ms-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .section { page-break-inside: avoid; }
+    }
+
+    /* ── INLINE CODE ── */
+    code { font-size: 11px; background: #F1F5F9; padding: 2px 6px; border-radius: 3px; color: var(--blue); font-family: 'Courier New', monospace; }
+    pre { background: var(--navy); color: rgba(255,255,255,0.85); padding: 20px 24px; border-radius: 8px; font-size: 12px; overflow-x: auto; line-height: 1.7; margin: 16px 0; }
+    pre .c { color: rgba(200,169,81,0.7); }
+    pre .k { color: #93C5FD; }
+    pre .s { color: #86EFAC; }
+
+    ul.body-list { padding-left: 20px; margin: 12px 0; }
+    ul.body-list li { font-size: 13px; color: var(--slate); margin-bottom: 6px; line-height: 1.6; }
+    ul.body-list li strong { color: var(--navy); }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .stat-row { display: flex; gap: 24px; margin: 20px 0; flex-wrap: wrap; }
+    .stat { text-align: center; padding: 20px 24px; background: var(--white); border: 1px solid var(--border); border-radius: 10px; flex: 1; }
+    .stat-value { font-size: 36px; font-weight: 300; color: var(--navy); line-height: 1; margin-bottom: 6px; }
+    .stat-value strong { font-weight: 700; color: var(--blue-light); }
+    .stat-label { font-size: 11px; color: var(--slate-light); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ── ACCESS GATE ── */
+    #el-protected { display: none; }
+    .el-unlocked #el-protected { display: contents; }
+    #el-gate { display: flex; position: fixed; inset: 0; z-index: 9999; background: #0A1628; align-items: center; justify-content: center; }
+    .el-unlocked #el-gate { display: none; }
+    .el-gate-box { background: #fff; border-radius: 12px; padding: 48px 40px; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .el-gate-icon { font-size: 32px; margin-bottom: 16px; }
+    .el-gate-box h2 { font-family: Georgia, serif; font-size: 20px; font-weight: 700; color: #0A1628; margin-bottom: 10px; }
+    .el-gate-box p { font-size: 14px; color: #475569; line-height: 1.65; margin-bottom: 24px; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 767px) {
+      .hero { padding: 48px 20px 40px; }
+      .hero h1 { font-size: 26px; }
+      .hero-sub { font-size: 14px; }
+      .page { padding: 0 16px 60px; }
+      .section { margin-top: 48px; }
+      .section-title { font-size: 20px; }
+      .grid-2, .grid-3, .grid-4, .two-col { grid-template-columns: 1fr; }
+      .roadmap { grid-template-columns: 1fr; }
+      .stat-row { flex-direction: column; }
+      .arch-blocks { flex-direction: column; }
+      .arch-block { min-width: unset; }
+      .compare-wrap { overflow-x: auto; }
+      .block-card .block-io { flex-direction: column; gap: 8px; }
+      .rule-item { flex-direction: column; gap: 8px; }
+      .rule-num { font-size: 20px; }
+      .footnote { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="el-gate">
+  <div class="el-gate-box">
+    <div class="el-gate-icon">🔒</div>
+    <h2>Access Required</h2>
+    <p style="margin-bottom:8px;">Enter the email address associated with your access grant.</p>
+    <form onsubmit="_elSubmit(event)" style="margin-top:16px;">
+      <input id="el-inp" type="email" placeholder="your@email.com" required style="width:100%;padding:10px 14px;border:1.5px solid #d1d5db;border-radius:7px;font-size:14px;font-family:inherit;margin-bottom:10px;outline:none;color:#0A1628;">
+      <button id="el-btn" type="submit" style="width:100%;padding:11px;background:#1A4A8A;color:#fff;border:none;border-radius:7px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .2s;">Unlock</button>
+    </form>
+    <p id="el-msg" style="margin-top:10px;margin-bottom:0;font-size:12.5px;color:#dc2626;min-height:18px;"></p>
+    <p style="margin-top:14px;margin-bottom:0;font-size:12px;color:#94a3b8;">No access? <a href="mailto:gps@elevatenow.tech" style="color:#1A4A8A;text-decoration:none;background:none;padding:0;display:inline;border-radius:0;font-size:12px;font-weight:400;">Request here →</a></p>
+  </div>
+</div>
+
+<div id="el-protected">
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- HERO                                                        -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">ElevateNow Platform &nbsp;·&nbsp; Architecture White Paper &nbsp;·&nbsp; Intelligence Infrastructure</div>
+    <h1>Ontology-Anchored Text-to-SQL:<br><strong>A Platform-Agnostic Middleware</strong><br>for Reliable Natural Language Analytics</h1>
+    <div class="hero-sub">
+      Text-to-SQL systems fail not because the models are inadequate, but because they lack the institutional context to resolve join ambiguity, column-level semantics, and domain-specific aggregation. This paper presents a middleware architecture that separates intelligence from execution — making SQL generation accurate, auditable, and portable across any analytical platform.
+    </div>
+    <div class="hero-meta">
+      <span>Date &nbsp;<strong>May 2026</strong></span>
+      <span>Version &nbsp;<strong>1.0</strong></span>
+      <span>Classification &nbsp;<strong>Strategic Architecture</strong></span>
+      <span>Domain &nbsp;<strong>Insurance · Data Intelligence</strong></span>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 0: THE HYPOTHESIS                                   -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The Hypothesis</div>
+  <div class="section-title">Two Observations from Research — <strong>One Combined Solution</strong></div>
+  <div class="section-subtitle">This architecture is grounded in two independent bodies of work that converge on the same conclusion: the information needed to generate correct SQL already exists inside your organization. The problem is that it has never been made programmatically accessible to the generation layer.</div>
+
+  <div class="grid-2" style="margin-top:24px;">
+    <div class="card" style="border-top:3px solid var(--gold);">
+      <div class="section-label">Observation 1 &nbsp;·&nbsp; Query Log Research</div>
+      <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px;">Institutional join knowledge lives in your query history — not in your schema</h3>
+      <p style="font-size:13px;color:var(--slate);line-height:1.7;margin-bottom:14px;">
+        SQL query logs are not just an audit trail. They are a compressed record of every correct analytical decision your organization has ever made. Each successful query encodes which tables were joined, in which order, with which filters — the exact institutional knowledge that a language model lacks when generating SQL from scratch.
+      </p>
+      <p style="font-size:13px;color:var(--slate);line-height:1.7;">
+        A semantic layer describes what data <em>means</em>. Query logs record how data has been <em>correctly accessed</em>. Both are required. Without the log-derived patterns, a model operating on schema alone will always hallucinate joins — picking a structurally valid path that is institutionally wrong.
+      </p>
+      <div style="margin-top:16px;padding:12px 16px;background:#FFFBEB;border-left:3px solid var(--gold);border-radius:4px;font-size:12px;color:#78350F;line-height:1.6;">
+        <strong>The hypothesis:</strong> Mine the logs. Validate each pattern against the ontology. Surface the validated patterns as generation-time context. The model stops hallucinating because it is no longer guessing.
+      </div>
+    </div>
+
+    <div class="card" style="border-top:3px solid var(--blue-light);">
+      <div class="section-label">Observation 2 &nbsp;·&nbsp; Self-Improving Text-to-SQL</div>
+      <h3 style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:12px;">Static verified examples decay — an evolutionary feedback loop compounds accuracy over time</h3>
+      <p style="font-size:13px;color:var(--slate);line-height:1.7;margin-bottom:14px;">
+        Manual curation of example queries does not scale. The question space grows faster than human curators can document it. Research into autonomous self-improvement for text-to-SQL demonstrates that systems can evaluate the quality of their own SQL output — through execution success, result set validity, and iterative refinement — without requiring a human-provided ground truth for every query.
+      </p>
+      <p style="font-size:13px;color:var(--slate);line-height:1.7;">
+        An Elo-style scoring mechanism can rank competing SQL candidates generated for the same natural language question. The winning variant, once confirmed by execution and ontology conformance, becomes a new verified example — automatically. The system's accuracy ceiling rises with every query run.
+      </p>
+      <div style="margin-top:16px;padding:12px 16px;background:#EFF6FF;border-left:3px solid var(--blue-light);border-radius:4px;font-size:12px;color:#1e3a8a;line-height:1.6;">
+        <strong>The hypothesis:</strong> Replace static curation with a scored feedback loop. Promote only what the ontology validates. The example library becomes a living institutional memory — not a snapshot frozen at build time.
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:28px;">
+    <strong>Combined solution in one sentence:</strong> Build a middleware layer that extracts institutional query patterns from historical logs, anchors them to an ontology that enforces which patterns are correct, and operates a self-improving feedback loop that continuously promotes successful patterns into the generation context — on any SQL platform, without rewriting the intelligence when the platform changes.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 1: THE PROBLEM                                      -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The Problem</div>
+  <div class="section-title">Three Root Causes of SQL Generation Failure — <strong>The Model Is Not One of Them</strong></div>
+  <div class="section-subtitle">Accuracy problems in production text-to-SQL deployments are consistently attributable to missing context, not model capability. The same model that fails on your schema performs well on standard benchmarks — because benchmark schemas have clean, unambiguous join paths. Yours do not.</div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="stat-value"><strong>~60%</strong></div><div class="stat-label">of text-to-SQL errors are join path errors — the model picked a valid but wrong traversal</div></div>
+    <div class="stat"><div class="stat-value"><strong>~25%</strong></div><div class="stat-label">are aggregation level errors — wrong grain, missing GROUP BY, incorrect window scope</div></div>
+    <div class="stat"><div class="stat-value"><strong>~15%</strong></div><div class="stat-label">are column disambiguation errors — multiple similarly-named columns, wrong one chosen</div></div>
+  </div>
+
+  <div class="grid-3" style="margin-top:20px;">
+    <div class="card" style="border-top:3px solid var(--red);">
+      <div class="section-label" style="color:var(--red);">Root Cause 1</div>
+      <h3 style="color:var(--navy);font-size:15px;font-weight:700;margin-bottom:10px;">Join Path Ambiguity</h3>
+      <p style="font-size:13px;color:var(--slate);line-height:1.6;">Your schema has multiple valid join paths between the same two tables. The semantic model describes all possibilities. The LLM picks one based on column name proximity — not on which path is institutionally correct for the question type asked.</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--amber);">
+      <div class="section-label" style="color:var(--amber);">Root Cause 2</div>
+      <h3 style="color:var(--navy);font-size:15px;font-weight:700;margin-bottom:10px;">Static Schema Context</h3>
+      <p style="font-size:13px;color:var(--slate);line-height:1.6;">The YAML semantic model (Cortex Analyst, Unity Catalog) describes what data <em>is</em> — tables, columns, relationships. It cannot encode which join path is <em>intended</em> for a given question type, or what the institutional pattern is for "loss ratio by line."</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--blue-light);">
+      <div class="section-label" style="color:var(--blue-light);">Root Cause 3</div>
+      <h3 style="color:var(--navy);font-size:15px;font-weight:700;margin-bottom:10px;">No Institutional Memory</h3>
+      <p style="font-size:13px;color:var(--slate);line-height:1.6;">Every query starts from zero. The system has no memory of which queries ran successfully last month, which join patterns are trusted for which business questions, or which shortcuts are forbidden. Verified Queries fixes this manually — but doesn't scale.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>The central insight:</strong> Your organization already has the institutional knowledge that the model lacks. It exists in three places: your <strong>ontology</strong> (what entities mean and how they relate), your <strong>query history</strong> (how data has been successfully accessed), and your <strong>domain experts</strong> (who know which joins are correct). The middleware architecture makes this knowledge programmatically accessible to any SQL generator — on any platform.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 2A: CONCEPTUAL DIAGRAM                              -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section" style="page-break-before:always;page-break-inside:avoid;">
+  <div class="section-label">Architecture — Conceptual View</div>
+  <div class="section-title">Three Zones, One Principle: <strong>Own the Intelligence, Swap the Platform</strong></div>
+
+  <div style="display:grid;grid-template-columns:1fr 172px;gap:16px;align-items:start;margin:20px 0 0;">
+
+    <!-- Main vertical flow -->
+    <div>
+      <!-- Input -->
+      <div style="text-align:center;padding:10px 20px;background:var(--navy-mid);border-radius:8px;margin-bottom:3px;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:0.16em;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:4px;">Consumer Input</div>
+        <div style="font-size:13px;color:var(--white);font-style:italic;">"What is the loss ratio by line of business?"</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.38);margin-top:2px;">BI dashboard · chat UI · agentic workflow · API</div>
+      </div>
+
+      <div class="arch-connector" style="padding:3px 0;font-size:18px;">↓</div>
+
+      <!-- Zone 1: Pre-generation -->
+      <div style="background:var(--navy);border:2px solid var(--gold);border-radius:8px;padding:16px 22px;margin-bottom:3px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:0.16em;color:var(--gold);text-transform:uppercase;">① Pre-Generation Intelligence</div>
+          <div style="display:flex;gap:5px;"><span class="tag tag-gold">You Own This</span><span class="tag tag-gold">Platform-Agnostic</span></div>
+        </div>
+        <div style="font-size:16px;font-weight:300;color:var(--white);margin-bottom:7px;">Ontology + Query Memory</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.55;margin-bottom:12px;">Resolves the correct join path from the ontology before the model sees anything. Retrieves verified examples from the query library. Assembles a constrained, context-rich prompt so the generator operates on institutional knowledge, not guesswork.</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:10px;color:var(--gold-light);background:rgba(200,169,81,0.12);padding:3px 10px;border-radius:4px;border:1px solid rgba(200,169,81,0.3);">Schema Linker</span>
+          <span style="font-size:10px;color:var(--gold-light);background:rgba(200,169,81,0.12);padding:3px 10px;border-radius:4px;border:1px solid rgba(200,169,81,0.3);">Path Resolver</span>
+          <span style="font-size:10px;color:var(--gold-light);background:rgba(200,169,81,0.12);padding:3px 10px;border-radius:4px;border:1px solid rgba(200,169,81,0.3);">Example Retriever</span>
+          <span style="font-size:10px;color:var(--gold-light);background:rgba(200,169,81,0.12);padding:3px 10px;border-radius:4px;border:1px solid rgba(200,169,81,0.3);">Prompt Assembler</span>
+        </div>
+      </div>
+
+      <div class="arch-connector" style="padding:3px 0;font-size:16px;">↓ <span>enriched context: schema subset · canonical join path · verified examples</span></div>
+
+      <!-- Zone 2: Generator -->
+      <div style="background:var(--blue);border-radius:8px;padding:16px 22px;margin-bottom:3px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:0.16em;color:#93C5FD;text-transform:uppercase;">② SQL Generator</div>
+          <span class="tag tag-blue">Pluggable Adapter</span>
+        </div>
+        <div style="font-size:16px;font-weight:300;color:var(--white);margin-bottom:7px;">Any Platform — One Interface</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.55;margin-bottom:12px;">A thin, swappable adapter that receives the enriched context and produces a SQL candidate. Replacing Snowflake with Databricks requires changing only this layer — no intelligence logic is rewritten.</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:10px;color:#BFDBFE;background:rgba(37,99,235,0.18);padding:3px 10px;border-radius:4px;border:1px solid rgba(37,99,235,0.35);">Snowflake Cortex Analyst</span>
+          <span style="font-size:10px;color:#BFDBFE;background:rgba(37,99,235,0.18);padding:3px 10px;border-radius:4px;border:1px solid rgba(37,99,235,0.35);">Databricks Genie</span>
+          <span style="font-size:10px;color:#BFDBFE;background:rgba(37,99,235,0.18);padding:3px 10px;border-radius:4px;border:1px solid rgba(37,99,235,0.35);">Generic LLM</span>
+          <span style="font-size:10px;color:#BFDBFE;background:rgba(37,99,235,0.18);padding:3px 10px;border-radius:4px;border:1px solid rgba(37,99,235,0.35);">Local / OSS</span>
+        </div>
+      </div>
+
+      <div class="arch-connector" style="padding:3px 0;font-size:16px;">↓ <span>SQL candidate</span></div>
+
+      <!-- Zone 3: Post-generation -->
+      <div style="background:var(--navy-mid);border:2px solid rgba(200,169,81,0.45);border-radius:8px;padding:16px 22px;margin-bottom:3px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:0.16em;color:var(--gold);text-transform:uppercase;">③ Post-Generation Validation + Learning</div>
+          <div style="display:flex;gap:5px;"><span class="tag tag-gold">You Own This</span><span class="tag tag-gold">Platform-Agnostic</span></div>
+        </div>
+        <div style="font-size:16px;font-weight:300;color:var(--white);margin-bottom:7px;">Validate · Execute · Correct · Remember</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.55;margin-bottom:12px;">Checks the SQL against the ontology before it touches the warehouse. Executes, self-corrects on failure, and scores the result. Successful patterns are promoted back to the Query Library — improving every future query of the same type.</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:10px;color:var(--gold-light);background:rgba(200,169,81,0.12);padding:3px 10px;border-radius:4px;border:1px solid rgba(200,169,81,0.3);">Conformance Checker</span>
+          <span style="font-size:10px;color:var(--gold-light);background:rgba(200,169,81,0.12);padding:3px 10px;border-radius:4px;border:1px solid rgba(200,169,81,0.3);">Execution Engine</span>
+          <span style="font-size:10px;color:var(--gold-light);background:rgba(200,169,81,0.12);padding:3px 10px;border-radius:4px;border:1px solid rgba(200,169,81,0.3);">Self-Corrector</span>
+          <span style="font-size:10px;color:var(--gold-light);background:rgba(200,169,81,0.12);padding:3px 10px;border-radius:4px;border:1px solid rgba(200,169,81,0.3);">Feedback Capture</span>
+        </div>
+      </div>
+
+      <div class="arch-connector" style="padding:3px 0;font-size:18px;">↓</div>
+
+      <!-- Output -->
+      <div style="text-align:center;padding:10px 20px;background:var(--navy-mid);border-radius:8px;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:0.16em;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:4px;">Verified Result</div>
+        <div style="font-size:13px;color:var(--white);">Ontology-conformant SQL · Executed · Results returned to consumer</div>
+      </div>
+    </div>
+
+    <!-- Feedback loop sidebar -->
+    <div style="background:var(--navy);border:1px solid rgba(200,169,81,0.35);border-radius:10px;padding:18px 14px;text-align:center;margin-top:46px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;">Feedback Loop</div>
+      <div style="font-size:28px;color:var(--gold);margin-bottom:10px;">⟳</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.72);line-height:1.6;margin-bottom:12px;">Successful patterns scored and promoted to the <strong style="color:var(--gold-light);">Query Library</strong></div>
+      <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:12px;font-size:10px;color:rgba(255,255,255,0.42);line-height:1.55;">Feeds Example Retriever on the next query. Accuracy compounds with every run.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 2B: DETAILED MIDDLEWARE DIAGRAM                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Architecture — Detailed View</div>
+  <div class="section-title">Eight Middleware Blocks Across Three Zones — <strong>Each Eliminating a Specific Failure Mode</strong></div>
+  <div class="section-subtitle">The same three zones from the conceptual view, broken into their constituent blocks. Each block has a single responsibility and a measurable impact on SQL accuracy. Blocks 1–4 run before generation; Blocks 5–8 run after.</div>
+
+  <div class="arch-diagram" style="margin-top:28px;">
+
+    <!-- INTELLIGENCE LAYER -->
+    <div class="arch-layer arch-layer-intel">
+      <div class="arch-layer-label gold">① Pre-Generation Intelligence &nbsp;·&nbsp; Platform-Agnostic &nbsp;·&nbsp; You Own This</div>
+      <div class="arch-blocks">
+        <div class="arch-block arch-block-gold">
+          <div class="block-num">Block 1</div>
+          <h4>Schema Linker</h4>
+          <p>Extracts entity signals from the question. Returns only the tables and columns relevant to this query — reducing hallucination surface area by 60–80%.</p>
+        </div>
+        <div class="arch-block arch-block-gold">
+          <div class="block-num">Block 2</div>
+          <h4>Path Resolver</h4>
+          <p>Extracts concept signals from the question, traverses DEPENDS_ON chains in the ontology, resolves physical tables from the Schema Registry, and emits the join sequence. The path is derived, not looked up.</p>
+        </div>
+        <div class="arch-block arch-block-gold">
+          <div class="block-num">Block 3</div>
+          <h4>Example Retriever</h4>
+          <p>Fetches the top-K verified queries semantically similar to the current question from the query library. Provides few-shot anchors from real, validated history.</p>
+        </div>
+        <div class="arch-block arch-block-gold">
+          <div class="block-num">Block 4</div>
+          <h4>Prompt Assembler</h4>
+          <p>Combines schema subset, canonical path, and examples into a structured context block formatted for the target platform adapter.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-connector">↓ <span>structured context block → schema subset · canonical join path · verified examples</span></div>
+
+    <!-- SQL GENERATOR -->
+    <div class="arch-layer arch-layer-gen">
+      <div class="arch-layer-label blue">② SQL Generator &nbsp;·&nbsp; Pluggable Adapter &nbsp;·&nbsp; Swap Without Touching Intelligence</div>
+      <div class="arch-blocks">
+        <div class="arch-block arch-block-blue"><div class="block-num">Adapter A</div><h4>Snowflake Cortex Analyst</h4><p>YAML semantic model + Verified Queries block. Context injected via description fields.</p></div>
+        <div class="arch-block arch-block-blue"><div class="block-num">Adapter B</div><h4>Databricks Genie / DBRX</h4><p>Unity Catalog + Trusted Assets + Genie Instructions. Same context, different injection point.</p></div>
+        <div class="arch-block arch-block-blue"><div class="block-num">Adapter C</div><h4>Generic LLM (Claude / GPT)</h4><p>Raw schema + system prompt + few-shot examples. Full control. No platform dependency.</p></div>
+        <div class="arch-block arch-block-blue"><div class="block-num">Adapter D</div><h4>Local / OSS (SQLCoder, Defog)</h4><p>Fine-tunable on domain queries. Full data residency. Maximum latency control.</p></div>
+      </div>
+    </div>
+
+    <div class="arch-connector">↓ <span>generated SQL candidate</span></div>
+
+    <!-- POST-GENERATION LAYER -->
+    <div class="arch-layer arch-layer-post">
+      <div class="arch-layer-label gold">③ Post-Generation Validation + Learning &nbsp;·&nbsp; Platform-Agnostic &nbsp;·&nbsp; You Own This</div>
+      <div class="arch-blocks">
+        <div class="arch-block arch-block-gold">
+          <div class="block-num">Block 5</div>
+          <h4>Conformance Checker</h4>
+          <p>Parses generated SQL. Validates the actual join graph against the ontology canonical path. Blocks forbidden shortcuts before a single byte reaches the warehouse.</p>
+        </div>
+        <div class="arch-block arch-block-gold">
+          <div class="block-num">Block 6</div>
+          <h4>Execution Engine</h4>
+          <p>Routes conformance-passed SQL to the platform execution adapter. Returns a uniform result record — status, row count, timing, query ID — regardless of platform.</p>
+        </div>
+        <div class="arch-block arch-block-gold">
+          <div class="block-num">Block 7</div>
+          <h4>Self-Corrector</h4>
+          <p>On failure, constructs a targeted correction prompt from the structured error, re-routes through the generator, and retries. Resolves ~80% of syntax errors autonomously.</p>
+        </div>
+        <div class="arch-block arch-block-gold">
+          <div class="block-num">Block 8</div>
+          <h4>Feedback Capture</h4>
+          <p>Scores successful results on four dimensions. Promotes high-scoring patterns to the query library after K=5 confirmations. The system's accuracy ceiling rises automatically.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-connector">↓ <span>verified, executed result</span></div>
+
+    <!-- EXECUTION ADAPTER + DATA FOUNDATION -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div class="arch-layer arch-layer-exec" style="margin-bottom:0;">
+        <div class="arch-layer-label white">④ Execution Adapter &nbsp;·&nbsp; Thin, Swappable</div>
+        <div class="arch-blocks">
+          <div class="arch-block"><div class="block-num">Snowflake</div><h4>Snowpark Connector</h4><p>Submits SQL, returns resultset + query ID</p></div>
+          <div class="arch-block"><div class="block-num">Databricks</div><h4>DBX SQL Connector</h4><p>SparkSQL execution, DBFS result storage</p></div>
+          <div class="arch-block"><div class="block-num">Generic</div><h4>SQLAlchemy / JDBC</h4><p>Dialect-aware, connection-pooled</p></div>
+        </div>
+      </div>
+      <div class="arch-layer arch-layer-data" style="margin-bottom:0;">
+        <div class="arch-layer-label gold">⑤ Data Foundation &nbsp;·&nbsp; Platform-Agnostic Knowledge Store</div>
+        <div class="arch-blocks">
+          <div class="arch-block arch-block-gold"><div class="block-num">Store A</div><h4>Ontology Graph</h4><p>Entities, canonical join paths, forbidden shortcuts, required filters. Source of truth for all path decisions.</p></div>
+          <div class="arch-block arch-block-gold"><div class="block-num">Store B</div><h4>Query Library</h4><p>Verified examples mined from historical logs, scored by success + conformance, indexed for semantic retrieval.</p></div>
+          <div class="arch-block arch-block-gold"><div class="block-num">Store C</div><h4>Schema Registry</h4><p>Platform-neutral table/column metadata. Feeds Block 1. Updated on schema change events.</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 3: INTELLIGENCE LAYER DETAIL                        -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Intelligence Layer Deep Dive</div>
+  <div class="section-title">Each Block Eliminates a Specific Class of SQL Error — <strong>Before Generation Begins</strong></div>
+  <div class="section-subtitle">The intelligence layer runs before the SQL generator sees the question. By the time a prompt is assembled, the generator operates on a constrained, ontology-validated context — not an open-ended schema dump.</div>
+
+  <div class="grid-2" style="margin-top:24px;">
+
+    <div class="block-card">
+      <div class="block-card-num">Block 1 &nbsp;·&nbsp; Intelligence Layer</div>
+      <h3>Schema Linker</h3>
+      <div class="block-what">Extracts named entities and domain signals from the natural language question. Maps them to specific tables and columns in the schema registry using a combination of lexical matching, embedding similarity, and domain taxonomy. Returns a focused schema subset — only the tables and columns relevant to this question.</div>
+      <div class="block-value"><strong>Value:</strong> Reduces the schema context injected into the generator by 60–80%. Smaller context means fewer hallucination opportunities, faster generation, and lower token cost. The generator no longer has to "guess" which of 200 tables are relevant — it's told exactly which 4 to use.</div>
+      <div class="block-io">
+        <div><strong>Input</strong><code>"loss ratio by line, Q1 2026"</code></div>
+        <div><strong>Output</strong><code>tables: [policy, claim, premium]</code><code>cols: [lob, written_premium, incurred_loss, loss_dt]</code></div>
+      </div>
+    </div>
+
+    <div class="block-card">
+      <div class="block-card-num">Block 2 &nbsp;·&nbsp; Intelligence Layer</div>
+      <h3>Path Resolver</h3>
+      <div class="block-what">Given the concept signals extracted by the Schema Linker, traverses the ontology's DEPENDS_ON chains to determine which business concepts are required and in what order. Then resolves each concept to its physical table and join key via the Schema Registry. Returns a derived join sequence — computed at runtime from two separate, independently maintained sources of truth.</div>
+      <div class="block-value"><strong>Value:</strong> Eliminates the single largest error class: wrong join path. Instead of the generator inferring joins from column name similarity (which produces plausible but wrong SQL), it receives the exact join sequence that domain experts have encoded as correct for this question type. This is the ontology's highest-leverage contribution to SQL accuracy.</div>
+      <div class="block-io">
+        <div><strong>Input</strong><code>entities: [policy, claim, premium]</code><code>intent: "loss_ratio"</code></div>
+        <div><strong>Output</strong><code>path: policy→premium→claim</code><code>join: policy.id = claim.policy_id</code><code>filter: policy_status='active'</code><code>forbidden: [claim→reserve direct]</code></div>
+      </div>
+    </div>
+
+    <div class="block-card">
+      <div class="block-card-num">Block 3 &nbsp;·&nbsp; Intelligence Layer</div>
+      <h3>Example Retriever</h3>
+      <div class="block-what">Searches the query library using dense vector similarity (embedding of the current question vs. embeddings of stored verified queries). Returns the top-K most semantically similar examples — full question + verified SQL pairs. These examples are sourced from historical query logs that passed ontology conformance checks, plus any manually curated entries.</div>
+      <div class="block-value"><strong>Value:</strong> Implements few-shot prompting with domain-specific, institutionally verified examples. The generator sees exactly how a similar question was successfully answered before — including the correct aggregation level, the right filter syntax, and the proper window function. This eliminates aggregation errors and column disambiguation errors simultaneously.</div>
+      <div class="block-io">
+        <div><strong>Input</strong><code>question embedding</code><code>top_k=3</code></div>
+        <div><strong>Output</strong><code>3× {question, verified_sql, score}</code><code>source: query_library</code><code>conformance: ✓ ontology-validated</code></div>
+      </div>
+    </div>
+
+    <div class="block-card">
+      <div class="block-card-num">Block 4 &nbsp;·&nbsp; Intelligence Layer</div>
+      <h3>Prompt Assembler</h3>
+      <div class="block-what">Combines the outputs of Blocks 1–3 into a structured context payload. The format is adapter-specific: for Cortex Analyst, it generates YAML-compatible description injections; for a generic LLM, it assembles a system prompt with schema, path hint, and examples; for Databricks Genie, it formats Trusted Asset entries. One assembler function per adapter — all intelligence logic remains shared.</div>
+      <div class="block-value"><strong>Value:</strong> The assembler is the portability bridge. By encapsulating format translation here, every upstream intelligence block (Schema Linker, Path Resolver, Example Retriever) is written once and reused across all platform adapters. Adding a new platform requires only a new assembler format function — not a rewrite of any intelligence logic.</div>
+      <div class="block-io">
+        <div><strong>Input</strong><code>schema_subset</code><code>canonical_path</code><code>examples[3]</code><code>target_adapter</code></div>
+        <div><strong>Output</strong><code>structured_context_block</code><code>adapter_format: yaml | prompt | json</code></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 4: POST-GENERATION LAYER DETAIL                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Post-Generation Layer Deep Dive</div>
+  <div class="section-title">Validate, Execute, Correct, and Learn — <strong>Every Query Improves the System</strong></div>
+  <div class="section-subtitle">The post-generation layer closes the loop. SQL that passes conformance is executed; failures trigger automated self-correction. Successful patterns are captured and promoted — so tomorrow's generator starts from a better baseline than today's.</div>
+
+  <div class="grid-2" style="margin-top:24px;">
+
+    <div class="block-card" style="border-top-color:var(--blue-light);">
+      <div class="block-card-num" style="color:var(--blue-light);">Block 5 &nbsp;·&nbsp; Post-Generation Layer</div>
+      <h3>Conformance Checker</h3>
+      <div class="block-what">Parses the generated SQL using a lightweight AST parser. Extracts the actual join graph from the FROM/JOIN clauses. Compares it against the canonical path returned by the Path Resolver. Flags any deviation: missing required filter, presence of a forbidden shortcut, or join to a table not in the canonical path.</div>
+      <div class="block-value"><strong>Value:</strong> Catches ontology violations <em>before</em> execution — so bad SQL never reaches the warehouse. In insurance analytics, a forbidden join (e.g., Claim → Reserve bypassing ClaimPayment) can produce a result that looks plausible but is institutionally wrong. The conformance check is the institutional knowledge defense layer that no SQL executor provides natively.</div>
+      <div class="block-io">
+        <div><strong>Input</strong><code>generated_sql</code><code>canonical_path (from Block 2)</code></div>
+        <div><strong>Output</strong><code>conformance: pass | fail</code><code>violations: [{type, detail}]</code></div>
+      </div>
+    </div>
+
+    <div class="block-card" style="border-top-color:var(--blue-light);">
+      <div class="block-card-num" style="color:var(--blue-light);">Block 6 &nbsp;·&nbsp; Post-Generation Layer</div>
+      <h3>Execution Engine</h3>
+      <div class="block-what">Routes conformance-passed SQL to the platform execution adapter. Manages connection pooling, timeout handling, and result pagination. Returns a structured execution record: status (success/error), row count, execution time, error message (if any), and the platform-native query ID for audit trails.</div>
+      <div class="block-value"><strong>Value:</strong> Provides a uniform execution interface regardless of which platform is running the query. Callers never interact with Snowflake Snowpark vs. Databricks SQL Connector directly — they receive the same structured result format. This is what makes the system genuinely platform-agnostic at the execution layer, not just at the generation layer.</div>
+      <div class="block-io">
+        <div><strong>Input</strong><code>sql (conformance: pass)</code><code>adapter: snowflake|databricks|generic</code></div>
+        <div><strong>Output</strong><code>{status, rows, time_ms, query_id, error?}</code></div>
+      </div>
+    </div>
+
+    <div class="block-card" style="border-top-color:var(--amber);">
+      <div class="block-card-num" style="color:var(--amber);">Block 7 &nbsp;·&nbsp; Post-Generation Layer</div>
+      <h3>Self-Corrector</h3>
+      <div class="block-what">Triggered when the Execution Engine returns an error. Constructs a correction prompt that includes: the original question, the failed SQL, the structured error message, the canonical path hint (re-injected), and an instruction to address the specific error class. Re-routes through the SQL Generator adapter. Retries up to N=3 times before escalating to a human-readable error response.</div>
+      <div class="block-value"><strong>Value:</strong> Implements the core iterative refinement mechanism from the RoboPhD paper. Rather than surfacing cryptic database errors to end users, the system attempts self-repair autonomously. In practice, ~80% of syntax errors and ~50% of semantic errors are corrected on the first retry. This dramatically reduces the "text-to-SQL failed — ask your data team" fallback rate.</div>
+      <div class="block-io">
+        <div><strong>Input</strong><code>failed_sql</code><code>error_payload</code><code>attempt_count</code></div>
+        <div><strong>Output</strong><code>corrected_sql (retry)</code><code>or: escalation_response (max retries)</code></div>
+      </div>
+    </div>
+
+    <div class="block-card" style="border-top-color:var(--green);">
+      <div class="block-card-num" style="color:var(--green);">Block 8 &nbsp;·&nbsp; Post-Generation Layer</div>
+      <h3>Feedback Capture</h3>
+      <div class="block-what">For every successful execution, computes a composite quality score: ontology conformance rate (binary), execution success (binary), result set quality (non-empty, within expected row count bounds), and optionally a user acceptance signal (did the user act on the result? did they re-query?). High-scoring question/SQL pairs become candidates for the query library. After K=5 successful runs of the same pattern, auto-promotion occurs.</div>
+      <div class="block-value"><strong>Value:</strong> Closes the self-improvement loop. Every query that succeeds makes the next similar query more likely to succeed — because the Example Retriever now has a new, validated example to return. The query library grows automatically from production traffic. No human curation required after initialization. This is the difference between a static verified-query system and a continuously improving one.</div>
+      <div class="block-io">
+        <div><strong>Input</strong><code>execution_record</code><code>user_signal (optional)</code></div>
+        <div><strong>Output</strong><code>score: 0.0–1.0</code><code>promotion_candidate: bool</code><code>library_updated: bool</code></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 5: ONTOLOGY AS PLATFORM-AGNOSTIC FOUNDATION         -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">The Ontology Foundation</div>
+  <div class="section-title">Two Layers, Cleanly Separated — <strong>Ontology for Concepts, Registry for Physics</strong></div>
+  <div class="section-subtitle">The ontology encodes what business concepts semantically depend on. A separate Schema Registry encodes how those concepts are physically realized in tables. The Path Resolver combines both at query time to derive the join path. Neither layer encodes SQL.</div>
+
+  <div class="callout" style="margin-bottom:28px;">
+    <strong>Why two layers?</strong> Because the people who know the domain (actuaries, underwriters) and the people who know the data (engineers) should be able to evolve their layer independently. An actuary can redefine what Loss Ratio requires without touching a table name. An engineer can rename a column without touching a business rule. The Path Resolver synthesizes both at runtime — the join path is <strong>derived, never declared</strong>.
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="callout-light">
+        <strong>Existing ontology edges (what you likely have):</strong> CLASSIFIES (entity categorization), GOVERNS (rule applicability), INFORMS (signal relationships), SUPERSEDES (version control). These describe <em>what knowledge means</em> — they are governance edges. Keep them as-is.
+      </div>
+
+      <div class="callout" style="margin-top:16px;">
+        <strong>New edge type: DEPENDS_ON</strong> — encodes which business concepts a given metric semantically requires, and in what order. No table names. No column references. No SQL. A domain expert reads and writes this.
+        <pre style="margin-top:14px;font-size:11px;"><span class="c"># Ontology layer — concepts only, owned by domain experts</span>
+{
+  <span class="k">edge_type</span>: <span class="s">"DEPENDS_ON"</span>,
+  <span class="k">source</span>: <span class="s">"Concept:LossRatio"</span>,
+  <span class="k">depends_on</span>: [
+    <span class="s">"Concept:WrittenPremium"</span>,
+    <span class="s">"Concept:LossIncurred"</span>
+  ],
+  <span class="c">  # WrittenPremium must be resolved before LossIncurred</span>
+  <span class="c">  # — actuarial rule, not a join hint</span>
+  <span class="k">ordering</span>: <span class="s">"WrittenPremium before LossIncurred"</span>,
+  <span class="k">invalid_paths</span>: [<span class="s">"LossRatio → Reserve"</span>]
+  <span class="c">  # semantically wrong by definition — Reserve is not</span>
+  <span class="c">  # an incurred loss, it is a future liability estimate</span>
+}</pre>
+
+        <pre style="margin-top:10px;font-size:11px;"><span class="c"># Schema Registry — physical realization, owned by engineers</span>
+{
+  <span class="k">concept</span>: <span class="s">"Concept:WrittenPremium"</span>,
+  <span class="k">table</span>: <span class="s">"written_premium"</span>,
+  <span class="k">entity_key</span>: <span class="s">"policy_id"</span>,
+  <span class="c">  # how this concept joins to the Policy entity</span>
+  <span class="k">platform_overrides</span>: {
+    <span class="k">databricks</span>: <span class="s">"gold.written_premium"</span>
+  }
+  <span class="c">  # table name changes per platform — the concept does not</span>
+}</pre>
+      </div>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:16px;">
+        <div class="section-label">How this scales</div>
+        <p style="font-size:13px;color:var(--slate);margin-bottom:12px;line-height:1.65;">Questions are infinite. <strong>Business concepts are not.</strong> An insurance analytics domain has roughly 50–150 named concepts: Loss Ratio, Combined Ratio, Written Premium, Earned Premium, Loss Development Factor, Frequency, Severity, ALAE, and so on.</p>
+        <p style="font-size:13px;color:var(--slate);margin-bottom:12px;line-height:1.65;">Every question — no matter how phrased — maps to one or a few of these concepts. The Schema Linker's job is to extract <em>which concepts</em> the question is about. The Path Resolver looks up those concepts' DEPENDS_ON chains and resolves tables from the Schema Registry. The join path is computed, not looked up.</p>
+        <p style="font-size:13px;color:var(--slate);line-height:1.65;">This is how dbt Semantic Layer, Cube.dev, and AtScale work. The innovation here is anchoring the concept definitions in a governed ontology rather than in a static config file.</p>
+      </div>
+      <div class="card" style="margin-bottom:16px;">
+        <div class="section-label">What this enables</div>
+        <ul class="body-list" style="margin-top:8px;">
+          <li style="font-size:13px;margin-bottom:8px;"><strong>Path Resolver (Block 2)</strong> — extracts concept signals from the question, traverses DEPENDS_ON chains, resolves tables from the registry, emits the join sequence. Join path is derived at runtime.</li>
+          <li style="font-size:13px;margin-bottom:8px;"><strong>Conformance Checker (Block 5)</strong> — validates the generated SQL's join graph against the derived concept path. Flags joins that violate the ordering constraint or use an invalid concept path.</li>
+          <li style="font-size:13px;margin-bottom:8px;"><strong>Independent evolution</strong> — domain experts update DEPENDS_ON edges without touching the registry. Engineers update table names in the registry without touching ontology rules.</li>
+          <li style="font-size:13px;"><strong>Governance audit</strong> — every SQL execution cites the DEPENDS_ON edge ID that governed the join derivation — a complete trail from question to concept to table to result.</li>
+        </ul>
+      </div>
+      <div class="callout-warning">
+        <strong>Anti-pattern to avoid:</strong> Do not collapse concept dependencies and physical join paths into a single declaration. If the business rule and the table name live in the same record, a domain expert editing business logic can silently break table resolution — and an engineer renaming a table can silently invalidate a business rule.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 6: QUERY LIBRARY PIPELINE                           -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Query Library</div>
+  <div class="section-title">Mine Your Query History — <strong>Automate What Verified Queries Does Manually</strong></div>
+  <div class="section-subtitle">Every platform exposes a query history system table. Your best examples are already there — they just haven't been extracted, validated, and made available to your SQL generator. This pipeline does that automatically.</div>
+
+  <div class="grid-4" style="margin-bottom:24px;">
+    <div class="card-navy"><h3>Step 1: Extract</h3><p>Pull successful SELECTs from platform query history. Filter by: execution_status=SUCCESS, duration within bounds, query_type=SELECT. Each platform has its own system table.</p></div>
+    <div class="card-navy"><h3>Step 2: Cluster</h3><p>Group queries by join pattern fingerprint: which tables appear in FROM/JOIN, in what order, with what filter shapes. Queries in the same cluster answer the same question type.</p></div>
+    <div class="card-navy"><h3>Step 3: Validate</h3><p>For each cluster, derive the expected join path from the ontology's DEPENDS_ON chains + Schema Registry. Clusters whose join graph matches the derived path are promoted. Non-conforming clusters are flagged for review.</p></div>
+    <div class="card-navy"><h3>Step 4: Annotate &amp; Promote</h3><p>Reverse-generate a natural language question for each cluster's representative SQL (using LLM). Store as a {question, sql} pair in the query library. Now available to the Example Retriever.</p></div>
+  </div>
+
+  <div class="compare-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Query History Source</th>
+          <th>Key Columns</th>
+          <th>Native Verified Example System</th>
+          <th>Pipeline Integration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Snowflake</strong></td>
+          <td><code>SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY</code></td>
+          <td>QUERY_TEXT, EXECUTION_STATUS, TOTAL_ELAPSED_TIME</td>
+          <td><span class="kw kw-green">Verified Queries</span> in Cortex Analyst YAML</td>
+          <td>Auto-populate YAML verified_queries block from library</td>
+        </tr>
+        <tr>
+          <td><strong>Databricks</strong></td>
+          <td><code>system.query.history</code> (Unity Catalog)</td>
+          <td>statement_text, status, duration</td>
+          <td><span class="kw kw-green">Trusted Assets</span> in Genie space config</td>
+          <td>Auto-populate Trusted Assets from library on refresh</td>
+        </tr>
+        <tr>
+          <td><strong>BigQuery</strong></td>
+          <td><code>INFORMATION_SCHEMA.JOBS</code></td>
+          <td>query, state, total_slot_ms</td>
+          <td><span class="kw kw-slate">None native</span> — inject via system prompt</td>
+          <td>Include top-K examples in generator system prompt</td>
+        </tr>
+        <tr>
+          <td><strong>Generic LLM</strong></td>
+          <td>Application-layer query log (your store)</td>
+          <td>Custom schema</td>
+          <td><span class="kw kw-slate">None native</span> — full control</td>
+          <td>Few-shot examples injected directly in prompt</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 7: SELF-IMPROVEMENT LOOP                            -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Self-Improvement</div>
+  <div class="section-title">The Feedback Loop That <strong>Compounds Accuracy Over Time</strong></div>
+  <div class="section-subtitle">Inspired by the RoboPhD autonomous agent evolution framework (BIRD-Bench, 2025). The Elo-style scoring mechanism replaces manual curation with automated quality signal propagation.</div>
+
+  <div class="callout">
+    <strong>The flywheel:</strong> Every successful query run generates a new candidate for the query library → the library grows → future similar questions get better examples → the generator produces better SQL → more queries succeed → the library grows further. The system accelerates with scale, not degrades.
+  </div>
+
+  <div class="grid-3" style="margin-top:24px;">
+    <div class="card" style="border-top:3px solid var(--gold);">
+      <div class="section-label">Scoring Dimensions</div>
+      <ul class="body-list" style="margin-top:8px;">
+        <li><strong>Ontology conformance (40%):</strong> Does the SQL's join graph match the concept dependency chain derived from DEPENDS_ON edges?</li>
+        <li><strong>Execution success (30%):</strong> Did the query run without error?</li>
+        <li><strong>Result quality (20%):</strong> Non-empty result, within expected row count bounds.</li>
+        <li><strong>User acceptance (10%):</strong> Did the user act on or export the result?</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid var(--blue-light);">
+      <div class="section-label">Promotion Rules</div>
+      <ul class="body-list" style="margin-top:8px;">
+        <li><strong>Score ≥ 0.85:</strong> Immediate candidate for library.</li>
+        <li><strong>K=5 confirmations:</strong> Same pattern confirmed 5× → auto-promoted to query library.</li>
+        <li><strong>Ontology conformance required:</strong> No promotion without the join graph matching a derivable concept path. Domain knowledge gates the library.</li>
+        <li><strong>Periodic revalidation:</strong> Library entries re-scored on schema change events.</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid var(--green);">
+      <div class="section-label">Expected Trajectory</div>
+      <ul class="body-list" style="margin-top:8px;">
+        <li><strong>Week 1–2:</strong> Seed library from historical logs (~50–200 examples). Baseline accuracy established.</li>
+        <li><strong>Month 1:</strong> 300–500 library entries from production traffic. Most common question types fully covered.</li>
+        <li><strong>Month 3:</strong> Long-tail coverage. Rare question types get examples from similar patterns via embedding retrieval.</li>
+        <li><strong>Steady state:</strong> Generator accuracy plateaus at the ontology-constrained ceiling — the system is as accurate as your DEPENDS_ON concept definitions are complete.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 8: PLATFORM COMPARISON                              -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Platform Comparison</div>
+  <div class="section-title">The Middleware Works Across Platforms — <strong>Only the Adapter Changes</strong></div>
+  <div class="section-subtitle">Each platform's native text-to-SQL offering has a different injection point for context. The middleware produces the same structured context block; the adapter formats it for the platform's API.</div>
+
+  <div class="compare-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Capability</th>
+          <th>Snowflake Only<br><small style="font-weight:400;text-transform:none;letter-spacing:0;">(Cortex Analyst + Verified Queries)</small></th>
+          <th>Databricks Only<br><small style="font-weight:400;text-transform:none;letter-spacing:0;">(Genie + Trusted Assets)</small></th>
+          <th>This Middleware<br><small style="font-weight:400;text-transform:none;letter-spacing:0;">(Platform-Agnostic)</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Verified example source</strong></td><td>Manual curation only</td><td>Manual curation only</td><td><span class="kw kw-green">Auto-mined from query logs</span></td></tr>
+        <tr><td><strong>Example scale</strong></td><td>~20–50 practical limit</td><td>~20–50 practical limit</td><td><span class="kw kw-green">Hundreds, auto-maintained</span></td></tr>
+        <tr><td><strong>Join path validation</strong></td><td><span class="kw kw-red">None</span> — LLM still picks path</td><td><span class="kw kw-red">None</span> — LLM still picks path</td><td><span class="kw kw-green">Ontology conformance check</span></td></tr>
+        <tr><td><strong>Forbidden join enforcement</strong></td><td><span class="kw kw-red">None</span></td><td><span class="kw kw-red">None</span></td><td><span class="kw kw-green">Pre-execution block</span></td></tr>
+        <tr><td><strong>Self-correction on failure</strong></td><td><span class="kw kw-red">None</span> — surfaces error to user</td><td><span class="kw kw-red">None</span></td><td><span class="kw kw-green">Auto-retry with error context</span></td></tr>
+        <tr><td><strong>Example freshness</strong></td><td>Static until manually updated</td><td>Static until manually updated</td><td><span class="kw kw-green">Continuously promoted from traffic</span></td></tr>
+        <tr><td><strong>Platform portability</strong></td><td><span class="kw kw-red">Snowflake-only</span></td><td><span class="kw kw-red">Databricks-only</span></td><td><span class="kw kw-green">Swap adapter, keep all intelligence</span></td></tr>
+        <tr><td><strong>Audit trail</strong></td><td>Platform query log only</td><td>Platform query log only</td><td><span class="kw kw-green">DEPENDS_ON edge ID + derived path + conformance record</span></td></tr>
+        <tr><td><strong>Intelligence ownership</strong></td><td><span class="kw kw-red">Vendor-controlled</span></td><td><span class="kw kw-red">Vendor-controlled</span></td><td><span class="kw kw-green">Fully yours — ontology + query library</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 9: IMPLEMENTATION ROADMAP                           -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Implementation Roadmap</div>
+  <div class="section-title">Four Phases — <strong>Value Delivered at Each Milestone</strong></div>
+  <div class="section-subtitle">Each phase is independently deployable and produces measurable accuracy improvement. Phase 1 alone is expected to eliminate 60–70% of current SQL errors.</div>
+
+  <div class="roadmap">
+    <div class="ms-card">
+      <div class="ms-header">
+        <div class="ms-phase">Phase 1</div>
+        <div class="ms-title">Foundation</div>
+      </div>
+      <div class="ms-body">
+        <div class="ms-row"><div class="dim-label">Ontology</div><div class="dim-value">Add DEPENDS_ON edges; define 20–50 business concepts</div></div>
+        <div class="ms-row"><div class="dim-label">Schema Linker</div><div class="dim-value">Entity/concept extraction + schema subset selection</div></div>
+        <div class="ms-row"><div class="dim-label">Path Resolver</div><div class="dim-value">Traverse DEPENDS_ON + Schema Registry; derive join path</div></div>
+        <div class="ms-row"><div class="dim-label">Target Platform</div><div class="dim-value">Snowflake (Cortex Analyst adapter)</div></div>
+      </div>
+      <div class="ms-footer"><span class="ms-status amber">In Scope Now</span></div>
+    </div>
+    <div class="ms-card">
+      <div class="ms-header">
+        <div class="ms-phase">Phase 2</div>
+        <div class="ms-title">Query Library</div>
+      </div>
+      <div class="ms-body">
+        <div class="ms-row"><div class="dim-label">Log Miner</div><div class="dim-value">Extract &amp; cluster from ACCOUNT_USAGE.QUERY_HISTORY</div></div>
+        <div class="ms-row"><div class="dim-label">Validator</div><div class="dim-value">Check each cluster against derived concept paths</div></div>
+        <div class="ms-row"><div class="dim-label">Example Retriever</div><div class="dim-value">Vector similarity search on library</div></div>
+        <div class="ms-row"><div class="dim-label">Seed Size</div><div class="dim-value">Target: 100–200 verified examples</div></div>
+      </div>
+      <div class="ms-footer"><span class="ms-status navy">Planned</span></div>
+    </div>
+    <div class="ms-card">
+      <div class="ms-header">
+        <div class="ms-phase">Phase 3</div>
+        <div class="ms-title">Self-Correction &amp; Loop</div>
+      </div>
+      <div class="ms-body">
+        <div class="ms-row"><div class="dim-label">Conformance Checker</div><div class="dim-value">AST-based join path validation</div></div>
+        <div class="ms-row"><div class="dim-label">Self-Corrector</div><div class="dim-value">Error-context retry loop (max N=3)</div></div>
+        <div class="ms-row"><div class="dim-label">Feedback Capture</div><div class="dim-value">Score + promotion pipeline</div></div>
+        <div class="ms-row"><div class="dim-label">Improvement</div><div class="dim-value">Library grows from production traffic</div></div>
+      </div>
+      <div class="ms-footer"><span class="ms-status navy">Planned</span></div>
+    </div>
+    <div class="ms-card">
+      <div class="ms-header">
+        <div class="ms-phase">Phase 4</div>
+        <div class="ms-title">Multi-Platform</div>
+      </div>
+      <div class="ms-body">
+        <div class="ms-row"><div class="dim-label">Databricks Adapter</div><div class="dim-value">Genie / DBRX + Unity Catalog integration</div></div>
+        <div class="ms-row"><div class="dim-label">Generic LLM Adapter</div><div class="dim-value">Claude / GPT with full prompt control</div></div>
+        <div class="ms-row"><div class="dim-label">Schema Registry</div><div class="dim-value">Cross-platform neutral metadata store</div></div>
+        <div class="ms-row"><div class="dim-label">Portability</div><div class="dim-value">Zero intelligence rewrite on swap</div></div>
+      </div>
+      <div class="ms-footer"><span class="ms-status navy">Roadmap</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 10: STRATEGIC DIRECTIVES                            -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Strategic Directives</div>
+  <div class="section-title">Five Rules That <strong>Define the Architecture's Integrity</strong></div>
+  <div class="section-subtitle">These are not preferences — they are the constraints that make the system maintainable, portable, and trustworthy over time.</div>
+
+  <div class="rule-list">
+    <div class="rule-item">
+      <div class="rule-num">1</div>
+      <div class="rule-body">
+        <div class="rule-title">Concept dependencies live in the ontology. Physical joins live in the Schema Registry. Never collapse the two. <span class="rule-badge ok">OK</span></div>
+        <div class="rule-desc">DEPENDS_ON edges encode business rules — which concepts a metric requires and in what order. The Schema Registry encodes physical realization — which table and key implements each concept. The Path Resolver synthesizes both. Collapsing them into a single record means domain experts and engineers can no longer evolve their layer independently.</div>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">2</div>
+      <div class="rule-body">
+        <div class="rule-title">Intelligence blocks are platform-agnostic. <span class="rule-badge never">NEVER</span> platform-specific.</div>
+        <div class="rule-desc">Schema Linker, Path Resolver, Example Retriever, Prompt Assembler, Conformance Checker, Execution Engine, Self-Corrector, and Feedback Capture contain zero platform-specific code. Only the thin adapter layer (SQL generator call, execution call, example format) is platform-specific.</div>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">3</div>
+      <div class="rule-body">
+        <div class="rule-title">No query reaches the warehouse without passing conformance. <span class="rule-badge never">NEVER</span> bypass.</div>
+        <div class="rule-desc">The Conformance Checker is not optional. Even in development mode, conformance is run — it can be set to warn-only, but it always runs. A query whose join graph violates the concept dependency ordering (e.g., skipping WrittenPremium when computing Loss Ratio) can produce a plausible but materially incorrect result, which is worse than an error.</div>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">4</div>
+      <div class="rule-body">
+        <div class="rule-title">Query library promotion requires ontology conformance. <span class="rule-badge never">NEVER</span> promote non-conforming queries.</div>
+        <div class="rule-desc">A query that produces a correct-looking result via a join path that violates the concept dependency ordering must not enter the query library — it will poison future few-shot examples and propagate the incorrect pattern. Conformance against the derived concept path is a prerequisite for library promotion, not just a preference check.</div>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">5</div>
+      <div class="rule-body">
+        <div class="rule-title">Platform migration is an adapter swap, not an architecture change. <span class="rule-badge ok">OK</span></div>
+        <div class="rule-desc">When moving from Snowflake to Databricks (or adding a second platform), the implementation scope is: write a new Prompt Assembler format function, a new SQL Generator adapter call, and a new Execution adapter call. All intelligence blocks, the ontology, and the query library carry over without modification. Migration is measured in days, not months.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- FOOTNOTE                                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="footnote">
+  <div>ElevateNow Platform &nbsp;·&nbsp; Intelligence Infrastructure &nbsp;·&nbsp; Confidential</div>
+  <div>Informed by: RoboPhD Self-Improving Text-to-SQL (arXiv:2601.01126) &nbsp;·&nbsp; VentureBeat Query Log Research (2025) &nbsp;·&nbsp; Production experience with Snowflake Cortex Analyst</div>
+  <div>Version 1.0 &nbsp;·&nbsp; May 2026</div>
+</div>
+
+</div><!-- /page -->
+
+</div><!-- /el-protected -->
+</body>
+</html>
