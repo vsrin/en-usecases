@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" href="/EN-fav-black.png" type="image/png">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -481,6 +482,10 @@ footer {
 /* ── DIVIDER ── */
 .hdiv { height:1px; background:var(--border-s); }
 
+/* ── LAYOUT GRIDS (class-driven so media queries can override) ── */
+.perspectives-grid { display:grid; grid-template-columns:340px 1fr; gap:64px; align-items:start; }
+.stack-layout      { display:grid; grid-template-columns:320px 1fr; gap:64px; align-items:start; }
+
 /* ── RESPONSIVE ── */
 @media (max-width:1020px) {
   .ev-grid { grid-template-columns:1fr 1fr; }
@@ -490,10 +495,13 @@ footer {
   nav { padding:0 20px; }
   .wrap { padding:0 20px; }
   .hero-inner { padding:0 20px; }
+  .hero { padding:88px 0 56px; }
   .uc-featured { grid-template-columns:1fr; }
   .uc-grid { grid-template-columns:1fr 1fr; }
   .beliefs-grid { grid-template-columns:1fr; }
   .philosophy-strip { grid-template-columns:1fr; gap:20px; }
+  .perspectives-grid { grid-template-columns:1fr; gap:36px; }
+  .stack-layout      { grid-template-columns:1fr; gap:36px; }
   .nav-links { display:none; }
   .nav-ham { display:flex; }
   .section { padding:60px 0; }
@@ -509,15 +517,24 @@ footer {
   .uc-grid { grid-template-columns:1fr; }
   .stack-grid { grid-template-columns:1fr; }
   .fw-groups { grid-template-columns:1fr 1fr; }
+  .hero { padding:72px 0 44px; }
   .hero h1 { font-size:28px; }
-  .hero-stats { gap:0; flex-wrap:wrap; }
-  .hero-stat { padding:0 24px 0 0; margin-right:24px; }
+  .hero-sub { font-size:15px; }
+  .hero-stats {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:24px 0; padding-top:28px;
+  }
+  .hero-stat { padding:0; margin-right:0; border-right:none; }
+  .hero-stat-val { font-size:22px; }
   .hero-actions { flex-direction:column; align-items:flex-start; gap:8px; }
+  .btn-p, .btn-g { width:100%; justify-content:center; }
   .cta-section { padding:48px 0; }
+  .cta-section .btn-white, .cta-section .btn-ghost-w { display:block; margin:0 0 10px; text-align:center; }
   .footer-inner { flex-direction:column; align-items:flex-start; gap:20px; }
   .footer-links { flex-wrap:wrap; gap:12px; }
   .section { padding:48px 0; }
   .bm-g-num { font-size:9px; padding:3px 7px; }
+  .philosophy-strip { padding:24px 20px; }
 }
 
 /* ── HAMBURGER BUTTON ── */
@@ -678,7 +695,7 @@ footer {
 <!-- ── PERSPECTIVES ── -->
 <section class="section section-light" id="perspectives">
   <div class="wrap">
-    <div style="display:grid;grid-template-columns:340px 1fr;gap:64px;align-items:start">
+    <div class="perspectives-grid">
       <div class="r">
         <div class="eyebrow">Perspectives</div>
         <h2 class="section-title">What we believe about insurance AI.</h2>
@@ -943,7 +960,7 @@ footer {
 <!-- ── THE STACK ── -->
 <section class="section section-dark" id="stack">
   <div class="wrap">
-    <div style="display:grid;grid-template-columns:320px 1fr;gap:64px;align-items:start;">
+    <div class="stack-layout">
       <div class="r">
         <div class="eyebrow eyebrow-light">The Stack</div>
         <h2 class="section-title" style="color:#fff;">What we build on.</h2>
