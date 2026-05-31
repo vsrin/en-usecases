@@ -479,6 +479,20 @@ footer {
 .footer-links a:hover { color:rgba(255,255,255,0.75); }
 .footer-copy { font-size:12px; color:rgba(255,255,255,0.28); }
 
+/* ── PERSPECTIVES CTA ── */
+.persp-cta {
+  display:inline-flex; align-items:center; gap:8px;
+  margin-top:24px;
+  padding:11px 18px; border-radius:8px;
+  background:var(--blue-bg); border:1.5px solid rgba(33,69,234,0.20);
+  font-size:13px; font-weight:600; color:var(--blue); text-decoration:none;
+  transition:background .18s, border-color .18s, gap .18s;
+  line-height:1.3;
+}
+.persp-cta:hover { background:rgba(33,69,234,0.14); border-color:rgba(33,69,234,0.40); }
+.persp-cta:hover .persp-cta-arrow { transform:translateX(4px); }
+.persp-cta-arrow { transition:transform .18s; flex-shrink:0; }
+
 /* ── DIVIDER ── */
 .hdiv { height:1px; background:var(--border-s); }
 
@@ -632,7 +646,7 @@ footer {
 <!-- Mobile nav drawer — visible only at ≤860px -->
 <div class="nav-mob" id="navMob">
   <a href="#perspectives">Perspectives</a>
-  <a href="/demoboards/semantic-hub.html" style="padding-left:20px;font-size:14px;font-weight:500;opacity:0.8;">AI-Ready Insurance: Architectural Directive</a>
+  <a href="/demoboards/semantic-hub.html" style="padding-left:20px;font-size:14px;font-weight:600;color:var(--blue);">AI-Ready Insurance: Architectural Directive →</a>
   <div class="nav-mob-head">Insurance Use Cases</div>
   <a href="/usecases/SubmissionIntake">Submission Triage</a>
   <a href="/usecases/ElevateNow_MultiLOB_FNOL">FNOL Intelligence</a>
@@ -700,6 +714,10 @@ footer {
         <div class="eyebrow">Perspectives</div>
         <h2 class="section-title">What we believe about insurance AI.</h2>
         <p class="section-sub">Not as a vendor. As practitioners who have built these systems, debugged them in production, and had to explain them to underwriters and regulators.</p>
+        <a href="/demoboards/semantic-hub.html" class="persp-cta">
+          AI-Ready Insurance: Architectural Directive
+          <span class="persp-cta-arrow">→</span>
+        </a>
       </div>
       <div>
         <div class="beliefs-grid r" style="transition-delay:.07s">
