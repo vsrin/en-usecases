@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+/* Access gate — validated against ElevateNow backend */
+(function(){
+  var PAPER='claims-intelligence';
+  var API='https://en-workspace-backend.enowclear360.com/api/access/validate';
+  var KEY='el_email_'+PAPER;
+  function unlock(){document.documentElement.classList.add('el-unlocked');}
+  localStorage.removeItem('el_'+PAPER);var stored=localStorage.getItem(KEY);
+  if(stored){
+    fetch(API+'?email='+encodeURIComponent(stored)+'&artifact='+encodeURIComponent(PAPER))
+      .then(function(r){return r.json();})
+      .then(function(d){if(d.allowed){unlock();}else{localStorage.removeItem(KEY);}})
+      .catch(function(){});
+  }
+  window._elSubmit=function(e){
+    e.preventDefault();
+    var inp=document.getElementById('el-inp');
+    var msg=document.getElementById('el-msg');
+    var btn=document.getElementById('el-btn');
+    var email=(inp.value||'').trim();
+    if(!email)return;
+    btn.textContent='Verifying…';btn.disabled=true;
+    fetch(API+'?email='+encodeURIComponent(email)+'&artifact='+encodeURIComponent(PAPER))
+      .then(function(r){return r.json();})
+      .then(function(d){
+        if(d.allowed){localStorage.setItem(KEY,email);unlock();}
+        else{msg.textContent='Access not found for this email. Contact gps@elevatenow.tech.';btn.textContent='Unlock';btn.disabled=false;}
+      })
+      .catch(function(){msg.textContent='Unable to reach verification server. Try again.';btn.textContent='Unlock';btn.disabled=false;});
+  };
+})();
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ElevateNow enCodex — AI-Ready Claims Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:#0A0A0A;--ink-2:#1F1F1F;--ink-3:#3D3D3D;--ink-4:#6B6B6B;--ink-5:#9A9A9A;
+    --rule:#D8D8D8;--rule-2:#E8E8E8;--paper:#FFFFFF;--paper-2:#F5F5F3;--paper-3:#EDEDEA;
+    --accent:#1C7293;--accent-2:#135A73;--accent-soft:#E5F0F4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,system-ui,sans-serif;font-size:15px;line-height:1.55;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 48px}
+  .page{padding:72px 0 80px;border-bottom:1px solid var(--rule)}
+  .page:last-of-type{border-bottom:none}
+  @media(max-width:720px){.wrap{padding:0 24px}.page{padding:48px 0 56px}}
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);padding:14px 48px;display:flex;align-items:center;justify-content:space-between;font-size:12px}
+  .topbar .brand{display:flex;align-items:center;gap:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;font-size:11px;color:var(--ink)}
+  .topbar .brand .mark{width:16px;height:16px;background:var(--accent);display:inline-block}
+  .topbar .meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-4)}
+  @media(max-width:720px){.topbar{padding:14px 24px}.topbar .meta{display:none}}
+  .ph{display:flex;align-items:baseline;gap:16px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-4);padding-bottom:10px;border-bottom:1px solid var(--ink);margin-bottom:24px}
+  .ph .ph-num{color:var(--accent);font-weight:600}
+  .ph .ph-cat{color:var(--ink-3)}
+  .ph .ph-spacer{flex:1}
+  .assertion{font-family:'Source Serif 4',Georgia,serif;font-weight:400;font-size:clamp(26px,3.2vw,38px);line-height:1.15;letter-spacing:-0.015em;color:var(--ink);max-width:980px;margin-bottom:12px}
+  .assertion em{font-style:italic;font-weight:500}
+  .assertion .accent{color:var(--accent);font-style:normal;font-weight:500}
+  .subhead{font-size:14.5px;color:var(--ink-3);max-width:820px;line-height:1.55;margin-bottom:36px}
+  .exhibit-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-4);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+  .exhibit-label::before{content:"EXHIBIT";color:var(--accent);font-weight:600}
+  .exhibit-label .line{flex:1;height:1px;background:var(--rule)}
+  .ex-svg{width:100%;height:auto;display:block;background:var(--paper);border:1px solid var(--rule)}
+  .ex-svg-container{margin-bottom:0}
+  .ex-note{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--ink-4);line-height:1.5;padding-top:10px;margin-top:14px;border-top:1px solid var(--rule-2);max-width:820px}
+  .ex-note strong{color:var(--ink-3);font-weight:600}
+  .cover{padding:100px 0 80px;border-bottom:1px solid var(--rule)}
+  .cover-mono{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:28px}
+  .cover h1{font-family:'Source Serif 4',serif;font-weight:300;font-size:clamp(40px,5.8vw,72px);line-height:1.02;letter-spacing:-0.02em;color:var(--ink);margin-bottom:32px;max-width:980px}
+  .cover h1 em{font-style:italic;color:var(--accent);font-weight:400}
+  .cover .lede{font-family:'Source Serif 4',serif;font-weight:300;font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:var(--ink-2);max-width:780px;margin-bottom:56px}
+  .cover-meta{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--rule)}
+  .cover-meta>div{padding:16px 20px 16px 0;border-right:1px solid var(--rule)}
+  .cover-meta>div:last-child{border-right:none;padding-right:0}
+  .cover-meta>div:not(:first-child){padding-left:20px}
+  .cm-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:8px}
+  .cm-value{font-size:14px;font-weight:500;color:var(--ink)}
+  @media(max-width:720px){.cover-meta{grid-template-columns:repeat(2,1fr)}.cover-meta>div{padding:14px 16px}.cover-meta>div:nth-child(1),.cover-meta>div:nth-child(2){border-bottom:1px solid var(--rule)}.cover-meta>div:nth-child(2),.cover-meta>div:nth-child(4){border-right:none}}
+  .takeaways{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--ink);border-left:1px solid var(--rule)}
+  .tk{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:22px 24px 24px;display:flex;gap:18px;background:var(--paper)}
+  .tk .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);font-weight:600;letter-spacing:0.1em;line-height:1.4;flex-shrink:0}
+  .tk h4{font-family:'Source Serif 4',serif;font-weight:500;font-size:17px;line-height:1.3;color:var(--ink);margin-bottom:6px}
+  .tk p{font-size:13.5px;color:var(--ink-3);line-height:1.55}
+  @media(max-width:720px){.takeaways{grid-template-columns:1fr;border-left:none}.tk{border-right:none}}
+  .mece{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--ink);border-left:1px solid var(--rule)}
+  .mece-col{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper);padding:28px 24px 26px}
+  .mece-code{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--accent);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px}
+  .mece-title{font-family:'Source Serif 4',serif;font-size:22px;font-weight:500;line-height:1.2;color:var(--ink);margin-bottom:6px}
+  .mece-sub{font-size:13px;color:var(--ink-4);margin-bottom:18px;line-height:1.5;padding-bottom:14px;border-bottom:1px solid var(--rule-2)}
+  .mece-section-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-4);margin-top:14px;margin-bottom:8px}
+  .mece-list{list-style:none;font-size:12.5px;color:var(--ink-2);line-height:1.55}
+  .mece-list li{padding:5px 0 5px 14px;position:relative}
+  .mece-list li::before{content:"";position:absolute;left:0;top:11px;width:6px;height:1px;background:var(--accent)}
+  .mece-callout{margin-top:20px;padding:14px 16px;background:var(--accent-soft);border-left:2px solid var(--accent);font-size:12px;line-height:1.55;color:var(--ink-2)}
+  .mece-callout-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px}
+  @media(max-width:860px){.mece{grid-template-columns:1fr;border-left:none}.mece-col{border-right:none}}
+  .hinge{padding:80px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--ink);color:var(--paper)}
+  .hinge .wrap{max-width:1180px}
+  .hinge-mono{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.25)}
+  .hinge h2{font-family:'Source Serif 4',serif;font-size:clamp(28px,3.2vw,40px);font-weight:300;line-height:1.2;letter-spacing:-0.015em;max-width:960px}
+  .hinge h2 em{color:#5FC4E5;font-style:italic}
+  .hinge .attr{margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.12em;text-transform:uppercase}
+  .agenda-list{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--ink);border-left:1px solid var(--rule)}
+  .agenda-item{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:22px 24px 24px;display:flex;gap:18px;background:var(--paper)}
+  .agenda-item .n{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--accent);font-size:12px;letter-spacing:0.08em;line-height:1.4;flex-shrink:0}
+  .agenda-item h4{font-family:'Source Serif 4',serif;font-weight:500;font-size:17px;line-height:1.3;margin-bottom:6px}
+  .agenda-item p{font-size:13px;color:var(--ink-3);line-height:1.55}
+  @media(max-width:720px){.agenda-list{grid-template-columns:1fr;border-left:none}.agenda-item{border-right:none}}
+  .signoff{margin-top:56px;padding-top:32px;border-top:1px solid var(--ink);display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+  .signoff .names{font-family:'Source Serif 4',serif;font-size:18px;font-weight:500;color:var(--ink)}
+  .signoff .role{font-size:12.5px;color:var(--ink-4);margin-top:4px}
+  .signoff .co{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-4);text-align:right}
+  @media(max-width:600px){.signoff{flex-direction:column;align-items:flex-start}.signoff .co{text-align:left}}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease-out,transform .6s ease-out}
+  .reveal.in{opacity:1;transform:translateY(0)}
+  .svg-title{font-family:'Source Serif 4',serif;font-weight:500}
+  .svg-label{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.08em}
+  .svg-body{font-family:'Inter',sans-serif}
+/* ── ACCESS GATE ── */
+#el-gate{display:flex;position:fixed;inset:0;align-items:center;justify-content:center;background:#F5F5F3;z-index:9999;padding:2rem;}
+.el-unlocked #el-gate{display:none;}
+.el-unlocked #el-protected{display:contents;}
+#el-protected{display:none;}
+.el-gate-inner{background:#FFFFFF;border:1px solid #D8D8D8;border-radius:12px;padding:3rem 2.5rem;max-width:460px;width:100%;text-align:center;box-shadow:0 4px 16px rgba(10,10,10,0.08),0 16px 40px rgba(10,10,10,0.06);}
+.el-gate-icon{font-size:2.5rem;margin-bottom:1.25rem;}
+.el-gate-inner h2{font-size:1.375rem;font-weight:700;color:#0A0A0A;margin-bottom:.875rem;}
+.el-gate-inner p{font-size:.9375rem;color:#3D3D3D;line-height:1.6;margin-bottom:.5rem;}
+.el-gate-btn{display:inline-block;margin-top:1.5rem;padding:.75rem 1.75rem;background:#1C7293;color:#fff;font-size:.875rem;font-weight:600;border-radius:8px;text-decoration:none;letter-spacing:.01em;transition:opacity .15s;border:none;cursor:pointer;font-family:inherit;width:100%;}
+.el-gate-btn:hover{opacity:.88;}
+.el-gate-back{margin-top:1.25rem;font-size:.875rem;color:#6B6B6B;}
+.el-gate-back a{color:#6B6B6B;text-decoration:none;border-bottom:1px solid #D8D8D8;}
+.el-gate-back a:hover{color:#1C7293;}
+</style>
+</head>
+<body>
+
+<!-- ── ACCESS GATE ── -->
+<div id="el-gate">
+  <div class="el-gate-inner">
+    <div class="el-gate-icon">🔒</div>
+    <h2>Access Required</h2>
+    <p>Enter the email address associated with your access grant.</p>
+    <form onsubmit="_elSubmit(event)" style="margin-top:1.25rem;">
+      <input id="el-inp" type="email" placeholder="your@email.com" required style="width:100%;padding:.625rem .875rem;border:1.5px solid #D8D8D8;border-radius:6px;font-size:.875rem;font-family:inherit;margin-bottom:.625rem;outline:none;color:#0A0A0A;background:#FFFFFF;">
+      <button id="el-btn" type="submit" class="el-gate-btn">Unlock</button>
+    </form>
+    <p id="el-msg" style="margin-top:.75rem;margin-bottom:0;font-size:.8125rem;color:#dc2626;min-height:1.2em;"></p>
+    <div class="el-gate-back" style="margin-top:1rem;">No access? <a href="mailto:gps@elevatenow.tech">Request here →</a></div>
+  </div>
+</div>
+<div id="el-protected">
+
+<header class="topbar">
+  <div class="brand"><span class="mark"></span><span>ElevateNow · enCodex</span></div>
+  <div class="meta">Confidential · AI-Ready Claims Intelligence · June 2026</div>
+</header>
+
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <div class="wrap">
+    <div class="cover-mono reveal">Pre-read · AI-Ready Claims Intelligence</div>
+    <h1 class="reveal">Claims intelligence fails not because AI models are weak, but because <em>the data they consume was never designed for machines.</em></h1>
+    <p class="lede reveal">The claims lifecycle spans ten interconnected stages, each producing structured records and unstructured documents that must converge at every decision gate. Today, that convergence does not happen. This document presents how an ontology-grounded semantic layer, governed knowledge retrieval, and a deterministic-first processing architecture close the gap from raw claims data to AI-ready intelligence.</p>
+    <div class="cover-meta reveal">
+      <div><div class="cm-label">Document</div><div class="cm-value">enCodex Claims Intelligence</div></div>
+      <div><div class="cm-label">Audience</div><div class="cm-value">Claims & Data Leadership</div></div>
+      <div><div class="cm-label">Read time</div><div class="cm-value">10 minutes</div></div>
+      <div><div class="cm-label">Purpose</div><div class="cm-value">Architecture & capability framing</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<section class="page" id="summary">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">01</span>
+      <span class="ph-cat">Executive summary</span>
+      <span class="ph-spacer"></span>
+      <span>One page · Four takeaways</span>
+    </div>
+    <h2 class="assertion reveal">Four structural observations frame why claims AI consistently underdelivers, and how <span class="accent">ontology-grounded intelligence changes the equation.</span></h2>
+    <p class="subhead reveal">Each of the four summarizes a section of this pre-read. If only one page is read, this is the one.</p>
+
+    <div class="takeaways reveal">
+      <div class="tk"><div class="n">I.</div><div><h4>Claims data spans ten stages and two modalities, but no shared vocabulary connects them.</h4><p>Every claim produces both structured system records and unstructured documents. Without a shared ontology, every AI initiative becomes a custom integration project that re-solves the same mapping problem.</p></div></div>
+      <div class="tk"><div class="n">II.</div><div><h4>FNOL is the most consequential and least structured decision gate in the lifecycle.</h4><p>First Notice of Loss sets coverage expectations, reserve estimates, and fraud posture. It is inherently mixed: a structured policy lookup combined with a free-text loss description. The ontology must bridge both worlds simultaneously.</p></div></div>
+      <div class="tk"><div class="n">III.</div><div><h4>An ontology-grounded semantic layer converts raw claims data into AI-ready data products with shared entity references.</h4><p>The ontology defines entities, attributes, and relationships. The semantic layer maps those definitions to physical data products. Together they produce a vocabulary that AI systems, analysts, and adjusters all share.</p></div></div>
+      <div class="tk"><div class="n">IV.</div><div><h4>ElevateNow enCodex delivers a governance-first claims intelligence platform with an 8:2 deterministic-to-LLM ratio.</h4><p>A seven-stage processing architecture ensures that regex, formula, and rules-based tools run before any LLM call. Every decision gate is auditable, every state change is versioned, and every payment amount is computed deterministically.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 1: THE PROBLEM ============ -->
+<section class="page" id="problem">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">02</span>
+      <span class="ph-cat">The problem</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 1 of 7</span>
+    </div>
+    <h2 class="assertion reveal">The claims lifecycle spans ten interconnected stages, each with its own decision gate, entity classes, and document artifacts, but <span class="accent">no shared semantic language connects them.</span></h2>
+    <p class="subhead reveal">Structured and unstructured data converge at every gate. Without a semantic layer, each convergence is a manual mapping exercise.</p>
+
+    <div class="exhibit-label reveal">Exhibit 1 · The ten-stage claims lifecycle and the data fusion challenge<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <svg class="ex-svg" viewBox="0 0 1180 520" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1180" height="520" fill="#FFFFFF"/>
+        <defs>
+          <marker id="arr1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9A9A9A"/></marker>
+          <marker id="arr1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1C7293"/></marker>
+        </defs>
+
+        <!-- Title row -->
+        <text x="590" y="30" text-anchor="middle" class="svg-label" font-size="10" fill="#6B6B6B" font-weight="600">CLAIMS LIFECYCLE — 10 DECISION GATES</text>
+
+        <!-- Row 1: 5 stages -->
+        <g class="svg-label" font-size="9" fill="#6B6B6B">
+          <text x="120" y="58" text-anchor="middle">STAGE 1</text>
+          <text x="330" y="58" text-anchor="middle">STAGE 2</text>
+          <text x="540" y="58" text-anchor="middle">STAGE 3</text>
+          <text x="750" y="58" text-anchor="middle">STAGE 4</text>
+          <text x="960" y="58" text-anchor="middle">STAGE 5</text>
+        </g>
+        <g>
+          <rect x="35" y="68" width="170" height="52" fill="#E5F0F4" stroke="#1C7293"/>
+          <rect x="245" y="68" width="170" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <rect x="455" y="68" width="170" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <rect x="665" y="68" width="170" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <rect x="875" y="68" width="170" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+        </g>
+        <g class="svg-body" font-size="11" fill="#1F1F1F" text-anchor="middle">
+          <text x="120" y="90" font-weight="600" fill="#1C7293">FNOL &amp; Intake</text>
+          <text x="120" y="106">Loss reported</text>
+          <text x="330" y="90" font-weight="600">Coverage</text>
+          <text x="330" y="106">Verification</text>
+          <text x="540" y="90" font-weight="600">Triage &amp;</text>
+          <text x="540" y="106">Assignment</text>
+          <text x="750" y="90" font-weight="600">Investigation</text>
+          <text x="750" y="106">Field &amp; SIU</text>
+          <text x="960" y="90" font-weight="600">Historical</text>
+          <text x="960" y="106">Assessment</text>
+        </g>
+        <!-- Arrows row 1 -->
+        <g stroke="#9A9A9A" stroke-width="1.2" fill="none">
+          <path d="M 205 94 L 245 94" marker-end="url(#arr1)"/>
+          <path d="M 415 94 L 455 94" marker-end="url(#arr1)"/>
+          <path d="M 625 94 L 665 94" marker-end="url(#arr1)"/>
+          <path d="M 835 94 L 875 94" marker-end="url(#arr1)"/>
+        </g>
+
+        <!-- Row 2: 5 stages -->
+        <g class="svg-label" font-size="9" fill="#6B6B6B">
+          <text x="120" y="148" text-anchor="middle">STAGE 6</text>
+          <text x="330" y="148" text-anchor="middle">STAGE 7</text>
+          <text x="540" y="148" text-anchor="middle">STAGE 8</text>
+          <text x="750" y="148" text-anchor="middle">STAGE 9</text>
+          <text x="960" y="148" text-anchor="middle">STAGE 10</text>
+        </g>
+        <g>
+          <rect x="35" y="158" width="170" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <rect x="245" y="158" width="170" height="52" fill="#E5F0F4" stroke="#1C7293"/>
+          <rect x="455" y="158" width="170" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <rect x="665" y="158" width="170" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <rect x="875" y="158" width="170" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+        </g>
+        <g class="svg-body" font-size="11" fill="#1F1F1F" text-anchor="middle">
+          <text x="120" y="180" font-weight="600">Rule</text>
+          <text x="120" y="196">Application</text>
+          <text x="330" y="180" font-weight="600" fill="#1C7293">Adjudication</text>
+          <text x="330" y="196" fill="#1C7293">Liability &amp; Coverage</text>
+          <text x="540" y="180" font-weight="600">Evaluation</text>
+          <text x="540" y="196">&amp; Valuation</text>
+          <text x="750" y="180" font-weight="600">Settlement</text>
+          <text x="750" y="196">&amp; Payment</text>
+          <text x="960" y="180" font-weight="600">Fraud</text>
+          <text x="960" y="196">Cross-cutting</text>
+        </g>
+        <g stroke="#9A9A9A" stroke-width="1.2" fill="none">
+          <path d="M 205 184 L 245 184" marker-end="url(#arr1)"/>
+          <path d="M 415 184 L 455 184" marker-end="url(#arr1)"/>
+          <path d="M 625 184 L 665 184" marker-end="url(#arr1)"/>
+          <path d="M 835 184 L 875 184" marker-end="url(#arr1)"/>
+        </g>
+        <!-- Connect row 1 to row 2 -->
+        <path d="M 960 120 L 960 135 L 40 135 L 40 158" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr1)" stroke-dasharray="4 3"/>
+
+        <!-- Data fusion challenge -->
+        <rect x="35" y="240" width="540" height="44" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="55" y="260" class="svg-label" font-size="10" fill="#1C7293" font-weight="600">STRUCTURED</text>
+        <text x="55" y="274" class="svg-body" font-size="10.5" fill="#1F1F1F">Claims system records, policy admin, billing, reserves, payment transactions</text>
+
+        <rect x="605" y="240" width="540" height="44" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="625" y="260" class="svg-label" font-size="10" fill="#6B6B6B" font-weight="600">UNSTRUCTURED</text>
+        <text x="625" y="274" class="svg-body" font-size="10.5" fill="#1F1F1F">FNOL transcripts, adjuster notes, medical records, police reports, photos</text>
+
+        <!-- The gap -->
+        <rect x="280" y="305" width="620" height="56" fill="#FFFFFF" stroke="#1C7293" stroke-dasharray="4 3"/>
+        <text x="590" y="328" text-anchor="middle" class="svg-label" font-size="10" fill="#1C7293" font-weight="600">THE GAP: NO SHARED SEMANTIC VOCABULARY</text>
+        <text x="590" y="346" text-anchor="middle" class="svg-body" font-size="11" fill="#3D3D3D">Every stage produces both modalities. No ontology links them. Every AI use case re-solves the same mapping problem.</text>
+
+        <!-- Arrows pointing to gap -->
+        <path d="M 305 284 L 305 303" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr1a)"/>
+        <path d="M 875 284 L 875 303" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr1a)"/>
+
+        <!-- Key principle box -->
+        <rect x="35" y="390" width="1110" height="80" fill="#0A0A0A"/>
+        <text x="590" y="416" text-anchor="middle" class="svg-label" font-size="10" fill="#FFFFFF" opacity="0.7">ARCHITECTURE PRINCIPLE</text>
+        <text x="590" y="438" text-anchor="middle" class="svg-body" font-size="13" fill="#FFFFFF" font-weight="600">Every claim entity is anchored to a PolicyRecord and one or more CoverageUnit instances.</text>
+        <text x="590" y="455" text-anchor="middle" class="svg-body" font-size="11" fill="#FFFFFF" opacity="0.8">Every decision gate produces a DecisionContext record linking structured inputs and unstructured evidence.</text>
+
+        <g class="svg-label" font-size="9.5" fill="#9A9A9A">
+          <text x="45" y="500">Source: ElevateNow Claims Ontology architecture analysis.</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="ex-note reveal"><strong>Implication.</strong> When fifteen foundational data products (Claims Intake, Claims Core, Claims Task, Claims Fraud, Claims Document, and ten others) share no common entity definitions, every downstream AI consumer must build its own translation layer. The ontology is the missing shared vocabulary.</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 2: THE THREE GAPS ============ -->
+<section class="page" id="frame">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">03</span>
+      <span class="ph-cat">The analytical frame</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 2 of 7</span>
+    </div>
+    <h2 class="assertion reveal">Three structural gaps separate today's claims data from AI readiness, and <span class="accent">each requires a different intervention.</span></h2>
+    <p class="subhead reveal">The gaps are mutually exclusive and collectively exhaustive. Closing any two without the third still leaves AI unreliable.</p>
+
+    <div class="exhibit-label reveal">Exhibit 2 · Three gaps from claims data to AI-ready intelligence<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <svg class="ex-svg" viewBox="0 0 1180 420" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1180" height="420" fill="#FFFFFF"/>
+        <defs>
+          <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9A9A9A"/></marker>
+          <marker id="arr2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1C7293"/></marker>
+        </defs>
+
+        <!-- Column codes -->
+        <g class="svg-label" font-size="10" fill="#1C7293" font-weight="600">
+          <text x="200" y="40" text-anchor="middle">GAP 01 · VOCABULARY</text>
+          <text x="590" y="40" text-anchor="middle">GAP 02 · FUSION</text>
+          <text x="980" y="40" text-anchor="middle">GAP 03 · GOVERNANCE</text>
+        </g>
+
+        <!-- Column titles -->
+        <g class="svg-title" font-size="16" fill="#0A0A0A">
+          <text x="200" y="74" text-anchor="middle">No shared entity definitions</text>
+          <text x="200" y="94" text-anchor="middle">across claims stages</text>
+          <text x="590" y="74" text-anchor="middle">Structured records and documents</text>
+          <text x="590" y="94" text-anchor="middle">live in separate systems</text>
+          <text x="980" y="74" text-anchor="middle">No audit trail from data</text>
+          <text x="980" y="94" text-anchor="middle">to AI decision to outcome</text>
+        </g>
+
+        <!-- Dividers -->
+        <line x1="390" y1="40" x2="390" y2="380" stroke="#E8E8E8"/>
+        <line x1="785" y1="40" x2="785" y2="380" stroke="#E8E8E8"/>
+
+        <!-- COL 1: Vocabulary gap visual -->
+        <g>
+          <!-- Three disconnected boxes -->
+          <rect x="80" y="125" width="100" height="36" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="130" y="148" text-anchor="middle" class="svg-body" font-size="10" fill="#3D3D3D">ClaimRecord</text>
+          <rect x="210" y="125" width="100" height="36" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="260" y="148" text-anchor="middle" class="svg-body" font-size="10" fill="#3D3D3D">LossEvent</text>
+          <rect x="80" y="180" width="100" height="36" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="130" y="203" text-anchor="middle" class="svg-body" font-size="10" fill="#3D3D3D">PolicyRecord</text>
+          <rect x="210" y="180" width="100" height="36" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="260" y="203" text-anchor="middle" class="svg-body" font-size="10" fill="#3D3D3D">CoverageUnit</text>
+          <!-- No connections = the gap -->
+          <text x="200" y="245" text-anchor="middle" class="svg-label" font-size="9" fill="#9A9A9A">NO RELATIONSHIPS DEFINED</text>
+          <!-- Should-be -->
+          <rect x="100" y="268" width="200" height="36" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="200" y="291" text-anchor="middle" class="svg-body" font-size="10" fill="#1C7293" font-weight="600">Ontology links all four</text>
+          <path d="M 200 245 L 200 266" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr2a)"/>
+        </g>
+        <text x="200" y="330" text-anchor="middle" class="svg-body" font-size="11" fill="#3D3D3D" font-style="italic">The ontology defines entities,</text>
+        <text x="200" y="346" text-anchor="middle" class="svg-body" font-size="11" fill="#3D3D3D" font-style="italic">attributes, and relationships.</text>
+
+        <!-- COL 2: Fusion gap visual -->
+        <g>
+          <rect x="440" y="125" width="130" height="70" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="505" y="148" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293">STRUCTURED</text>
+          <text x="505" y="165" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">Reserves, payments,</text>
+          <text x="505" y="179" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">policy admin</text>
+
+          <rect x="630" y="125" width="130" height="70" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="695" y="148" text-anchor="middle" class="svg-label" font-size="9" fill="#6B6B6B">UNSTRUCTURED</text>
+          <text x="695" y="165" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">FNOL transcripts,</text>
+          <text x="695" y="179" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">medical, police</text>
+
+          <!-- X between them -->
+          <line x1="574" y1="145" x2="626" y2="175" stroke="#9A9A9A" stroke-width="2"/>
+          <line x1="626" y1="145" x2="574" y2="175" stroke="#9A9A9A" stroke-width="2"/>
+
+          <!-- Should-be -->
+          <rect x="460" y="268" width="260" height="36" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="590" y="291" text-anchor="middle" class="svg-body" font-size="10" fill="#1C7293" font-weight="600">DocumentArtifact entity links both</text>
+          <text x="590" y="232" text-anchor="middle" class="svg-label" font-size="9" fill="#9A9A9A">NO SEMANTIC LINKAGE</text>
+          <path d="M 590 238 L 590 266" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr2a)"/>
+        </g>
+        <text x="590" y="330" text-anchor="middle" class="svg-body" font-size="11" fill="#3D3D3D" font-style="italic">Every document is a DocumentArtifact</text>
+        <text x="590" y="346" text-anchor="middle" class="svg-body" font-size="11" fill="#3D3D3D" font-style="italic">with NLP-extracted ontology assertions.</text>
+
+        <!-- COL 3: Governance gap visual -->
+        <g>
+          <rect x="860" y="125" width="100" height="30" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="910" y="145" text-anchor="middle" class="svg-body" font-size="10" fill="#3D3D3D">AI Decision</text>
+          <rect x="980" y="125" width="100" height="30" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="1030" y="145" text-anchor="middle" class="svg-body" font-size="10" fill="#3D3D3D">Outcome</text>
+          <rect x="860" y="170" width="100" height="30" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="910" y="190" text-anchor="middle" class="svg-body" font-size="10" fill="#3D3D3D">Data Input</text>
+          <text x="980" y="180" text-anchor="middle" class="svg-body" font-size="10" fill="#9A9A9A">?</text>
+          <text x="980" y="195" text-anchor="middle" class="svg-label" font-size="9" fill="#9A9A9A">NO TRACE</text>
+
+          <!-- Should-be -->
+          <rect x="860" y="268" width="240" height="36" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="980" y="291" text-anchor="middle" class="svg-body" font-size="10" fill="#1C7293" font-weight="600">Forward-only audit trail</text>
+          <path d="M 980 232 L 980 266" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr2a)"/>
+          <text x="980" y="232" text-anchor="middle" class="svg-label" font-size="9" fill="#9A9A9A">NO PROVENANCE</text>
+        </g>
+        <text x="980" y="330" text-anchor="middle" class="svg-body" font-size="11" fill="#3D3D3D" font-style="italic">Every state change is a versioned</text>
+        <text x="980" y="346" text-anchor="middle" class="svg-body" font-size="11" fill="#3D3D3D" font-style="italic">insert with previous_values on record.</text>
+
+        <g class="svg-label" font-size="9.5" fill="#9A9A9A">
+          <text x="45" y="400">Source: ElevateNow Claims Ontology architecture analysis.</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="ex-note reveal"><strong>So what.</strong> Solving vocabulary without fusion leaves AI unable to read documents. Solving fusion without governance leaves AI unable to be audited. Solving governance without vocabulary leaves AI unable to reason across stages. All three must close together, and the ontology-grounded semantic layer is the mechanism that closes them simultaneously.</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 3: FNOL & ADJUDICATION ============ -->
+<section class="page" id="fnol">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">04</span>
+      <span class="ph-cat">FNOL &amp; Adjudication</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 3 of 7</span>
+    </div>
+    <h2 class="assertion reveal">FNOL is the originating event and adjudication is the binding decision, yet both sit at the extremes of <span class="accent">unstructured data dependence.</span></h2>
+    <p class="subhead reveal">These two gates set and resolve every claim. The exhibit maps their entity classes, document inputs, and decision logic.</p>
+
+    <div class="exhibit-label reveal">Exhibit 3 · FNOL intake and adjudication decision gates with structured and unstructured entity maps<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <svg class="ex-svg" viewBox="0 0 1180 680" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1180" height="680" fill="#FFFFFF"/>
+        <defs>
+          <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9A9A9A"/></marker>
+          <marker id="arr3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1C7293"/></marker>
+        </defs>
+
+        <!-- FNOL Section Header -->
+        <rect x="35" y="20" width="1110" height="32" fill="#1C7293"/>
+        <text x="590" y="42" text-anchor="middle" class="svg-label" font-size="11" fill="#FFFFFF" font-weight="600">STAGE 1 — FIRST NOTICE OF LOSS &amp; CLAIM INTAKE</text>
+
+        <!-- FNOL Structured -->
+        <rect x="35" y="65" width="350" height="190" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="55" y="85" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">STRUCTURED ENTITIES</text>
+        <g class="svg-body" font-size="10" fill="#1F1F1F">
+          <text x="55" y="108">ClaimRecord: ClaimID, DateOfLoss, LossType</text>
+          <text x="55" y="123">PolicyReference: PolicyNumber, EffectiveDate</text>
+          <text x="55" y="138">Claimant: ClaimantID, ClaimantType, Contact</text>
+          <text x="55" y="153">LossEvent: PerilCode, CauseOfLoss, Amount</text>
+          <text x="55" y="168">FNOLIntakeRecord: Channel, HandlerID</text>
+        </g>
+        <text x="55" y="195" class="svg-label" font-size="8.5" fill="#6B6B6B">DECISION GATE QUESTIONS:</text>
+        <g class="svg-body" font-size="9.5" fill="#3D3D3D">
+          <text x="55" y="212">Policy in force? Peril covered? Claimant eligible?</text>
+          <text x="55" y="227">Immediate fraud signals? Initial severity tier?</text>
+        </g>
+
+        <!-- FNOL Unstructured -->
+        <rect x="405" y="65" width="350" height="190" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="425" y="85" class="svg-label" font-size="9" fill="#6B6B6B" font-weight="600">UNSTRUCTURED DOCUMENTS</text>
+        <g class="svg-body" font-size="10" fill="#1F1F1F">
+          <text x="425" y="108">FNOLTranscript: Phone/chat log</text>
+          <text x="425" y="123">IncidentPhotos: GPS, damage classification</text>
+          <text x="425" y="138">PoliceReport: Officer narrative, fault</text>
+          <text x="425" y="153">WitnessStatement: Timeline, corroboration</text>
+          <text x="425" y="168">BrokerFNOLNote: Coverage flags raised</text>
+        </g>
+        <text x="425" y="195" class="svg-label" font-size="8.5" fill="#6B6B6B">NLP EXTRACTS:</text>
+        <g class="svg-body" font-size="9.5" fill="#3D3D3D">
+          <text x="425" y="212">LossType, LossLocation, InjuryDescription</text>
+          <text x="425" y="227">mapped to LossEvent ontology class</text>
+        </g>
+
+        <!-- FNOL Challenge box -->
+        <rect x="775" y="65" width="370" height="190" fill="#0A0A0A"/>
+        <text x="960" y="90" text-anchor="middle" class="svg-label" font-size="9.5" fill="#FFFFFF" opacity="0.7">THE FNOL DATA CHALLENGE</text>
+        <g class="svg-body" font-size="10.5" fill="#FFFFFF">
+          <text x="795" y="118">FNOL data is inherently mixed:</text>
+          <text x="795" y="138">a structured policy lookup combined</text>
+          <text x="795" y="158">with a free-text loss description.</text>
+          <text x="795" y="185" opacity="0.8">The ontology must extract structured</text>
+          <text x="795" y="205" opacity="0.8">signals from narrative while preserving</text>
+          <text x="795" y="225" opacity="0.8">the original text as a DocumentArtifact.</text>
+        </g>
+
+        <!-- Divider -->
+        <line x1="35" y1="280" x2="1145" y2="280" stroke="#D8D8D8" stroke-dasharray="4 3"/>
+
+        <!-- ADJUDICATION Section Header -->
+        <rect x="35" y="300" width="1110" height="32" fill="#1C7293"/>
+        <text x="590" y="322" text-anchor="middle" class="svg-label" font-size="11" fill="#FFFFFF" font-weight="600">STAGE 7 — CLAIM ADJUDICATION: LIABILITY DETERMINATION &amp; COVERAGE DECISION</text>
+
+        <!-- Adjudication Structured -->
+        <rect x="35" y="345" width="350" height="180" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="55" y="365" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">ADJUDICATION ENTITIES</text>
+        <g class="svg-body" font-size="10" fill="#1F1F1F">
+          <text x="55" y="388">AdjudicationRecord: Type, Date, Outcome</text>
+          <text x="55" y="403">LiabilityDetermination: Basis, Percentage</text>
+          <text x="55" y="418">CoverageDecision: Covered/Excluded/Partial</text>
+          <text x="55" y="433">DenialRecord: Reason, Basis, Appeal Rights</text>
+          <text x="55" y="448">PartialApprovalRecord: Amounts, Reasons</text>
+        </g>
+        <text x="55" y="475" class="svg-label" font-size="8.5" fill="#6B6B6B">DECISION GATE QUESTIONS:</text>
+        <g class="svg-body" font-size="9.5" fill="#3D3D3D">
+          <text x="55" y="492">Liability established? Coverage confirmed?</text>
+          <text x="55" y="507">Authority exceeded? SIU hold active?</text>
+        </g>
+
+        <!-- Adjudication Documents -->
+        <rect x="405" y="345" width="350" height="180" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="425" y="365" class="svg-label" font-size="9" fill="#6B6B6B" font-weight="600">ADJUDICATION DOCUMENTS</text>
+        <g class="svg-body" font-size="10" fill="#1F1F1F">
+          <text x="425" y="388">AdjudicationWorkfile: All notes, evidence</text>
+          <text x="425" y="403">DenialLetter: Reasons, policy sections</text>
+          <text x="425" y="418">CoverageAnalysisMemo: Arguments, precedents</text>
+          <text x="425" y="433">LiabilityInvestigationReport: Police, expert</text>
+          <text x="425" y="448">MedicalCausalityReport: Physician opinion</text>
+          <text x="425" y="463">StatementOfLoss: Insured's sworn statement</text>
+        </g>
+
+        <!-- Adjudication Outcomes Matrix -->
+        <rect x="775" y="345" width="370" height="180" fill="#0A0A0A"/>
+        <text x="960" y="370" text-anchor="middle" class="svg-label" font-size="9.5" fill="#FFFFFF" opacity="0.7">ADJUDICATION OUTCOMES MATRIX</text>
+        <g class="svg-body" font-size="10.5" fill="#FFFFFF">
+          <text x="795" y="398"><tspan fill="#16A34A">&#9632;</tspan> Full Approval: All lines covered</text>
+          <text x="795" y="418"><tspan fill="#D97706">&#9650;</tspan> Partial Approval: Some excluded</text>
+          <text x="795" y="438"><tspan fill="#DC2626">&#9744;</tspan> Full Denial: Coverage barred</text>
+          <text x="795" y="458"><tspan fill="#5FC4E5">&#9632;</tspan> Coverage Dispute: ROR issued</text>
+          <text x="795" y="478"><tspan fill="#9A9A9A">&#9633;</tspan> Liability Dispute: Defense counsel</text>
+          <text x="795" y="498"><tspan fill="#D97706">&#9675;</tspan> SIU Hold: Fraud pending</text>
+        </g>
+
+        <!-- Connection annotation -->
+        <rect x="35" y="555" width="1110" height="70" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="590" y="578" text-anchor="middle" class="svg-label" font-size="10" fill="#1C7293" font-weight="600">WHY THESE TWO GATES DEFINE THE AI-READINESS CHALLENGE</text>
+        <g class="svg-body" font-size="11.5" fill="#1F1F1F" text-anchor="middle">
+          <text x="590" y="600">FNOL is the most unstructured stage (free-text narrative drives all downstream decisions).</text>
+          <text x="590" y="616">Adjudication is the most document-intensive stage (medical records, repair estimates, police reports, expert opinions).</text>
+        </g>
+
+        <g class="svg-label" font-size="9.5" fill="#9A9A9A">
+          <text x="45" y="660">Source: ElevateNow Claims Ontology — Stage 1 and Stage 7 entity and document maps.</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="ex-note reveal"><strong>Read this as.</strong> These two stages sit at opposite ends of the claim lifecycle but share the same fundamental challenge: every decision depends on fusing structured system records with unstructured documentary evidence. FNOL sets the posture; adjudication renders the binding decision. If the ontology cannot bridge both modalities at both gates, AI-driven claims processing is structurally incomplete.</div>
+  </div>
+</section>
+
+<!-- ============ HINGE PAGE ============ -->
+<section class="hinge">
+  <div class="wrap">
+    <div class="hinge-mono reveal">The ElevateNow thesis · In one sentence</div>
+    <h2 class="reveal">The ontology is not a schema project. It is the semantic layer that makes <em>structured and unstructured data speak the same language</em> at every decision gate, from FNOL through payment.</h2>
+    <div class="attr reveal">— ElevateNow · June 2026</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 4: THE SOLUTION — ARCHITECTURE + MECE ============ -->
+<section class="page" id="solution">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">05</span>
+      <span class="ph-cat">The solution architecture</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 4 of 7</span>
+    </div>
+    <h2 class="assertion reveal">Three layers share one ontology and produce one outcome: <span class="accent">AI-ready claims data products with full provenance.</span></h2>
+    <p class="subhead reveal">The architecture diagram shows the flow from source data through the ontology semantic layer and governed knowledge platform to AI-ready data products. The three MECE columns below decompose what each layer does.</p>
+
+    <div class="exhibit-label reveal">Exhibit 4 · enCodex claims intelligence architecture: ontology, knowledge, governance<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal" style="margin-bottom:0;border-bottom:none;">
+      <svg class="ex-svg" viewBox="0 0 1180 340" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1180" height="340" fill="#FFFFFF"/>
+        <defs>
+          <marker id="arr4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9A9A9A"/></marker>
+          <marker id="arr4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1C7293"/></marker>
+        </defs>
+
+        <!-- SOURCES column -->
+        <g class="svg-label" font-size="9.5" fill="#6B6B6B"><text x="45" y="28">SOURCES</text></g>
+        <rect x="35" y="40" width="170" height="34" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="120" y="62" text-anchor="middle" class="svg-body" font-size="10.5" fill="#1F1F1F">Claims System Records</text>
+        <rect x="35" y="82" width="170" height="34" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="120" y="104" text-anchor="middle" class="svg-body" font-size="10.5" fill="#1F1F1F">Policy Admin Data</text>
+        <rect x="35" y="124" width="170" height="34" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="120" y="146" text-anchor="middle" class="svg-body" font-size="10.5" fill="#1F1F1F">FNOL Documents (PDF)</text>
+        <rect x="35" y="166" width="170" height="34" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="120" y="188" text-anchor="middle" class="svg-body" font-size="10.5" fill="#1F1F1F">Medical / Police / Expert</text>
+        <rect x="35" y="208" width="170" height="34" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="120" y="230" text-anchor="middle" class="svg-body" font-size="10.5" fill="#1F1F1F">Jurisdiction Rules</text>
+
+        <!-- Arrows sources to ontology -->
+        <g stroke="#6B6B6B" stroke-width="1.2" fill="none">
+          <path d="M 205 57 L 260 57 L 260 120 L 290 120" marker-end="url(#arr4)"/>
+          <path d="M 205 99 L 240 99 L 240 120 L 290 120" marker-end="url(#arr4)"/>
+          <path d="M 205 141 L 260 141 L 260 140 L 290 140" marker-end="url(#arr4)"/>
+          <path d="M 205 183 L 240 183 L 240 160 L 290 160" marker-end="url(#arr4)"/>
+          <path d="M 205 225 L 260 225 L 260 180 L 290 180" marker-end="url(#arr4)"/>
+        </g>
+
+        <!-- ONTOLOGY SEMANTIC LAYER -->
+        <g class="svg-label" font-size="9.5" fill="#6B6B6B"><text x="290" y="28">ONTOLOGY SEMANTIC LAYER</text></g>
+        <rect x="290" y="40" width="220" height="210" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="400" y="65" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">LAYER 1: BASE ONTOLOGY</text>
+        <text x="400" y="82" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">Entity definitions &amp; relationships</text>
+        <line x1="310" y1="95" x2="490" y2="95" stroke="#D8D8D8"/>
+        <text x="400" y="115" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">LAYER 2: LOB HYDRATION</text>
+        <text x="400" y="132" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">WC / Auto / Property / GL</text>
+        <text x="400" y="148" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">coverage-part grain mapping</text>
+        <line x1="310" y1="160" x2="490" y2="160" stroke="#D8D8D8"/>
+        <text x="400" y="180" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">LAYER 3: KNOWLEDGE ANCHORING</text>
+        <text x="400" y="197" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">Transactional documents</text>
+        <text x="400" y="213" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">NLP extraction to ontology</text>
+        <text x="400" y="235" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">DocumentArtifact linkage</text>
+
+        <!-- Arrow to knowledge -->
+        <g stroke="#1C7293" stroke-width="1.2" fill="none">
+          <path d="M 510 145 L 570 145" marker-end="url(#arr4a)"/>
+        </g>
+
+        <!-- GOVERNED KNOWLEDGE PLATFORM -->
+        <g class="svg-label" font-size="9.5" fill="#6B6B6B"><text x="570" y="28">KNOWLEDGE PLATFORM</text></g>
+        <rect x="570" y="40" width="220" height="210" fill="#E5F0F4" stroke="#1C7293" stroke-dasharray="3 3"/>
+        <text x="680" y="65" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">KNOWLEDGE CHUNKS</text>
+        <text x="680" y="82" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">Jurisdiction rules (50-state)</text>
+        <text x="680" y="98" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">Coverage rule catalogs</text>
+        <text x="680" y="114" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">Indicator trigger definitions</text>
+        <line x1="590" y1="128" x2="770" y2="128" stroke="#D8D8D8"/>
+        <text x="680" y="148" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">CURATION STUDIO</text>
+        <text x="680" y="165" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">SME authoring interface</text>
+        <text x="680" y="181" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">Version control per chunk</text>
+        <line x1="590" y1="195" x2="770" y2="195" stroke="#D8D8D8"/>
+        <text x="680" y="215" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">GOVERNED RETRIEVAL</text>
+        <text x="680" y="232" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">Deterministic chunk lookup</text>
+
+        <!-- Arrow to downstream -->
+        <g stroke="#1C7293" stroke-width="1.2" fill="none">
+          <path d="M 790 145 L 860 145" marker-end="url(#arr4a)"/>
+        </g>
+
+        <!-- DOWNSTREAM: AI-READY DATA PRODUCTS -->
+        <g class="svg-label" font-size="9.5" fill="#6B6B6B"><text x="860" y="28">AI-READY DATA PRODUCTS</text></g>
+        <rect x="860" y="56" width="280" height="40" fill="#0A0A0A"/>
+        <text x="1000" y="74" text-anchor="middle" class="svg-label" font-size="9.5" fill="#FFFFFF" font-weight="600">CLAIMS INTELLIGENCE REPORT</text>
+        <text x="1000" y="89" text-anchor="middle" class="svg-body" font-size="10" fill="#FFFFFF" opacity="0.8">Governed, auditable, deterministic</text>
+        <!-- Consumer boxes -->
+        <rect x="860" y="110" width="135" height="30" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="927" y="130" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">Adjuster Workbench</text>
+        <rect x="1005" y="110" width="135" height="30" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="1072" y="130" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">Claims Analytics</text>
+        <rect x="860" y="150" width="135" height="30" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="927" y="170" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">SIU / Fraud Detection</text>
+        <rect x="1005" y="150" width="135" height="30" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="1072" y="170" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">Reserve Management</text>
+        <rect x="860" y="190" width="135" height="30" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="927" y="210" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">Reinsurance / Cession</text>
+        <rect x="1005" y="190" width="135" height="30" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="1072" y="210" text-anchor="middle" class="svg-body" font-size="10" fill="#1F1F1F">Regulatory Reporting</text>
+
+        <!-- Governance Rail -->
+        <rect x="290" y="265" width="500" height="36" fill="#0A0A0A"/>
+        <text x="540" y="282" text-anchor="middle" class="svg-label" font-size="9.5" fill="#FFFFFF" font-weight="600">GOVERNANCE RAIL: FORWARD-ONLY AUDIT TRAIL · VERSIONED STATE · EPHEMERAL-TO-COMMITTED</text>
+        <text x="540" y="296" text-anchor="middle" class="svg-body" font-size="10" fill="#FFFFFF" opacity="0.8">Every tool execution, knowledge chunk cited, and authority decision is on record.</text>
+
+        <g class="svg-label" font-size="9.5" fill="#9A9A9A">
+          <text x="45" y="325">Source: ElevateNow enCodex architecture reference.</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- MECE three-column detail -->
+    <div class="mece reveal" style="margin-top:24px;">
+      <div class="mece-col">
+        <div class="mece-code">Layer 01 · Ontology</div>
+        <div class="mece-title">Semantic Layer</div>
+        <div class="mece-sub">Defines the nouns, verbs, and rules that make claims data machine-readable.</div>
+        <div class="mece-section-label">What it does</div>
+        <ul class="mece-list">
+          <li>Defines entity classes: ClaimRecord, LossEvent, CoverageUnit, PolicyRecord, DocumentArtifact</li>
+          <li>Maps relationships: Claim has Line, Line involves Party, Party handled by Adjuster</li>
+          <li>Decomposes losses into adjudicable units via ClaimLine and ClaimItem entities</li>
+          <li>Anchors every claim entity to a PolicyRecord and one or more CoverageUnit instances</li>
+          <li>Bridges structured and unstructured data through shared entity references at every decision gate</li>
+        </ul>
+        <div class="mece-callout">
+          <div class="mece-callout-label">Claims application</div>
+          At FNOL, the ontology simultaneously extracts structured signals from narrative (LossType, LossLocation, InjuryDescription) and preserves the original text as a DocumentArtifact for audit and AI training.
+        </div>
+      </div>
+
+      <div class="mece-col">
+        <div class="mece-code">Layer 02 · Knowledge</div>
+        <div class="mece-title">Governed Knowledge Retrieval</div>
+        <div class="mece-sub">Curates, versions, and retrieves domain knowledge deterministically at runtime.</div>
+        <div class="mece-section-label">What it does</div>
+        <ul class="mece-list">
+          <li>Stores jurisdiction-specific rules as versioned knowledge chunks (50-state coverage)</li>
+          <li>Maintains indicator trigger catalogs with trigger_field and trigger_condition definitions</li>
+          <li>Provides deterministic chunk lookup (not vector search) for rule application at every gate</li>
+          <li>Supports SME authoring and version control through CurationStudio interface</li>
+          <li>Feeds coverage rules, exclusion logic, and benefit calculations at runtime</li>
+        </ul>
+        <div class="mece-callout">
+          <div class="mece-callout-label">Claims application</div>
+          When a WC claim arrives from New York, the knowledge platform retrieves New York-specific benefit rates, waiting periods, compliance deadlines, and caps. No LLM is involved in the rule lookup.
+        </div>
+      </div>
+
+      <div class="mece-col">
+        <div class="mece-code">Layer 03 · Governance</div>
+        <div class="mece-title">Audit Trail &amp; Authority</div>
+        <div class="mece-sub">Ensures every decision is traceable, every state change is versioned, and every dollar is deterministic.</div>
+        <div class="mece-section-label">What it does</div>
+        <ul class="mece-list">
+          <li>Forward-only audit trail: no claim record is silently overwritten</li>
+          <li>Ephemeral-to-committed pattern: no mid-level result persists until adjuster confirms</li>
+          <li>Five-dimension authority gate: compensability, indicators, reserve, defenses, subrogation</li>
+          <li>Three-tier indicator contract: Confirmed (penalizes gate), Detected (visible), Rejected (on record)</li>
+          <li>Every tool execution, knowledge chunk cited, and reassessment is logged with timestamps</li>
+        </ul>
+        <div class="mece-callout">
+          <div class="mece-callout-label">Claims application</div>
+          At adjudication, the governance layer captures the decision rationale as a versioned record referencing which documents were reviewed, which coverage sections applied, and what exceptions were granted. Every payment traces back to the document that justified it.
+        </div>
+      </div>
+    </div>
+    <div class="ex-note reveal" style="margin-top:0;"><strong>Read together.</strong> The ontology gives the vocabulary. The knowledge platform gives the rules. The governance layer gives the audit trail. None works without the other two, and all three are required before any claims data product can be called AI-ready.</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 5: TECHNICAL PIPELINE ============ -->
+<section class="page" id="pipeline">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">06</span>
+      <span class="ph-cat">Technical pipeline</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 5 of 7</span>
+    </div>
+    <h2 class="assertion reveal">A seven-stage deterministic-first pipeline processes every FNOL with an <span class="accent">8:2 deterministic-to-LLM ratio and a maximum of three LLM calls per claim.</span></h2>
+    <p class="subhead reveal">The exhibit maps the full processing architecture from PDF upload through intelligence report assembly, showing which stages use LLM and which are purely deterministic.</p>
+
+    <div class="exhibit-label reveal">Exhibit 5 · enCodex seven-stage FNOL processing pipeline with LLM call budget<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <svg class="ex-svg" viewBox="0 0 1180 560" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1180" height="560" fill="#FFFFFF"/>
+        <defs>
+          <marker id="arr5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9A9A9A"/></marker>
+          <marker id="arr5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1C7293"/></marker>
+        </defs>
+
+        <!-- Pipeline title -->
+        <text x="590" y="30" text-anchor="middle" class="svg-label" font-size="10" fill="#6B6B6B" font-weight="600">SEVEN-STAGE FNOL PROCESSING ARCHITECTURE</text>
+
+        <!-- Stage 0 -->
+        <rect x="45" y="50" width="140" height="70" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="115" y="70" text-anchor="middle" class="svg-label" font-size="8.5" fill="#1C7293" font-weight="600">STAGE 0</text>
+        <text x="115" y="88" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Extractor</text>
+        <text x="115" y="105" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">PDF to structured</text>
+        <rect x="127" y="47" width="30" height="14" fill="#1C7293"/>
+        <text x="142" y="57" text-anchor="middle" class="svg-label" font-size="7" fill="#FFFFFF" font-weight="600">LLM</text>
+
+        <!-- Arrow -->
+        <path d="M 185 85 L 215 85" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr5)"/>
+
+        <!-- Stage 1 -->
+        <rect x="215" y="50" width="140" height="70" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="285" y="70" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">STAGE 1</text>
+        <text x="285" y="88" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Jurisdiction</text>
+        <text x="285" y="105" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">State rules lookup</text>
+        <rect x="215" y="47" width="58" height="14" fill="#3D3D3D"/>
+        <text x="244" y="57" text-anchor="middle" class="svg-label" font-size="7" fill="#FFFFFF" font-weight="600">DETERMINISTIC</text>
+
+        <!-- Arrow -->
+        <path d="M 355 85 L 385 85" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr5)"/>
+
+        <!-- Stage 2: Parallel fork -->
+        <rect x="385" y="40" width="220" height="120" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="495" y="57" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">STAGE 2 · PARALLEL ANALYSIS FORK</text>
+        <rect x="395" y="66" width="200" height="24" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="495" y="83" text-anchor="middle" class="svg-body" font-size="9.5" fill="#1F1F1F">Liability / Compensability / Cause</text>
+        <rect x="395" y="94" width="200" height="24" fill="#FFFFFF" stroke="#D8D8D8"/>
+        <text x="495" y="111" text-anchor="middle" class="svg-body" font-size="9.5" fill="#1F1F1F">Sensitive Indicator Detector</text>
+        <rect x="395" y="122" width="200" height="24" fill="#FFFFFF" stroke="#D8D8D8"/>
+        <text x="495" y="139" text-anchor="middle" class="svg-body" font-size="9.5" fill="#1F1F1F">Knowledge RAG / Coverage</text>
+        <rect x="385" y="37" width="58" height="14" fill="#3D3D3D"/>
+        <text x="414" y="47" text-anchor="middle" class="svg-label" font-size="7" fill="#FFFFFF" font-weight="600">DETERMINISTIC</text>
+
+        <!-- Arrow -->
+        <path d="M 605 100 L 635 100" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr5)"/>
+
+        <!-- Stage 3 -->
+        <rect x="635" y="50" width="140" height="70" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="705" y="70" text-anchor="middle" class="svg-label" font-size="8.5" fill="#1C7293" font-weight="600">STAGE 3</text>
+        <text x="705" y="88" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">ICF</text>
+        <text x="705" y="105" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">Indicator confirm</text>
+        <rect x="747" y="47" width="30" height="14" fill="#1C7293"/>
+        <text x="762" y="57" text-anchor="middle" class="svg-label" font-size="7" fill="#FFFFFF" font-weight="600">LLM</text>
+
+        <!-- Arrow -->
+        <path d="M 775 85 L 805 85" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr5)"/>
+
+        <!-- Stage 4 -->
+        <rect x="805" y="50" width="140" height="70" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="875" y="70" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">STAGE 4</text>
+        <text x="875" y="88" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Reserve / Damage</text>
+        <text x="875" y="105" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">Zero LLM, formula</text>
+        <rect x="805" y="47" width="58" height="14" fill="#3D3D3D"/>
+        <text x="834" y="57" text-anchor="middle" class="svg-label" font-size="7" fill="#FFFFFF" font-weight="600">DETERMINISTIC</text>
+
+        <!-- Arrow -->
+        <path d="M 945 85 L 975 85" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr5)"/>
+
+        <!-- Stage 5 -->
+        <rect x="975" y="50" width="170" height="70" fill="#0A0A0A"/>
+        <text x="1060" y="70" text-anchor="middle" class="svg-label" font-size="8.5" fill="#FFFFFF" opacity="0.7">STAGE 5 · BLOCKING</text>
+        <text x="1060" y="88" text-anchor="middle" class="svg-body" font-size="11" fill="#FFFFFF" font-weight="600">Authority Gate</text>
+        <text x="1060" y="105" text-anchor="middle" class="svg-body" font-size="9.5" fill="#FFFFFF" opacity="0.8">5-dim governance</text>
+
+        <!-- Stage 6: below, full width -->
+        <path d="M 1060 120 L 1060 155 L 590 155 L 590 175" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr5)" stroke-dasharray="4 3"/>
+
+        <rect x="350" y="175" width="480" height="55" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="590" y="195" text-anchor="middle" class="svg-label" font-size="8.5" fill="#1C7293" font-weight="600">STAGE 6 · INTELLIGENCE REPORT &amp; BRIEF NARRATOR</text>
+        <text x="590" y="215" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A">Pure assembly, no LLM. 10-section report with full entity binding and provenance chain.</text>
+
+        <!-- Gate Router below -->
+        <text x="590" y="260" text-anchor="middle" class="svg-label" font-size="10" fill="#0A0A0A" font-weight="600">AUTHORITY GATE ROUTING</text>
+        <g>
+          <rect x="75" y="275" width="200" height="44" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="175" y="293" text-anchor="middle" class="svg-body" font-size="10" fill="#1C7293" font-weight="600">FAST TRACK</text>
+          <text x="175" y="309" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">All dims auto, PD-only, &lt;$10K</text>
+
+          <rect x="305" y="275" width="200" height="44" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="405" y="293" text-anchor="middle" class="svg-body" font-size="10" fill="#1C7293" font-weight="600">AUTO ACCEPT</text>
+          <text x="405" y="309" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">All dims auto, STP</text>
+
+          <rect x="535" y="275" width="200" height="44" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="635" y="293" text-anchor="middle" class="svg-body" font-size="10" fill="#0A0A0A" font-weight="600">HUMAN REVIEW</text>
+          <text x="635" y="309" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">Any dim requires adjuster</text>
+
+          <rect x="765" y="275" width="200" height="44" fill="#0A0A0A"/>
+          <text x="865" y="293" text-anchor="middle" class="svg-body" font-size="10" fill="#FFFFFF" font-weight="600">INVESTIGATION HOLD</text>
+          <text x="865" y="309" text-anchor="middle" class="svg-body" font-size="9" fill="#FFFFFF" opacity="0.8">SIU referral / critical flag</text>
+        </g>
+
+        <!-- LLM Budget table -->
+        <rect x="75" y="345" width="1030" height="30" fill="#0A0A0A"/>
+        <text x="590" y="365" text-anchor="middle" class="svg-label" font-size="10" fill="#FFFFFF" font-weight="600">LLM CALL BUDGET PER LINE OF BUSINESS</text>
+
+        <g>
+          <rect x="75" y="375" width="257" height="36" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="203" y="393" text-anchor="middle" class="svg-body" font-size="10.5" fill="#1F1F1F"><tspan font-weight="600">Workers Comp:</tspan> 3 calls</text>
+          <text x="203" y="407" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Extractor + Compensability + ICF</text>
+
+          <rect x="332" y="375" width="258" height="36" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="461" y="393" text-anchor="middle" class="svg-body" font-size="10.5" fill="#1F1F1F"><tspan font-weight="600">Auto:</tspan> 2 calls</text>
+          <text x="461" y="407" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Extractor + ICF</text>
+
+          <rect x="590" y="375" width="258" height="36" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="719" y="393" text-anchor="middle" class="svg-body" font-size="10.5" fill="#1F1F1F"><tspan font-weight="600">Property:</tspan> 2 calls</text>
+          <text x="719" y="407" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Extractor + ICF</text>
+
+          <rect x="848" y="375" width="257" height="36" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="976" y="393" text-anchor="middle" class="svg-body" font-size="10.5" fill="#1F1F1F"><tspan font-weight="600">GL:</tspan> 2 calls</text>
+          <text x="976" y="407" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Extractor + ICF</text>
+        </g>
+
+        <!-- Key principles -->
+        <rect x="75" y="430" width="1030" height="80" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="590" y="452" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">INVIOLABLE ARCHITECTURE PRINCIPLES</text>
+        <g class="svg-body" font-size="10.5" fill="#1F1F1F" text-anchor="middle">
+          <text x="590" y="472">Deterministic first, LLM second. LLM never computes dollar amounts, dates, or codes.</text>
+          <text x="590" y="488">Authority gate never reads the database. All parameters arrive as explicit workflow references.</text>
+          <text x="590" y="504">Separation of dimensions. Indicator penalties never contaminate compensability or liability scores.</text>
+        </g>
+
+        <g class="svg-label" font-size="9.5" fill="#9A9A9A">
+          <text x="45" y="540">Source: ElevateNow Claims Intelligence full architecture reference, June 2026.</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="ex-note reveal"><strong>Why this matters.</strong> The 8:2 deterministic-to-LLM ratio is not a design preference. It is a governance requirement. Every dollar amount, every jurisdiction rule, every authority threshold is computed by formula or database lookup. LLM calls are confined to two tasks: extracting structured data from unstructured documents (Stage 0) and confirming indicator detections (Stage 3). The result is a pipeline where every output is auditable and every reserve is reproducible.</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 6: FULL SYSTEM SCHEMATIC ============ -->
+<section class="page" id="schematic">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">07</span>
+      <span class="ph-cat">System schematic</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 6 of 7</span>
+    </div>
+    <h2 class="assertion reveal">Five infrastructure layers connect the user interface to the processing engine, the knowledge platform, and the <span class="accent">governance trail in a single auditable chain.</span></h2>
+    <p class="subhead reveal">This is the full integration map: how a PDF upload becomes a governed intelligence report with every tool execution, knowledge chunk, and authority decision on record.</p>
+
+    <div class="exhibit-label reveal">Exhibit 6 · enCodex end-to-end infrastructure integration map<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <svg class="ex-svg" viewBox="0 0 1180 500" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1180" height="500" fill="#FFFFFF"/>
+        <defs>
+          <marker id="arr6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9A9A9A"/></marker>
+          <marker id="arr6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1C7293"/></marker>
+        </defs>
+
+        <!-- Layer labels -->
+        <g class="svg-label" font-size="9.5" fill="#6B6B6B">
+          <text x="45" y="30">LAYER 1 · PRESENTATION</text>
+          <text x="45" y="115">LAYER 2 · ORCHESTRATION</text>
+          <text x="45" y="225">LAYER 3 · PROCESSING</text>
+          <text x="45" y="340">LAYER 4 · KNOWLEDGE &amp; DATA</text>
+          <text x="45" y="435">LAYER 5 · OBSERVABILITY</text>
+        </g>
+
+        <!-- Layer 1: Presentation -->
+        <rect x="200" y="40" width="180" height="50" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="290" y="62" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Claims Workbench</text>
+        <text x="290" y="78" text-anchor="middle" class="svg-body" font-size="9.5" fill="#6B6B6B">React Frontend</text>
+
+        <rect x="420" y="40" width="180" height="50" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="510" y="62" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">FNOL Upload Panel</text>
+        <text x="510" y="78" text-anchor="middle" class="svg-body" font-size="9.5" fill="#6B6B6B">PDF intake per LOB</text>
+
+        <rect x="640" y="40" width="180" height="50" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="730" y="62" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Reassessment UI</text>
+        <text x="730" y="78" text-anchor="middle" class="svg-body" font-size="9.5" fill="#6B6B6B">Preview + confirm pattern</text>
+
+        <rect x="860" y="40" width="180" height="50" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="950" y="62" text-anchor="middle" class="svg-body" font-size="11" fill="#1C7293" font-weight="600">CurationStudio</text>
+        <text x="950" y="78" text-anchor="middle" class="svg-body" font-size="9.5" fill="#6B6B6B">Knowledge authoring</text>
+
+        <!-- Arrows down -->
+        <path d="M 510 90 L 510 125" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr6)"/>
+
+        <!-- Layer 2: Orchestration -->
+        <rect x="300" y="125" width="420" height="55" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="510" y="148" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">NETFLIX CONDUCTOR · WORKFLOW ORCHESTRATION</text>
+        <text x="510" y="167" text-anchor="middle" class="svg-body" font-size="10.5" fill="#1F1F1F">action_router SWITCH: new_fnol | full_reanalysis | refresh_jurisdiction | rescan_indicators | regenerate_report</text>
+
+        <rect x="750" y="125" width="200" height="55" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="850" y="148" text-anchor="middle" class="svg-body" font-size="10.5" fill="#0A0A0A" font-weight="600">Express Backend</text>
+        <text x="850" y="167" text-anchor="middle" class="svg-body" font-size="9.5" fill="#6B6B6B">Read-only API for claims data</text>
+
+        <!-- Arrow down -->
+        <path d="M 510 180 L 510 240" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr6a)"/>
+
+        <!-- Layer 3: Processing -->
+        <rect x="200" y="240" width="620" height="65" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="510" y="262" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">FLASK TOOL SERVER · PYTHON GKR TOOLS</text>
+        <g class="svg-body" font-size="10" fill="#1F1F1F" text-anchor="middle">
+          <text x="510" y="280">Extractor → Jurisdiction → Parallel Analysis → ICF → Reserve → Authority Gate → Report</text>
+          <text x="510" y="296">All tools inherit from python_base_tool.py. OTEL headers on every HTTP task.</text>
+        </g>
+
+        <!-- LOB tool counts -->
+        <rect x="860" y="240" width="180" height="65" fill="#0A0A0A"/>
+        <text x="950" y="260" text-anchor="middle" class="svg-label" font-size="9" fill="#FFFFFF" opacity="0.7">4 LOBs DEPLOYED</text>
+        <text x="950" y="278" text-anchor="middle" class="svg-body" font-size="10.5" fill="#FFFFFF">WC · Auto · Property · GL</text>
+        <text x="950" y="295" text-anchor="middle" class="svg-body" font-size="10" fill="#FFFFFF" opacity="0.8">25-30 tasks per new_fnol</text>
+
+        <!-- Arrows down -->
+        <path d="M 400 305 L 400 350" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr6a)"/>
+        <path d="M 620 305 L 620 350" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr6a)"/>
+
+        <!-- Layer 4: Knowledge & Data -->
+        <rect x="200" y="350" width="270" height="55" fill="#E5F0F4" stroke="#1C7293" stroke-dasharray="3 3"/>
+        <text x="335" y="372" text-anchor="middle" class="svg-body" font-size="11" fill="#1C7293" font-weight="600">Knowledge Chunks (MongoDB)</text>
+        <text x="335" y="392" text-anchor="middle" class="svg-body" font-size="9.5" fill="#6B6B6B">Jurisdiction rules · Indicator catalogs · Coverage logic</text>
+
+        <rect x="500" y="350" width="270" height="55" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="635" y="372" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Claims Data (MongoDB Atlas)</text>
+        <text x="635" y="392" text-anchor="middle" class="svg-body" font-size="9.5" fill="#6B6B6B">Claim records · Assessments · Audit trail</text>
+
+        <rect x="800" y="350" width="240" height="55" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="920" y="372" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Tool Registry (MongoDB)</text>
+        <text x="920" y="392" text-anchor="middle" class="svg-body" font-size="9.5" fill="#6B6B6B">tool_database.tools · Schema validation</text>
+
+        <!-- Layer 5: Observability -->
+        <rect x="200" y="445" width="840" height="36" fill="#0A0A0A"/>
+        <text x="620" y="462" text-anchor="middle" class="svg-label" font-size="9.5" fill="#FFFFFF" font-weight="600">CLICKHOUSE OTEL TELEMETRY · X-WORKFLOW-ID/NAME/VERSION ON EVERY HTTP TASK</text>
+        <text x="620" y="476" text-anchor="middle" class="svg-body" font-size="10" fill="#FFFFFF" opacity="0.8">Full tool execution chain traceable by Workflow ID. Authoritative diagnostic source for pipeline failures.</text>
+
+        <g class="svg-label" font-size="9.5" fill="#9A9A9A">
+          <text x="45" y="498">Source: ElevateNow Claims Intelligence full architecture reference, June 2026.</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="ex-note reveal"><strong>Upshot.</strong> The architecture enforces a strict separation of concerns: the frontend never writes claims data directly, the orchestration layer holds ephemeral results until user confirmation, the processing tools each answer one question, and the observability layer provides end-to-end traceability. All writes flow through recipes. The backend is read-only. This is a governance-first architecture, not a speed-first one.</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 7: DATA PRODUCTS & AI READINESS ============ -->
+<section class="page" id="dataproducts">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">08</span>
+      <span class="ph-cat">AI-ready data products</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 7 of 7</span>
+    </div>
+    <h2 class="assertion reveal">A data product becomes AI-ready through a four-step sequence: develop the product, refine the ontology, map the semantic layer, then <span class="accent">certify for AI consumption.</span></h2>
+    <p class="subhead reveal">The exhibit shows how fifteen foundational claims data products connect to the ontology and semantic layer to produce AI-ready outputs.</p>
+
+    <div class="exhibit-label reveal">Exhibit 7 · Claims data product maturity: from developed to AI-ready<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <svg class="ex-svg" viewBox="0 0 1180 480" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1180" height="480" fill="#FFFFFF"/>
+        <defs>
+          <marker id="arr7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9A9A9A"/></marker>
+          <marker id="arr7a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1C7293"/></marker>
+        </defs>
+
+        <!-- Maturity path -->
+        <text x="590" y="30" text-anchor="middle" class="svg-label" font-size="10" fill="#0A0A0A" font-weight="600">HOW DOES A DATA PRODUCT BECOME AI-READY?</text>
+
+        <!-- Step 1 -->
+        <rect x="75" y="50" width="230" height="50" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="190" y="72" text-anchor="middle" class="svg-body" font-size="12" fill="#0A0A0A" font-weight="600">Claims Data Products</text>
+        <text x="190" y="90" text-anchor="middle" class="svg-body" font-size="10" fill="#6B6B6B">Developed</text>
+        <path d="M 305 75 L 345 75" stroke="#9A9A9A" stroke-width="1.5" fill="none" marker-end="url(#arr7)"/>
+
+        <!-- Step 2 -->
+        <rect x="345" y="50" width="230" height="50" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="460" y="72" text-anchor="middle" class="svg-body" font-size="12" fill="#1C7293" font-weight="600">Enterprise Ontology</text>
+        <text x="460" y="90" text-anchor="middle" class="svg-body" font-size="10" fill="#6B6B6B">Refined with relationships &amp; hierarchies</text>
+        <path d="M 575 75 L 615 75" stroke="#1C7293" stroke-width="1.5" fill="none" marker-end="url(#arr7a)"/>
+
+        <!-- Step 3 -->
+        <rect x="615" y="50" width="230" height="50" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="730" y="72" text-anchor="middle" class="svg-body" font-size="12" fill="#1C7293" font-weight="600">Semantic Layer</text>
+        <text x="730" y="90" text-anchor="middle" class="svg-body" font-size="10" fill="#6B6B6B">Ontology mapped to data products</text>
+        <path d="M 845 75 L 885 75" stroke="#1C7293" stroke-width="1.5" fill="none" marker-end="url(#arr7a)"/>
+
+        <!-- Step 4 -->
+        <rect x="885" y="50" width="230" height="50" fill="#0A0A0A"/>
+        <text x="1000" y="72" text-anchor="middle" class="svg-body" font-size="12" fill="#FFFFFF" font-weight="600">AI-Ready Data Products</text>
+        <text x="1000" y="90" text-anchor="middle" class="svg-body" font-size="10" fill="#FFFFFF" opacity="0.8">Certified for AI consumption</text>
+
+        <!-- Divider -->
+        <line x1="45" y1="120" x2="1135" y2="120" stroke="#D8D8D8"/>
+
+        <!-- Foundational products grid -->
+        <text x="590" y="145" text-anchor="middle" class="svg-label" font-size="10" fill="#0A0A0A" font-weight="600">FOUNDATIONAL CLAIMS DATA PRODUCTS</text>
+        <text x="590" y="162" text-anchor="middle" class="svg-body" font-size="10" fill="#6B6B6B">Reusable, extensible, source of truth centered around the core Claim domains</text>
+
+        <!-- Row 1: 5 products -->
+        <g>
+          <rect x="45" y="180" width="210" height="68" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="150" y="200" text-anchor="middle" class="svg-body" font-size="11" fill="#1C7293" font-weight="600">Claims Intake</text>
+          <text x="150" y="216" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">FNOL, registration, STP</text>
+          <text x="150" y="232" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">FNOL, Registration, STP Rule</text>
+
+          <rect x="265" y="180" width="210" height="68" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="370" y="200" text-anchor="middle" class="svg-body" font-size="11" fill="#1C7293" font-weight="600">Claims Core</text>
+          <text x="370" y="216" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">Status, transactions, lifecycle</text>
+          <text x="370" y="232" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Claim, Line, Reserve, Payment</text>
+
+          <rect x="485" y="180" width="210" height="68" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="590" y="200" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Claims Task</text>
+          <text x="590" y="216" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">Tasks, follow-ups, reminders</text>
+          <text x="590" y="232" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Task Mgmt, Assignment, Workflow</text>
+
+          <rect x="705" y="180" width="210" height="68" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="810" y="200" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Claims Fraud</text>
+          <text x="810" y="216" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">Evidence, fraud signals, 3PD</text>
+          <text x="810" y="232" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Fraud Case, Investigation</text>
+
+          <rect x="925" y="180" width="210" height="68" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="1030" y="200" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Claims Recovery</text>
+          <text x="1030" y="216" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">Subrogation, recovery outcomes</text>
+          <text x="1030" y="232" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Recovery, Subrogation</text>
+        </g>
+
+        <!-- Row 2: 5 products -->
+        <g>
+          <rect x="45" y="258" width="210" height="68" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="150" y="278" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Claims File Note</text>
+          <text x="150" y="294" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">Adjuster notes, diary entries</text>
+          <text x="150" y="310" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">File Notes, Diary</text>
+
+          <rect x="265" y="258" width="210" height="68" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="370" y="278" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Claims Document</text>
+          <text x="370" y="294" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">All claim documents indexed</text>
+          <text x="370" y="310" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Documents, Attachments</text>
+
+          <rect x="485" y="258" width="210" height="68" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="590" y="278" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Claims Damage</text>
+          <text x="590" y="294" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">Assessments, repair estimates</text>
+          <text x="590" y="310" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Damage Assessment, Severity</text>
+
+          <rect x="705" y="258" width="210" height="68" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="810" y="278" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Claims Communication</text>
+          <text x="810" y="294" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">Correspondence, escalation</text>
+          <text x="810" y="310" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Customer Comm, Experience</text>
+
+          <rect x="925" y="258" width="210" height="68" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="1030" y="278" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Claims Compliance</text>
+          <text x="1030" y="294" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">Audit, regulatory, QA</text>
+          <text x="1030" y="310" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Compliance, Regulatory</text>
+        </g>
+
+        <!-- Row 3: Use case products -->
+        <text x="590" y="355" text-anchor="middle" class="svg-label" font-size="10" fill="#0A0A0A" font-weight="600">USE CASE PRODUCTS</text>
+        <text x="590" y="370" text-anchor="middle" class="svg-body" font-size="10" fill="#6B6B6B">Workflow-aligned, apply business logic, aggregations, and combinations of foundational data products</text>
+
+        <rect x="200" y="385" width="360" height="50" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="380" y="406" text-anchor="middle" class="svg-body" font-size="11" fill="#1C7293" font-weight="600">Claims Inventory Management</text>
+        <text x="380" y="424" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">Open / closed / pending claims, aging, workload distribution</text>
+
+        <rect x="620" y="385" width="360" height="50" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="800" y="406" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Claims 360</text>
+        <text x="800" y="424" text-anchor="middle" class="svg-body" font-size="9.5" fill="#6B6B6B">Scope pending definition</text>
+
+        <g class="svg-label" font-size="9.5" fill="#9A9A9A">
+          <text x="45" y="470">Source: Claims Data Products vision — ElevateNow Claims Ontology, page 2.</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="ex-note reveal"><strong>The commitment.</strong> The ontology defines entities and relationships. The semantic layer maps those definitions to the physical data products listed above. Together, they transform fifteen siloed data products into a unified, AI-ready claims intelligence platform where every entity, every relationship, and every document artifact speaks the same language.</div>
+  </div>
+</section>
+
+<!-- ============ AGENDA ============ -->
+<section class="page" id="agenda">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">09</span>
+      <span class="ph-cat">Working session agenda</span>
+      <span class="ph-spacer"></span>
+      <span>Six items · 60 minutes</span>
+    </div>
+    <h2 class="assertion reveal">The goal of our meeting is a working session, <span class="accent">not a demo.</span></h2>
+    <p class="subhead reveal">This pre-read provides the structural frame. The session itself should pressure-test the architecture against real claims data, real adjuster workflows, and real governance requirements.</p>
+
+    <ol class="agenda-list reveal">
+      <li class="agenda-item"><div class="n">01</div><div><h4>AI-readiness gaps in current claims data</h4><p>Which of the three gaps (vocabulary, fusion, governance) is most acute in your current claims data products?</p></div></li>
+      <li class="agenda-item"><div class="n">02</div><div><h4>FNOL intake and the extraction challenge</h4><p>Walk through how a real FNOL document flows from intake to structured claim record today, and where the semantic gaps appear.</p></div></li>
+      <li class="agenda-item"><div class="n">03</div><div><h4>Adjudication evidence graph requirements</h4><p>Map the document types that converge at adjudication and confirm which need NLP extraction vs. structured ingestion.</p></div></li>
+      <li class="agenda-item"><div class="n">04</div><div><h4>Authority gate and governance thresholds</h4><p>Review the five-dimension authority gate model against your current approval workflows and escalation policies.</p></div></li>
+      <li class="agenda-item"><div class="n">05</div><div><h4>Data product prioritization for ontology mapping</h4><p>Of the fifteen foundational data products, which three should be mapped to the ontology first based on AI use case demand?</p></div></li>
+      <li class="agenda-item"><div class="n">06</div><div><h4>Open questions</h4><p>The questions your team is already asking about ontology-grounded claims intelligence. We want to hear them before we propose a deployment path.</p></div></li>
+    </ol>
+
+    <div class="signoff reveal">
+      <div>
+        <div class="names">Vinod Srinivasan</div>
+        <div class="role">CEO, ElevateNow</div>
+      </div>
+      <div class="co">
+        <div>Confidential · Pre-read v1</div>
+        <div>June 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.cover .reveal').forEach((el, i) => {
+      setTimeout(() => el.classList.add('in'), 100 + i * 120);
+    });
+  });
+</script>
+
+</div><!-- /#el-protected -->
+</body>
+</html>

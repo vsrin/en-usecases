@@ -12,7 +12,7 @@ Or pass arguments directly:
   python scripts/manage_access.py seed
 
 Valid artifacts:
-  ocr-benchmark | six-tier-stack | extraction-benchmark | semantic-hub
+  ocr-benchmark | six-tier-stack | extraction-benchmark | semantic-hub | claims-intelligence
 """
 
 import sys
@@ -23,7 +23,7 @@ MONGO_URI = "mongodb+srv://artifi:root@artifi.2vi2m.mongodb.net/?retryWrites=tru
 DB = "insights_access"
 COL = "access_grants"
 
-ARTIFACTS = ["ocr-benchmark", "six-tier-stack", "extraction-benchmark", "semantic-hub", "text-to-sql"]
+ARTIFACTS = ["ocr-benchmark", "six-tier-stack", "extraction-benchmark", "semantic-hub", "text-to-sql", "claims-intelligence"]
 
 SEED_GRANTS = [
     # email, artifact, first, last, org
