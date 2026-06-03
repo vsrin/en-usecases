@@ -23,7 +23,7 @@ MONGO_URI = "mongodb+srv://artifi:root@artifi.2vi2m.mongodb.net/?retryWrites=tru
 DB = "insights_access"
 COL = "access_grants"
 
-ARTIFACTS = ["ocr-benchmark", "six-tier-stack", "extraction-benchmark", "semantic-hub", "text-to-sql", "claims-intelligence"]
+ARTIFACTS = ["ocr-benchmark", "six-tier-stack", "extraction-benchmark", "semantic-hub", "text-to-sql", "claims-intelligence", "nl2sql"]
 
 SEED_GRANTS = [
     # email, artifact, first, last, org

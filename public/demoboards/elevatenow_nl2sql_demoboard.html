@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+/* Access gate — validated against ElevateNow backend */
+(function(){
+  var PAPER='nl2sql';
+  var API='https://en-workspace-backend.enowclear360.com/api/access/validate';
+  var KEY='el_email_'+PAPER;
+  function unlock(){document.documentElement.classList.add('el-unlocked');}
+  localStorage.removeItem('el_'+PAPER);var stored=localStorage.getItem(KEY);
+  if(stored){
+    fetch(API+'?email='+encodeURIComponent(stored)+'&artifact='+encodeURIComponent(PAPER))
+      .then(function(r){return r.json();})
+      .then(function(d){if(d.allowed){unlock();}else{localStorage.removeItem(KEY);}})
+      .catch(function(){});
+  }
+  window._elSubmit=function(e){
+    e.preventDefault();
+    var inp=document.getElementById('el-inp');
+    var msg=document.getElementById('el-msg');
+    var btn=document.getElementById('el-btn');
+    var email=(inp.value||'').trim();
+    if(!email)return;
+    btn.textContent='Verifying…';btn.disabled=true;
+    fetch(API+'?email='+encodeURIComponent(email)+'&artifact='+encodeURIComponent(PAPER))
+      .then(function(r){return r.json();})
+      .then(function(d){
+        if(d.allowed){localStorage.setItem(KEY,email);unlock();}
+        else{msg.textContent='Access not found for this email. Contact gps@elevatenow.tech.';btn.textContent='Unlock';btn.disabled=false;}
+      })
+      .catch(function(){msg.textContent='Unable to reach verification server. Try again.';btn.textContent='Unlock';btn.disabled=false;});
+  };
+})();
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ElevateNow NL2SQL — Governed Natural Language to SQL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:#0A0A0A;--ink-2:#1F1F1F;--ink-3:#3D3D3D;--ink-4:#6B6B6B;--ink-5:#9A9A9A;
+    --rule:#D8D8D8;--rule-2:#E8E8E8;--paper:#FFFFFF;--paper-2:#F5F5F3;--paper-3:#EDEDEA;
+    --accent:#1C7293;--accent-2:#135A73;--accent-soft:#E5F0F4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,system-ui,sans-serif;font-size:15px;line-height:1.55;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 48px}
+  .page{padding:72px 0 80px;border-bottom:1px solid var(--rule)}
+  .page:last-of-type{border-bottom:none}
+  @media(max-width:720px){.wrap{padding:0 24px}.page{padding:48px 0 56px}}
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);padding:14px 48px;display:flex;align-items:center;justify-content:space-between;font-size:12px}
+  .topbar .brand{display:flex;align-items:center;gap:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;font-size:11px;color:var(--ink)}
+  .topbar .brand .mark{width:16px;height:16px;background:var(--accent);display:inline-block}
+  .topbar .meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-4)}
+  @media(max-width:720px){.topbar{padding:14px 24px}.topbar .meta{display:none}}
+  .ph{display:flex;align-items:baseline;gap:16px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-4);padding-bottom:10px;border-bottom:1px solid var(--ink);margin-bottom:24px}
+  .ph .ph-num{color:var(--accent);font-weight:600}
+  .ph .ph-cat{color:var(--ink-3)}
+  .ph .ph-spacer{flex:1}
+  .assertion{font-family:'Source Serif 4',Georgia,serif;font-weight:400;font-size:clamp(26px,3.2vw,38px);line-height:1.15;letter-spacing:-0.015em;color:var(--ink);max-width:980px;margin-bottom:12px}
+  .assertion em{font-style:italic;font-weight:500}
+  .assertion .accent{color:var(--accent);font-style:normal;font-weight:500}
+  .subhead{font-size:14.5px;color:var(--ink-3);max-width:820px;line-height:1.55;margin-bottom:36px}
+  .exhibit-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-4);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+  .exhibit-label::before{content:"EXHIBIT";color:var(--accent);font-weight:600}
+  .exhibit-label .line{flex:1;height:1px;background:var(--rule)}
+  .ex-svg{width:100%;height:auto;display:block;background:var(--paper);border:1px solid var(--rule)}
+  .ex-svg-container{margin-bottom:0}
+  .ex-note{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--ink-4);line-height:1.5;padding-top:10px;margin-top:14px;border-top:1px solid var(--rule-2);max-width:820px}
+  .ex-note strong{color:var(--ink-3);font-weight:600}
+  .cover{padding:100px 0 80px;border-bottom:1px solid var(--rule)}
+  .cover-mono{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:28px}
+  .cover h1{font-family:'Source Serif 4',serif;font-weight:300;font-size:clamp(40px,5.8vw,72px);line-height:1.02;letter-spacing:-0.02em;color:var(--ink);margin-bottom:32px;max-width:980px}
+  .cover h1 em{font-style:italic;color:var(--accent);font-weight:400}
+  .cover .lede{font-family:'Source Serif 4',serif;font-weight:300;font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:var(--ink-2);max-width:780px;margin-bottom:56px}
+  .cover-meta{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--rule)}
+  .cover-meta>div{padding:16px 20px 16px 0;border-right:1px solid var(--rule)}
+  .cover-meta>div:last-child{border-right:none;padding-right:0}
+  .cover-meta>div:not(:first-child){padding-left:20px}
+  .cm-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:8px}
+  .cm-value{font-size:14px;font-weight:500;color:var(--ink)}
+  @media(max-width:720px){.cover-meta{grid-template-columns:repeat(2,1fr)}.cover-meta>div{padding:14px 16px}.cover-meta>div:nth-child(1),.cover-meta>div:nth-child(2){border-bottom:1px solid var(--rule)}.cover-meta>div:nth-child(2),.cover-meta>div:nth-child(4){border-right:none}}
+  .takeaways{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--ink);border-left:1px solid var(--rule)}
+  .tk{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:22px 24px 24px;display:flex;gap:18px;background:var(--paper)}
+  .tk .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);font-weight:600;letter-spacing:0.1em;line-height:1.4;flex-shrink:0}
+  .tk h4{font-family:'Source Serif 4',serif;font-weight:500;font-size:17px;line-height:1.3;color:var(--ink);margin-bottom:6px}
+  .tk p{font-size:13.5px;color:var(--ink-3);line-height:1.55}
+  @media(max-width:720px){.takeaways{grid-template-columns:1fr;border-left:none}.tk{border-right:none}}
+  .mece{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--ink);border-left:1px solid var(--rule)}
+  .mece-col{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper);padding:28px 24px 26px}
+  .mece-code{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--accent);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px}
+  .mece-title{font-family:'Source Serif 4',serif;font-size:22px;font-weight:500;line-height:1.2;color:var(--ink);margin-bottom:6px}
+  .mece-sub{font-size:13px;color:var(--ink-4);margin-bottom:18px;line-height:1.5;padding-bottom:14px;border-bottom:1px solid var(--rule-2)}
+  .mece-section-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-4);margin-top:14px;margin-bottom:8px}
+  .mece-list{list-style:none;font-size:12.5px;color:var(--ink-2);line-height:1.55}
+  .mece-list li{padding:5px 0 5px 14px;position:relative}
+  .mece-list li::before{content:"";position:absolute;left:0;top:11px;width:6px;height:1px;background:var(--accent)}
+  .mece-callout{margin-top:20px;padding:14px 16px;background:var(--accent-soft);border-left:2px solid var(--accent);font-size:12px;line-height:1.55;color:var(--ink-2)}
+  .mece-callout-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px}
+  @media(max-width:860px){.mece{grid-template-columns:1fr;border-left:none}.mece-col{border-right:none}}
+  .hinge{padding:80px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--ink);color:var(--paper)}
+  .hinge .wrap{max-width:1180px}
+  .hinge-mono{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.25)}
+  .hinge h2{font-family:'Source Serif 4',serif;font-size:clamp(28px,3.2vw,40px);font-weight:300;line-height:1.2;letter-spacing:-0.015em;max-width:960px}
+  .hinge h2 em{color:#5FC4E5;font-style:italic}
+  .hinge .attr{margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.12em;text-transform:uppercase}
+  .agenda-list{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--ink);border-left:1px solid var(--rule)}
+  .agenda-item{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:22px 24px 24px;display:flex;gap:18px;background:var(--paper)}
+  .agenda-item .n{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--accent);font-size:12px;letter-spacing:0.08em;line-height:1.4;flex-shrink:0}
+  .agenda-item h4{font-family:'Source Serif 4',serif;font-weight:500;font-size:17px;line-height:1.3;margin-bottom:6px}
+  .agenda-item p{font-size:13px;color:var(--ink-3);line-height:1.55}
+  @media(max-width:720px){.agenda-list{grid-template-columns:1fr;border-left:none}.agenda-item{border-right:none}}
+  .signoff{margin-top:56px;padding-top:32px;border-top:1px solid var(--ink);display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+  .signoff .names{font-family:'Source Serif 4',serif;font-size:18px;font-weight:500;color:var(--ink)}
+  .signoff .role{font-size:12.5px;color:var(--ink-4);margin-top:4px}
+  .signoff .co{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-4);text-align:right}
+  @media(max-width:600px){.signoff{flex-direction:column;align-items:flex-start}.signoff .co{text-align:left}}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease-out,transform .6s ease-out}
+  .reveal.in{opacity:1;transform:translateY(0)}
+  .svg-title{font-family:'Source Serif 4',serif;font-weight:500}
+  .svg-label{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.08em}
+  .svg-body{font-family:'Inter',sans-serif}
+/* ── ACCESS GATE ── */
+#el-gate{display:flex;position:fixed;inset:0;align-items:center;justify-content:center;background:#F5F5F3;z-index:9999;padding:2rem;}
+.el-unlocked #el-gate{display:none;}
+.el-unlocked #el-protected{display:contents;}
+#el-protected{display:none;}
+.el-gate-inner{background:#FFFFFF;border:1px solid #D8D8D8;border-radius:12px;padding:3rem 2.5rem;max-width:460px;width:100%;text-align:center;box-shadow:0 4px 16px rgba(10,10,10,0.08),0 16px 40px rgba(10,10,10,0.06);}
+.el-gate-icon{font-size:2.5rem;margin-bottom:1.25rem;}
+.el-gate-inner h2{font-size:1.375rem;font-weight:700;color:#0A0A0A;margin-bottom:.875rem;}
+.el-gate-inner p{font-size:.9375rem;color:#3D3D3D;line-height:1.6;margin-bottom:.5rem;}
+.el-gate-btn{display:inline-block;margin-top:1.5rem;padding:.75rem 1.75rem;background:#1C7293;color:#fff;font-size:.875rem;font-weight:600;border-radius:8px;text-decoration:none;letter-spacing:.01em;transition:opacity .15s;border:none;cursor:pointer;font-family:inherit;width:100%;}
+.el-gate-btn:hover{opacity:.88;}
+.el-gate-back{margin-top:1.25rem;font-size:.875rem;color:#6B6B6B;}
+.el-gate-back a{color:#6B6B6B;text-decoration:none;border-bottom:1px solid #D8D8D8;}
+.el-gate-back a:hover{color:#1C7293;}
+</style>
+</head>
+<body>
+
+<!-- ── ACCESS GATE ── -->
+<div id="el-gate">
+  <div class="el-gate-inner">
+    <div class="el-gate-icon">🔒</div>
+    <h2>Access Required</h2>
+    <p>Enter the email address associated with your access grant.</p>
+    <form onsubmit="_elSubmit(event)" style="margin-top:1.25rem;">
+      <input id="el-inp" type="email" placeholder="your@email.com" required style="width:100%;padding:.625rem .875rem;border:1.5px solid #D8D8D8;border-radius:6px;font-size:.875rem;font-family:inherit;margin-bottom:.625rem;outline:none;color:#0A0A0A;background:#FFFFFF;">
+      <button id="el-btn" type="submit" class="el-gate-btn">Unlock</button>
+    </form>
+    <p id="el-msg" style="margin-top:.75rem;margin-bottom:0;font-size:.8125rem;color:#dc2626;min-height:1.2em;"></p>
+    <div class="el-gate-back" style="margin-top:1rem;">No access? <a href="mailto:gps@elevatenow.tech">Request here →</a></div>
+  </div>
+</div>
+<div id="el-protected">
+
+<header class="topbar">
+  <div class="brand"><span class="mark"></span><span>ElevateNow · NL2SQL</span></div>
+  <div class="meta">Confidential · Governed Natural Language to SQL · June 2026</div>
+</header>
+
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <div class="wrap">
+    <div class="cover-mono reveal">Pre-read · ElevateNow NL2SQL Architecture</div>
+    <h1 class="reveal">NL2SQL fails not because language models cannot write SQL, but because <em>they receive raw schema with no vocabulary bridge, no scope reduction, and no rule injection.</em></h1>
+    <p class="lede reveal">Every enterprise NL2SQL deployment confronts the same failure pattern: the model hallucinates column names, silently drops required filters, infers wrong join paths, and surfaces restricted fields. These are not model failures. They are architecture failures. This document presents a three-layer approach that reduces complexity before it reaches the model, not after.</p>
+    <div class="cover-meta reveal">
+      <div><div class="cm-label">Document</div><div class="cm-value">NL2SQL Architecture Pre-read</div></div>
+      <div><div class="cm-label">Audience</div><div class="cm-value">Data &amp; Analytics Leadership</div></div>
+      <div><div class="cm-label">Read time</div><div class="cm-value">8 minutes</div></div>
+      <div><div class="cm-label">Purpose</div><div class="cm-value">Architecture &amp; deployment framing</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<section class="page" id="summary">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">01</span>
+      <span class="ph-cat">Executive summary</span>
+      <span class="ph-spacer"></span>
+      <span>One page · Four takeaways</span>
+    </div>
+    <h2 class="assertion reveal">Four structural observations explain why NL2SQL keeps failing in production, and why <span class="accent">the fix is upstream of the model, not downstream.</span></h2>
+    <p class="subhead reveal">Each of the four summarizes a section of this pre-read. If only one page is read, this is the one.</p>
+
+    <div class="takeaways reveal">
+      <div class="tk"><div class="n">I.</div><div><h4>The root cause is raw schema reaching the model with no mediation layer.</h4><p>Passing raw column names, raw data types, and raw questions to an LLM produces wrong column references, hallucinated joins, missing filters, and surfaced PII. Every error is predictable and preventable.</p></div></div>
+      <div class="tk"><div class="n">II.</div><div><h4>Three layers, each doing one job, prune the problem before the model sees it.</h4><p>The Auto Semantic Layer bridges vocabulary. The Domain Tuning Layer encodes business rules. The Query Pipeline reduces scope. Together they ensure that by the time the prompt is written, the problem is already solved.</p></div></div>
+      <div class="tk"><div class="n">III.</div><div><h4>A governed semantic layer is a set of thirteen artifacts that replace raw schema entirely.</h4><p>DDL Cache, Value Index, Business Rules, Join Keys, Hidden Fields, FAISS-indexed gold queries, and seven other objects form a complete semantic contract. The model never sees raw schema again.</p></div></div>
+      <div class="tk"><div class="n">IV.</div><div><h4>The lifecycle from ingestion to production is a repeatable four-stage pipeline.</h4><p>Ingest a new dataset, generate the semantic layer, tune via a lightweight interface, freeze and deploy to production. If scope changes post-deployment, the lifecycle repeats from ingestion.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 1: THE PROBLEM ============ -->
+<section class="page" id="problem">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">02</span>
+      <span class="ph-cat">The problem</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 1 of 5</span>
+    </div>
+    <h2 class="assertion reveal">Today's NL2SQL approaches pass raw schema and raw questions directly to the model, and <span class="accent">errors surface after generation when they are hardest to fix.</span></h2>
+    <p class="subhead reveal">The exhibit maps five failure modes that emerge when no mediation layer sits between the data warehouse and the language model.</p>
+
+    <div class="exhibit-label reveal">Exhibit 1 · Five failure modes of raw-schema NL2SQL<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <svg class="ex-svg" viewBox="0 0 1180 440" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1180" height="440" fill="#FFFFFF"/>
+        <defs>
+          <marker id="arr1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9A9A9A"/></marker>
+          <marker id="arr1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1C7293"/></marker>
+        </defs>
+
+        <!-- The raw path -->
+        <text x="590" y="30" text-anchor="middle" class="svg-label" font-size="10" fill="#6B6B6B" font-weight="600">TODAY'S APPROACH: RAW SCHEMA + RAW QUESTION → MODEL → ERRORS</text>
+
+        <!-- Data Warehouse -->
+        <rect x="45" y="55" width="180" height="60" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="135" y="78" text-anchor="middle" class="svg-body" font-size="12" fill="#0A0A0A" font-weight="600">Data Warehouse</text>
+        <text x="135" y="96" text-anchor="middle" class="svg-body" font-size="10" fill="#6B6B6B">Raw schema, all tables</text>
+
+        <!-- Arrow -->
+        <path d="M 225 85 L 285 85" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr1)"/>
+        <text x="255" y="77" text-anchor="middle" class="svg-label" font-size="8" fill="#9A9A9A">RAW DDL</text>
+
+        <!-- User question -->
+        <rect x="45" y="135" width="180" height="50" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="135" y="158" text-anchor="middle" class="svg-body" font-size="12" fill="#0A0A0A" font-weight="600">User Question</text>
+        <text x="135" y="174" text-anchor="middle" class="svg-body" font-size="10" fill="#6B6B6B">Natural language, unresolved</text>
+
+        <!-- Arrow -->
+        <path d="M 225 160 L 285 130" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr1)"/>
+        <text x="255" y="152" text-anchor="middle" class="svg-label" font-size="8" fill="#9A9A9A">RAW TEXT</text>
+
+        <!-- LLM -->
+        <rect x="285" y="65" width="200" height="80" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="385" y="98" text-anchor="middle" class="svg-body" font-size="14" fill="#0A0A0A" font-weight="600">Language Model</text>
+        <text x="385" y="118" text-anchor="middle" class="svg-body" font-size="10" fill="#6B6B6B">No vocabulary bridge, no rules</text>
+
+        <!-- Arrow to errors -->
+        <path d="M 485 105 L 555 105" stroke="#9A9A9A" stroke-width="1.5" fill="none" marker-end="url(#arr1)"/>
+        <text x="520" y="97" text-anchor="middle" class="svg-label" font-size="8" fill="#9A9A9A">GENERATED SQL</text>
+
+        <!-- Five failure boxes -->
+        <rect x="555" y="48" width="580" height="36" fill="#0A0A0A"/>
+        <text x="845" y="72" text-anchor="middle" class="svg-label" font-size="10" fill="#FFFFFF" font-weight="600">FIVE FAILURE MODES — ALL PREDICTABLE, ALL PREVENTABLE</text>
+
+        <!-- Failure 1 -->
+        <rect x="555" y="96" width="280" height="52" fill="#FFFFFF" stroke="#D8D8D8"/>
+        <text x="575" y="115" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">FAILURE 01 · VOCABULARY MISMATCH</text>
+        <text x="575" y="134" class="svg-body" font-size="10.5" fill="#1F1F1F">User says "termination" but column stores TERM_RSN.</text>
+        <text x="575" y="146" class="svg-body" font-size="10.5" fill="#1F1F1F">Ambiguous acronyms: BI, CLM, YTD, FTE.</text>
+
+        <!-- Failure 2 -->
+        <rect x="845" y="96" width="290" height="52" fill="#FFFFFF" stroke="#D8D8D8"/>
+        <text x="865" y="115" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">FAILURE 02 · HALLUCINATED COLUMNS</text>
+        <text x="865" y="134" class="svg-body" font-size="10.5" fill="#1F1F1F">Model invents plausible column names from</text>
+        <text x="865" y="146" class="svg-body" font-size="10.5" fill="#1F1F1F">an unmapped schema. Query fails silently.</text>
+
+        <!-- Failure 3 -->
+        <rect x="555" y="160" width="280" height="52" fill="#FFFFFF" stroke="#D8D8D8"/>
+        <text x="575" y="179" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">FAILURE 03 · WRONG METRIC LOGIC</text>
+        <text x="575" y="198" class="svg-body" font-size="10.5" fill="#1F1F1F">Wrong headcount metric: active vs. all vs. FTE.</text>
+        <text x="575" y="210" class="svg-body" font-size="10.5" fill="#1F1F1F">Date logic applied inconsistently.</text>
+
+        <!-- Failure 4 -->
+        <rect x="845" y="160" width="290" height="52" fill="#FFFFFF" stroke="#D8D8D8"/>
+        <text x="865" y="179" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">FAILURE 04 · HALLUCINATED JOINS</text>
+        <text x="865" y="198" class="svg-body" font-size="10.5" fill="#1F1F1F">Model infers join relationships that do not</text>
+        <text x="865" y="210" class="svg-body" font-size="10.5" fill="#1F1F1F">exist. Multi-table expansion with no scope.</text>
+
+        <!-- Failure 5 -->
+        <rect x="555" y="224" width="580" height="52" fill="#FFFFFF" stroke="#D8D8D8"/>
+        <text x="575" y="243" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">FAILURE 05 · MISSING FILTERS &amp; SURFACED PII</text>
+        <text x="575" y="262" class="svg-body" font-size="10.5" fill="#1F1F1F">Queries silently drop required population filters. Restricted or PII fields surface in results. No privacy rule injection.</text>
+
+        <!-- The fix: upstream -->
+        <rect x="45" y="310" width="1090" height="80" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="590" y="336" text-anchor="middle" class="svg-label" font-size="10" fill="#1C7293" font-weight="600">THE FIX IS UPSTREAM, NOT DOWNSTREAM</text>
+        <g class="svg-body" font-size="12" fill="#0A0A0A" text-anchor="middle">
+          <text x="590" y="358">Every one of these failures is caused by what the model receives, not what the model does.</text>
+          <text x="590" y="378" font-weight="600">Our method handles all of this before the model is ever involved. By the time the prompt is written, the problem is already solved.</text>
+        </g>
+
+        <g class="svg-label" font-size="9.5" fill="#9A9A9A">
+          <text x="45" y="425">Source: ElevateNow NL2SQL architecture analysis.</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="ex-note reveal"><strong>Implication.</strong> Post-generation error correction (retry loops, SQL validation, output guardrails) treats symptoms. Pre-generation complexity reduction eliminates causes. The five failure modes listed above disappear when the model never sees raw schema, never infers joins, and never encounters unresolved vocabulary.</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 2: THE THREE LAYERS ============ -->
+<section class="page" id="frame">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">03</span>
+      <span class="ph-cat">The three layers</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 2 of 5</span>
+    </div>
+    <h2 class="assertion reveal">Three layers, each doing exactly one job, reduce complexity before it reaches the model, and <span class="accent">each prevents a distinct class of failure.</span></h2>
+    <p class="subhead reveal">The layers are MECE: vocabulary bridging, rule injection, and scope reduction. Together they ensure the model receives only what it needs to answer reliably.</p>
+
+    <div class="exhibit-label reveal">Exhibit 2 · Three pre-generation layers: what each does and what each prevents<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal" style="margin-bottom:0;border-bottom:none;">
+      <svg class="ex-svg" viewBox="0 0 1180 340" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1180" height="340" fill="#FFFFFF"/>
+        <defs>
+          <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9A9A9A"/></marker>
+          <marker id="arr2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1C7293"/></marker>
+        </defs>
+
+        <text x="590" y="28" text-anchor="middle" class="svg-label" font-size="10" fill="#0A0A0A" font-weight="600">THE CORE PRINCIPLE: REDUCE COMPLEXITY BEFORE IT REACHES THE MODEL</text>
+
+        <!-- Flow: Source → Layer 1 → Layer 2 → Layer 3 → Model -->
+        <rect x="35" y="50" width="130" height="50" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="100" y="72" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Raw Schema</text>
+        <text x="100" y="88" text-anchor="middle" class="svg-body" font-size="9.5" fill="#6B6B6B">+ Raw Question</text>
+
+        <path d="M 165 75 L 205 75" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr2)"/>
+
+        <rect x="205" y="45" width="220" height="60" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="315" y="68" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">LAYER 1</text>
+        <text x="315" y="85" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Auto Semantic Layer</text>
+        <text x="315" y="100" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">Vocabulary bridging</text>
+
+        <path d="M 425 75 L 465 75" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr2a)"/>
+
+        <rect x="465" y="45" width="220" height="60" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="575" y="68" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">LAYER 2</text>
+        <text x="575" y="85" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Domain Tuning Layer</text>
+        <text x="575" y="100" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">Rule injection</text>
+
+        <path d="M 685 75 L 725 75" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr2a)"/>
+
+        <rect x="725" y="45" width="220" height="60" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="835" y="68" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">LAYER 3</text>
+        <text x="835" y="85" text-anchor="middle" class="svg-body" font-size="11" fill="#0A0A0A" font-weight="600">Query Pipeline</text>
+        <text x="835" y="100" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">Scope reduction</text>
+
+        <path d="M 945 75 L 985 75" stroke="#1C7293" stroke-width="1.5" fill="none" marker-end="url(#arr2a)"/>
+
+        <rect x="985" y="50" width="160" height="50" fill="#0A0A0A"/>
+        <text x="1065" y="72" text-anchor="middle" class="svg-body" font-size="11" fill="#FFFFFF" font-weight="600">Language Model</text>
+        <text x="1065" y="88" text-anchor="middle" class="svg-body" font-size="9.5" fill="#FFFFFF" opacity="0.8">Sees only what it needs</text>
+
+        <!-- What each layer does -->
+        <text x="315" y="130" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">WHAT IT DOES</text>
+        <g class="svg-body" font-size="10" fill="#1F1F1F">
+          <text x="215" y="148">Generates plain-English aliases</text>
+          <text x="215" y="164">for every column</text>
+          <text x="215" y="184">Samples values for exact-match</text>
+          <text x="215" y="200">index on categorical fields</text>
+          <text x="215" y="220">Indexes gold Q+SQL pairs</text>
+          <text x="215" y="236">into FAISS for retrieval</text>
+        </g>
+
+        <text x="575" y="130" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">WHAT IT DOES</text>
+        <g class="svg-body" font-size="10" fill="#1F1F1F">
+          <text x="475" y="148">Encodes metric definitions,</text>
+          <text x="475" y="164">date logic, default filters</text>
+          <text x="475" y="184">Defines every join key</text>
+          <text x="475" y="200">(model never infers relationships)</text>
+          <text x="475" y="220">Marks hidden fields; privacy</text>
+          <text x="475" y="236">rules enforced on every result</text>
+        </g>
+
+        <text x="835" y="130" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">WHAT IT DOES</text>
+        <g class="svg-body" font-size="10" fill="#1F1F1F">
+          <text x="735" y="148">EXPAND: rewrites question with</text>
+          <text x="735" y="164">full business context</text>
+          <text x="735" y="184">Resolves pronouns and prior-turn</text>
+          <text x="735" y="200">references explicitly</text>
+          <text x="735" y="220">SCHEMA LINK: selects only columns</text>
+          <text x="735" y="236">needed to answer</text>
+        </g>
+
+        <!-- What each prevents -->
+        <rect x="205" y="258" width="220" height="50" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="315" y="274" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">PREVENTS</text>
+        <text x="315" y="294" text-anchor="middle" class="svg-body" font-size="10" fill="#3D3D3D">Vocabulary mismatch, hallucinated</text>
+        <text x="315" y="306" text-anchor="middle" class="svg-body" font-size="10" fill="#3D3D3D">columns, ambiguous acronyms</text>
+
+        <rect x="465" y="258" width="220" height="50" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="575" y="274" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">PREVENTS</text>
+        <text x="575" y="294" text-anchor="middle" class="svg-body" font-size="10" fill="#3D3D3D">Wrong metrics, missing filters,</text>
+        <text x="575" y="306" text-anchor="middle" class="svg-body" font-size="10" fill="#3D3D3D">surfaced PII, hallucinated joins</text>
+
+        <rect x="725" y="258" width="220" height="50" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="835" y="274" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">PREVENTS</text>
+        <text x="835" y="294" text-anchor="middle" class="svg-body" font-size="10" fill="#3D3D3D">Multi-table expansion, context loss,</text>
+        <text x="835" y="306" text-anchor="middle" class="svg-body" font-size="10" fill="#3D3D3D">distraction from irrelevant columns</text>
+
+        <g class="svg-label" font-size="9.5" fill="#9A9A9A">
+          <text x="45" y="330">Source: ElevateNow NL2SQL architecture.</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="ex-note reveal"><strong>So what.</strong> Each layer addresses one class of failure, and the three classes are MECE. Layer 1 fixes what the model calls things. Layer 2 fixes how the model applies business logic. Layer 3 fixes what the model is allowed to see. Remove any one layer and its corresponding failure class returns.</div>
+  </div>
+</section>
+
+<!-- ============ HINGE PAGE ============ -->
+<section class="hinge">
+  <div class="wrap">
+    <div class="hinge-mono reveal">The ElevateNow NL2SQL thesis · In one sentence</div>
+    <h2 class="reveal">Our method handles all of this before the model is ever involved. <em>By the time the prompt is written, the problem is already solved.</em></h2>
+    <div class="attr reveal">— ElevateNow · June 2026</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 3: INGESTION PIPELINE + SEMANTIC LAYER ============ -->
+<section class="page" id="pipeline">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">04</span>
+      <span class="ph-cat">Ingestion pipeline</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 3 of 5</span>
+    </div>
+    <h2 class="assertion reveal">The ingestion pipeline converts a raw dataset and a set of gold queries into thirteen semantic artifacts that <span class="accent">replace raw schema entirely.</span></h2>
+    <p class="subhead reveal">Two inputs (Data Scope and Gold Queries) feed parallel processing paths. The outputs form the complete semantic layer: the model never touches the original schema.</p>
+
+    <div class="exhibit-label reveal">Exhibit 3 · Ingestion pipeline: from raw schema to governed semantic layer<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal" style="margin-bottom:0;border-bottom:none;">
+      <svg class="ex-svg" viewBox="0 0 1180 520" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1180" height="520" fill="#FFFFFF"/>
+        <defs>
+          <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9A9A9A"/></marker>
+          <marker id="arr3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1C7293"/></marker>
+        </defs>
+
+        <text x="590" y="28" text-anchor="middle" class="svg-label" font-size="10" fill="#0A0A0A" font-weight="600">INGESTION PIPELINE — TWO INPUTS, THIRTEEN SEMANTIC ARTIFACTS</text>
+
+        <!-- PATH 1: Schema path -->
+        <text x="100" y="55" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">SCHEMA PATH</text>
+
+        <!-- Data Warehouse -->
+        <rect x="35" y="70" width="130" height="44" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="100" y="88" text-anchor="middle" class="svg-body" font-size="10.5" fill="#0A0A0A" font-weight="600">Data Warehouse</text>
+        <text x="100" y="104" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Source tables</text>
+
+        <path d="M 165 92 L 200 92" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr3)"/>
+
+        <!-- Query Info Schema -->
+        <rect x="200" y="70" width="150" height="44" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="275" y="88" text-anchor="middle" class="svg-body" font-size="10.5" fill="#0A0A0A" font-weight="600">Query Info Schema</text>
+        <text x="275" y="104" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Read definitions, dtypes</text>
+
+        <path d="M 350 92 L 385 92" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr3)"/>
+
+        <!-- Metadata -->
+        <rect x="385" y="70" width="100" height="44" fill="#0A0A0A"/>
+        <text x="435" y="90" text-anchor="middle" class="svg-body" font-size="10" fill="#FFFFFF" font-weight="600">Metadata</text>
+        <text x="435" y="104" text-anchor="middle" class="svg-body" font-size="9" fill="#FFFFFF" opacity="0.8">.json</text>
+
+        <path d="M 485 92 L 520 92" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr3a)"/>
+
+        <!-- Generate Aliases (LLM) -->
+        <rect x="520" y="65" width="160" height="54" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="600" y="84" text-anchor="middle" class="svg-body" font-size="10.5" fill="#0A0A0A" font-weight="600">Generate Aliases</text>
+        <text x="600" y="100" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">Pass in-scope fields to LLM</text>
+        <text x="600" y="113" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">for alias generation</text>
+
+        <path d="M 680 92 L 715 92" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr3a)"/>
+
+        <!-- Aliases -->
+        <rect x="715" y="70" width="100" height="44" fill="#0A0A0A"/>
+        <text x="765" y="90" text-anchor="middle" class="svg-body" font-size="10" fill="#FFFFFF" font-weight="600">Aliases</text>
+        <text x="765" y="104" text-anchor="middle" class="svg-body" font-size="9" fill="#FFFFFF" opacity="0.8">Python obj</text>
+
+        <path d="M 815 92 L 850 92" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr3a)"/>
+
+        <!-- Generate DDL Cache (LLM) -->
+        <rect x="850" y="65" width="160" height="54" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="930" y="84" text-anchor="middle" class="svg-body" font-size="10.5" fill="#0A0A0A" font-weight="600">Generate DDL Cache</text>
+        <text x="930" y="100" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">In-scope table, field, alias,</text>
+        <text x="930" y="113" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">dtype information</text>
+
+        <!-- PATH 2: Gold Query path -->
+        <text x="100" y="155" text-anchor="middle" class="svg-label" font-size="9" fill="#1C7293" font-weight="600">GOLD QUERY PATH</text>
+
+        <!-- Gold Queries input -->
+        <rect x="35" y="170" width="130" height="44" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="100" y="188" text-anchor="middle" class="svg-body" font-size="10.5" fill="#0A0A0A" font-weight="600">Gold Queries</text>
+        <text x="100" y="204" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">.xlsx, SME-validated</text>
+
+        <path d="M 165 192 L 285 192" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr3)"/>
+
+        <!-- Normalize -->
+        <rect x="285" y="170" width="150" height="44" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="360" y="188" text-anchor="middle" class="svg-body" font-size="10.5" fill="#0A0A0A" font-weight="600">Normalize</text>
+        <text x="360" y="204" text-anchor="middle" class="svg-body" font-size="9" fill="#6B6B6B">Normalize golden queries to JSON</text>
+
+        <path d="M 435 192 L 470 192" stroke="#9A9A9A" stroke-width="1.2" fill="none" marker-end="url(#arr3)"/>
+
+        <!-- Norm Gold Queries -->
+        <rect x="470" y="170" width="130" height="44" fill="#0A0A0A"/>
+        <text x="535" y="190" text-anchor="middle" class="svg-body" font-size="10" fill="#FFFFFF" font-weight="600">Norm Queries</text>
+        <text x="535" y="204" text-anchor="middle" class="svg-body" font-size="9" fill="#FFFFFF" opacity="0.8">Python obj</text>
+
+        <path d="M 600 192 L 635 192" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr3a)"/>
+
+        <!-- Embed and Compress -->
+        <rect x="635" y="165" width="190" height="54" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="730" y="184" text-anchor="middle" class="svg-body" font-size="10.5" fill="#0A0A0A" font-weight="600">Embed &amp; Compress</text>
+        <text x="730" y="200" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">Embed queries, create index,</text>
+        <text x="730" y="213" text-anchor="middle" class="svg-body" font-size="9" fill="#3D3D3D">create/compress chunks</text>
+
+        <!-- Scope annotation -->
+        <rect x="420" y="130" width="110" height="22" fill="#1C7293"/>
+        <text x="475" y="145" text-anchor="middle" class="svg-label" font-size="8" fill="#FFFFFF" font-weight="600">DATA SCOPE</text>
+        <path d="M 475 152 L 475 168" stroke="#1C7293" stroke-width="1" stroke-dasharray="3 2" fill="none"/>
+        <path d="M 475 120 L 475 130" stroke="#1C7293" stroke-width="1" stroke-dasharray="3 2" fill="none"/>
+        <text x="540" y="145" class="svg-body" font-size="8.5" fill="#3D3D3D">Limited to in-scope data</text>
+
+        <!-- OUTPUT: Semantic Layer -->
+        <rect x="35" y="260" width="1110" height="32" fill="#0A0A0A"/>
+        <text x="590" y="282" text-anchor="middle" class="svg-label" font-size="10" fill="#FFFFFF" font-weight="600">OUTPUT: THE SEMANTIC LAYER — THIRTEEN GOVERNED ARTIFACTS</text>
+
+        <!-- Artifact grid: 7 across top, 6 across bottom -->
+        <g>
+          <rect x="35" y="305" width="150" height="52" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="110" y="325" text-anchor="middle" class="svg-label" font-size="8.5" fill="#1C7293" font-weight="600">DDL CACHE</text>
+          <text x="110" y="345" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">.json · table/field/alias/dtype</text>
+
+          <rect x="195" y="305" width="150" height="52" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="270" y="325" text-anchor="middle" class="svg-label" font-size="8.5" fill="#1C7293" font-weight="600">VALUE INDEX</text>
+          <text x="270" y="345" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">.json · column disambiguation</text>
+
+          <rect x="355" y="305" width="150" height="52" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="430" y="325" text-anchor="middle" class="svg-label" font-size="8.5" fill="#1C7293" font-weight="600">BUSINESS RULES</text>
+          <text x="430" y="345" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">.md · metrics, acronyms, logic</text>
+
+          <rect x="515" y="305" width="150" height="52" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="590" y="325" text-anchor="middle" class="svg-label" font-size="8.5" fill="#1C7293" font-weight="600">JOIN KEYS</text>
+          <text x="590" y="345" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">.json · table join definitions</text>
+
+          <rect x="675" y="305" width="150" height="52" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="750" y="325" text-anchor="middle" class="svg-label" font-size="8.5" fill="#1C7293" font-weight="600">HIDDEN FIELDS</text>
+          <text x="750" y="345" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">.json · PII/sensitive masking</text>
+
+          <rect x="835" y="305" width="150" height="52" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="910" y="325" text-anchor="middle" class="svg-label" font-size="8.5" fill="#1C7293" font-weight="600">FAISS INDEX</text>
+          <text x="910" y="345" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">.index · embedded gold queries</text>
+
+          <rect x="995" y="305" width="150" height="52" fill="#E5F0F4" stroke="#1C7293"/>
+          <text x="1070" y="325" text-anchor="middle" class="svg-label" font-size="8.5" fill="#1C7293" font-weight="600">CHUNKS</text>
+          <text x="1070" y="345" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">.pkl · normalized gold queries</text>
+        </g>
+
+        <!-- Row 2 -->
+        <g>
+          <rect x="115" y="370" width="150" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="190" y="390" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">DATA SCOPE</text>
+          <text x="190" y="410" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">.xlsx · in-scope table list</text>
+
+          <rect x="275" y="370" width="150" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="350" y="390" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">METADATA</text>
+          <text x="350" y="410" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">.json · raw table definitions</text>
+
+          <rect x="435" y="370" width="150" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="510" y="390" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">ALIASES</text>
+          <text x="510" y="410" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">Python obj · plain-English names</text>
+
+          <rect x="595" y="370" width="150" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="670" y="390" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">GOLD QUERIES</text>
+          <text x="670" y="410" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">.xlsx · SME-validated Q+SQL</text>
+
+          <rect x="755" y="370" width="150" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="830" y="390" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">NORM QUERIES</text>
+          <text x="830" y="410" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">Python obj · normalized JSON</text>
+
+          <rect x="915" y="370" width="150" height="52" fill="#F5F5F3" stroke="#D8D8D8"/>
+          <text x="990" y="390" text-anchor="middle" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">EMBEDDINGS</text>
+          <text x="990" y="410" text-anchor="middle" class="svg-body" font-size="9.5" fill="#3D3D3D">Python obj · vector representations</text>
+        </g>
+
+        <!-- Legend -->
+        <rect x="35" y="438" width="12" height="12" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="55" y="449" class="svg-body" font-size="9.5" fill="#3D3D3D">Semantic Object (loaded at generation time)</text>
+        <rect x="285" y="438" width="12" height="12" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="305" y="449" class="svg-body" font-size="9.5" fill="#3D3D3D">Input / Helper Object (pipeline intermediate)</text>
+
+        <g class="svg-label" font-size="9.5" fill="#9A9A9A">
+          <text x="45" y="500">Source: ElevateNow NL2SQL ingestion pipeline architecture.</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="ex-note reveal"><strong>Read this as.</strong> The semantic layer is not a configuration file. It is a set of thirteen interrelated artifacts that encode vocabulary (aliases, DDL cache), business logic (business rules, value index), access control (hidden fields), query patterns (FAISS index, chunks), and relationship definitions (join keys). All thirteen are produced by a single ingestion run from two inputs. All thirteen are loaded at generation time. The model never sees anything else.</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 4: DEVELOPMENT LIFECYCLE ============ -->
+<section class="page" id="lifecycle">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">05</span>
+      <span class="ph-cat">Development lifecycle</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 4 of 5</span>
+    </div>
+    <h2 class="assertion reveal">The lifecycle from raw dataset to production deployment is a repeatable four-stage pipeline, and <span class="accent">scope changes re-trigger it from the beginning.</span></h2>
+    <p class="subhead reveal">Ingest, build the semantic layer, tune via a lightweight interface, freeze and deploy. If scope changes post-deployment, the lifecycle repeats from ingestion.</p>
+
+    <div class="exhibit-label reveal">Exhibit 4 · NL2SQL development lifecycle: ingestion, tuning, deployment<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <svg class="ex-svg" viewBox="0 0 1180 400" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1180" height="400" fill="#FFFFFF"/>
+        <defs>
+          <marker id="arr4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9A9A9A"/></marker>
+          <marker id="arr4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1C7293"/></marker>
+        </defs>
+
+        <text x="590" y="28" text-anchor="middle" class="svg-label" font-size="10" fill="#0A0A0A" font-weight="600">NL2SQL DEVELOPMENT LIFECYCLE — INGESTION, TUNING, &amp; DEPLOYMENT</text>
+
+        <!-- Stage 1: Ingestion Pipeline -->
+        <rect x="45" y="55" width="240" height="180" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="165" y="78" text-anchor="middle" class="svg-label" font-size="9.5" fill="#1C7293" font-weight="600">STAGE 1</text>
+        <text x="165" y="100" text-anchor="middle" class="svg-title" font-size="16" fill="#0A0A0A">Ingestion Pipeline</text>
+        <line x1="65" y1="112" x2="265" y2="112" stroke="#D8D8D8"/>
+        <g class="svg-body" font-size="10.5" fill="#1F1F1F">
+          <text x="65" y="135">Run for each new dataset the</text>
+          <text x="65" y="151">NL2SQL model should interact</text>
+          <text x="65" y="167">with, to generate the initial</text>
+          <text x="65" y="183">semantic layer.</text>
+        </g>
+        <text x="65" y="210" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">EXPECTS:</text>
+        <text x="65" y="226" class="svg-body" font-size="10" fill="#3D3D3D">Data Scope (.xlsx) + Gold Queries (.xlsx)</text>
+
+        <path d="M 285 145 L 325 145" stroke="#1C7293" stroke-width="1.5" fill="none" marker-end="url(#arr4a)"/>
+
+        <!-- Stage 2: Semantic Layer -->
+        <rect x="325" y="55" width="240" height="180" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="445" y="78" text-anchor="middle" class="svg-label" font-size="9.5" fill="#1C7293" font-weight="600">STAGE 2</text>
+        <text x="445" y="100" text-anchor="middle" class="svg-title" font-size="16" fill="#0A0A0A">Semantic Layer</text>
+        <line x1="345" y1="112" x2="545" y2="112" stroke="#D8D8D8"/>
+        <g class="svg-body" font-size="10.5" fill="#1F1F1F">
+          <text x="345" y="135">The complete set of artifacts</text>
+          <text x="345" y="151">used during generation to</text>
+          <text x="345" y="167">produce accurate SQL.</text>
+        </g>
+        <text x="345" y="195" class="svg-label" font-size="8.5" fill="#6B6B6B" font-weight="600">CONTAINS:</text>
+        <g class="svg-body" font-size="10" fill="#3D3D3D">
+          <text x="345" y="211">FAISS Index · Chunks · DDL Cache</text>
+          <text x="345" y="226">Value Index · Business Rules</text>
+        </g>
+
+        <path d="M 565 145 L 605 145" stroke="#1C7293" stroke-width="1.5" fill="none" marker-end="url(#arr4a)"/>
+
+        <!-- Stage 3: Generation (Tuning) -->
+        <rect x="605" y="55" width="240" height="180" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="725" y="78" text-anchor="middle" class="svg-label" font-size="9.5" fill="#6B6B6B" font-weight="600">STAGE 3</text>
+        <text x="725" y="100" text-anchor="middle" class="svg-title" font-size="16" fill="#0A0A0A">Generation (Tuning)</text>
+        <line x1="625" y1="112" x2="825" y2="112" stroke="#D8D8D8"/>
+        <g class="svg-body" font-size="10.5" fill="#1F1F1F">
+          <text x="625" y="135">Lightweight testing interface</text>
+          <text x="625" y="151">for testing the engine and</text>
+          <text x="625" y="167">optimizing the semantic layer.</text>
+          <text x="625" y="191">Codeless GUI to tune the</text>
+          <text x="625" y="207">solution. When performing at</text>
+          <text x="625" y="223">standard, the layer is frozen.</text>
+        </g>
+
+        <path d="M 845 145 L 885 145" stroke="#9A9A9A" stroke-width="1.5" fill="none" marker-end="url(#arr4)"/>
+
+        <!-- Stage 4: Generation (Production) -->
+        <rect x="885" y="55" width="250" height="180" fill="#0A0A0A"/>
+        <text x="1010" y="78" text-anchor="middle" class="svg-label" font-size="9.5" fill="#FFFFFF" opacity="0.7">STAGE 4</text>
+        <text x="1010" y="100" text-anchor="middle" class="svg-title" font-size="16" fill="#FFFFFF">Production</text>
+        <line x1="905" y1="112" x2="1115" y2="112" stroke="rgba(255,255,255,0.25)"/>
+        <g class="svg-body" font-size="10.5" fill="#FFFFFF">
+          <text x="905" y="135">The NL2SQL engine in</text>
+          <text x="905" y="151">production, serving the tuned</text>
+          <text x="905" y="167">semantic layer to users through</text>
+          <text x="905" y="183">a robust, scalable interface.</text>
+          <text x="905" y="210" opacity="0.7">Model + semantic layer frozen.</text>
+          <text x="905" y="226" opacity="0.7">Deployed behind production UI.</text>
+        </g>
+
+        <!-- Feedback loop: Change Scope -->
+        <rect x="350" y="280" width="480" height="52" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="590" y="302" text-anchor="middle" class="svg-label" font-size="9.5" fill="#1C7293" font-weight="600">CHANGE SCOPE (POST-PRODUCTION)</text>
+        <text x="590" y="322" text-anchor="middle" class="svg-body" font-size="11" fill="#1F1F1F">If a use case requires a change to data scope after production, the lifecycle repeats</text>
+        <text x="590" y="338" text-anchor="middle" class="svg-body" font-size="11" fill="#1F1F1F" font-style="italic">from ingestion to produce, tune, and deploy a new semantic layer.</text>
+
+        <!-- Loop arrows -->
+        <path d="M 1010 235 L 1010 306 L 830 306" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr4a)"/>
+        <path d="M 350 306 L 165 306 L 165 235" stroke="#1C7293" stroke-width="1.2" fill="none" marker-end="url(#arr4a)"/>
+
+        <g class="svg-label" font-size="9.5" fill="#9A9A9A">
+          <text x="45" y="385">Source: ElevateNow NL2SQL development lifecycle.</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="ex-note reveal"><strong>The commitment.</strong> Every new dataset gets one ingestion run that produces all thirteen semantic artifacts. The tuning stage is codeless: domain experts adjust business rules, add gold queries, and mark hidden fields through a GUI. When accuracy reaches the target standard, the semantic layer is frozen and deployed. No custom code, no model fine-tuning, no prompt engineering in production.</div>
+  </div>
+</section>
+
+<!-- ============ EXHIBIT PAGE 5: QUERY PIPELINE DETAIL ============ -->
+<section class="page" id="querypipeline">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">06</span>
+      <span class="ph-cat">Query pipeline</span>
+      <span class="ph-spacer"></span>
+      <span>Exhibit 5 of 5</span>
+    </div>
+    <h2 class="assertion reveal">At query time, two operations transform the raw user question before the model sees it: EXPAND adds business context, and <span class="accent">SCHEMA LINK selects only the columns needed to answer.</span></h2>
+    <p class="subhead reveal">Together these two operations eliminate context loss across multi-turn conversations and prevent the model from being distracted by irrelevant tables and columns.</p>
+
+    <div class="exhibit-label reveal">Exhibit 5 · Query-time pipeline: EXPAND and SCHEMA LINK<span class="line"></span></div>
+
+    <div class="ex-svg-container reveal">
+      <svg class="ex-svg" viewBox="0 0 1180 340" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1180" height="340" fill="#FFFFFF"/>
+        <defs>
+          <marker id="arr5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9A9A9A"/></marker>
+          <marker id="arr5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1C7293"/></marker>
+        </defs>
+
+        <!-- User question -->
+        <rect x="35" y="50" width="160" height="80" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="115" y="78" text-anchor="middle" class="svg-label" font-size="9" fill="#6B6B6B" font-weight="600">USER QUESTION</text>
+        <text x="115" y="100" text-anchor="middle" class="svg-body" font-size="10.5" fill="#0A0A0A">"How many people</text>
+        <text x="115" y="116" text-anchor="middle" class="svg-body" font-size="10.5" fill="#0A0A0A">left last quarter?"</text>
+
+        <path d="M 195 90 L 250 90" stroke="#9A9A9A" stroke-width="1.5" fill="none" marker-end="url(#arr5)"/>
+
+        <!-- EXPAND -->
+        <rect x="250" y="35" width="300" height="110" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="400" y="58" text-anchor="middle" class="svg-label" font-size="10" fill="#1C7293" font-weight="600">EXPAND</text>
+        <line x1="270" y1="68" x2="530" y2="68" stroke="#D8D8D8"/>
+        <g class="svg-body" font-size="10.5" fill="#1F1F1F">
+          <text x="270" y="88">Rewrites question with full business context.</text>
+          <text x="270" y="106">Resolves pronouns and prior-turn references.</text>
+          <text x="270" y="124">Injects domain-specific metric definitions.</text>
+        </g>
+
+        <path d="M 550 90 L 610 90" stroke="#1C7293" stroke-width="1.5" fill="none" marker-end="url(#arr5a)"/>
+
+        <!-- Expanded question -->
+        <rect x="610" y="35" width="260" height="110" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="740" y="58" text-anchor="middle" class="svg-label" font-size="9" fill="#6B6B6B" font-weight="600">EXPANDED QUESTION</text>
+        <text x="630" y="82" class="svg-body" font-size="10.5" fill="#0A0A0A">"How many active employees</text>
+        <text x="630" y="98" class="svg-body" font-size="10.5" fill="#0A0A0A">had an involuntary or voluntary</text>
+        <text x="630" y="114" class="svg-body" font-size="10.5" fill="#0A0A0A">termination in Q4 2025, using</text>
+        <text x="630" y="130" class="svg-body" font-size="10.5" fill="#0A0A0A">the TERM_RSN field?"</text>
+
+        <path d="M 870 90 L 930 90" stroke="#1C7293" stroke-width="1.5" fill="none" marker-end="url(#arr5a)"/>
+
+        <!-- SCHEMA LINK -->
+        <rect x="930" y="35" width="210" height="110" fill="#E5F0F4" stroke="#1C7293"/>
+        <text x="1035" y="58" text-anchor="middle" class="svg-label" font-size="10" fill="#1C7293" font-weight="600">SCHEMA LINK</text>
+        <line x1="950" y1="68" x2="1120" y2="68" stroke="#D8D8D8"/>
+        <g class="svg-body" font-size="10.5" fill="#1F1F1F">
+          <text x="950" y="88">Selects only columns</text>
+          <text x="950" y="106">needed to answer.</text>
+          <text x="950" y="124">Model sees minimal schema.</text>
+        </g>
+
+        <!-- Arrow down to model -->
+        <path d="M 1035 145 L 1035 175" stroke="#1C7293" stroke-width="1.5" fill="none" marker-end="url(#arr5a)"/>
+
+        <!-- Model receives -->
+        <rect x="800" y="175" width="345" height="60" fill="#0A0A0A"/>
+        <text x="972" y="198" text-anchor="middle" class="svg-label" font-size="9.5" fill="#FFFFFF" opacity="0.7">MODEL RECEIVES</text>
+        <text x="972" y="220" text-anchor="middle" class="svg-body" font-size="11" fill="#FFFFFF">Expanded question + only relevant columns across all tables</text>
+
+        <!-- Semantic layer feeding both -->
+        <rect x="35" y="175" width="350" height="110" fill="#F5F5F3" stroke="#D8D8D8"/>
+        <text x="210" y="198" text-anchor="middle" class="svg-label" font-size="9.5" fill="#1C7293" font-weight="600">SEMANTIC LAYER ARTIFACTS LOADED AT QUERY TIME</text>
+        <g class="svg-body" font-size="10.5" fill="#1F1F1F">
+          <text x="55" y="222">DDL Cache provides aliased column definitions</text>
+          <text x="55" y="240">FAISS Index retrieves similar gold Q+SQL pairs</text>
+          <text x="55" y="258">Business Rules inject metric and date logic</text>
+          <text x="55" y="276">Hidden Fields enforce PII masking on every result</text>
+        </g>
+
+        <!-- Arrows from semantic layer -->
+        <path d="M 385 200 L 400 160 L 400 90 L 250 90" stroke="#1C7293" stroke-width="1" stroke-dasharray="3 2" fill="none"/>
+        <path d="M 385 220 L 800 220" stroke="#1C7293" stroke-width="1" stroke-dasharray="3 2" fill="none"/>
+
+        <g class="svg-label" font-size="9.5" fill="#9A9A9A">
+          <text x="45" y="325">Source: ElevateNow NL2SQL query pipeline architecture.</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="ex-note reveal"><strong>Upshot.</strong> By the time the language model receives its prompt, the question has been rewritten with full business context, the schema has been reduced to only relevant columns, join keys have been explicitly defined, hidden fields have been excluded, and similar gold queries have been retrieved as few-shot examples. There is nothing left to hallucinate.</div>
+  </div>
+</section>
+
+<!-- ============ AGENDA ============ -->
+<section class="page" id="agenda">
+  <div class="wrap">
+    <div class="ph reveal">
+      <span class="ph-num">07</span>
+      <span class="ph-cat">Working session agenda</span>
+      <span class="ph-spacer"></span>
+      <span>Six items · 45 minutes</span>
+    </div>
+    <h2 class="assertion reveal">The goal of our meeting is a working session, <span class="accent">not a demo.</span></h2>
+    <p class="subhead reveal">This pre-read provides the architectural frame. The session itself should test the approach against your data, your vocabulary, and your accuracy requirements.</p>
+
+    <ol class="agenda-list reveal">
+      <li class="agenda-item"><div class="n">01</div><div><h4>Current NL2SQL failure patterns</h4><p>Which of the five failure modes (vocabulary mismatch, hallucinated columns, wrong metrics, hallucinated joins, missing filters) is most acute in your current deployment?</p></div></li>
+      <li class="agenda-item"><div class="n">02</div><div><h4>Data scope and gold query inventory</h4><p>Identify the initial dataset scope and existing validated Q+SQL pairs that would seed the first ingestion run.</p></div></li>
+      <li class="agenda-item"><div class="n">03</div><div><h4>Business rules and metric definitions</h4><p>Walk through the domain-specific metric definitions, date logic, and acronym disambiguation that the Domain Tuning Layer must encode.</p></div></li>
+      <li class="agenda-item"><div class="n">04</div><div><h4>Privacy and hidden field requirements</h4><p>Confirm which fields must be masked, which population filters are mandatory, and how access control rules should be enforced.</p></div></li>
+      <li class="agenda-item"><div class="n">05</div><div><h4>Accuracy targets and tuning workflow</h4><p>Define the accuracy standard that triggers the semantic layer freeze and the team that will own the tuning GUI.</p></div></li>
+      <li class="agenda-item"><div class="n">06</div><div><h4>Open questions</h4><p>The questions your team is already asking about governed NL2SQL. We want to hear them before we propose a deployment path.</p></div></li>
+    </ol>
+
+    <div class="signoff reveal">
+      <div class="co">
+        <div>Confidential · Pre-read v1</div>
+        <div>June 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.cover .reveal').forEach((el, i) => {
+      setTimeout(() => el.classList.add('in'), 100 + i * 120);
+    });
+  });
+</script>
+
+</div><!-- /#el-protected -->
+</body>
+</html>
