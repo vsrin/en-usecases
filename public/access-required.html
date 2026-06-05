@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Access Required — ElevateNow Insights</title>
+<link rel="icon" type="image/png" href="/EN.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,13 +17,8 @@ html, body {
   color: #fff;
   -webkit-font-smoothing: antialiased;
 }
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+body { display: flex; flex-direction: column; min-height: 100vh; }
 
-/* Background texture */
 body::before {
   content: '';
   position: fixed; inset: 0; pointer-events: none; z-index: 0;
@@ -37,7 +33,6 @@ body::after {
   background-size: 32px 32px;
 }
 
-/* Nav strip */
 .top-bar {
   position: relative; z-index: 10;
   display: flex; align-items: center;
@@ -49,10 +44,9 @@ body::after {
 .brand-name { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -.3px; }
 .brand-tag {
   font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-  color: #2145EA; background: rgba(33,69,234,0.18); padding: 3px 8px; border-radius: 4px;
+  color: #5B7FF8; background: rgba(33,69,234,0.18); padding: 3px 8px; border-radius: 4px;
 }
 
-/* Main content */
 main {
   flex: 1; display: flex; align-items: center; justify-content: center;
   position: relative; z-index: 1; padding: 48px 24px;
@@ -62,7 +56,7 @@ main {
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 16px;
   padding: 56px 48px;
-  max-width: 520px; width: 100%;
+  max-width: 480px; width: 100%;
   text-align: center;
   backdrop-filter: blur(20px);
 }
@@ -78,49 +72,75 @@ main {
 
 h1 {
   font-size: 24px; font-weight: 800; color: #fff;
-  letter-spacing: -.02em; line-height: 1.2; margin-bottom: 14px;
+  letter-spacing: -.02em; line-height: 1.2; margin-bottom: 12px;
 }
 .deck {
-  font-size: 14.5px; color: rgba(255,255,255,0.55);
+  font-size: 14px; color: rgba(255,255,255,0.50);
   line-height: 1.72; margin-bottom: 32px;
 }
-.deck strong { color: rgba(255,255,255,0.80); font-weight: 500; }
 
-.divider {
-  height: 1px; background: rgba(255,255,255,0.08); margin-bottom: 28px;
+.divider { height: 1px; background: rgba(255,255,255,0.08); margin-bottom: 28px; }
+
+/* Token form */
+.form-label {
+  display: block; text-align: left;
+  font-size: 11.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  color: rgba(255,255,255,0.40); margin-bottom: 10px;
 }
-
-.note {
-  font-size: 12.5px; color: rgba(255,255,255,0.35);
-  line-height: 1.6; margin-bottom: 28px;
-  padding: 14px 18px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
+.input-row { display: flex; gap: 8px; margin-bottom: 10px; }
+.token-input {
+  flex: 1;
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.14);
   border-radius: 8px;
-  text-align: left;
+  padding: 12px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: #fff;
+  outline: none;
+  transition: border-color .18s;
+  letter-spacing: .04em;
 }
-.note strong { color: rgba(255,255,255,0.55); font-weight: 500; }
+.token-input::placeholder { color: rgba(255,255,255,0.22); }
+.token-input:focus { border-color: rgba(33,69,234,0.70); }
+.token-input.error { border-color: rgba(239,68,68,0.60); }
 
-.actions { display: flex; flex-direction: column; gap: 10px; }
-.btn-primary {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
+.btn-unlock {
   background: #2145EA; color: #fff;
-  padding: 13px 24px; border-radius: 8px;
-  font-size: 13.5px; font-weight: 600; text-decoration: none;
+  border: none; border-radius: 8px;
+  padding: 12px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px; font-weight: 600;
+  cursor: pointer; white-space: nowrap;
   transition: background .2s;
+  flex-shrink: 0;
 }
-.btn-primary:hover { background: #112CA9; }
-.btn-secondary {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  background: transparent; color: rgba(255,255,255,0.55);
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 12px 24px; border-radius: 8px;
-  font-size: 13.5px; font-weight: 500; text-decoration: none;
-  transition: border-color .2s, color .2s;
-}
-.btn-secondary:hover { border-color: rgba(255,255,255,0.28); color: rgba(255,255,255,0.8); }
+.btn-unlock:hover { background: #1a35c8; }
+.btn-unlock:disabled { opacity: .5; cursor: not-allowed; }
 
-/* Footer */
+.error-msg {
+  display: none; text-align: left;
+  font-size: 12.5px; color: #F87171;
+  margin-bottom: 16px;
+}
+.error-msg.show { display: block; }
+
+.divider-2 { height: 1px; background: rgba(255,255,255,0.06); margin: 24px 0; }
+
+.request-link {
+  font-size: 12.5px; color: rgba(255,255,255,0.35);
+  text-decoration: none; transition: color .18s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.request-link:hover { color: rgba(255,255,255,0.65); }
+
+.back-link {
+  display: block; margin-top: 14px;
+  font-size: 12px; color: rgba(255,255,255,0.22);
+  text-decoration: none; transition: color .18s;
+}
+.back-link:hover { color: rgba(255,255,255,0.45); }
+
 footer {
   position: relative; z-index: 1;
   text-align: center; padding: 20px;
@@ -129,7 +149,9 @@ footer {
 
 @media (max-width: 560px) {
   .top-bar { padding: 0 20px; }
-  .card { padding: 40px 28px; }
+  .card { padding: 40px 24px; }
+  .input-row { flex-direction: column; }
+  .btn-unlock { width: 100%; padding: 13px; }
 }
 </style>
 </head>
@@ -159,35 +181,75 @@ footer {
       </svg>
     </div>
 
-    <h1>Access by Invitation Only</h1>
-    <p class="deck">
-      ElevateNow Insights is shared selectively with approved contacts.<br>
-      <strong>Only pre-approved email addresses receive a verification code.</strong>
-      If you submitted your email and received nothing, your address has not been approved for access.
-    </p>
+    <h1>Access Required</h1>
+    <p class="deck">ElevateNow Insights is shared selectively. Enter your access token to continue.</p>
 
     <div class="divider"></div>
 
-    <div class="note">
-      <strong>Already have access?</strong> Make sure you're using the exact email address that was approved. OTP emails are sent from Cloudflare Access — check your spam folder if you're expecting one.
+    <label class="form-label">Access token</label>
+    <div class="error-msg" id="errorMsg">Incorrect token. Please check and try again.</div>
+    <div class="input-row">
+      <input
+        type="password"
+        class="token-input"
+        id="tokenInput"
+        placeholder="Enter your token"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="btn-unlock" id="unlockBtn" onclick="unlock()">Unlock</button>
     </div>
 
-    <div class="actions">
-      <a href="mailto:gps@elevatenow.tech?subject=Insights%20Access%20Request" class="btn-primary">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-          <polyline points="22,6 12,13 2,6"/>
-        </svg>
-        Request Access — gps@elevatenow.tech
-      </a>
-      <a href="https://elevatenow.tech" class="btn-secondary">
-        ← Back to elevatenow.tech
-      </a>
-    </div>
+    <div class="divider-2"></div>
+
+    <a href="mailto:gps@elevatenow.tech?subject=Insights%20Access%20Request" class="request-link">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      Don't have a token? Request access
+    </a>
+    <a href="https://elevatenow.tech" class="back-link">← Back to elevatenow.tech</a>
   </div>
 </main>
 
 <footer>© 2026 ElevateNow · insights.elevatenow.tech</footer>
+
+<script>
+  const input = document.getElementById('tokenInput');
+  const errorMsg = document.getElementById('errorMsg');
+
+  // Support Enter key
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') unlock();
+  });
+
+  // Clear error state on new input
+  input.addEventListener('input', () => {
+    input.classList.remove('error');
+    errorMsg.classList.remove('show');
+  });
+
+  function unlock() {
+    const token = input.value.trim();
+    if (!token) { input.focus(); return; }
+
+    // Redirect to home with token in URL — middleware will validate,
+    // set the cookie, and redirect back clean if valid.
+    // If invalid, middleware sends them back here; we detect the redirect loop
+    // via a `?err=1` param appended below.
+    const destination = '/?token=' + encodeURIComponent(token);
+    window.location.href = destination;
+  }
+
+  // Show error if redirected back with ?err=1
+  const params = new URLSearchParams(location.search);
+  if (params.get('err') === '1') {
+    input.classList.add('error');
+    errorMsg.classList.add('show');
+    input.focus();
+  }
+</script>
 
 </body>
 </html>
