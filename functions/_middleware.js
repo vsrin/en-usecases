@@ -11,40 +11,33 @@ const COOKIE_MAX_AGE = 7 * 24 * 60 * 60;
 
 const COOKIE_NAME = 'en_access_token';
 
-// Paths that are always public (gate page itself + its assets)
-const ALWAYS_ALLOW = [
-  '/access-required.html',
-  '/EN.png',
-  '/EN-fav-black.png',
-  '/EN-Blue.png',
-  '/enow_logo.svg',
-  '/Elevatenow-Logo.svg',
-  '/elevatenowlogo.png',
-  '/favicon.ico',
-  '/favicon.svg',
-  '/robots.txt',
-];
-
 function getCookieToken(cookieHeader) {
   if (!cookieHeader) return null;
   const match = cookieHeader.match(new RegExp(`${COOKIE_NAME}=([^;]+)`));
   return match ? decodeURIComponent(match[1]) : null;
 }
 
-export async function onRequest({ request, next }) {
+function isAsset(pathname) {
+  // Allow static assets the gate page itself needs — never gate these
+  if (pathname.startsWith('/assets/')) return true;
+  const staticFiles = ['/EN.png', '/EN-Blue.png', '/EN-fav-black.png',
+    '/enow_logo.svg', '/Elevatenow-Logo.svg', '/elevatenowlogo.png',
+    '/favicon.ico', '/favicon.svg', '/robots.txt'];
+  return staticFiles.includes(pathname);
+}
+
+export async function onRequest({ request, next, env }) {
   const url = new URL(request.url);
   const pathname = url.pathname;
 
-  // Always serve the gate page and essential assets
-  if (ALWAYS_ALLOW.includes(pathname) || pathname.startsWith('/assets/')) {
-    return next();
-  }
+  // Always pass through static assets
+  if (isAsset(pathname)) return next();
 
-  // Check for token in URL query param
+  // Token in URL → validate and either set cookie or show error
   const queryToken = url.searchParams.get('token');
   if (queryToken !== null) {
     if (queryToken === VALID_TOKEN) {
-      // Valid → set cookie, redirect clean (strip the token param from URL)
+      // Valid → set cookie, strip token from URL, redirect clean
       const cleanUrl = new URL(url);
       cleanUrl.searchParams.delete('token');
       return new Response(null, {
@@ -55,23 +48,19 @@ export async function onRequest({ request, next }) {
         },
       });
     } else {
-      // Wrong token → back to gate with error flag
-      return new Response(null, {
-        status: 302,
-        headers: { 'Location': `${url.origin}/access-required.html?err=1` },
-      });
+      // Wrong token → serve gate page with error flag (no redirect)
+      return env.ASSETS.fetch(
+        new Request(`${url.origin}/access-required.html?err=1`, { headers: request.headers })
+      );
     }
   }
 
-  // Check for valid cookie
+  // Valid cookie → allow through
   const cookieToken = getCookieToken(request.headers.get('Cookie'));
-  if (cookieToken === VALID_TOKEN) {
-    return next();
-  }
+  if (cookieToken === VALID_TOKEN) return next();
 
-  // No valid token → send to gate page
-  return new Response(null, {
-    status: 302,
-    headers: { 'Location': `${url.origin}/access-required.html` },
-  });
+  // No valid token → serve gate page directly (avoids redirect loops from CF pretty-URL rewriting)
+  return env.ASSETS.fetch(
+    new Request(`${url.origin}/access-required.html`, { headers: request.headers })
+  );
 }
