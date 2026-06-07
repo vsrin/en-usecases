@@ -187,8 +187,12 @@ nav {
   width: 1280px;
   height: 720px;
   border: none;
+  display: block;
+  flex-shrink: 0; /* CRITICAL: prevents flex from squeezing the iframe below 1280px,
+                     which would corrupt window.innerWidth inside the iframe and break
+                     the presentation's translateX(-100vw) slide transitions */
   transform-origin: center center;
-  /* JS will scale this */
+  /* JS scales visually without changing layout size — inner vw stays 1280 */
 }
 
 /* ── RESPONSIVE ── */
@@ -331,16 +335,22 @@ nav {
   });
 })();
 
-// Scale iframe to fill viewport while keeping 1280x720 aspect ratio
+// Scale iframe to fill viewport while keeping 1280×720 aspect ratio.
+// The iframe layout size stays exactly 1280×720 (flex-shrink:0 in CSS).
+// Flexbox centers it. Only the visual size is scaled by CSS transform.
+// This means window.innerWidth inside the iframe always equals 1280,
+// so the presentation's translateX(-100vw) slide transitions work correctly.
 function scaleFrame() {
   const iframe = document.querySelector('.demo-frame iframe');
   if (!iframe) return;
-  const vw = window.innerWidth;
-  const vh = window.innerHeight - 60; // subtract nav height
-  const scale = Math.min(vw / 1280, vh / 720);
-  iframe.style.transform = `scale(${scale})`;
+  const aw = window.innerWidth;
+  const ah = window.innerHeight - 60; // subtract nav height
+  const s = Math.min(aw / 1280, ah / 720);
+  iframe.style.transform = 'scale(' + s + ')';
 }
+window.addEventListener('load', scaleFrame);
 window.addEventListener('resize', scaleFrame);
+// Also run immediately — iframe element exists in DOM already at this point
 scaleFrame();
 </script>
 </body>
