@@ -172,15 +172,23 @@ nav {
 
 /* ── DEMOBOARD FRAME ── */
 .demo-frame {
-  flex: 1;
-  min-height: 0;
+  position: fixed;
+  top: 60px; /* height of site nav */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0a0a14;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 .demo-frame iframe {
-  width: 100%;
-  height: 100%;
+  width: 1280px;
+  height: 720px;
   border: none;
-  display: block;
+  transform-origin: center center;
+  /* JS will scale this */
 }
 
 /* ── RESPONSIVE ── */
@@ -322,6 +330,18 @@ nav {
     });
   });
 })();
+
+// Scale iframe to fill viewport while keeping 1280x720 aspect ratio
+function scaleFrame() {
+  const iframe = document.querySelector('.demo-frame iframe');
+  if (!iframe) return;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight - 60; // subtract nav height
+  const scale = Math.min(vw / 1280, vh / 720);
+  iframe.style.transform = `scale(${scale})`;
+}
+window.addEventListener('resize', scaleFrame);
+scaleFrame();
 </script>
 </body>
 </html>
