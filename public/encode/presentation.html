@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ElevateNow enCODE</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #0a0a14; -webkit-font-smoothing: antialiased; }
+  .stage { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .track { display: flex; width: 100%; height: 100%; align-items: center; transition: transform 0.55s cubic-bezier(0.77,0,0.175,1); will-change: transform; }
+  .cell { min-width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+  .cell iframe { width: 1280px; height: 720px; border: none; border-radius: 10px; box-shadow: 0 24px 64px rgba(0,0,0,0.55); transform-origin: center center; display: block; background: #fff; }
+  .nav { position: fixed; top: 50%; transform: translateY(-50%); z-index: 1000; width: 44px; height: 88px; border: none; background: transparent; color: rgba(255,255,255,0.45); font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s, background 0.2s, color 0.2s; }
+  .nav.left { left: 0; border-radius: 0 6px 6px 0; }
+  .nav.right { right: 0; border-radius: 6px 0 0 6px; }
+  .nav.hidden { pointer-events: none !important; opacity: 0 !important; }
+  .stage:hover .nav:not(.hidden) { opacity: 1; }
+  .nav:hover { background: rgba(33,69,234,0.30); color: #57CBFF; }
+  .counter { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); z-index: 1000; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: rgba(255,255,255,0.20); pointer-events: none; font-family: system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="track" id="track">
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+    <meta charset=&quot;UTF-8&quot;>
+    <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+    <title>enCode — Governed Insurance Intelligence Platform</title>
+    <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+    <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+    <link href=&quot;https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #FFFFFF;
+            display: grid; min-height: 100vh; place-items: center;
+            -webkit-font-smoothing: antialiased;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px; height: 720px;
+            background: #2145EA;
+            position: relative; overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Geometric brand blocks - right side */
+        .geo { position: absolute; }
+        .geo-1 { width: 310px; height: 220px; background: rgba(255,255,255,0.12); right: 200px; top: 140px; border-radius: 4px; }
+        .geo-2 { width: 200px; height: 200px; background: rgba(255,255,255,0.10); right: 60px; top: 80px; border-radius: 4px; }
+        .geo-3 { width: 140px; height: 140px; background: rgba(255,255,255,0.12); right: 60px; top: 420px; border-radius: 4px; }
+        .geo-4 {
+            width: 120px; height: 120px;
+            background: rgba(255,255,255,0.15);
+            right: 340px; top: 100px;
+            transform: rotate(45deg);
+            border-radius: 8px;
+        }
+
+        /* Logo top left */
+        .logo {
+            position: absolute; top: 36px; left: 48px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .logo-mark {
+            display: flex; gap: 2px; align-items: flex-end;
+        }
+        .logo-mark i { display: block; background: #FFFFFF; border-radius: 1px; }
+        .logo-mark .a { width: 8px; height: 8px; }
+        .logo-mark .b { width: 8px; height: 16px; }
+        .logo-mark .c { width: 8px; height: 12px; }
+        .logo-text {
+            font-size: 18px; font-weight: 700;
+            color: #FFFFFF; letter-spacing: 0.01em;
+        }
+
+        /* Website top right */
+        .website {
+            position: absolute; top: 36px; right: 48px;
+            font-size: 14px; font-weight: 600;
+            color: rgba(255,255,255,0.85);
+            letter-spacing: 0.02em;
+        }
+
+        /* Main content */
+        .content {
+            position: absolute;
+            bottom: 180px; left: 48px;
+        }
+
+        .brand-name {
+            font-size: 112px; font-weight: 800;
+            line-height: 1; letter-spacing: -0.04em;
+            margin-bottom: 20px;
+        }
+        .brand-name .en { color: rgba(255,255,255,0.55); font-weight: 300; }
+        .brand-name .code { color: #FFFFFF; font-weight: 800; }
+        .brand-name .tm {
+            font-size: 28px; font-weight: 400;
+            color: rgba(255,255,255,0.6);
+            vertical-align: super;
+            margin-left: 4px;
+        }
+
+        .tagline {
+            font-family: 'Lora', serif;
+            font-size: 22px; font-weight: 400; font-style: italic;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 0.01em;
+        }
+    </style>
+</head>
+<body>
+<div class=&quot;slide-container&quot;>
+
+    <!-- Geometric blocks -->
+    <div class=&quot;geo geo-1&quot;></div>
+    <div class=&quot;geo geo-2&quot;></div>
+    <div class=&quot;geo geo-3&quot;></div>
+    <div class=&quot;geo geo-4&quot;></div>
+
+    <!-- Logo -->
+    <div class=&quot;logo&quot;>
+        <div class=&quot;logo-mark&quot;>
+            <i class=&quot;a&quot;></i><i class=&quot;b&quot;></i><i class=&quot;c&quot;></i>
+        </div>
+        <span class=&quot;logo-text&quot;>Elevatenow</span>
+    </div>
+
+    <!-- Website -->
+    <div class=&quot;website&quot;>elevatenow.tech</div>
+
+    <!-- Main content -->
+    <div class=&quot;content&quot;>
+        <div class=&quot;brand-name&quot;>
+            <span class=&quot;en&quot;>en</span><span class=&quot;code&quot;>Code</span><span class=&quot;tm&quot;>™</span>
+        </div>
+        <div class=&quot;tagline&quot;>Governed Insurance Intelligence Platform</div>
+    </div>
+
+</div>
+</body>
+</html>
+" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html>
+
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;utf-8&quot;/>
+<meta content=&quot;width=device-width, initial-scale=1.0&quot; name=&quot;viewport&quot;/>
+<title>enCode. The Problem</title>
+<link href=&quot;https://fonts.googleapis.com&quot; rel=&quot;preconnect&quot;/>
+<link crossorigin=&quot;&quot; href=&quot;https://fonts.gstatic.com&quot; rel=&quot;preconnect&quot;/>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;amp;display=swap&quot; rel=&quot;stylesheet&quot;/>
+<link href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot; rel=&quot;stylesheet&quot;/>
+<style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: #FFFFFF;
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: 100vh;
+            place-items: center;
+            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px; height: 720px;
+            background: #FFFFFF; color: #1C1C46;
+            display: flex; flex-direction: column; justify-content: space-between;
+            position: relative; overflow: hidden;
+            padding: 50px 80px 0px 80px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%);
+            z-index: 10;
+        }
+
+        .header-section { margin-bottom: 25px; }
+
+        .slide-eyebrow {
+            font-size: 11px; font-weight: 800;
+            color: #2145EA;
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;
+        }
+
+        .provocation-title {
+            font-size: 32px; font-weight: 800;
+            line-height: 1.25; color: #1C1C46; letter-spacing: -0.5px;
+        }
+
+        .matrix-grid {
+            display: flex; flex-direction: column;
+            flex-grow: 1; margin-bottom: 12px;
+            min-height: 0; overflow: hidden;
+        }
+
+        .grid-headers {
+            display: grid;
+            grid-template-columns: 1fr 60px 1fr;
+            gap: 24px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1C1C46;
+        }
+
+        .grid-header {
+            font-size: 11px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            color: #1C1C46;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        .grid-header i { font-size: 13px; color: #2145EA; }
+
+        .matrix-row {
+            display: grid;
+            grid-template-columns: 1fr 60px 1fr;
+            align-items: stretch;
+            gap: 24px;
+            padding: 10px 0;
+            border-bottom: 1px solid #E2E8F0;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .matrix-row:last-child { border-bottom: none; }
+
+        .content-cell { display: flex; gap: 16px; align-items: stretch; }
+        .content-cell.impact-cell {
+            background: transparent;
+            border-radius: 0; padding: 0; border: none;
+            flex: 1; display: flex; align-items: center; justify-content: flex-start;
+        }
+
+        .cell-num {
+            font-size: 13px; font-weight: 800;
+            color: #2145EA;
+            background: rgba(33,69,234,0.07);
+            padding: 4px 8px; border-radius: 4px;
+            line-height: 1; flex-shrink: 0; margin-top: 2px;
+        }
+
+        .cell-body { display: flex; flex-direction: column; gap: 8px; }
+
+        .cell-text {
+            font-size: 15px; line-height: 1.45;
+            color: #1C1C46; font-weight: 700;
+        }
+
+        .metric-container {
+            display: flex; flex-direction: column;
+            align-items: flex-start; gap: 4px;
+            background: transparent; border: none;
+            padding: 0; border-top: none; margin-top: 0;
+        }
+
+        .metric-value {
+            font-size: 40px; font-weight: 800;
+            color: #1C1C46; line-height: 1; letter-spacing: -0.02em;
+        }
+
+        .metric-label {
+            font-size: 12px; color: #64748B;
+            font-weight: 500; line-height: 1.3; text-align: left;
+        }
+
+        .connector-arrow {
+            display: flex; justify-content: center; align-items: center;
+            color: #94A3B8;
+        }
+
+        .connector-arrow svg {
+            width: 20px; height: 16px; fill: none;
+            stroke: #2145EA;                  /* #0052CC → #2145EA */
+            stroke-width: 2.5;
+            stroke-linecap: round; stroke-linejoin: round;
+        }
+
+        .essence-section {
+            display: flex; align-items: center; justify-content: center;
+            padding: 14px 28px;
+            background: #1C1C46;
+            border-radius: 8px;
+            border: 2px solid #2145EA;
+            min-height: 52px;
+            flex-shrink: 0;
+            margin-bottom: 10px;
+        }
+
+        .essence-quote {
+            font-size: 18px; font-weight: 600;
+            line-height: 1.4; color: #FFFFFF;
+            text-align: center; width: 100%;
+        }
+
+        .essence-quote strong {
+            color: #57CBFF;
+            font-weight: 800;
+        }
+
+        .essence-pitch {
+            border-left: 1px solid rgba(87,203,255,0.3);
+            padding-left: 32px;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+
+        .pitch-label {
+            font-size: 9px; font-weight: 800;
+            color: #57CBFF;
+            letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;
+        }
+
+        .pitch-text {
+            font-size: 14px; color: #94A3B8;
+            line-height: 1.4; font-weight: 600;
+        }
+
+        .pitch-text strong { color: #FFFFFF; font-weight: 800; }
+
+        .slide-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 9px; font-weight: 700;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: #94A3B8;
+            padding: 8px 0 14px;
+            border-top: 1px solid #E2E8F0;
+            flex-shrink: 0;
+        }
+
+        .impact-cell .cell-text { color: #FFFFFF; }
+        .impact-cell .metric-value {
+            font-size: 40px; font-weight: 800;
+            color: #1C1C46; line-height: 1; letter-spacing: -0.02em;
+        }
+        .impact-cell .metric-label {
+            font-size: 12px; color: #64748B;
+            font-weight: 500; line-height: 1.3; text-align: left;
+        }
+        .impact-cell .metric-container {
+            display: flex; flex-direction: column;
+            align-items: flex-start; gap: 4px;
+            background: transparent; border: none;
+            padding: 0; border-top: none; margin-top: 0;
+        }
+
+        .tm {
+            font-size: 7px;
+            vertical-align: super;
+            letter-spacing: 0;
+            font-weight: 700;
+        }
+
+        .evidence-block { display: flex; align-items: flex-start; gap: 8px; margin-top: 4px; }
+        .evidence-icon-wrapper { background-color: #1C1C46; color: #FFFFFF; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; margin-top: 3px; }
+        .evidence-content { display: flex; flex-direction: column; gap: 2px; }
+        .evidence-title { font-size: 13px; font-weight: 700; color: #2145EA; line-height: 1.3; }
+        .evidence-text { font-size: 13px; line-height: 1.4; color: #5E6977; }
+    </style>
+</head>
+<body>
+<div class=&quot;slide-container&quot;>
+<div class=&quot;header-section&quot;>
+<div class=&quot;slide-eyebrow&quot;>The Problem</div>
+<h2 class=&quot;provocation-title&quot;>
+            In insurance, AI is only as defensible as the knowledge that governs it.
+        </h2>
+</div>
+<div class=&quot;matrix-grid&quot;>
+<div class=&quot;grid-headers&quot;>
+<div class=&quot;grid-header&quot;>
+<span>The Issue</span>
+</div>
+<div></div>
+<div class=&quot;grid-header&quot;>
+<span>The Impact</span>
+</div>
+</div>
+<!-- Row 01 -->
+<div class=&quot;matrix-row&quot;>
+<div class=&quot;content-cell&quot;>
+<span class=&quot;cell-num&quot;>01</span>
+<div class=&quot;cell-body&quot;>
+<p class=&quot;cell-text&quot;>The models are a commodity. Your institutional knowledge is the moat.</p>
+<div class=&quot;evidence-block&quot;>
+<div class=&quot;evidence-icon-wrapper&quot;><i class=&quot;fa-solid fa-circle&quot;></i></div>
+<div class=&quot;evidence-content&quot;>
+<span class=&quot;evidence-title&quot;>Knowledge walks out the door</span>
+<p class=&quot;evidence-text&quot;>Every retirement is a knowledge-loss event. Expertise lives in people's heads and leaves with them.</p></div>
+</div></div>
+</div>
+<div class=&quot;connector-arrow&quot;></div>
+<div class=&quot;content-cell impact-cell&quot;>
+<div class=&quot;cell-body&quot; style=&quot;width:100%; display:flex; flex-direction:column; align-items:flex-start; justify-content:center;&quot;>
+<div class=&quot;metric-container&quot;>
+<div class=&quot;metric-value&quot;>12–18</div>
+<div class=&quot;metric-label&quot;>months to reach<br/>expert proficiency</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Row 02 -->
+<div class=&quot;matrix-row&quot;>
+<div class=&quot;content-cell&quot;>
+<span class=&quot;cell-num&quot;>02</span>
+<div class=&quot;cell-body&quot;>
+<p class=&quot;cell-text&quot;>That knowledge is not applied to decisions today. It sits in documents and people.</p>
+<div class=&quot;evidence-block&quot;>
+<div class=&quot;evidence-icon-wrapper&quot;><i class=&quot;fa-solid fa-circle&quot;></i></div>
+<div class=&quot;evidence-content&quot;>
+<span class=&quot;evidence-title&quot;>Systems store data. Not judgment.</span>
+<p class=&quot;evidence-text&quot;>Core systems enforce rules. They cannot read narrative, weigh nuance, or resolve complex policy exceptions.</p></div>
+</div></div>
+</div>
+<div class=&quot;connector-arrow&quot;></div>
+<div class=&quot;content-cell impact-cell&quot;>
+<div class=&quot;cell-body&quot; style=&quot;width:100%; display:flex; flex-direction:column; align-items:flex-start; justify-content:center;&quot;>
+<div class=&quot;metric-container&quot;>
+<div class=&quot;metric-value&quot; style=&quot;font-size:21px;transform:translateY(-2px)&quot;>Hours to Days</div>
+<div class=&quot;metric-label&quot;>of manual review per<br/>critical policy decision</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Row 03 -->
+<div class=&quot;matrix-row&quot;>
+<div class=&quot;content-cell&quot;>
+<span class=&quot;cell-num&quot;>03</span>
+<div class=&quot;cell-body&quot;>
+<p class=&quot;cell-text&quot;>When AI does apply it, it applies it probabilistically. Same input, different answer.</p>
+<div class=&quot;evidence-block&quot;>
+<div class=&quot;evidence-icon-wrapper&quot;><i class=&quot;fa-solid fa-circle&quot;></i></div>
+<div class=&quot;evidence-content&quot;>
+<span class=&quot;evidence-title&quot;>AI without a governance trail is risk.</span>
+<p class=&quot;evidence-text&quot;>If you cannot trace a decision to a specific rule, that is liability, not automation.</p></div>
+</div></div>
+</div>
+<div class=&quot;connector-arrow&quot;></div>
+<div class=&quot;content-cell impact-cell&quot;>
+<div class=&quot;cell-body&quot; style=&quot;width:100%; display:flex; flex-direction:column; align-items:flex-start; justify-content:center;&quot;>
+<div class=&quot;metric-container&quot;>
+<div class=&quot;metric-value&quot;>0%</div>
+<div class=&quot;metric-label&quot;>auditability in<br/>most AI tools</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Closing Statement -->
+<div class=&quot;essence-section&quot;>
+<p class=&quot;essence-quote&quot;>
+            Knowledge is the moat. Applied <strong>deterministically</strong> to every decision, it becomes defensible.
+        </p></div>
+<div class=&quot;slide-footer&quot;>
+<span>ELEVATENOW  ·  enCODE<span class=&quot;tm&quot;>™</span></span>
+<span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>Governed Insurance Intelligence Platform</span>
+<span>CONFIDENTIAL</span>
+</div>
+</div>
+</body>
+</html>
+" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html>
+
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;utf-8&quot;/>
+<meta content=&quot;width=device-width, initial-scale=1.0&quot; name=&quot;viewport&quot;/>
+<title>enCode. Encode. Compose. Deploy.</title>
+<link href=&quot;https://fonts.googleapis.com&quot; rel=&quot;preconnect&quot;/>
+<link crossorigin=&quot;&quot; href=&quot;https://fonts.gstatic.com&quot; rel=&quot;preconnect&quot;/>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;amp;display=swap&quot; rel=&quot;stylesheet&quot;/>
+<link href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot; rel=&quot;stylesheet&quot;/>
+<style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #FFFFFF;
+            display: grid; min-height: 100vh; place-items: center;
+            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', sans-serif;
+        }
+        .slide-container {
+            width: 1280px; height: 720px;
+            background: #FFFFFF; color: #1C1C46;
+            display: flex; flex-direction: column; justify-content: space-between;
+            position: relative; overflow: hidden;
+            padding: 46px 80px 0px 80px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+        .slide-container::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%);
+            z-index: 10;
+        }
+
+        .header-section { margin-bottom: 16px; }
+        .slide-eyebrow {
+            font-size: 11px; font-weight: 800; color: #2145EA;
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px;
+        }
+        .provocation-title {
+            font-size: 32px; font-weight: 800;
+            line-height: 1.15; color: #1C1C46; letter-spacing: -0.5px;
+        }
+        .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px; color: #5E6977;
+            margin-top: 5px; font-style: italic;
+        }
+
+        .columns-grid {
+            display: grid; grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px; flex-grow: 1; margin-bottom: 14px;
+        }
+        .col {
+            display: flex; flex-direction: column;
+            border: 1px solid #E2E8F0; border-radius: 8px; overflow: hidden;
+        }
+        .col-header {
+            background: #1C1C46; padding: 12px 16px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .col-step {
+            font-size: 10px; font-weight: 800; color: #57CBFF;
+            letter-spacing: 0.18em; text-transform: uppercase;
+        }
+        .col-studio { font-size: 13px; font-weight: 700; color: #FFFFFF; }
+
+        .col-body {
+            padding: 14px 16px; flex-grow: 1;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .col-problem span {
+            font-size: 9px; font-weight: 800; color: #94A3B8;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            display: block; margin-bottom: 3px;
+        }
+
+        /* Capabilities */
+        .capabilities { display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
+
+        .capability {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 10px 12px;
+            background: #F8FAFC;
+            border-radius: 6px;
+            border: 1px solid #E2E8F0;
+            flex: 1;
+        }
+
+        .cap-icon {
+            width: 24px; height: 24px; border-radius: 5px;
+            background: rgba(33,69,234,0.08);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .cap-icon i { font-size: 11px; color: #2145EA; }
+
+        .cap-text { display: flex; flex-direction: column; gap: 1px; }
+        .cap-name { font-size: 12px; font-weight: 700; color: #1C1C46; }
+        .cap-desc { font-size: 11px; color: #64748B; line-height: 1.35; }
+
+        .col-highlight {
+            display: flex; align-items: flex-start; gap: 8px;
+            padding: 9px 12px;
+            background: rgba(33,69,234,0.05);
+            border-radius: 6px; border-left: 3px solid #2145EA;
+        }
+        .col-highlight i { color: #2145EA; font-size: 11px; margin-top: 2px; flex-shrink: 0; }
+        .col-highlight p { font-size: 12px; font-weight: 700; color: #1C1C46; line-height: 1.4; }
+
+        /* Ontology bar */
+        .ontology-bar {
+            background: #1C1C46; border-radius: 8px;
+            padding: 14px 24px;
+            display: flex; align-items: center; gap: 18px;
+            min-height: 52px; flex-shrink: 0;
+            margin-bottom: 10px;
+        }
+        .ontology-label {
+            font-size: 10px; font-weight: 800; color: #57CBFF;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .ontology-divider { width: 1px; height: 24px; background: rgba(87,203,255,0.3); flex-shrink: 0; }
+        .ontology-entities { font-size: 12px; font-weight: 600; color: #94A3B8; }
+        .ontology-note {
+            margin-left: auto;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px; font-style: italic; color: #57CBFF;
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .slide-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 9px; font-weight: 700;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: #94A3B8;
+            padding: 8px 0 14px;
+            border-top: 1px solid #E2E8F0;
+            flex-shrink: 0;
+        }
+
+        .tm {
+            font-size: 7px;
+            vertical-align: super;
+            letter-spacing: 0;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+<div class=&quot;slide-container&quot;>
+<div class=&quot;header-section&quot;>
+<div class=&quot;slide-eyebrow&quot;>The Platform</div>
+<h2 class=&quot;provocation-title&quot;>Encode. Compose. Deploy.</h2>
+<p class=&quot;subtitle&quot;>Built on a structural Insurance Ontology. Encoded, not trained.</p>
+</div>
+<div class=&quot;columns-grid&quot;>
+<!-- ENCODE -->
+<div class=&quot;col&quot;>
+<div class=&quot;col-header&quot;>
+<span class=&quot;col-step&quot;>01 · Encode</span>
+<span class=&quot;col-studio&quot;>Knowledge Studio</span>
+</div>
+
+<div class=&quot;col-body&quot;>
+
+<div class=&quot;capabilities&quot;><div class=&quot;capability&quot; style=&quot;border-color:#2145EA; background:#2145EA; border-width:2px;&quot;>
+<div class=&quot;cap-icon&quot; style=&quot;background:rgba(255,255,255,0.15);&quot;><i class=&quot;fa-solid fa-building-columns&quot; style=&quot;color:#FFFFFF;&quot;></i></div>
+<div class=&quot;cap-text&quot;>
+<span class=&quot;cap-name&quot; style=&quot;color:#FFFFFF; font-size:13px;&quot;>Industry Knowledge Base</span>
+<span class=&quot;cap-desc&quot; style=&quot;color:rgba(255,255,255,0.8);&quot;>584+ pre-built chunks across UW and claims. use immediately, supersede with your own rules</span>
+</div>
+</div>
+<div class=&quot;capability&quot;>
+<div class=&quot;cap-icon&quot;><i class=&quot;fa-solid fa-file-lines&quot;></i></div>
+<div class=&quot;cap-text&quot;>
+<span class=&quot;cap-name&quot;>Document Intelligence</span>
+<span class=&quot;cap-desc&quot;>Extracts rule-bearing sections from any carrier document</span>
+</div>
+</div>
+<div class=&quot;capability&quot;>
+<div class=&quot;cap-icon&quot;><i class=&quot;fa-solid fa-user-check&quot;></i></div>
+<div class=&quot;cap-text&quot;>
+<span class=&quot;cap-name&quot;>Steward Sanctioning</span>
+<span class=&quot;cap-desc&quot;>Human review and approval before any rule goes live</span>
+</div>
+</div>
+<div class=&quot;capability&quot;>
+<div class=&quot;cap-icon&quot;><i class=&quot;fa-solid fa-code-branch&quot;></i></div>
+<div class=&quot;cap-text&quot;>
+<span class=&quot;cap-name&quot;>Version Control &amp;amp; Provenance</span>
+<span class=&quot;cap-desc&quot;>Every rule versioned, dated, and linked to its source document</span>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<!-- COMPOSE -->
+<div class=&quot;col&quot;>
+<div class=&quot;col-header&quot;>
+<span class=&quot;col-step&quot;>02 · Compose</span>
+<span class=&quot;col-studio&quot;>Agentic Studio</span>
+</div>
+
+<div class=&quot;col-body&quot;>
+
+<div class=&quot;capabilities&quot;>
+<div class=&quot;capability&quot;>
+<div class=&quot;cap-icon&quot;><i class=&quot;fa-solid fa-diagram-project&quot;></i></div>
+<div class=&quot;cap-text&quot;>
+<span class=&quot;cap-name&quot;>State Machine Execution</span>
+<span class=&quot;cap-desc&quot;>Deterministic workflow. same logic, every run</span>
+</div>
+</div>
+<div class=&quot;capability&quot;>
+<div class=&quot;cap-icon&quot;><i class=&quot;fa-solid fa-layer-group&quot;></i></div>
+<div class=&quot;cap-text&quot;>
+<span class=&quot;cap-name&quot;>Blueprint Library</span>
+<span class=&quot;cap-desc&quot;>Pre-built workflow patterns for insurance decisions</span>
+</div>
+</div>
+<div class=&quot;capability&quot;>
+<div class=&quot;cap-icon&quot;><i class=&quot;fa-solid fa-sliders&quot;></i></div>
+<div class=&quot;cap-text&quot;>
+<span class=&quot;cap-name&quot;>Carrier Configuration</span>
+<span class=&quot;cap-desc&quot;>Workflows adapted to each LOB and carrier ruleset</span>
+</div>
+</div>
+<div class=&quot;capability&quot;>
+<div class=&quot;cap-icon&quot;><i class=&quot;fa-solid fa-code&quot;></i></div>
+<div class=&quot;cap-text&quot;>
+<span class=&quot;cap-name&quot;>enCODE Governs. AI Reads.</span>
+<span class=&quot;cap-desc&quot;>Rules and gates execute in code. AI interprets documents. The boundary is enforced, not assumed.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- DEPLOY -->
+<div class=&quot;col&quot;>
+<div class=&quot;col-header&quot;>
+<span class=&quot;col-step&quot;>03 · Deploy</span>
+<span class=&quot;col-studio&quot;>Recipe Library</span>
+</div>
+
+<div class=&quot;col-body&quot;>
+
+<div class=&quot;capabilities&quot;>
+<div class=&quot;capability&quot;>
+<div class=&quot;cap-icon&quot;><i class=&quot;fa-solid fa-border-all&quot;></i></div>
+<div class=&quot;cap-text&quot;>
+<span class=&quot;cap-name&quot;>11 Pre-built Recipes</span>
+<span class=&quot;cap-desc&quot;>Underwriting, claims, and compliance. ready to deploy</span>
+</div>
+</div>
+<div class=&quot;capability&quot;>
+<div class=&quot;cap-icon&quot;><i class=&quot;fa-solid fa-table-columns&quot;></i></div>
+<div class=&quot;cap-text&quot;>
+<span class=&quot;cap-name&quot;>Persona Workbenches</span>
+<span class=&quot;cap-desc&quot;>Clear360, Adjust360, Property360. each role, one surface</span>
+</div>
+</div>
+<div class=&quot;capability&quot;>
+<div class=&quot;cap-icon&quot;><i class=&quot;fa-solid fa-plug&quot;></i></div>
+<div class=&quot;cap-text&quot;>
+<span class=&quot;cap-name&quot;>Flexible Distribution</span>
+<span class=&quot;cap-desc&quot;>Standalone, embedded, or published into Databricks, Snowflake, ServiceNow</span>
+</div>
+</div>
+<div class=&quot;capability&quot;>
+<div class=&quot;cap-icon&quot;><i class=&quot;fa-solid fa-shield-halved&quot;></i></div>
+<div class=&quot;cap-text&quot;>
+<span class=&quot;cap-name&quot;>Complete Audit Trail</span>
+<span class=&quot;cap-desc&quot;>Every decision cited, versioned, and retrievable</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Ontology Foundation -->
+<div class=&quot;ontology-bar&quot;>
+<span class=&quot;ontology-label&quot;>Foundation · Insurance Ontology</span>
+<div class=&quot;ontology-divider&quot;></div>
+<span class=&quot;ontology-entities&quot;>Policies  ↔  Claims  ↔  Coverages  ↔  Jurisdictions  ↔  Parties  ↔  Exposures  ↔  Class Codes  ↔  Loss Types</span>
+<span class=&quot;ontology-note&quot;>Encoded by insurance architects.</span>
+</div>
+<div class=&quot;slide-footer&quot;>
+<span>ELEVATENOW  ·  enCODE<span class=&quot;tm&quot;>™</span></span>
+<span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>Governed Insurance Intelligence Platform</span>
+<span>CONFIDENTIAL</span>
+</div>
+</div>
+</body>
+</html>
+" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<title>enCODE — In Practice</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+
+  .slide-container {
+    width: 1280px; height: 720px;
+    background: #1C1C46;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Top brand bar */
+  .slide-container::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 6px;
+    background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%);
+    z-index: 10;
+  }
+
+  /* Geometric background accents */
+  .geo { position: absolute; border-radius: 6px; }
+  .geo-1 { width: 420px; height: 420px; background: rgba(33,69,234,0.12); right: -60px; top: -80px; transform: rotate(15deg); }
+  .geo-2 { width: 220px; height: 220px; background: rgba(87,203,255,0.06); right: 120px; bottom: 80px; transform: rotate(30deg); }
+  .geo-3 { width: 100px; height: 100px; background: rgba(33,69,234,0.15); right: 380px; top: 180px; transform: rotate(45deg); }
+
+  /* Main content */
+  .content {
+    flex: 1; display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 80px;
+    position: relative; z-index: 2;
+  }
+
+  .eyebrow {
+    font-size: 11px; font-weight: 800;
+    color: #57CBFF; letter-spacing: 0.22em;
+    margin-bottom: 24px;
+  }
+
+  .headline {
+    font-size: 62px; font-weight: 800;
+    color: #FFFFFF; line-height: 1.05;
+    letter-spacing: -0.03em; margin-bottom: 20px;
+  }
+
+  .headline .accent { color: #57CBFF; }
+
+  .subline {
+    font-size: 20px; font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5; max-width: 600px;
+    margin-bottom: 48px;
+  }
+
+  /* Three pillars */
+  .pillars { display: flex; gap: 16px; }
+
+  .pillar {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 14px 20px;
+    min-width: 280px;
+  }
+
+  .pillar.active {
+    background: rgba(33,69,234,0.25);
+    border-color: #2145EA;
+  }
+
+  .pillar-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .pillar.active .pillar-icon { background: rgba(33,69,234,0.4); }
+  .pillar-icon i { font-size: 15px; color: rgba(255,255,255,0.5); }
+  .pillar.active .pillar-icon i { color: #57CBFF; }
+
+  .pillar-text { display: flex; flex-direction: column; gap: 2px; }
+  .pillar-name { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); }
+  .pillar.active .pillar-name { color: #FFFFFF; }
+  .pillar-sub { font-size: 11px; color: rgba(255,255,255,0.35); }
+  .pillar.active .pillar-sub { color: rgba(255,255,255,0.6); }
+
+  .pillar-badge {
+    margin-left: auto;
+    font-size: 9px; font-weight: 800;
+    color: #57CBFF; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(87,203,255,0.12);
+    padding: 3px 8px; border-radius: 4px;
+  }
+
+  /* Footer */
+  .slide-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    padding: 10px 80px 14px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    position: relative; z-index: 2;
+  }
+
+  .tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class=&quot;slide-container&quot;>
+
+  <div class=&quot;geo geo-1&quot;></div>
+  <div class=&quot;geo geo-2&quot;></div>
+  <div class=&quot;geo geo-3&quot;></div>
+
+  <div class=&quot;content&quot;>
+    <div class=&quot;eyebrow&quot;><span style=&quot;font-size:0.75em;letter-spacing:0.22em;&quot;>en</span>CODE IN PRACTICE</div>
+    <h1 class=&quot;headline&quot;>Governed decisions.<br><span class=&quot;accent&quot;>Demonstrated.</span></h1>
+    <p class=&quot;subline&quot;>Each use case shows the platform applied to a real insurance workflow. Knowledge encoded, decision governed, audit trail complete.</p>
+
+    <div class=&quot;pillars&quot;>
+
+      <div class=&quot;pillar active&quot;>
+        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-file-contract&quot;></i></div>
+        <div class=&quot;pillar-text&quot;>
+          <span class=&quot;pillar-name&quot;>Submission &amp; Underwriting</span>
+          <span class=&quot;pillar-sub&quot;>Binding Authority · Risk Evaluation</span>
+        </div>
+        <span class=&quot;pillar-badge&quot;>Today</span>
+      </div>
+
+      <div class=&quot;pillar&quot;>
+        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-shield-halved&quot;></i></div>
+        <div class=&quot;pillar-text&quot;>
+          <span class=&quot;pillar-name&quot;>Claims Intelligence</span>
+          <span class=&quot;pillar-sub&quot;>FNOL Processing · Authority &amp; Reserves</span>
+        </div>
+      </div>
+
+      <div class=&quot;pillar&quot;>
+        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-scale-balanced&quot;></i></div>
+        <div class=&quot;pillar-text&quot;>
+          <span class=&quot;pillar-name&quot;>Governance &amp; Strategic Ops</span>
+          <span class=&quot;pillar-sub&quot;>Audit &amp; Compliance · Renewal Intelligence</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class=&quot;slide-footer&quot;>
+    <span>ELEVATENOW · enCODE<span class=&quot;tm&quot;>™</span></span>
+    <span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:rgba(255,255,255,0.25)&quot;>Governed Insurance Intelligence Platform</span>
+    <span>CONFIDENTIAL</span>
+  </div>
+
+</div>
+</body>
+</html>
+" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html>
+
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;utf-8&quot;/>
+<meta content=&quot;width=device-width, initial-scale=1.0&quot; name=&quot;viewport&quot;/>
+<title>enCode. Binding Authority Showcase</title>
+<link href=&quot;https://fonts.googleapis.com&quot; rel=&quot;preconnect&quot;/>
+<link crossorigin=&quot;&quot; href=&quot;https://fonts.gstatic.com&quot; rel=&quot;preconnect&quot;/>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;amp;display=swap&quot; rel=&quot;stylesheet&quot;/>
+<link href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot; rel=&quot;stylesheet&quot;/>
+<style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #FFFFFF;
+            display: grid; min-height: 100vh; place-items: center;
+            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', sans-serif;
+        }
+        .slide-container {
+            width: 1280px; height: 720px;
+            background: #FFFFFF; color: #1C1C46;
+            display: flex; flex-direction: column; justify-content: space-between;
+            position: relative; overflow: hidden;
+            padding: 32px 80px 0px 80px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+        .slide-container::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%);
+            z-index: 10;
+        }
+
+        .header-section { margin-bottom: 12px; }
+        .slide-eyebrow {
+            font-size: 11px; font-weight: 800; color: #2145EA;
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 7px;
+        }
+        .provocation-title {
+            font-size: 32px; font-weight: 800;
+            line-height: 1.2; color: #1C1C46; letter-spacing: -0.5px;
+        }
+
+        .matrix-grid { display: flex; flex-direction: column; flex-grow: 1; }
+
+        .grid-headers {
+            display: grid; grid-template-columns: 1fr 52px 1fr;
+            gap: 20px; padding-bottom: 8px;
+            border-bottom: 2px solid #1C1C46;
+        }
+        .grid-header {
+            font-size: 11px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            color: #1C1C46; display: flex; align-items: center; gap: 8px;
+        }
+        .grid-header i { font-size: 12px; color: #2145EA; }
+
+        .matrix-row {
+            display: grid;
+            grid-template-columns: 1fr 52px 1fr;
+            align-items: center;
+            gap: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid #E2E8F0;
+            flex: 1; min-height: 0;
+        }
+        .matrix-row:last-child { border-bottom: none; }
+
+        /* Left problem cell */
+        .problem-cell {
+            display: flex; gap: 16px; align-items: center;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0 20px 0 0;
+            flex: 1;
+        }
+        .cell-num {
+            font-size: 13px; font-weight: 800;
+            color: #2145EA;
+            background: transparent;
+            padding: 0; border-radius: 0;
+            line-height: 1; flex-shrink: 0;
+            letter-spacing: 0.1em;
+        }
+        .cell-body { display: flex; flex-direction: column; gap: 6px; }
+        .cell-title {
+            font-size: 18px; font-weight: 800;
+            color: #1C1C46; line-height: 1.35;
+            letter-spacing: -0.01em;
+        }
+        .cell-bullets { display: flex; flex-direction: column; gap: 4px; }
+        .cell-bullet {
+            display: flex; align-items: flex-start; gap: 7px;
+            font-size: 12.5px; color: #5E6977; line-height: 1.4;
+        }
+        .cell-bullet i { color: #94A3B8; font-size: 9px; margin-top: 4px; flex-shrink: 0; }
+
+        /* Right response cell */
+        .response-cell {
+            display: flex; flex-direction: column; gap: 8px;
+            background: #F8FAFC;
+            border: 2px solid #D6E4FF;
+            border-radius: 8px; padding: 16px 18px;
+            flex: 1;
+        }
+        .response-header { display: flex; align-items: center; gap: 8px; }
+        .response-header i { color: #2145EA; font-size: 13px; flex-shrink: 0; }
+        .response-title { font-size: 15px; font-weight: 700; color: #1C1C46; }
+        .response-bullets { display: flex; flex-direction: column; gap: 4px; }
+        .response-bullet {
+            display: flex; align-items: flex-start; gap: 7px;
+            font-size: 13px; color: #475569; line-height: 1.45;
+        }
+        .response-bullet i { color: #2145EA; font-size: 9px; margin-top: 4px; flex-shrink: 0; }
+
+        /* Connector */
+        .connector-arrow { display: flex; justify-content: center; align-items: center; }
+        .connector-arrow svg {
+            width: 18px; height: 14px; fill: none;
+            stroke: #2145EA; stroke-width: 2.5;
+            stroke-linecap: round; stroke-linejoin: round;
+        }
+
+        /* Closing band */
+        .closing-band {
+            background: #1C1C46;
+            padding: 12px 28px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: space-between;
+            min-height: 52px; flex-shrink: 0;
+            margin-bottom: 10px;
+        }
+        .closing-left { display: flex; flex-direction: column; gap: 3px; }
+        .closing-label {
+            font-size: 10px; font-weight: 800; color: #57CBFF;
+            letter-spacing: 0.18em; text-transform: uppercase;
+        }
+        .closing-text { font-size: 15px; font-weight: 700; color: #FFFFFF; }
+        .closing-text em { font-style: normal; color: #57CBFF; }
+        .demo-badge {
+            display: flex; align-items: center; gap: 12px;
+            background: rgba(87,203,255,0.12);
+            border: 1px solid rgba(87,203,255,0.3);
+            border-radius: 8px; padding: 10px 20px;
+        }
+        .demo-badge i { color: #57CBFF; font-size: 18px; }
+        .demo-badge-text { display: flex; flex-direction: column; gap: 1px; }
+        .demo-badge-title { font-size: 13px; font-weight: 700; color: #FFFFFF; }
+        .demo-badge-sub { font-size: 11px; color: #94A3B8; }
+
+        .slide-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 9px; font-weight: 700;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: #94A3B8;
+            padding: 8px 0 14px;
+            border-top: 1px solid #E2E8F0;
+            flex-shrink: 0;
+        }
+
+        .tm {
+            font-size: 7px;
+            vertical-align: super;
+            letter-spacing: 0;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+<div class=&quot;slide-container&quot;>
+<div class=&quot;header-section&quot;>
+<div class=&quot;slide-eyebrow&quot;>The Showcase · enCode Assisted Binding Authority</div>
+<h2 class=&quot;provocation-title&quot;>Binding authority distributes underwriting capacity at scale. The trust it rests on is never systematically verified.</h2>
+</div>
+<div class=&quot;matrix-grid&quot;>
+<div class=&quot;grid-headers&quot;>
+<div class=&quot;grid-header&quot;>The Problem</div>
+<div></div>
+<div class=&quot;grid-header&quot;><i class=&quot;fa-solid fa-circle-check&quot;></i> What enCode Does</div>
+</div>
+<!-- Row 01 -->
+<div class=&quot;matrix-row&quot;>
+<div class=&quot;problem-cell&quot;>
+<span class=&quot;cell-num&quot;>01</span>
+<div class=&quot;cell-body&quot;>
+<p class=&quot;cell-title&quot;>Rules are unstructured and operationally inaccessible.</p>
+
+</div>
+</div>
+<div class=&quot;connector-arrow&quot;></div>
+<div class=&quot;response-cell&quot;>
+<div class=&quot;response-header&quot;><i class=&quot;fa-solid fa-bolt&quot;></i><span class=&quot;response-title&quot;>Bulletin to rule in hours, not weeks.</span></div>
+<div class=&quot;response-bullets&quot;>
+<div class=&quot;response-bullet&quot;><i class=&quot;fa-solid fa-circle&quot;></i>Document Intelligence extracts rule-bearing sections automatically</div>
+<div class=&quot;response-bullet&quot;><i class=&quot;fa-solid fa-circle&quot;></i>Steward sanctions each rule; live in the same session</div>
+<div class=&quot;response-bullet&quot;><i class=&quot;fa-solid fa-circle&quot;></i>Every rule typed, versioned, and machine-actionable from day one</div>
+</div>
+</div>
+</div>
+<!-- Row 02 -->
+<div class=&quot;matrix-row&quot;>
+<div class=&quot;problem-cell&quot;>
+<span class=&quot;cell-num&quot;>02</span>
+<div class=&quot;cell-body&quot;>
+<p class=&quot;cell-title&quot;>No continuous, systematic view of how the bound portfolio sits against current rules.</p>
+
+</div>
+</div>
+<div class=&quot;connector-arrow&quot;></div>
+<div class=&quot;response-cell&quot;>
+<div class=&quot;response-header&quot;><i class=&quot;fa-solid fa-shield-halved&quot;></i><span class=&quot;response-title&quot;>Deterministic gate check at every bind.</span></div>
+<div class=&quot;response-bullets&quot;>
+<div class=&quot;response-bullet&quot;><i class=&quot;fa-solid fa-circle&quot;></i>Three-gate check: class appetite, geography, scoring. in order</div>
+<div class=&quot;response-bullet&quot;><i class=&quot;fa-solid fa-circle&quot;></i>Pass/fail with rule citation, not a confidence score</div>
+<div class=&quot;response-bullet&quot;><i class=&quot;fa-solid fa-circle&quot;></i>Always-on portfolio surveillance. violations ranked by breach severity</div>
+</div>
+</div>
+</div>
+<!-- Row 03 -->
+<div class=&quot;matrix-row&quot;>
+<div class=&quot;problem-cell&quot;>
+<span class=&quot;cell-num&quot;>03</span>
+<div class=&quot;cell-body&quot;>
+<p class=&quot;cell-title&quot;>No auditable connection between decisions and the rules that governed them.</p>
+
+</div>
+</div>
+<div class=&quot;connector-arrow&quot;></div>
+<div class=&quot;response-cell&quot;>
+<div class=&quot;response-header&quot;><i class=&quot;fa-solid fa-rotate&quot;></i><span class=&quot;response-title&quot;>Complete audit trail and a live feedback loop.</span></div>
+<div class=&quot;response-bullets&quot;>
+<div class=&quot;response-bullet&quot;><i class=&quot;fa-solid fa-circle&quot;></i>Every bind traced to the rule version active at decision time</div>
+<div class=&quot;response-bullet&quot;><i class=&quot;fa-solid fa-circle&quot;></i>Failed gates route to Knowledge Studio. fix once, holds everywhere</div>
+<div class=&quot;response-bullet&quot;><i class=&quot;fa-solid fa-circle&quot;></i>Broker compliance rate surfaced in real time, not quarterly</div>
+</div>
+</div>
+</div>
+</div>
+<div class=&quot;closing-band&quot;>
+<div class=&quot;closing-left&quot;>
+<span class=&quot;closing-label&quot;>Live Demo</span>
+<span class=&quot;closing-text&quot;>Submission in. <em>Binding Authority</em> governs the bind. Every decision traced.</span>
+</div>
+<div class=&quot;demo-badge&quot;>
+<i class=&quot;fa-solid fa-circle-play&quot;></i>
+<div class=&quot;demo-badge-text&quot;>
+<span class=&quot;demo-badge-title&quot;>enCode Assisted Binding Authority</span>
+<span class=&quot;demo-badge-sub&quot;>Governed end to end · Full audit trail</span>
+</div>
+</div>
+</div>
+<div class=&quot;slide-footer&quot;>
+<span>ELEVATENOW  ·  enCODE<span class=&quot;tm&quot;>™</span></span>
+<span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>Governed Insurance Intelligence Platform</span>
+<span>CONFIDENTIAL</span>
+</div>
+</div>
+</body>
+</html>
+" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+    <meta charset=&quot;UTF-8&quot;>
+    <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+    <title>enCode. Next Steps</title>
+    <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+    <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+    <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #FFFFFF;
+            display: grid; min-height: 100vh; place-items: center;
+            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', sans-serif;
+        }
+        .slide-container {
+            width: 1280px; height: 720px;
+            background: #FFFFFF; color: #1C1C46;
+            display: flex; flex-direction: column; justify-content: space-between;
+            position: relative; overflow: hidden;
+            padding: 46px 80px 0px 80px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+        .slide-container::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%);
+            z-index: 10;
+        }
+
+        .header-section { margin-bottom: 20px; }
+        .slide-eyebrow {
+            font-size: 11px; font-weight: 800; color: #2145EA;
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 7px;
+        }
+        .provocation-title {
+            font-size: 32px; font-weight: 800;
+            line-height: 1.2; color: #1C1C46; letter-spacing: -0.5px;
+        }
+
+        /* Two-column layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 40px;
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+
+        /* LEFT: Engagement */
+        .col-label {
+            font-size: 10px; font-weight: 800; color: #2145EA;
+            text-transform: uppercase; letter-spacing: 0.18em;
+            margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+        }
+        .col-label i { font-size: 11px; }
+
+        .tracks { display: flex; flex-direction: column; gap: 10px; }
+
+        .track {
+            display: flex; gap: 14px; align-items: flex-start;
+            padding: 14px 16px;
+            border: 1px solid #E2E8F0; border-radius: 8px;
+            background: #FFFFFF;
+        }
+        .track-num {
+            width: 28px; height: 28px; border-radius: 6px;
+            background: #1C1C46;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 800; color: #57CBFF;
+            flex-shrink: 0;
+        }
+        .track-body { display: flex; flex-direction: column; gap: 3px; }
+        .track-title { font-size: 14px; font-weight: 700; color: #1C1C46; }
+        .track-desc { font-size: 13px; color: #5E6977; line-height: 1.45; }
+        .track-tag {
+            display: inline-block; margin-top: 4px;
+            font-size: 10px; font-weight: 700; color: #2145EA;
+            background: rgba(33,69,234,0.07);
+            padding: 2px 8px; border-radius: 4px;
+        }
+
+        .engage-note {
+            margin-top: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12.5px; font-style: italic;
+            color: #94A3B8; line-height: 1.5;
+            padding-left: 4px;
+            border-left: 2px solid #E2E8F0;
+            padding-left: 10px;
+        }
+
+        /* RIGHT: NAIC urgency */
+        .right-col {
+            border-left: 1px solid #E2E8F0;
+            padding-left: 36px;
+            display: flex; flex-direction: column; gap: 14px;
+        }
+
+        .naic-stats { display: flex; flex-direction: column; gap: 10px; }
+
+        .naic-stat {
+            display: flex; align-items: flex-start; gap: 14px;
+            padding: 12px 14px;
+            background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px;
+        }
+        .naic-num {
+            font-size: 28px; font-weight: 800; color: #1C1C46;
+            line-height: 1; flex-shrink: 0; min-width: 52px;
+        }
+        .naic-text { display: flex; flex-direction: column; gap: 2px; }
+        .naic-title { font-size: 13px; font-weight: 700; color: #1C1C46; }
+        .naic-sub { font-size: 13px; color: #64748B; line-height: 1.4; }
+
+        .naic-window {
+            background: rgba(33,69,234,0.05);
+            border: 1px solid #D6E4FF;
+            border-radius: 8px; padding: 14px;
+        }
+        .naic-window-label {
+            font-size: 10px; font-weight: 800; color: #2145EA;
+            letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px;
+        }
+        .naic-window-text {
+            font-size: 13px; font-weight: 600; color: #1C1C46; line-height: 1.5;
+        }
+        .naic-window-text em { font-style: normal; color: #2145EA; }
+
+        /* Closing band */
+        .closing-band {
+            background: #1C1C46;
+            padding: 14px 28px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: space-between;
+            min-height: 52px;
+            flex-shrink: 0;
+            margin-bottom: 10px;
+        }
+        .closing-left { display: flex; flex-direction: column; gap: 3px; }
+        .closing-label {
+            font-size: 10px; font-weight: 800; color: #57CBFF;
+            letter-spacing: 0.18em; text-transform: uppercase;
+        }
+        .closing-text { font-size: 15px; font-weight: 700; color: #FFFFFF; }
+
+        .contact-block { display: flex; align-items: center; gap: 24px; }
+        .contact-item { display: flex; align-items: center; gap: 8px; }
+        .contact-item i { color: #57CBFF; font-size: 14px; }
+        .contact-item span { font-size: 13px; color: #FFFFFF; font-weight: 600; }
+
+        .slide-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 9px; font-weight: 700;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: #94A3B8;
+            padding: 8px 0 14px;
+            border-top: 1px solid #E2E8F0;
+            flex-shrink: 0;
+        }
+
+        .tm {
+            font-size: 7px;
+            vertical-align: super;
+            letter-spacing: 0;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+<div class=&quot;slide-container&quot;>
+
+    <div class=&quot;header-section&quot;>
+        <div class=&quot;slide-eyebrow&quot;>Next Steps</div>
+        <h2 class=&quot;provocation-title&quot;>Flexible by design. Start narrow, expand on infrastructure already in place.</h2>
+    </div>
+
+    <div class=&quot;two-col&quot;>
+
+        <!-- LEFT: Engagement tracks -->
+        <div>
+            <div class=&quot;col-label&quot;><i class=&quot;fa-solid fa-handshake&quot;></i> How We Engage</div>
+            <div class=&quot;tracks&quot;>
+
+                <div class=&quot;track&quot;>
+                    <div class=&quot;track-num&quot;>01</div>
+                    <div class=&quot;track-body&quot;>
+                        <span class=&quot;track-title&quot;>Recipe Pilot</span>
+                        <span class=&quot;track-desc&quot;>Deploy one recipe on your data. Contained, time-boxed. See the platform working against your own rules within weeks.</span>
+                        <span class=&quot;track-tag&quot;>Starting point → Binding Authority or FNOL</span>
+                    </div>
+                </div>
+
+                <div class=&quot;track&quot;>
+                    <div class=&quot;track-num&quot;>02</div>
+                    <div class=&quot;track-body&quot;>
+                        <span class=&quot;track-title&quot;>Platform Pilot</span>
+                        <span class=&quot;track-desc&quot;>Encode your institutional knowledge into Knowledge Studio. Run two to three recipes end to end. The governed intelligence layer becomes your own infrastructure.</span>
+                        <span class=&quot;track-tag&quot;>Clear360 or Adjust360 workbench</span>
+                    </div>
+                </div>
+
+                <div class=&quot;track&quot;>
+                    <div class=&quot;track-num&quot;>03</div>
+                    <div class=&quot;track-body&quot;>
+                        <span class=&quot;track-title&quot;>Platform Partnership</span>
+                        <span class=&quot;track-desc&quot;>Full enCode deployment across underwriting and claims. Multi-recipe, multi-persona. Carrier owns the intelligence layer, independent of any vendor.</span>
+                        <span class=&quot;track-tag&quot;>Full workbench suite · Carrier retains code ownership</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class=&quot;engage-note&quot;>Most clients start with a recipe. Every additional recipe is expansion on infrastructure already in place.</div>
+        </div>
+
+        <!-- RIGHT: NAIC urgency -->
+        <div class=&quot;right-col&quot;>
+            <div class=&quot;col-label&quot;><i class=&quot;fa-solid fa-scale-balanced&quot;></i> The Regulatory Landscape</div>
+
+            <div class=&quot;naic-stats&quot;>
+                <div class=&quot;naic-stat&quot;>
+                    <span class=&quot;naic-num&quot;>25</span>
+                    <div class=&quot;naic-text&quot;>
+                        <span class=&quot;naic-title&quot;>States adopted the NAIC Model Bulletin</span>
+                        <span class=&quot;naic-sub&quot;>AI governance standards now embedded in examination framework</span>
+                    </div>
+                </div>
+                <div class=&quot;naic-stat&quot;>
+                    <span class=&quot;naic-num&quot;>12</span>
+                    <div class=&quot;naic-text&quot;>
+                        <span class=&quot;naic-title&quot;>States piloting the NAIC AI Evaluation Tool</span>
+                        <span class=&quot;naic-sub&quot;>Live now. national adoption expected November 2026</span>
+                    </div>
+                </div>
+                <div class=&quot;naic-stat&quot;>
+                    <span class=&quot;naic-num&quot;>24%</span>
+                    <div class=&quot;naic-text&quot;>
+                        <span class=&quot;naic-title&quot;>Of carriers confident they could pass a review</span>
+                        <span class=&quot;naic-sub&quot;>The governance gap is measurable and widening</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class=&quot;naic-window&quot;>
+                <div class=&quot;naic-window-label&quot;><i class=&quot;fa-solid fa-clock&quot;></i> &amp;nbsp;The Window</div>
+                <div class=&quot;naic-window-text&quot;>The governance artifacts examiners will require. versioned rules, decision logs, source citations. are <em>structural properties of enCode</em>, not features added later.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class=&quot;closing-band&quot;>
+        <div class=&quot;closing-left&quot;>
+            <span class=&quot;closing-label&quot;>ElevateNow · enCode</span>
+            <span class=&quot;closing-text&quot;>Knowledge-governed. AI-applied.</span>
+        </div>
+        <div class=&quot;contact-block&quot;>
+            <div class=&quot;contact-item&quot;><i class=&quot;fa-solid fa-envelope&quot;></i><span>gps@elevatenow.tech</span></div>
+            <div class=&quot;contact-item&quot;><i class=&quot;fa-solid fa-globe&quot;></i><span>elevatenow.tech</span></div>
+        </div>
+    </div>
+
+    <div class=&quot;slide-footer&quot;>
+        <span>ELEVATENOW  ·  enCODE<span class=&quot;tm&quot;>™</span></span>
+        <span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>Governed Insurance Intelligence Platform</span>
+        <span>CONFIDENTIAL</span>
+    </div>
+
+</div>
+</body>
+</html>
+" scrolling="no" frameborder="0"></iframe>
+    </div>
+
+  </div>
+  <button class="nav left hidden" id="prev" onclick="go(-1)">&#x2039;</button>
+  <button class="nav right" id="next" onclick="go(1)">&#x203A;</button>
+  <div class="counter" id="ctr"></div>
+</div>
+<script>
+  const TOTAL=6, iframes=document.querySelectorAll('.cell iframe');
+  let cur=0;
+  const track=document.getElementById('track'), prev=document.getElementById('prev'), next=document.getElementById('next'), ctr=document.getElementById('ctr');
+  function scaleSlides(){ const s=Math.min(window.innerWidth/1280,window.innerHeight/720); iframes.forEach(f=>f.style.transform='scale('+s+')'); }
+  function update(){ track.style.transform='translateX(-'+(cur*100)+'vw)'; prev.classList.toggle('hidden',cur===0); next.classList.toggle('hidden',cur===TOTAL-1); ctr.textContent=String(cur+1).padStart(2,'0')+'  /  '+String(TOTAL).padStart(2,'0'); }
+  function go(d){ const n=cur+d; if(n<0||n>=TOTAL)return; cur=n; update(); }
+  document.addEventListener('keydown',e=>{ if(['ArrowRight','ArrowDown',' '].includes(e.key)){ e.preventDefault();go(1); } if(['ArrowLeft','ArrowUp'].includes(e.key)){ e.preventDefault();go(-1); } });
+  document.getElementById('stage').addEventListener('click',e=>{ if(!e.target.closest('.nav'))go(1); });
+  window.addEventListener('resize',scaleSlides);
+  scaleSlides(); update();
+</script>
+</body>
+</html>
