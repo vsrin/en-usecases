@@ -39,7 +39,7 @@ function requiresGate(pathname) {
   if (pathname.startsWith('/evidence-lab')) return true;
   // Demoboards remain gated
   if (pathname.startsWith('/demoboards/')) return true;
-  // CARGO data room
+  // AIR data room
   if (pathname.startsWith('/cargo-data')) return true;
   // access-required page itself must never be gated (infinite loop)
   if (pathname === '/access-required.html') return false;
