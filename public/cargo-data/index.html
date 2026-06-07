@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cargo Data — ElevateNow Insights</title>
-<meta name="description" content="The governed intelligence stack behind the use cases. Ten capabilities across four layers: from AI-ready data pipelines to personified workbenches.">
+<title>CARGO — ElevateNow Insights</title>
+<meta name="description" content="CARGO — AI Readiness Platform. Eight capabilities across three layers: trusted data foundation, semantic context, and purpose-built agentic solutions.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -15,59 +15,44 @@
 :root {
   --ink:        #0D1534;
   --ink2:       #344060;
-  --ink3:       #6B7A99;
   --ink4:       #9BA5BE;
   --blue:       #2145EA;
-  --blue-d:     #112CA9;
   --blue-bg:    #EEF2FF;
-  --blue-mid:   rgba(33,69,234,0.12);
-  --teal:       #0891B2;
-  --teal-bg:    #E0F7FA;
-  --amber:      #B45309;
-  --amber-bg:   #FEF3C7;
-  --green:      #047857;
-  --green-bg:   #D1FAE5;
-  --purple:     #7C3AED;
-  --purple-bg:  #EDE9FE;
-  --rose:       #BE185D;
-  --rose-bg:    #FCE7F3;
-  --surface:    #FFFFFF;
   --bg:         #F5F6FA;
-  --bg2:        #ECEEF5;
   --border:     rgba(13,21,52,0.09);
   --border-s:   rgba(13,21,52,0.06);
-  --shadow-s:   0 1px 3px rgba(13,21,52,0.06), 0 2px 8px rgba(13,21,52,0.04);
   --shadow-m:   0 2px 8px rgba(13,21,52,0.08), 0 8px 24px rgba(13,21,52,0.06);
   --shadow-h:   0 4px 16px rgba(13,21,52,0.10), 0 16px 40px rgba(13,21,52,0.08);
-  --max:        1160px;
   --ease:       cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-html { scroll-behavior: smooth; }
+html, body { height: 100%; }
 body {
   font-family: 'Inter', -apple-system, sans-serif;
-  background: var(--bg);
+  background: #0a0a14;
   color: var(--ink);
-  overflow-x: hidden;
+  overflow: hidden;
   -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
 }
-
-/* ── REVEAL ── */
-.r { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s var(--ease); }
-.r.on { opacity:1; transform:none; }
 
 /* ── NAV ── */
 nav {
-  position:fixed; top:0; left:0; right:0; z-index:200;
-  height:60px; display:flex; align-items:center; justify-content:space-between;
-  padding:0 48px;
-  background:rgba(255,255,255,0.97); backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border-s);
-  transition:box-shadow .3s;
+  position: relative;
+  z-index: 200;
+  height: 60px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-s);
+  box-shadow: 0 1px 24px rgba(13,21,52,0.09);
 }
-nav.raised { box-shadow:0 1px 24px rgba(13,21,52,0.09); }
 .nav-brand { display:flex; align-items:center; gap:8px; text-decoration:none; }
-.nav-brand-name { font-size:15px; font-weight:800; color:var(--ink); letter-spacing:-.3px; }
 .nav-links { display:flex; align-items:center; gap:4px; list-style:none; }
 .nav-links a {
   color:var(--ink2); text-decoration:none; font-size:13.5px; font-weight:500;
@@ -136,153 +121,6 @@ nav.raised { box-shadow:0 1px 24px rgba(13,21,52,0.09); }
 .nav-mega a:hover { background:var(--blue-bg); color:var(--blue); }
 .nav-mega-div { background:var(--border); width:1px; }
 
-/* ── LAYOUT ── */
-.wrap { max-width:var(--max); margin:0 auto; padding:0 32px; }
-
-/* ── PAGE HEADER ── */
-.page-header {
-  background:var(--ink); padding:100px 0 72px;
-  position:relative; overflow:hidden;
-}
-.page-header::before {
-  content:''; position:absolute; inset:0; pointer-events:none;
-  background:
-    radial-gradient(ellipse 55% 65% at 72% 45%, rgba(33,69,234,0.28) 0%, transparent 70%),
-    radial-gradient(ellipse 35% 45% at 15% 85%, rgba(8,145,178,0.14) 0%, transparent 60%);
-}
-.page-header-dots {
-  position:absolute; inset:0; opacity:.035; pointer-events:none;
-  background-image:radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px);
-  background-size:32px 32px;
-}
-.page-header-inner { position:relative; max-width:var(--max); margin:0 auto; padding:0 32px; }
-
-/* ── SECTION COMMONS ── */
-.section { padding:88px 0; }
-.section-light { background:var(--surface); }
-.section-tinted { background:var(--bg); }
-.section-dark { background:var(--ink); }
-
-.eyebrow {
-  font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
-  color:var(--blue); display:flex; align-items:center; gap:8px; margin-bottom:12px;
-}
-.eyebrow::before { content:''; width:20px; height:2px; background:currentColor; flex-shrink:0; }
-.eyebrow-light { color:#57CBFF; }
-.eyebrow-light::before { background:#57CBFF; }
-
-.section-title {
-  font-size:clamp(26px,3.2vw,40px); font-weight:800; line-height:1.13;
-  letter-spacing:-.025em; margin-bottom:14px;
-}
-
-/* ── STACK GRID ── */
-.stack-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
-.stack-card {
-  border-radius:10px; padding:20px 18px; transition:box-shadow .2s;
-}
-.stack-card:hover { box-shadow:var(--shadow-m); }
-.stack-card-layer {
-  font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase;
-  color:var(--ink4); margin-bottom:8px;
-}
-.stack-card h4 { font-size:14px; font-weight:700; margin-bottom:5px; }
-.stack-card p  { font-size:12px; line-height:1.60; }
-.stack-status {
-  display:inline-block; padding:2px 8px; border-radius:4px; margin-top:10px;
-  font-size:10px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
-}
-.status-ga      { background:var(--green-bg); color:var(--green); }
-.status-preview { background:var(--amber-bg); color:var(--amber); }
-
-/* stack on dark background */
-.stack-dark-card {
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.08);
-}
-.stack-dark-card .stack-card-layer { color:rgba(255,255,255,0.35); }
-.stack-dark-card h4 { color:#fff; }
-.stack-dark-card p  { color:rgba(255,255,255,0.55); }
-
-/* ── LAYER SECTION ── */
-.layer-section { margin-bottom:64px; }
-.layer-header {
-  display:flex; align-items:center; gap:14px;
-  margin-bottom:20px; padding-bottom:16px;
-  border-bottom:1px solid rgba(255,255,255,0.10);
-}
-.layer-badge {
-  padding:4px 14px; border-radius:100px;
-  font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
-}
-.layer-title {
-  font-size:18px; font-weight:700; color:#fff; letter-spacing:-.01em;
-}
-.layer-desc {
-  font-size:13.5px; line-height:1.70; color:rgba(255,255,255,0.55); margin-bottom:20px; max-width:720px;
-}
-
-/* layer colors */
-.layer-pipelines .layer-badge { background:rgba(8,145,178,0.18); color:#57CBFF; }
-.layer-semantic  .layer-badge { background:rgba(33,69,234,0.22); color:#93AFFF; }
-.layer-governance .layer-badge { background:rgba(124,58,237,0.18); color:#C4B5FD; }
-.layer-workflow  .layer-badge { background:rgba(4,120,87,0.18); color:#6EE7B7; }
-.layer-apps      .layer-badge { background:rgba(180,83,9,0.18); color:#FCD34D; }
-
-/* ── ARCHITECTURE CALLOUT ── */
-.arch-callout {
-  background:rgba(33,69,234,0.12); border:1px solid rgba(33,69,234,0.25);
-  border-radius:12px; padding:32px 36px; margin-bottom:48px;
-}
-.arch-callout h3 {
-  font-size:18px; font-weight:700; color:#fff; margin-bottom:10px; letter-spacing:-.01em;
-}
-.arch-callout p {
-  font-size:14px; line-height:1.72; color:rgba(255,255,255,0.65);
-}
-.arch-flow {
-  margin-top:24px; padding:20px 24px;
-  background:rgba(0,0,0,0.20); border-radius:8px;
-  font-family:ui-monospace, 'Cascadia Code', 'Courier New', monospace;
-  font-size:12.5px; line-height:2.0; color:rgba(255,255,255,0.60);
-  white-space:pre;
-}
-.arch-flow .hl { color:#57CBFF; }
-
-/* ── NEXT / PREV NAV ── */
-.page-nav {
-  display:flex; justify-content:space-between; align-items:center;
-  padding:32px 0; border-top:1px solid rgba(255,255,255,0.08); margin-top:64px;
-  flex-wrap:wrap; gap:16px;
-}
-.page-nav-link {
-  display:inline-flex; align-items:center; gap:8px;
-  color:#57CBFF; font-size:14px; font-weight:600; text-decoration:none;
-  padding:10px 20px; border:1px solid rgba(87,203,255,0.25); border-radius:8px;
-  background:rgba(87,203,255,0.06);
-  transition:background .18s, border-color .18s, gap .18s;
-}
-.page-nav-link:hover { background:rgba(87,203,255,0.12); border-color:rgba(87,203,255,0.45); }
-.page-nav-link:hover .arrow { transform:translateX(4px); }
-.page-nav-link .arrow { transition:transform .18s; }
-
-/* ── FOOTER ── */
-footer {
-  background:var(--ink); padding:40px 0;
-  border-top:1px solid rgba(255,255,255,0.07);
-}
-.footer-inner {
-  display:flex; align-items:center; justify-content:space-between;
-  flex-wrap:wrap; gap:16px;
-}
-.footer-brand { display:flex; align-items:center; gap:8px; text-decoration:none; }
-.footer-brand-name { font-size:14px; font-weight:800; color:#fff; }
-.footer-brand-tag { font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-left:5px; }
-.footer-links { display:flex; gap:20px; }
-.footer-links a { font-size:12.5px; color:rgba(255,255,255,0.40); text-decoration:none; transition:color .2s; }
-.footer-links a:hover { color:rgba(255,255,255,0.75); }
-.footer-copy { font-size:12px; color:rgba(255,255,255,0.28); }
-
 /* ── HAMBURGER ── */
 .nav-ham {
   display:none; flex-direction:column; justify-content:center; gap:5px;
@@ -319,27 +157,35 @@ footer {
   padding:16px 8px;
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width:1020px) {
-  .stack-grid { grid-template-columns:repeat(3,1fr); }
+/* ── DEMOBOARD WRAPPER ── */
+.demo-wrapper {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0a0a14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
+.demo-wrapper iframe {
+  width: 1280px;
+  height: 720px;
+  border: none;
+  display: block;
+  flex-shrink: 0;
+  transform-origin: center center;
+}
+
+/* ── RESPONSIVE ── */
 @media (max-width:860px) {
   nav { padding:0 20px; }
-  .wrap { padding:0 20px; }
-  .page-header-inner { padding:0 20px; }
-  .page-header { padding:80px 0 56px; }
   .nav-links { display:none; }
   .nav-ham { display:flex; }
-  .section { padding:60px 0; }
-  .stack-grid { grid-template-columns:1fr 1fr; }
   .nav-mega { width:90vw; grid-template-columns:1fr; }
   .nav-mega-div { display:none; }
-  .arch-flow { font-size:11px; }
-}
-@media (max-width:580px) {
-  .stack-grid { grid-template-columns:1fr; }
-  .page-header { padding:72px 0 44px; }
-  .arch-callout { padding:24px 20px; }
 }
 </style>
 </head>
@@ -426,186 +272,12 @@ footer {
   <a href="/#contact" class="nav-mob-cta">Let's Talk</a>
 </div>
 
-<!-- ── PAGE HEADER ── -->
-<section class="page-header">
-  <div class="page-header-dots"></div>
-  <div class="page-header-inner">
-    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(33,69,234,0.20);border:1px solid rgba(33,69,234,0.38);color:#93AFFF;padding:5px 14px;border-radius:100px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:24px;" class="r">
-      <span style="width:5px;height:5px;border-radius:50%;background:#60A0FF;"></span>
-      The Platform
-    </div>
-    <h1 style="font-size:clamp(32px,4.2vw,52px);font-weight:800;line-height:1.09;color:#fff;letter-spacing:-.03em;max-width:680px;margin-bottom:20px;" class="r" style-delay=".06s">
-      Cargo Data
-    </h1>
-    <p style="font-size:17px;line-height:1.68;color:rgba(255,255,255,0.65);max-width:580px;margin-bottom:16px;font-weight:400;" class="r">
-      AI Readiness Pipeline
-    </p>
-    <p style="font-size:13px;color:rgba(255,255,255,0.35);max-width:580px;" class="r">
-      This isn't a product pitch. It's context for what makes the architectures in the field cases possible.
-    </p>
-  </div>
-</section>
-
-<!-- ── ARCHITECTURE OVERVIEW ── -->
-<section class="section section-dark">
-  <div class="wrap">
-
-    <div class="arch-callout r">
-      <h3>How the layers connect</h3>
-      <p>Every field use case on this site runs on a combination of these layers. Data gets certified before agents touch it. Institutional knowledge is encoded, versioned, and deterministically applied. Workflow recipes orchestrate governed tools into production pipelines. Workbenches surface the outputs in role-specific cockpits.</p>
-      <div class="arch-flow"><span class="hl">AI-Ready Pipelines</span>  →  Data certified, redacted, and lineage-stamped before any agent consumes it
-<span class="hl">Semantic</span>            →  Insurance ontology + document intelligence + knowledge repository
-<span class="hl">Governance</span>          →  Every AI decision reconstructible from its governing chunk + trace path
-<span class="hl">Workflow</span>            →  Orchestrated recipe packs — traceable tool invocations, end to end
-<span class="hl">Apps</span>               →  Personified workbenches — the human-in-the-loop surface</div>
-    </div>
-
-    <!-- AI-Ready Pipelines -->
-    <div class="layer-section layer-pipelines r">
-      <div class="layer-header">
-        <span class="layer-badge">AI-Ready Pipelines</span>
-        <span class="layer-title">The data trust layer</span>
-      </div>
-      <p class="layer-desc">AI decisions inherit the quality of the data upstream. This layer certifies, redacts, and registers every data product before an agent touches it — embedding governance into the pipeline itself, not bolting it on afterward.</p>
-      <div class="stack-grid">
-        <div class="stack-card stack-dark-card">
-          <div class="stack-card-layer">AI-Ready Pipelines</div>
-          <h4>Assure</h4>
-          <p>Data quality certification (structured and unstructured) before AI consumes it. 10-dimension composite trust score.</p>
-          <span class="stack-status status-ga">GA</span>
-        </div>
-        <div class="stack-card stack-dark-card">
-          <div class="stack-card-layer">AI-Ready Pipelines</div>
-          <h4>Redact</h4>
-          <p>1,100+ sensitive data types detected and redacted in-pipeline before egress. PHI, PII, PCI, HIPAA, GDPR.</p>
-          <span class="stack-status status-ga">GA</span>
-        </div>
-        <div class="stack-card stack-dark-card">
-          <div class="stack-card-layer">AI-Ready Pipelines</div>
-          <h4>DataDNA</h4>
-          <p>Pipeline-native lineage registry. The trust control plane for AI data consumption across Snowflake and Databricks.</p>
-          <span class="stack-status status-preview">Preview</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Semantic -->
-    <div class="layer-section layer-semantic r" style="transition-delay:.06s">
-      <div class="layer-header">
-        <span class="layer-badge">Semantic</span>
-        <span class="layer-title">The context layer</span>
-      </div>
-      <p class="layer-desc">AI cannot reason over data it cannot find, connect, or trust. This layer makes enterprise data discoverable and connected, and provides the knowledge repository where institutional rules live as versioned, governed definitions rather than floating in model weights.</p>
-      <div class="stack-grid">
-        <div class="stack-card stack-dark-card">
-          <div class="stack-card-layer">Semantic</div>
-          <h4>Semantic Hub</h4>
-          <p>Insurance ontology + document intelligence + knowledge repository. The context layer for governed AI.</p>
-          <span class="stack-status status-ga">GA</span>
-        </div>
-        <div class="stack-card stack-dark-card">
-          <div class="stack-card-layer">Semantic</div>
-          <h4>Resolve</h4>
-          <p>AI-powered entity resolution. MDM pre-assessment in days, not weeks. Customer identity that carriers trust.</p>
-          <span class="stack-status status-ga">GA</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Governance -->
-    <div class="layer-section layer-governance r" style="transition-delay:.10s">
-      <div class="layer-header">
-        <span class="layer-badge">Governance</span>
-        <span class="layer-title">The accountability layer</span>
-      </div>
-      <p class="layer-desc">When regulators ask "why did your AI decide this?" this layer has the answer. Every decision reconstructs from its governing chunk, version, effective date, and trace path. Compliance as a live posture, not a quarterly report.</p>
-      <div class="stack-grid">
-        <div class="stack-card stack-dark-card">
-          <div class="stack-card-layer">Governance</div>
-          <h4>AI Compliance Hub</h4>
-          <p>Every AI decision reconstructible from governing chunks, version, effective date, and trace path.</p>
-          <span class="stack-status status-preview">Preview</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Workflow -->
-    <div class="layer-section layer-workflow r" style="transition-delay:.14s">
-      <div class="layer-header">
-        <span class="layer-badge">Workflow</span>
-        <span class="layer-title">The orchestration layer</span>
-      </div>
-      <p class="layer-desc">Insurance agentic recipe packs that codify production workflows as orchestrated sequences of governed tools. Each tool invocation is stamped with its governing chunk, version, and effective date — making the pipeline itself the audit trail.</p>
-      <div class="stack-grid">
-        <div class="stack-card stack-dark-card">
-          <div class="stack-card-layer">Workflow</div>
-          <h4>Recipe Packs</h4>
-          <p>Insurance agentic workflows for WC/Auto/Property claims and commercial underwriting. Each tool invocation is traceable.</p>
-          <span class="stack-status status-ga">GA</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Apps -->
-    <div class="layer-section layer-apps r" style="transition-delay:.18s">
-      <div class="layer-header">
-        <span class="layer-badge">Apps</span>
-        <span class="layer-title">The human-in-the-loop layer</span>
-      </div>
-      <p class="layer-desc">Personified workbenches surface governed AI outputs in role-specific cockpits. The examiner or underwriter validates and acts — they don't produce raw analysis from scratch. Intelligence arrives at intake; human judgment decides what to do with it.</p>
-      <div class="stack-grid">
-        <div class="stack-card stack-dark-card">
-          <div class="stack-card-layer">Apps</div>
-          <h4>Workbench</h4>
-          <p>Claims examiner intelligence workspace. Facts, intelligence, and evidence in a single cockpit from FNOL intake.</p>
-          <span class="stack-status status-ga">GA</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Page nav -->
-    <div class="page-nav r">
-      <a href="/encode" class="page-nav-link">← Back to enCode</a>
-      <a href="/" class="page-nav-link">Back to Insights →</a>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── FOOTER ── -->
-<footer>
-  <div class="wrap footer-inner">
-    <a href="/" class="footer-brand">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="110 120 210 200" fill="rgba(255,255,255,0.65)" width="22" height="22">
-        <rect x="116.9" y="156.8" width="57.9" height="57.9"/>
-        <rect x="174.8" y="156.8" width="57.9" height="57.9"/>
-        <rect x="116.9" y="255.7" width="57.9" height="57.9"/>
-        <rect x="215.8" y="197.8" width="57.9" height="57.9"/>
-        <rect x="244.7" y="127.8" width="57.9" height="57.9" transform="translate(-30.7 239.5) rotate(-45)"/>
-        <rect x="215.8" y="255.7" width="57.9" height="57.9"/>
-      </svg>
-      <span class="footer-brand-name">ElevateNow</span>
-      <span class="footer-brand-tag">Insights</span>
-    </a>
-    <div class="footer-links">
-      <a href="/#perspectives">Perspectives</a>
-      <a href="/#results">Proven Results</a>
-      <a href="/evidence-lab">Evidence Lab</a>
-      <a href="/cargo-data">Cargo Data</a>
-      <a href="/encode">enCode</a>
-      <a href="mailto:gps@elevatenow.tech">Contact</a>
-    </div>
-    <div class="footer-copy">© 2026 ElevateNow · insights.elevatenow.tech</div>
-  </div>
-</footer>
+<!-- ── DEMOBOARD ── -->
+<div class="demo-wrapper">
+  <iframe src="/cargo-data/presentation.html" title="CARGO — AI Readiness Platform" allowfullscreen></iframe>
+</div>
 
 <script>
-// Nav raise on scroll
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('raised', window.scrollY > 6);
-}, { passive: true });
-
 // Nav dropdowns
 (function() {
   const CLOSE_DELAY = 220;
@@ -628,15 +300,6 @@ window.addEventListener('scroll', () => {
   });
 })();
 
-// Reveal animation
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
-document.querySelectorAll('.r').forEach(el => obs.observe(el));
-setTimeout(() => document.querySelectorAll('.page-header .r').forEach(el => el.classList.add('on')), 60);
-
 // Mobile hamburger
 (function() {
   const ham = document.getElementById('navHam');
@@ -655,6 +318,18 @@ setTimeout(() => document.querySelectorAll('.page-header .r').forEach(el => el.c
     });
   });
 })();
+
+// Scale iframe to fill viewport while keeping 1280x720 aspect ratio.
+// flex-shrink:0 keeps layout size at 1280x720; only visual size is scaled.
+function scaleFrame() {
+  const iframe = document.querySelector('.demo-wrapper iframe');
+  if (!iframe) return;
+  const s = Math.min(window.innerWidth / 1280, (window.innerHeight - 60) / 720);
+  iframe.style.transform = 'scale(' + s + ')';
+}
+window.addEventListener('load', scaleFrame);
+window.addEventListener('resize', scaleFrame);
+scaleFrame();
 </script>
 </body>
 </html>
