@@ -26,6 +26,23 @@ function isAsset(pathname) {
   return staticFiles.includes(pathname);
 }
 
+// Paths that require token authentication.
+// Perspectives (/#perspectives) and The Platform (/#stack) are sections of the
+// root index page and are open to all. Only use case write-ups and Evidence Lab
+// artifacts require a valid token.
+function requiresGate(pathname) {
+  // Use case write-ups
+  if (pathname.startsWith('/usecases/')) return true;
+  // Evidence Lab studies and the Evidence Lab index page
+  if (pathname.startsWith('/evidence-lab')) return true;
+  // Demoboards remain gated
+  if (pathname.startsWith('/demoboards/')) return true;
+  // access-required page itself must never be gated (infinite loop)
+  if (pathname === '/access-required.html') return false;
+  // Everything else (root page, perspectives content, platform content) is open
+  return false;
+}
+
 export async function onRequest({ request, next, env }) {
   const url = new URL(request.url);
   const pathname = url.pathname;
@@ -33,7 +50,7 @@ export async function onRequest({ request, next, env }) {
   // Always pass through static assets
   if (isAsset(pathname)) return next();
 
-  // Token in URL → validate and either set cookie or show error
+  // Token in URL → validate and set cookie regardless of path, then redirect clean
   const queryToken = url.searchParams.get('token');
   if (queryToken !== null) {
     if (queryToken === VALID_TOKEN) {
@@ -55,7 +72,10 @@ export async function onRequest({ request, next, env }) {
     }
   }
 
-  // Valid cookie → allow through
+  // If this path does not require gating, pass through immediately
+  if (!requiresGate(pathname)) return next();
+
+  // Path requires gate — check cookie
   const cookieToken = getCookieToken(request.headers.get('Cookie'));
   if (cookieToken === VALID_TOKEN) return next();
 
