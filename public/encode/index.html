@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>enCode — ElevateNow Insights</title>
+<meta name="description" content="enCode — Governed Insurance Intelligence Platform. Encode carrier rules, apply them deterministically, trace every decision.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="/EN.png">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:        #0D1534;
+  --ink2:       #344060;
+  --ink3:       #6B7A99;
+  --ink4:       #9BA5BE;
+  --blue:       #2145EA;
+  --blue-d:     #112CA9;
+  --blue-bg:    #EEF2FF;
+  --teal:       #0891B2;
+  --teal-bg:    #E0F7FA;
+  --amber:      #B45309;
+  --amber-bg:   #FEF3C7;
+  --green:      #047857;
+  --green-bg:   #D1FAE5;
+  --surface:    #FFFFFF;
+  --bg:         #F5F6FA;
+  --bg2:        #ECEEF5;
+  --border:     rgba(13,21,52,0.09);
+  --border-s:   rgba(13,21,52,0.06);
+  --shadow-s:   0 1px 3px rgba(13,21,52,0.06), 0 2px 8px rgba(13,21,52,0.04);
+  --shadow-m:   0 2px 8px rgba(13,21,52,0.08), 0 8px 24px rgba(13,21,52,0.06);
+  --shadow-h:   0 4px 16px rgba(13,21,52,0.10), 0 16px 40px rgba(13,21,52,0.08);
+  --max:        1160px;
+  --ease:       cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── REVEAL ── */
+.r { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s var(--ease); }
+.r.on { opacity:1; transform:none; }
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  height:60px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 48px;
+  background:rgba(255,255,255,0.97); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-s);
+  transition:box-shadow .3s;
+}
+nav.raised { box-shadow:0 1px 24px rgba(13,21,52,0.09); }
+.nav-brand { display:flex; align-items:center; gap:8px; text-decoration:none; }
+.nav-links { display:flex; align-items:center; gap:4px; list-style:none; }
+.nav-links a {
+  color:var(--ink2); text-decoration:none; font-size:13.5px; font-weight:500;
+  padding:7px 13px; border-radius:6px; transition:background .15s, color .15s;
+}
+.nav-links a:hover { background:var(--bg); color:var(--ink); }
+.nav-links a.active { color:var(--blue); background:var(--blue-bg); font-weight:600; }
+.nav-cta { background:var(--blue)!important; color:#fff!important; font-weight:600!important; }
+.nav-cta:hover { opacity:.88!important; }
+
+/* ── NAV DROPDOWNS ── */
+.nav-item { position:relative; }
+.nav-item > a { display:flex; align-items:center; gap:4px; }
+.nav-item > a::after {
+  content:''; display:inline-block; width:7px; height:4.5px; flex-shrink:0;
+  background:currentColor; clip-path:polygon(0 0,100% 0,50% 100%);
+  opacity:.40; transition:transform .18s, opacity .18s;
+}
+.nav-item.open > a::after { opacity:.75; transform:rotate(180deg); }
+
+.nav-item::after {
+  content:''; position:absolute; top:100%; left:-20px; right:-20px; height:16px;
+  display:none;
+}
+.nav-item.open::after { display:block; }
+
+.nav-drop {
+  position:absolute; top:calc(100% + 8px); left:50%;
+  background:#fff; border:1px solid var(--border); border-radius:10px;
+  box-shadow:var(--shadow-m); min-width:260px; padding:6px; z-index:300;
+  opacity:0; pointer-events:none; transform:translateX(-50%) translateY(-6px);
+  transition:opacity .16s var(--ease), transform .16s var(--ease);
+}
+.nav-item.open .nav-drop {
+  opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);
+}
+.nav-drop a {
+  display:block; padding:8px 12px; font-size:13px; font-weight:500; color:var(--ink2);
+  border-radius:7px; text-decoration:none; white-space:nowrap;
+  transition:background .12s, color .12s;
+}
+.nav-drop a:hover { background:var(--blue-bg); color:var(--blue); }
+.nav-drop a.active { background:var(--blue-bg); color:var(--blue); font-weight:600; }
+
+.nav-mega {
+  position:absolute; top:calc(100% + 8px); left:50%;
+  background:#fff; border:1px solid var(--border); border-radius:12px;
+  box-shadow:var(--shadow-h); width:480px; padding:20px; z-index:300;
+  opacity:0; pointer-events:none; transform:translateX(-50%) translateY(-8px);
+  transition:opacity .18s var(--ease), transform .18s var(--ease);
+  display:grid; grid-template-columns:1fr 1px 1fr; gap:0 16px;
+}
+.nav-item.open .nav-mega {
+  opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);
+}
+.nav-mega-col { display:flex; flex-direction:column; gap:2px; }
+.nav-mega-head {
+  font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink4); padding:2px 10px 8px; border-bottom:1px solid var(--border-s); margin-bottom:4px;
+}
+.nav-mega a {
+  display:block; padding:7px 10px; font-size:12.5px; font-weight:500; color:var(--ink2);
+  border-radius:6px; text-decoration:none; line-height:1.3;
+  transition:background .12s, color .12s;
+}
+.nav-mega a:hover { background:var(--blue-bg); color:var(--blue); }
+.nav-mega-div { background:var(--border); width:1px; }
+
+/* ── LAYOUT ── */
+.wrap { max-width:var(--max); margin:0 auto; padding:0 32px; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background:var(--ink); padding:100px 0 88px;
+  position:relative; overflow:hidden; min-height:420px;
+  display:flex; align-items:center;
+}
+.page-header::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 55% 65% at 72% 45%, rgba(33,69,234,0.28) 0%, transparent 70%),
+    radial-gradient(ellipse 35% 45% at 15% 85%, rgba(8,145,178,0.14) 0%, transparent 60%);
+}
+.page-header-dots {
+  position:absolute; inset:0; opacity:.035; pointer-events:none;
+  background-image:radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px);
+  background-size:32px 32px;
+}
+.page-header-inner { position:relative; max-width:var(--max); margin:0 auto; padding:0 32px; width:100%; }
+
+/* ── COMING SOON CARD ── */
+.coming-soon-section {
+  background:var(--ink); padding:0 0 88px;
+}
+.cs-card {
+  background:rgba(33,69,234,0.10); border:1px solid rgba(33,69,234,0.25);
+  border-radius:16px; padding:56px 48px; text-align:center; max-width:640px; margin:0 auto;
+}
+.cs-badge {
+  display:inline-flex; align-items:center; gap:7px;
+  background:rgba(33,69,234,0.18); border:1px solid rgba(33,69,234,0.35);
+  color:#93AFFF; padding:5px 16px; border-radius:100px;
+  font-size:11.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase;
+  margin-bottom:28px;
+}
+.cs-badge-dot {
+  width:6px; height:6px; border-radius:50%; background:#60A0FF;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity:1; transform:scale(1); }
+  50% { opacity:.5; transform:scale(0.85); }
+}
+.cs-card h2 {
+  font-size:clamp(22px,3vw,34px); font-weight:800; color:#fff;
+  letter-spacing:-.025em; margin-bottom:12px; line-height:1.15;
+}
+.cs-card p {
+  font-size:15px; line-height:1.70; color:rgba(255,255,255,0.58); max-width:480px; margin:0 auto;
+}
+
+/* ── TEASER SECTION ── */
+.teaser-section {
+  background:var(--ink); padding:0 0 88px;
+}
+.teaser-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:40px;
+}
+.teaser-card {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px; padding:28px 24px;
+}
+.teaser-num {
+  font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:rgba(255,255,255,0.32); margin-bottom:12px;
+}
+.teaser-card h4 {
+  font-size:15px; font-weight:700; color:#fff; margin-bottom:8px; line-height:1.3;
+}
+.teaser-card p {
+  font-size:13px; line-height:1.68; color:rgba(255,255,255,0.52);
+}
+
+/* ── PAGE NAV ── */
+.page-nav {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:40px 0 0; border-top:1px solid rgba(255,255,255,0.08); margin-top:64px;
+  flex-wrap:wrap; gap:16px;
+}
+.page-nav-link {
+  display:inline-flex; align-items:center; gap:8px;
+  color:#57CBFF; font-size:14px; font-weight:600; text-decoration:none;
+  padding:10px 20px; border:1px solid rgba(87,203,255,0.25); border-radius:8px;
+  background:rgba(87,203,255,0.06);
+  transition:background .18s, border-color .18s;
+}
+.page-nav-link:hover { background:rgba(87,203,255,0.12); border-color:rgba(87,203,255,0.45); }
+
+/* ── FOOTER ── */
+footer {
+  background:var(--ink); padding:40px 0;
+  border-top:1px solid rgba(255,255,255,0.07);
+}
+.footer-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:16px;
+}
+.footer-brand { display:flex; align-items:center; gap:8px; text-decoration:none; }
+.footer-brand-name { font-size:14px; font-weight:800; color:#fff; }
+.footer-brand-tag { font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-left:5px; }
+.footer-links { display:flex; gap:20px; }
+.footer-links a { font-size:12.5px; color:rgba(255,255,255,0.40); text-decoration:none; transition:color .2s; }
+.footer-links a:hover { color:rgba(255,255,255,0.75); }
+.footer-copy { font-size:12px; color:rgba(255,255,255,0.28); }
+
+/* ── HAMBURGER ── */
+.nav-ham {
+  display:none; flex-direction:column; justify-content:center; gap:5px;
+  background:none; border:none; cursor:pointer; padding:8px 4px; margin-left:8px;
+  flex-shrink:0;
+}
+.nav-ham span {
+  display:block; width:22px; height:2px; border-radius:2px; background:var(--ink);
+  transition:transform .22s var(--ease), opacity .18s;
+}
+.nav-ham.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.nav-ham.open span:nth-child(2) { opacity:0; }
+.nav-ham.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+.nav-mob {
+  display:none; position:fixed; top:60px; left:0; right:0; bottom:0;
+  background:rgba(255,255,255,0.98); backdrop-filter:blur(20px);
+  z-index:199; padding:8px 20px 40px; flex-direction:column; overflow-y:auto;
+}
+.nav-mob.open { display:flex; }
+.nav-mob-head {
+  font-size:10px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--ink4); padding:20px 8px 8px; flex-shrink:0;
+}
+.nav-mob a {
+  font-size:16px; font-weight:600; color:var(--ink); text-decoration:none;
+  padding:15px 8px; border-bottom:1px solid var(--border-s); transition:color .15s;
+  display:block; flex-shrink:0;
+}
+.nav-mob a:hover { color:var(--blue); }
+.nav-mob a.nav-mob-cta {
+  margin-top:16px; background:var(--blue); color:#fff;
+  border-radius:8px; text-align:center; border-bottom:none;
+  padding:16px 8px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width:860px) {
+  nav { padding:0 20px; }
+  .wrap { padding:0 20px; }
+  .page-header-inner { padding:0 20px; }
+  .page-header { padding:80px 0 64px; min-height:320px; }
+  .nav-links { display:none; }
+  .nav-ham { display:flex; }
+  .teaser-grid { grid-template-columns:1fr; }
+  .cs-card { padding:40px 28px; }
+  .nav-mega { width:90vw; grid-template-columns:1fr; }
+  .nav-mega-div { display:none; }
+}
+@media (max-width:580px) {
+  .page-header { padding:72px 0 48px; }
+  .cs-card { padding:32px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="/" class="nav-brand">
+    <img src="/enow_logo.svg" alt="ElevateNow" style="height:26px; filter:brightness(0) saturate(100%) invert(19%) sepia(80%) hue-rotate(215deg) saturate(600%) brightness(90%);">
+  </a>
+  <ul class="nav-links">
+    <li class="nav-item">
+      <a href="/#perspectives">Perspectives</a>
+      <div class="nav-drop">
+        <a href="/#perspectives">What We Believe</a>
+        <a href="/demoboards/semantic-hub.html">AI-Ready Insurance: Architectural Directive</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="/#results">Proven Results</a>
+      <div class="nav-mega">
+        <div class="nav-mega-col">
+          <div class="nav-mega-head">Insurance</div>
+          <a href="/usecases/SubmissionIntake">Submission Triage</a>
+          <a href="/usecases/ElevateNow_MultiLOB_FNOL">FNOL Intelligence</a>
+          <a href="/usecases/WCFNOL-ElevatenowRecipe">WC Jurisdiction Rules</a>
+          <a href="/usecases/LossRunIntelligence">Loss Run Analysis</a>
+          <a href="/usecases/PSUW-ElevatenowRecipe">Municipal Risk Intel</a>
+        </div>
+        <div class="nav-mega-div"></div>
+        <div class="nav-mega-col">
+          <div class="nav-mega-head">Data Solutions</div>
+          <a href="/usecases/pre-mdm-assessment">MDM Pre-Assessment</a>
+          <a href="/usecases/mdm-lite">MDM Lite</a>
+          <a href="/usecases/data-quality-certification">Data Quality Certification</a>
+          <a href="/usecases/ProactiveAuditMonitoring">Proactive Audit</a>
+          <a href="/usecases/cohort-analysis">Cohort Analysis</a>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="/cargo-data">The Platform</a>
+      <div class="nav-drop">
+        <a href="/cargo-data">Cargo Data</a>
+        <a href="/encode" class="active">enCode</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="/evidence-lab">Evidence Lab</a>
+      <div class="nav-drop">
+        <a href="/evidence-lab">All Studies</a>
+        <a href="/evidence-lab/ocr-benchmark">OCR Benchmark Framework</a>
+        <a href="/evidence-lab/six-tier-stack">Six-Tier Extraction Stack</a>
+      </div>
+    </li>
+    <li><a href="/#contact" class="nav-cta">Let's Talk</a></li>
+  </ul>
+  <button class="nav-ham" id="navHam" aria-label="Open navigation">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile nav drawer -->
+<div class="nav-mob" id="navMob">
+  <a href="/#perspectives">Perspectives</a>
+  <a href="/demoboards/semantic-hub.html" style="padding-left:20px;font-size:14px;font-weight:600;color:var(--blue);">AI-Ready Insurance: Architectural Directive →</a>
+  <div class="nav-mob-head">Insurance Use Cases</div>
+  <a href="/usecases/SubmissionIntake">Submission Triage</a>
+  <a href="/usecases/ElevateNow_MultiLOB_FNOL">FNOL Intelligence</a>
+  <a href="/usecases/WCFNOL-ElevatenowRecipe">WC Jurisdiction Rules</a>
+  <a href="/usecases/LossRunIntelligence">Loss Run Analysis</a>
+  <a href="/usecases/PSUW-ElevatenowRecipe">Municipal Risk Intel</a>
+  <div class="nav-mob-head">Data Solutions</div>
+  <a href="/usecases/pre-mdm-assessment">MDM Pre-Assessment</a>
+  <a href="/usecases/mdm-lite">MDM Lite</a>
+  <a href="/usecases/data-quality-certification">Data Quality Certification</a>
+  <a href="/usecases/ProactiveAuditMonitoring">Proactive Audit</a>
+  <a href="/usecases/cohort-analysis">Cohort Analysis</a>
+  <a href="/cargo-data">Cargo Data</a>
+  <a href="/encode" style="color:var(--blue);font-weight:700;">enCode</a>
+  <a href="/evidence-lab">Evidence Lab</a>
+  <a href="/evidence-lab/ocr-benchmark" style="padding-left:20px;font-size:14px;font-weight:500;opacity:0.8;">OCR Benchmark Framework</a>
+  <a href="/evidence-lab/six-tier-stack" style="padding-left:20px;font-size:14px;font-weight:500;opacity:0.8;">Six-Tier Extraction Stack</a>
+  <a href="/#contact" class="nav-mob-cta">Let's Talk</a>
+</div>
+
+<!-- ── PAGE HEADER ── -->
+<section class="page-header">
+  <div class="page-header-dots"></div>
+  <div class="page-header-inner">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(33,69,234,0.20);border:1px solid rgba(33,69,234,0.38);color:#93AFFF;padding:5px 14px;border-radius:100px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:24px;" class="r">
+      <span style="width:5px;height:5px;border-radius:50%;background:#60A0FF;"></span>
+      The Platform
+    </div>
+    <h1 style="font-size:clamp(36px,4.8vw,60px);font-weight:800;line-height:1.07;color:#fff;letter-spacing:-.03em;max-width:640px;margin-bottom:16px;" class="r">
+      enCode
+    </h1>
+    <p style="font-size:19px;line-height:1.55;color:rgba(255,255,255,0.55);max-width:520px;font-weight:500;letter-spacing:-.01em;" class="r">
+      Governed Insurance Intelligence Platform
+    </p>
+  </div>
+</section>
+
+<!-- ── COMING SOON ── -->
+<section class="coming-soon-section">
+  <div class="wrap">
+    <div class="cs-card r" style="margin-top:64px;">
+      <div class="cs-badge">
+        <span class="cs-badge-dot"></span>
+        Demoboard in production
+      </div>
+      <h2>The demoboard is on its way.</h2>
+      <p>enCode encodes institutional knowledge — appetite rules, jurisdiction requirements, authority matrices, SOPs — as versioned, governed definitions that AI agents apply deterministically. The full demoboard will be published here shortly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── TEASER ── -->
+<section class="teaser-section">
+  <div class="wrap">
+    <div class="r" style="border-top:1px solid rgba(255,255,255,0.07);padding-top:64px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#57CBFF;display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span style="width:20px;height:2px;background:#57CBFF;flex-shrink:0;"></span>
+        What enCode solves
+      </div>
+      <h2 style="font-size:clamp(22px,2.8vw,32px);font-weight:800;color:#fff;letter-spacing:-.025em;margin-bottom:10px;max-width:600px;line-height:1.15;">Institutional knowledge encoded, not recalled.</h2>
+      <p style="font-size:15px;line-height:1.68;color:rgba(255,255,255,0.55);max-width:600px;">Appetite rules, jurisdiction requirements, and SOPs live as versioned, governed definitions — not floating in model weights where they can drift, hallucinate, or become unauditable. Every AI decision traces back to a specific version of the rule that was in effect at the time of the decision.</p>
+    </div>
+    <div class="teaser-grid r" style="transition-delay:.08s">
+      <div class="teaser-card">
+        <div class="teaser-num">01</div>
+        <h4>Encode once, apply everywhere</h4>
+        <p>Rules encoded in enCode are consumed by any workflow, tool, or agent that needs them. One definition. Consistent application across every pipeline.</p>
+      </div>
+      <div class="teaser-card">
+        <div class="teaser-num">02</div>
+        <h4>Versioned to the decision</h4>
+        <p>When a regulator asks what rule governed this decision, enCode answers with the exact version, effective date, and governing content that was active at the time.</p>
+      </div>
+      <div class="teaser-card">
+        <div class="teaser-num">03</div>
+        <h4>Deterministic, not probabilistic</h4>
+        <p>Appetite, exclusions, and jurisdiction rules don't belong in model weights. enCode routes them through deterministic lookup — zero chance of hallucination on governed facts.</p>
+      </div>
+    </div>
+
+    <!-- Page nav -->
+    <div class="page-nav r" style="transition-delay:.12s">
+      <a href="/" class="page-nav-link">← Back to Insights</a>
+      <a href="/cargo-data" class="page-nav-link">Next: Cargo Data <span class="arrow">→</span></a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="wrap footer-inner">
+    <a href="/" class="footer-brand">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="110 120 210 200" fill="rgba(255,255,255,0.65)" width="22" height="22">
+        <rect x="116.9" y="156.8" width="57.9" height="57.9"/>
+        <rect x="174.8" y="156.8" width="57.9" height="57.9"/>
+        <rect x="116.9" y="255.7" width="57.9" height="57.9"/>
+        <rect x="215.8" y="197.8" width="57.9" height="57.9"/>
+        <rect x="244.7" y="127.8" width="57.9" height="57.9" transform="translate(-30.7 239.5) rotate(-45)"/>
+        <rect x="215.8" y="255.7" width="57.9" height="57.9"/>
+      </svg>
+      <span class="footer-brand-name">ElevateNow</span>
+      <span class="footer-brand-tag">Insights</span>
+    </a>
+    <div class="footer-links">
+      <a href="/#perspectives">Perspectives</a>
+      <a href="/#results">Proven Results</a>
+      <a href="/evidence-lab">Evidence Lab</a>
+      <a href="/cargo-data">Cargo Data</a>
+      <a href="/encode">enCode</a>
+      <a href="mailto:gps@elevatenow.tech">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 ElevateNow · insights.elevatenow.tech</div>
+  </div>
+</footer>
+
+<script>
+// Nav raise on scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('raised', window.scrollY > 6);
+}, { passive: true });
+
+// Nav dropdowns
+(function() {
+  const CLOSE_DELAY = 220;
+  document.querySelectorAll('.nav-item').forEach(item => {
+    let closeTimer = null;
+    const open  = () => { clearTimeout(closeTimer); item.classList.add('open'); };
+    const close = () => { closeTimer = setTimeout(() => item.classList.remove('open'), CLOSE_DELAY); };
+    item.addEventListener('mouseenter', open);
+    item.addEventListener('mouseleave', close);
+    const panel = item.querySelector('.nav-mega, .nav-drop');
+    if (panel) {
+      panel.addEventListener('mouseenter', open);
+      panel.addEventListener('mouseleave', close);
+    }
+  });
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.nav-item')) {
+      document.querySelectorAll('.nav-item.open').forEach(i => i.classList.remove('open'));
+    }
+  });
+})();
+
+// Reveal animation
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+setTimeout(() => document.querySelectorAll('.page-header .r').forEach(el => el.classList.add('on')), 60);
+
+// Mobile hamburger
+(function() {
+  const ham = document.getElementById('navHam');
+  const mob = document.getElementById('navMob');
+  if (!ham || !mob) return;
+  ham.addEventListener('click', () => {
+    const isOpen = ham.classList.toggle('open');
+    mob.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  mob.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      ham.classList.remove('open');
+      mob.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+})();
+</script>
+</body>
+</html>
