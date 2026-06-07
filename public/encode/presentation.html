@@ -1339,6 +1339,262 @@
 <html lang=&quot;en&quot;>
 <head>
 <meta charset=&quot;UTF-8&quot;>
+<title>enCODE — Submission Intelligence</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+  .slide-container {
+    width: 1280px; height: 720px; background: #1C1C46;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .slide-container::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 6px;
+    background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10;
+  }
+  .geo { position: absolute; border-radius: 6px; }
+  .geo-1 { width: 420px; height: 420px; background: rgba(33,69,234,0.12); right: -60px; top: -80px; transform: rotate(15deg); }
+  .geo-2 { width: 220px; height: 220px; background: rgba(87,203,255,0.06); right: 120px; bottom: 80px; transform: rotate(30deg); }
+  .geo-3 { width: 100px; height: 100px; background: rgba(33,69,234,0.15); right: 380px; top: 180px; transform: rotate(45deg); }
+  .content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 80px; position: relative; z-index: 2; }
+  .eyebrow { font-size: 11px; font-weight: 800; color: #57CBFF; letter-spacing: 0.22em; margin-bottom: 24px; }
+  .headline { font-size: 62px; font-weight: 800; color: #FFFFFF; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 20px; }
+  .headline .accent { color: #57CBFF; }
+  .subline { font-size: 20px; font-weight: 400; color: rgba(255,255,255,0.55); line-height: 1.5; max-width: 680px; margin-bottom: 48px; }
+  .pillars { display: flex; gap: 16px; }
+  .pillar { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px 20px; min-width: 280px; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+  .pillar:hover { background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.25); }
+  .pillar.active { background: rgba(33,69,234,0.25); border-color: #2145EA; }
+  .pillar.active:hover { background: rgba(33,69,234,0.38); border-color: #57CBFF; }
+  .pillar-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .pillar.active .pillar-icon { background: rgba(33,69,234,0.4); }
+  .pillar-icon i { font-size: 15px; color: rgba(255,255,255,0.5); }
+  .pillar.active .pillar-icon i { color: #57CBFF; }
+  .pillar-text { display: flex; flex-direction: column; gap: 2px; }
+  .pillar-name { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); }
+  .pillar.active .pillar-name { color: #FFFFFF; }
+  .pillar-sub { font-size: 11px; color: rgba(255,255,255,0.35); }
+  .pillar.active .pillar-sub { color: rgba(255,255,255,0.6); }
+  .pillar-badge { margin-left: auto; font-size: 9px; font-weight: 800; color: #57CBFF; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(87,203,255,0.12); padding: 3px 8px; border-radius: 4px; }
+  .slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.25); padding: 10px 80px 14px; border-top: 1px solid rgba(255,255,255,0.08); position: relative; z-index: 2; }
+  .tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class=&quot;slide-container&quot;>
+  <div class=&quot;geo geo-1&quot;></div>
+  <div class=&quot;geo geo-2&quot;></div>
+  <div class=&quot;geo geo-3&quot;></div>
+  <div class=&quot;content&quot;>
+    <div class=&quot;eyebrow&quot;><span style=&quot;font-size:0.75em;letter-spacing:0.22em;&quot;>en</span>CODE IN PRACTICE</div>
+    <h1 class=&quot;headline&quot;>Submission Intelligence.<br><span class=&quot;accent&quot;>Governed.</span></h1>
+    <p class=&quot;subline&quot;>Codified underwriting judgment applied to every incoming submission. Before your underwriter opens a document.</p>
+    <div class=&quot;pillars&quot;>
+      <a href=&quot;https://workspace-beta.elevatenow.tech/&quot; target=&quot;_blank&quot; style=&quot;text-decoration:none;&quot;>
+      <div class=&quot;pillar active&quot; title=&quot;Launch Submission Intelligence Demo&quot;>
+        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-file-contract&quot;></i></div>
+        <div class=&quot;pillar-text&quot;>
+          <span class=&quot;pillar-name&quot;>Submission &amp; Underwriting</span>
+          <span class=&quot;pillar-sub&quot;>Submission Intelligence · Clear360</span>
+        </div>
+        <span class=&quot;pillar-badge&quot;>&#9654; Demo</span>
+      </div>
+      </a>
+      <div class=&quot;pillar&quot; onclick=&quot;window.parent.goTo(6)&quot; title=&quot;Go to Claim FNOL Intelligence&quot;>
+        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-shield-halved&quot;></i></div>
+        <div class=&quot;pillar-text&quot;>
+          <span class=&quot;pillar-name&quot;>Claims Intelligence</span>
+          <span class=&quot;pillar-sub&quot;>FNOL Processing · Authority &amp; Reserves</span>
+        </div>
+      </div>
+      <div class=&quot;pillar&quot;>
+        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-scale-balanced&quot;></i></div>
+        <div class=&quot;pillar-text&quot;>
+          <span class=&quot;pillar-name&quot;>Governance &amp; Strategic Ops</span>
+          <span class=&quot;pillar-sub&quot;>Audit &amp; Compliance · Renewal Intelligence</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=&quot;slide-footer&quot;>
+    <span>ELEVATENOW · enCODE<span class=&quot;tm&quot;>™</span></span>
+    <span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:rgba(255,255,255,0.25)&quot;>Governed Insurance Intelligence Platform</span>
+    <span>CONFIDENTIAL</span>
+  </div>
+</div>
+</body>
+</html>
+" scrolling="no" frameborder="0"></iframe>
+    </div>
+
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<title>enCODE — Submission Intelligence Use Case</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+  .slide-container {
+    width: 1280px; height: 720px; background: #FFFFFF; color: #1C1C46;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden; padding: 46px 80px 0px 80px;
+  }
+  .slide-container::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
+    background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10;
+  }
+  .header-section { margin-bottom: 18px; }
+  .slide-eyebrow { font-size: 11px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 7px; }
+  .provocation-title { font-size: 26px; font-weight: 800; line-height: 1.25; color: #1C1C46; letter-spacing: -0.5px; max-width: 920px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; flex-grow: 1; margin-bottom: 20px; }
+  .col-label { font-size: 10px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+  /* LEFT */
+  .breakdown-list { display: flex; flex-direction: column; gap: 9px; }
+  .breakdown-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border: 1px solid #E2E8F0; border-radius: 8px; background: #FFFFFF; }
+  .breakdown-num { width: 26px; height: 26px; border-radius: 6px; background: #1C1C46; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #57CBFF; flex-shrink: 0; }
+  .breakdown-text { font-size: 13px; font-weight: 600; color: #1C1C46; line-height: 1.4; padding-top: 2px; }
+  .breakdown-text span { font-weight: 400; color: #64748B; display: block; margin-top: 2px; font-size: 12px; }
+
+  /* RIGHT */
+  .right-col { background: #2145EA; border-radius: 10px; padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; }
+  .right-col .col-label { color: rgba(255,255,255,0.85); margin-bottom: 4px; }
+  .right-col .col-label i { color: #57CBFF; }
+  .response-list { display: flex; flex-direction: column; gap: 9px; }
+  .response-item { display: flex; gap: 12px; align-items: flex-start; padding: 11px 14px; background: #FFFFFF; border-radius: 8px; }
+  .response-item i { font-size: 13px; color: #2145EA; margin-top: 2px; flex-shrink: 0; }
+  .response-text { font-size: 13px; font-weight: 600; color: #1C1C46; line-height: 1.4; }
+  .response-text span { font-weight: 400; color: #64748B; display: block; margin-top: 2px; font-size: 12px; }
+
+  /* Closing band */
+  .closing-band { background: #1C1C46; padding: 13px 28px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; min-height: 48px; flex-shrink: 0; margin-bottom: 10px; }
+  .closing-left { display: flex; flex-direction: column; gap: 2px; }
+  .closing-label { font-size: 10px; font-weight: 800; color: #57CBFF; letter-spacing: 0.18em; text-transform: uppercase; }
+  .closing-text { font-size: 14px; font-weight: 700; color: #FFFFFF; }
+  .closing-text em { font-style: normal; color: #57CBFF; }
+  .demo-badge { display: flex; align-items: center; gap: 12px; background: rgba(87,203,255,0.12); border: 1px solid rgba(87,203,255,0.3); border-radius: 8px; padding: 10px 20px; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+  .demo-badge:hover { background: rgba(87,203,255,0.22); border-color: rgba(87,203,255,0.6); }
+  .demo-badge i { color: #57CBFF; font-size: 18px; }
+  .demo-badge-text { display: flex; flex-direction: column; gap: 1px; }
+  .demo-badge-title { font-size: 13px; font-weight: 700; color: #FFFFFF; }
+  .demo-badge-sub { font-size: 11px; color: #94A3B8; }
+
+  .slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94A3B8; padding: 8px 0 14px; border-top: 1px solid #E2E8F0; flex-shrink: 0; }
+  .tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class=&quot;slide-container&quot;>
+  <div class=&quot;header-section&quot;>
+    <div class=&quot;slide-eyebrow&quot;>Submission Intelligence · The Use Case</div>
+    <h2 class=&quot;provocation-title&quot;>Complex commercial risks take weeks to reach a bindable quote. Most of that time is spent on submissions that were never going to bind.</h2>
+  </div>
+
+  <div class=&quot;two-col&quot;>
+    <div>
+      <div class=&quot;col-label&quot;><i class=&quot;fa-solid fa-triangle-exclamation&quot;></i> Where Underwriting Capacity Leaks</div>
+      <div class=&quot;breakdown-list&quot;>
+        <div class=&quot;breakdown-item&quot;>
+          <div class=&quot;breakdown-num&quot;>01</div>
+          <div class=&quot;breakdown-text&quot;>Submission arrives. Extracted and stored. No governed layer applied.
+            <span>Underwriter opens a document pile, not a prioritized queue.</span>
+          </div>
+        </div>
+        <div class=&quot;breakdown-item&quot;>
+          <div class=&quot;breakdown-num&quot;>02</div>
+          <div class=&quot;breakdown-text&quot;>Eligibility, appetite, class and geography assessed manually.
+            <span>Every underwriter applies their own judgment. No consistency. No audit trail.</span>
+          </div>
+        </div>
+        <div class=&quot;breakdown-item&quot;>
+          <div class=&quot;breakdown-num&quot;>03</div>
+          <div class=&quot;breakdown-text&quot;>Weeks into review, the submission fails a threshold it would have failed on day one.
+            <span>UW capacity consumed on a risk that was never writable.</span>
+          </div>
+        </div>
+        <div class=&quot;breakdown-item&quot;>
+          <div class=&quot;breakdown-num&quot;>04</div>
+          <div class=&quot;breakdown-text&quot;>No systematic Fast No. No governed triage. No way to protect capacity at scale.
+            <span>Your best underwriters spending time on the wrong submissions.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class=&quot;right-col&quot;>
+      <div class=&quot;col-label&quot;><i class=&quot;fa-solid fa-circle-check&quot;></i> What enCode Does</div>
+      <div class=&quot;response-list&quot;>
+        <div class=&quot;response-item&quot;>
+          <i class=&quot;fa-solid fa-file-lines&quot;></i>
+          <div class=&quot;response-text&quot;>Document Intelligence extracts and validates on arrival.
+            <span>ACORD forms, supplements, SOVs, loss runs. Structured automatically. No manual prep.</span>
+          </div>
+        </div>
+        <div class=&quot;response-item&quot;>
+          <i class=&quot;fa-solid fa-sitemap&quot;></i>
+          <div class=&quot;response-text&quot;>Insurance Ontology enriches with class, jurisdiction and coverage context.
+            <span>Transactional data meets institutional knowledge. Before any underwriter is involved.</span>
+          </div>
+        </div>
+        <div class=&quot;response-item&quot;>
+          <i class=&quot;fa-solid fa-gavel&quot;></i>
+          <div class=&quot;response-text&quot;>Codified UW judgment applied to the enriched submission immediately.
+            <span>Decades of underwriting instinct encoded once. Applied consistently to every risk that follows.</span>
+          </div>
+        </div>
+        <div class=&quot;response-item&quot;>
+          <i class=&quot;fa-solid fa-arrow-down-wide-short&quot;></i>
+          <div class=&quot;response-text&quot;>Governed triage output. Fast No on the wrong risks. Decision-ready queue on the right ones.
+            <span>Every conclusion traced to the rule that produced it.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class=&quot;closing-band&quot;>
+    <div class=&quot;closing-left&quot;>
+      <span class=&quot;closing-label&quot;>The Outcome</span>
+      <span class=&quot;closing-text&quot;>Your best underwriter's judgment. Applied to <em>every submission.</em> Before anyone opens a document.</span>
+    </div>
+    <a href=&quot;https://workspace-beta.elevatenow.tech/&quot; target=&quot;_blank&quot; style=&quot;text-decoration:none;&quot;>
+    <div class=&quot;demo-badge&quot; title=&quot;Launch Submission Intelligence Demo&quot;>
+      <i class=&quot;fa-solid fa-circle-play&quot;></i>
+      <div class=&quot;demo-badge-text&quot;>
+        <span class=&quot;demo-badge-title&quot;>enCode Submission Intelligence</span>
+        <span class=&quot;demo-badge-sub&quot;>Clear360 · Governed triage · Full audit trail</span>
+      </div>
+    </div>
+    </a>
+  </div>
+
+  <div class=&quot;slide-footer&quot;>
+    <span>ELEVATENOW · enCODE<span class=&quot;tm&quot;>™</span></span>
+    <span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>Governed Insurance Intelligence Platform</span>
+    <span>CONFIDENTIAL</span>
+  </div>
+</div>
+</body>
+</html>
+" scrolling="no" frameborder="0"></iframe>
+    </div>
+
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
 <title>enCODE — Claim FNOL Intelligence</title>
 <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
 <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
@@ -1804,262 +2060,6 @@
       <span class=&quot;closing-text&quot;>We built it with you. <em>For you.</em></span>
     </div>
     <div class=&quot;closing-right&quot;>Own as much as your team can support. We manage the rest. The intelligence layer stays yours either way.</div>
-  </div>
-
-  <div class=&quot;slide-footer&quot;>
-    <span>ELEVATENOW · enCODE<span class=&quot;tm&quot;>™</span></span>
-    <span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>Governed Insurance Intelligence Platform</span>
-    <span>CONFIDENTIAL</span>
-  </div>
-</div>
-</body>
-</html>
-" scrolling="no" frameborder="0"></iframe>
-    </div>
-
-    <div class="cell">
-      <iframe srcdoc="<!DOCTYPE html>
-<html lang=&quot;en&quot;>
-<head>
-<meta charset=&quot;UTF-8&quot;>
-<title>enCODE — Submission Intelligence</title>
-<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
-<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
-<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
-<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
-  .slide-container {
-    width: 1280px; height: 720px; background: #1C1C46;
-    position: relative; overflow: hidden;
-    display: flex; flex-direction: column; justify-content: space-between;
-  }
-  .slide-container::before {
-    content: ''; position: absolute; top: 0; left: 0;
-    width: 100%; height: 6px;
-    background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10;
-  }
-  .geo { position: absolute; border-radius: 6px; }
-  .geo-1 { width: 420px; height: 420px; background: rgba(33,69,234,0.12); right: -60px; top: -80px; transform: rotate(15deg); }
-  .geo-2 { width: 220px; height: 220px; background: rgba(87,203,255,0.06); right: 120px; bottom: 80px; transform: rotate(30deg); }
-  .geo-3 { width: 100px; height: 100px; background: rgba(33,69,234,0.15); right: 380px; top: 180px; transform: rotate(45deg); }
-  .content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 80px; position: relative; z-index: 2; }
-  .eyebrow { font-size: 11px; font-weight: 800; color: #57CBFF; letter-spacing: 0.22em; margin-bottom: 24px; }
-  .headline { font-size: 62px; font-weight: 800; color: #FFFFFF; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 20px; }
-  .headline .accent { color: #57CBFF; }
-  .subline { font-size: 20px; font-weight: 400; color: rgba(255,255,255,0.55); line-height: 1.5; max-width: 680px; margin-bottom: 48px; }
-  .pillars { display: flex; gap: 16px; }
-  .pillar { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 14px 20px; min-width: 280px; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
-  .pillar:hover { background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.25); }
-  .pillar.active { background: rgba(33,69,234,0.25); border-color: #2145EA; }
-  .pillar.active:hover { background: rgba(33,69,234,0.38); border-color: #57CBFF; }
-  .pillar-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .pillar.active .pillar-icon { background: rgba(33,69,234,0.4); }
-  .pillar-icon i { font-size: 15px; color: rgba(255,255,255,0.5); }
-  .pillar.active .pillar-icon i { color: #57CBFF; }
-  .pillar-text { display: flex; flex-direction: column; gap: 2px; }
-  .pillar-name { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); }
-  .pillar.active .pillar-name { color: #FFFFFF; }
-  .pillar-sub { font-size: 11px; color: rgba(255,255,255,0.35); }
-  .pillar.active .pillar-sub { color: rgba(255,255,255,0.6); }
-  .pillar-badge { margin-left: auto; font-size: 9px; font-weight: 800; color: #57CBFF; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(87,203,255,0.12); padding: 3px 8px; border-radius: 4px; }
-  .slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.25); padding: 10px 80px 14px; border-top: 1px solid rgba(255,255,255,0.08); position: relative; z-index: 2; }
-  .tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
-</style>
-</head>
-<body>
-<div class=&quot;slide-container&quot;>
-  <div class=&quot;geo geo-1&quot;></div>
-  <div class=&quot;geo geo-2&quot;></div>
-  <div class=&quot;geo geo-3&quot;></div>
-  <div class=&quot;content&quot;>
-    <div class=&quot;eyebrow&quot;><span style=&quot;font-size:0.75em;letter-spacing:0.22em;&quot;>en</span>CODE IN PRACTICE</div>
-    <h1 class=&quot;headline&quot;>Submission Intelligence.<br><span class=&quot;accent&quot;>Governed.</span></h1>
-    <p class=&quot;subline&quot;>Codified underwriting judgment applied to every incoming submission. Before your underwriter opens a document.</p>
-    <div class=&quot;pillars&quot;>
-      <a href=&quot;https://workspace-beta.elevatenow.tech/&quot; target=&quot;_blank&quot; style=&quot;text-decoration:none;&quot;>
-      <div class=&quot;pillar active&quot; title=&quot;Launch Submission Intelligence Demo&quot;>
-        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-file-contract&quot;></i></div>
-        <div class=&quot;pillar-text&quot;>
-          <span class=&quot;pillar-name&quot;>Submission &amp; Underwriting</span>
-          <span class=&quot;pillar-sub&quot;>Submission Intelligence · Clear360</span>
-        </div>
-        <span class=&quot;pillar-badge&quot;>&#9654; Demo</span>
-      </div>
-      </a>
-      <div class=&quot;pillar&quot; onclick=&quot;window.parent.goTo(6)&quot; title=&quot;Go to Claim FNOL Intelligence&quot;>
-        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-shield-halved&quot;></i></div>
-        <div class=&quot;pillar-text&quot;>
-          <span class=&quot;pillar-name&quot;>Claims Intelligence</span>
-          <span class=&quot;pillar-sub&quot;>FNOL Processing · Authority &amp; Reserves</span>
-        </div>
-      </div>
-      <div class=&quot;pillar&quot;>
-        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-scale-balanced&quot;></i></div>
-        <div class=&quot;pillar-text&quot;>
-          <span class=&quot;pillar-name&quot;>Governance &amp; Strategic Ops</span>
-          <span class=&quot;pillar-sub&quot;>Audit &amp; Compliance · Renewal Intelligence</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class=&quot;slide-footer&quot;>
-    <span>ELEVATENOW · enCODE<span class=&quot;tm&quot;>™</span></span>
-    <span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:rgba(255,255,255,0.25)&quot;>Governed Insurance Intelligence Platform</span>
-    <span>CONFIDENTIAL</span>
-  </div>
-</div>
-</body>
-</html>
-" scrolling="no" frameborder="0"></iframe>
-    </div>
-
-    <div class="cell">
-      <iframe srcdoc="<!DOCTYPE html>
-<html lang=&quot;en&quot;>
-<head>
-<meta charset=&quot;UTF-8&quot;>
-<title>enCODE — Submission Intelligence Use Case</title>
-<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
-<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
-<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
-<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
-  .slide-container {
-    width: 1280px; height: 720px; background: #FFFFFF; color: #1C1C46;
-    display: flex; flex-direction: column; justify-content: space-between;
-    position: relative; overflow: hidden; padding: 46px 80px 0px 80px;
-  }
-  .slide-container::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
-    background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10;
-  }
-  .header-section { margin-bottom: 18px; }
-  .slide-eyebrow { font-size: 11px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 7px; }
-  .provocation-title { font-size: 26px; font-weight: 800; line-height: 1.25; color: #1C1C46; letter-spacing: -0.5px; max-width: 920px; }
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; flex-grow: 1; margin-bottom: 20px; }
-  .col-label { font-size: 10px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-
-  /* LEFT */
-  .breakdown-list { display: flex; flex-direction: column; gap: 9px; }
-  .breakdown-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border: 1px solid #E2E8F0; border-radius: 8px; background: #FFFFFF; }
-  .breakdown-num { width: 26px; height: 26px; border-radius: 6px; background: #1C1C46; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #57CBFF; flex-shrink: 0; }
-  .breakdown-text { font-size: 13px; font-weight: 600; color: #1C1C46; line-height: 1.4; padding-top: 2px; }
-  .breakdown-text span { font-weight: 400; color: #64748B; display: block; margin-top: 2px; font-size: 12px; }
-
-  /* RIGHT */
-  .right-col { background: #2145EA; border-radius: 10px; padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; }
-  .right-col .col-label { color: rgba(255,255,255,0.85); margin-bottom: 4px; }
-  .right-col .col-label i { color: #57CBFF; }
-  .response-list { display: flex; flex-direction: column; gap: 9px; }
-  .response-item { display: flex; gap: 12px; align-items: flex-start; padding: 11px 14px; background: #FFFFFF; border-radius: 8px; }
-  .response-item i { font-size: 13px; color: #2145EA; margin-top: 2px; flex-shrink: 0; }
-  .response-text { font-size: 13px; font-weight: 600; color: #1C1C46; line-height: 1.4; }
-  .response-text span { font-weight: 400; color: #64748B; display: block; margin-top: 2px; font-size: 12px; }
-
-  /* Closing band */
-  .closing-band { background: #1C1C46; padding: 13px 28px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; min-height: 48px; flex-shrink: 0; margin-bottom: 10px; }
-  .closing-left { display: flex; flex-direction: column; gap: 2px; }
-  .closing-label { font-size: 10px; font-weight: 800; color: #57CBFF; letter-spacing: 0.18em; text-transform: uppercase; }
-  .closing-text { font-size: 14px; font-weight: 700; color: #FFFFFF; }
-  .closing-text em { font-style: normal; color: #57CBFF; }
-  .demo-badge { display: flex; align-items: center; gap: 12px; background: rgba(87,203,255,0.12); border: 1px solid rgba(87,203,255,0.3); border-radius: 8px; padding: 10px 20px; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
-  .demo-badge:hover { background: rgba(87,203,255,0.22); border-color: rgba(87,203,255,0.6); }
-  .demo-badge i { color: #57CBFF; font-size: 18px; }
-  .demo-badge-text { display: flex; flex-direction: column; gap: 1px; }
-  .demo-badge-title { font-size: 13px; font-weight: 700; color: #FFFFFF; }
-  .demo-badge-sub { font-size: 11px; color: #94A3B8; }
-
-  .slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94A3B8; padding: 8px 0 14px; border-top: 1px solid #E2E8F0; flex-shrink: 0; }
-  .tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
-</style>
-</head>
-<body>
-<div class=&quot;slide-container&quot;>
-  <div class=&quot;header-section&quot;>
-    <div class=&quot;slide-eyebrow&quot;>Submission Intelligence · The Use Case</div>
-    <h2 class=&quot;provocation-title&quot;>Complex commercial risks take weeks to reach a bindable quote. Most of that time is spent on submissions that were never going to bind.</h2>
-  </div>
-
-  <div class=&quot;two-col&quot;>
-    <div>
-      <div class=&quot;col-label&quot;><i class=&quot;fa-solid fa-triangle-exclamation&quot;></i> Where Underwriting Capacity Leaks</div>
-      <div class=&quot;breakdown-list&quot;>
-        <div class=&quot;breakdown-item&quot;>
-          <div class=&quot;breakdown-num&quot;>01</div>
-          <div class=&quot;breakdown-text&quot;>Submission arrives. Extracted and stored. No governed layer applied.
-            <span>Underwriter opens a document pile, not a prioritized queue.</span>
-          </div>
-        </div>
-        <div class=&quot;breakdown-item&quot;>
-          <div class=&quot;breakdown-num&quot;>02</div>
-          <div class=&quot;breakdown-text&quot;>Eligibility, appetite, class and geography assessed manually.
-            <span>Every underwriter applies their own judgment. No consistency. No audit trail.</span>
-          </div>
-        </div>
-        <div class=&quot;breakdown-item&quot;>
-          <div class=&quot;breakdown-num&quot;>03</div>
-          <div class=&quot;breakdown-text&quot;>Weeks into review, the submission fails a threshold it would have failed on day one.
-            <span>UW capacity consumed on a risk that was never writable.</span>
-          </div>
-        </div>
-        <div class=&quot;breakdown-item&quot;>
-          <div class=&quot;breakdown-num&quot;>04</div>
-          <div class=&quot;breakdown-text&quot;>No systematic Fast No. No governed triage. No way to protect capacity at scale.
-            <span>Your best underwriters spending time on the wrong submissions.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class=&quot;right-col&quot;>
-      <div class=&quot;col-label&quot;><i class=&quot;fa-solid fa-circle-check&quot;></i> What enCode Does</div>
-      <div class=&quot;response-list&quot;>
-        <div class=&quot;response-item&quot;>
-          <i class=&quot;fa-solid fa-file-lines&quot;></i>
-          <div class=&quot;response-text&quot;>Document Intelligence extracts and validates on arrival.
-            <span>ACORD forms, supplements, SOVs, loss runs. Structured automatically. No manual prep.</span>
-          </div>
-        </div>
-        <div class=&quot;response-item&quot;>
-          <i class=&quot;fa-solid fa-sitemap&quot;></i>
-          <div class=&quot;response-text&quot;>Insurance Ontology enriches with class, jurisdiction and coverage context.
-            <span>Transactional data meets institutional knowledge. Before any underwriter is involved.</span>
-          </div>
-        </div>
-        <div class=&quot;response-item&quot;>
-          <i class=&quot;fa-solid fa-gavel&quot;></i>
-          <div class=&quot;response-text&quot;>Codified UW judgment applied to the enriched submission immediately.
-            <span>Decades of underwriting instinct encoded once. Applied consistently to every risk that follows.</span>
-          </div>
-        </div>
-        <div class=&quot;response-item&quot;>
-          <i class=&quot;fa-solid fa-arrow-down-wide-short&quot;></i>
-          <div class=&quot;response-text&quot;>Governed triage output. Fast No on the wrong risks. Decision-ready queue on the right ones.
-            <span>Every conclusion traced to the rule that produced it.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class=&quot;closing-band&quot;>
-    <div class=&quot;closing-left&quot;>
-      <span class=&quot;closing-label&quot;>The Outcome</span>
-      <span class=&quot;closing-text&quot;>Your best underwriter's judgment. Applied to <em>every submission.</em> Before anyone opens a document.</span>
-    </div>
-    <a href=&quot;https://workspace-beta.elevatenow.tech/&quot; target=&quot;_blank&quot; style=&quot;text-decoration:none;&quot;>
-    <div class=&quot;demo-badge&quot; title=&quot;Launch Submission Intelligence Demo&quot;>
-      <i class=&quot;fa-solid fa-circle-play&quot;></i>
-      <div class=&quot;demo-badge-text&quot;>
-        <span class=&quot;demo-badge-title&quot;>enCode Submission Intelligence</span>
-        <span class=&quot;demo-badge-sub&quot;>Clear360 · Governed triage · Full audit trail</span>
-      </div>
-    </div>
-    </a>
   </div>
 
   <div class=&quot;slide-footer&quot;>
