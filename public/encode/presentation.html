@@ -8,8 +8,8 @@
   html, body { width: 100%; height: 100%; overflow: hidden; background: #0a0a14; -webkit-font-smoothing: antialiased; }
   .stage { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
   .track { display: flex; width: 100%; height: 100%; align-items: center; transition: transform 0.55s cubic-bezier(0.77,0,0.175,1); will-change: transform; }
-  .cell { min-width: 100vw; height: 100vh; flex-shrink: 0; overflow: hidden; position: relative; }
-  .cell iframe { width: 1280px; height: 720px; border: none; border-radius: 10px; box-shadow: 0 24px 64px rgba(0,0,0,0.55); transform-origin: top left; display: block; background: #fff; position: absolute; top: 0; left: 0; }
+  .cell { min-width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+  .cell iframe { width: 1280px; height: 720px; border: none; border-radius: 10px; box-shadow: 0 24px 64px rgba(0,0,0,0.55); transform-origin: center center; display: block; background: #fff; }
   .nav { position: fixed; top: 50%; transform: translateY(-50%); z-index: 1000; width: 44px; height: 88px; border: none; background: transparent; color: rgba(255,255,255,0.45); font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s, background 0.2s, color 0.2s; }
   .nav.left { left: 0; border-radius: 0 6px 6px 0; }
   .nav.right { right: 0; border-radius: 6px 0 0 6px; }
@@ -1260,7 +1260,7 @@
         .two-col {
             display: grid;
             grid-template-columns: 1.15fr 0.85fr;
-            gap: 40px;
+            gap: 28px;
             flex-grow: 1;
             margin-bottom: 20px;
         }
@@ -1301,29 +1301,30 @@
         .engage-note {
             margin-top: 12px;
             font-family: 'Inter', sans-serif;
-            font-size: 12.5px; font-style: italic;
-            color: #94A3B8; line-height: 1.5;
-            padding-left: 4px;
-            border-left: 2px solid #E2E8F0;
-            padding-left: 10px;
+            font-size: 14px; font-style: normal; font-weight: 700;
+            color: #1C1C46; line-height: 1.5;
+            text-align: center;
         }
 
         /* RIGHT: NAIC urgency */
         .right-col {
-            border-left: 1px solid #E2E8F0;
-            padding-left: 36px;
+            background: #2145EA;
+            border-radius: 10px;
+            padding: 22px 24px;
             display: flex; flex-direction: column; gap: 14px;
         }
+        .right-col .col-label { color: rgba(255,255,255,0.85); }
+        .right-col .col-label i { color: #57CBFF; }
 
         .naic-stats { display: flex; flex-direction: column; gap: 10px; }
 
         .naic-stat {
             display: flex; align-items: flex-start; gap: 14px;
             padding: 12px 14px;
-            background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px;
+            background: #FFFFFF; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px;
         }
         .naic-num {
-            font-size: 28px; font-weight: 800; color: #1C1C46;
+            font-size: 28px; font-weight: 800; color: #2145EA;
             line-height: 1; flex-shrink: 0; min-width: 52px;
         }
         .naic-text { display: flex; flex-direction: column; gap: 2px; }
@@ -1331,8 +1332,8 @@
         .naic-sub { font-size: 13px; color: #64748B; line-height: 1.4; }
 
         .naic-window {
-            background: rgba(33,69,234,0.05);
-            border: 1px solid #D6E4FF;
+            background: #FFFFFF;
+            border: 1px solid rgba(255,255,255,0.3);
             border-radius: 8px; padding: 14px;
         }
         .naic-window-label {
@@ -1388,23 +1389,23 @@
 <div class=&quot;slide-container&quot;>
 
     <div class=&quot;header-section&quot;>
-        <div class=&quot;slide-eyebrow&quot;>Next Steps</div>
-        <h2 class=&quot;provocation-title&quot;>Flexible by design. Start narrow, expand on infrastructure already in place.</h2>
+        <div class=&quot;slide-eyebrow&quot;>How We Can Help</div>
+        <h2 class=&quot;provocation-title&quot;>The window to build a defensible governance posture is open. We are here to help you use it.</h2>
     </div>
 
     <div class=&quot;two-col&quot;>
 
         <!-- LEFT: Engagement tracks -->
         <div>
-            <div class=&quot;col-label&quot;><i class=&quot;fa-solid fa-handshake&quot;></i> How We Engage</div>
+            <div class=&quot;col-label&quot;><i class=&quot;fa-solid fa-compass&quot;></i> Three Ways to Engage</div>
             <div class=&quot;tracks&quot;>
 
                 <div class=&quot;track&quot;>
                     <div class=&quot;track-num&quot;>01</div>
                     <div class=&quot;track-body&quot;>
                         <span class=&quot;track-title&quot;>Recipe Pilot</span>
-                        <span class=&quot;track-desc&quot;>Deploy one recipe on your data. Contained, time-boxed. See the platform working against your own rules within weeks.</span>
-                        <span class=&quot;track-tag&quot;>Starting point → Binding Authority or FNOL</span>
+                        <span class=&quot;track-desc&quot;>Stand up one governed workflow on your data. Contained, time-boxed. You see enCode working against your own rules before committing to anything broader.</span>
+                        <span class=&quot;track-tag&quot;>Binding Authority or FNOL — your choice</span>
                     </div>
                 </div>
 
@@ -1412,7 +1413,7 @@
                     <div class=&quot;track-num&quot;>02</div>
                     <div class=&quot;track-body&quot;>
                         <span class=&quot;track-title&quot;>Platform Pilot</span>
-                        <span class=&quot;track-desc&quot;>Encode your institutional knowledge into Knowledge Studio. Run two to three recipes end to end. The governed intelligence layer becomes your own infrastructure.</span>
+                        <span class=&quot;track-desc&quot;>Encode your institutional knowledge into Knowledge Studio. Run two to three recipes end to end. The governed intelligence layer becomes infrastructure your team controls.</span>
                         <span class=&quot;track-tag&quot;>Clear360 or Adjust360 workbench</span>
                     </div>
                 </div>
@@ -1421,13 +1422,13 @@
                     <div class=&quot;track-num&quot;>03</div>
                     <div class=&quot;track-body&quot;>
                         <span class=&quot;track-title&quot;>Platform Partnership</span>
-                        <span class=&quot;track-desc&quot;>Full enCode deployment across underwriting and claims. Multi-recipe, multi-persona. Carrier owns the intelligence layer, independent of any vendor.</span>
+                        <span class=&quot;track-desc&quot;>Full enCode deployment across underwriting and claims. Carrier owns the intelligence layer, independent of any vendor. We help build it. You keep it.</span>
                         <span class=&quot;track-tag&quot;>Full workbench suite · Carrier retains code ownership</span>
                     </div>
                 </div>
 
             </div>
-            <div class=&quot;engage-note&quot;>Most clients start with a recipe. Every additional recipe is expansion on infrastructure already in place.</div>
+            <div class=&quot;engage-note&quot;>We meet you where you are and help you build toward where the regulation is heading.</div>
         </div>
 
         <!-- RIGHT: NAIC urgency -->
@@ -1460,7 +1461,7 @@
 
             <div class=&quot;naic-window&quot;>
                 <div class=&quot;naic-window-label&quot;><i class=&quot;fa-solid fa-clock&quot;></i> &amp;nbsp;The Window</div>
-                <div class=&quot;naic-window-text&quot;>The governance artifacts examiners will require. versioned rules, decision logs, source citations. are <em>structural properties of enCode</em>, not features added later.</div>
+                <div class=&quot;naic-window-text&quot;>The governance artifacts examiners will require. versioned rules, decision logs, source citations. are <em>structural properties of enCode</em>. Carriers who encode now will be prepared. Not scrambling.</div>
             </div>
         </div>
 
@@ -1498,7 +1499,7 @@
   const TOTAL=6, iframes=document.querySelectorAll('.cell iframe');
   let cur=0;
   const track=document.getElementById('track'), prev=document.getElementById('prev'), next=document.getElementById('next'), ctr=document.getElementById('ctr');
-  function scaleSlides(){ const vw=window.innerWidth, vh=window.innerHeight, s=Math.min(vw/1280,vh/720); iframes.forEach(f=>{ f.style.transform='scale('+s+')'; f.style.left=((vw-1280*s)/2)+'px'; f.style.top=((vh-720*s)/2)+'px'; }); }
+  function scaleSlides(){ const s=Math.min(window.innerWidth/1280,window.innerHeight/720); iframes.forEach(f=>f.style.transform='scale('+s+')'); }
   function update(){ track.style.transform='translateX(-'+(cur*100)+'vw)'; prev.classList.toggle('hidden',cur===0); next.classList.toggle('hidden',cur===TOTAL-1); ctr.textContent=String(cur+1).padStart(2,'0')+'  /  '+String(TOTAL).padStart(2,'0'); }
   function go(d){ const n=cur+d; if(n<0||n>=TOTAL)return; cur=n; update(); }
   document.addEventListener('keydown',e=>{ if(['ArrowRight','ArrowDown',' '].includes(e.key)){ e.preventDefault();go(1); } if(['ArrowLeft','ArrowUp'].includes(e.key)){ e.preventDefault();go(-1); } });
