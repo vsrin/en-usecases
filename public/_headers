@@ -17,3 +17,16 @@
 
 /usecases/*
   Cache-Control: public, max-age=300, must-revalidate
+
+# New section pages — short cache so edits propagate.
+/perspectives/*
+  Cache-Control: public, max-age=300, must-revalidate
+
+/platform/*
+  Cache-Control: public, max-age=300, must-revalidate
+
+/proven-results/*
+  Cache-Control: public, max-age=300, must-revalidate
+
+/contact/*
+  Cache-Control: public, max-age=300, must-revalidate

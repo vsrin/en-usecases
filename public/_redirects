@@ -1,1 +1,9 @@
+# Static section pages — route to their index.html files
+# These must come BEFORE the SPA catch-all below.
+/perspectives     /perspectives/index.html  200
+/platform         /platform/index.html      200
+/proven-results   /proven-results/index.html 200
+/contact          /contact/index.html       200
+
+# SPA catch-all for React routes (/products, /usecases, /evidence-lab/*, etc.)
 /* /index.html 200

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ElevateNow Insights: Practitioner Research on AI in Insurance Operations</title>
-<meta name="description" content="Field research, implemented workflows, and evidence-based benchmarks from the team building governed AI for insurers and MGAs.">
+<title>Perspectives — ElevateNow Insights</title>
+<meta name="description" content="What we believe about insurance AI. Not as a vendor — as practitioners who have built these systems, debugged them in production, and had to explain them to underwriters and regulators.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -20,12 +20,17 @@
   --blue:       #2145EA;
   --blue-d:     #112CA9;
   --blue-bg:    #EEF2FF;
+  --blue-mid:   rgba(33,69,234,0.12);
   --teal:       #0891B2;
   --teal-bg:    #E0F7FA;
   --amber:      #B45309;
   --amber-bg:   #FEF3C7;
   --green:      #047857;
   --green-bg:   #D1FAE5;
+  --purple:     #7C3AED;
+  --purple-bg:  #EDE9FE;
+  --rose:       #BE185D;
+  --rose-bg:    #FCE7F3;
   --surface:    #FFFFFF;
   --bg:         #F5F6FA;
   --bg2:        #ECEEF5;
@@ -41,13 +46,13 @@
 html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', -apple-system, sans-serif;
-  background: var(--ink);
+  background: var(--bg);
   color: var(--ink);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
 }
 
+/* ── REVEAL ── */
 .r { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s var(--ease); }
 .r.on { opacity:1; transform:none; }
 
@@ -56,25 +61,28 @@ nav {
   position:fixed; top:0; left:0; right:0; z-index:200;
   height:60px; display:flex; align-items:center; justify-content:space-between;
   padding:0 48px;
-  background:rgba(13,21,52,0.92); backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.97); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-s);
   transition:box-shadow .3s;
 }
-nav.raised { box-shadow:0 1px 24px rgba(0,0,0,0.30); }
+nav.raised { box-shadow:0 1px 24px rgba(13,21,52,0.09); }
 .nav-brand { display:flex; align-items:center; gap:8px; text-decoration:none; }
+.nav-brand-name { font-size:15px; font-weight:800; color:var(--ink); letter-spacing:-.3px; }
 .nav-brand-tag {
   font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--blue); background:rgba(33,69,234,0.18); padding:3px 8px; border-radius:4px;
+  color:var(--blue); background:var(--blue-bg); padding:3px 8px; border-radius:4px;
 }
 .nav-links { display:flex; align-items:center; gap:4px; list-style:none; }
 .nav-links a {
-  color:rgba(255,255,255,0.65); text-decoration:none; font-size:13.5px; font-weight:500;
+  color:var(--ink2); text-decoration:none; font-size:13.5px; font-weight:500;
   padding:7px 13px; border-radius:6px; transition:background .15s, color .15s;
 }
-.nav-links a:hover { background:rgba(255,255,255,0.08); color:#fff; }
+.nav-links a:hover { background:var(--bg); color:var(--ink); }
+.nav-links a.active { background:var(--blue-bg); color:var(--blue); font-weight:600; }
 .nav-cta { background:var(--blue)!important; color:#fff!important; font-weight:600!important; }
 .nav-cta:hover { opacity:.88!important; }
 
+/* ── NAV DROPDOWNS ── */
 .nav-item { position:relative; }
 .nav-item > a { display:flex; align-items:center; gap:4px; }
 .nav-item > a::after {
@@ -83,7 +91,11 @@ nav.raised { box-shadow:0 1px 24px rgba(0,0,0,0.30); }
   opacity:.40; transition:transform .18s, opacity .18s;
 }
 .nav-item.open > a::after { opacity:.75; transform:rotate(180deg); }
-.nav-item::after { content:''; position:absolute; top:100%; left:-20px; right:-20px; height:16px; display:none; }
+
+.nav-item::after {
+  content:''; position:absolute; top:100%; left:-20px; right:-20px; height:16px;
+  display:none;
+}
 .nav-item.open::after { display:block; }
 
 .nav-drop {
@@ -93,7 +105,9 @@ nav.raised { box-shadow:0 1px 24px rgba(0,0,0,0.30); }
   opacity:0; pointer-events:none; transform:translateX(-50%) translateY(-6px);
   transition:opacity .16s var(--ease), transform .16s var(--ease);
 }
-.nav-item.open .nav-drop { opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+.nav-item.open .nav-drop {
+  opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);
+}
 .nav-drop a {
   display:block; padding:8px 12px; font-size:13px; font-weight:500; color:var(--ink2);
   border-radius:7px; text-decoration:none; white-space:nowrap;
@@ -109,7 +123,9 @@ nav.raised { box-shadow:0 1px 24px rgba(0,0,0,0.30); }
   transition:opacity .18s var(--ease), transform .18s var(--ease);
   display:grid; grid-template-columns:1fr 1px 1fr; gap:0 16px;
 }
-.nav-item.open .nav-mega { opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+.nav-item.open .nav-mega {
+  opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0);
+}
 .nav-mega-col { display:flex; flex-direction:column; gap:2px; }
 .nav-mega-head {
   font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
@@ -123,136 +139,165 @@ nav.raised { box-shadow:0 1px 24px rgba(0,0,0,0.30); }
 .nav-mega a:hover { background:var(--blue-bg); color:var(--blue); }
 .nav-mega-div { background:var(--border); width:1px; }
 
-/* ── HERO ── */
-.hero {
-  min-height:100vh; display:flex; flex-direction:column; justify-content:center;
-  background:var(--ink); padding:120px 0 80px;
+/* ── LAYOUT ── */
+.wrap { max-width:var(--max); margin:0 auto; padding:0 32px; }
+
+/* ── PAGE HERO ── */
+.page-hero {
+  background:var(--ink); padding:100px 0 72px;
   position:relative; overflow:hidden;
 }
-.hero::before {
+.page-hero::before {
   content:''; position:absolute; inset:0; pointer-events:none;
   background:
-    radial-gradient(ellipse 55% 65% at 72% 45%, rgba(33,69,234,0.28) 0%, transparent 70%),
-    radial-gradient(ellipse 35% 45% at 15% 85%, rgba(8,145,178,0.14) 0%, transparent 60%);
+    radial-gradient(ellipse 55% 65% at 72% 45%, rgba(33,69,234,0.22) 0%, transparent 70%),
+    radial-gradient(ellipse 35% 45% at 15% 85%, rgba(8,145,178,0.10) 0%, transparent 60%);
 }
-.hero-dots {
-  position:absolute; inset:0; opacity:.035; pointer-events:none;
-  background-image:radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px);
-  background-size:32px 32px;
-}
-.hero-logo-bg {
-  position:absolute; right:-40px; top:50%; transform:translateY(-50%);
-  opacity:.05; width:460px; height:460px; pointer-events:none;
-}
-.hero-inner { position:relative; max-width:var(--max); margin:0 auto; padding:0 32px; width:100%; }
-
-.hero-eyebrow {
+.page-hero-inner { position:relative; max-width:var(--max); margin:0 auto; padding:0 32px; }
+.page-eyebrow {
   display:inline-flex; align-items:center; gap:8px;
   background:rgba(33,69,234,0.20); border:1px solid rgba(33,69,234,0.38);
   color:#93AFFF; padding:5px 14px; border-radius:100px;
   font-size:11.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
-  margin-bottom:24px;
+  margin-bottom:20px;
 }
-.hero-eyebrow-dot { width:5px; height:5px; border-radius:50%; background:#60A0FF; }
-
-.hero h1 {
-  font-size:clamp(34px,4.8vw,62px); font-weight:800; line-height:1.09;
-  color:#fff; letter-spacing:-.03em; max-width:760px; margin-bottom:20px;
+.page-eyebrow-dot { width:5px; height:5px; border-radius:50%; background:#60A0FF; }
+.page-hero h1 {
+  font-size:clamp(30px,4vw,50px); font-weight:800; line-height:1.10;
+  color:#fff; letter-spacing:-.03em; max-width:680px; margin-bottom:16px;
 }
-.hero h1 .accent { color:#57CBFF; }
-
-.hero-sub {
-  font-size:17px; line-height:1.68; color:rgba(255,255,255,0.60);
-  max-width:540px; margin-bottom:56px; font-weight:400;
+.page-hero-sub {
+  font-size:16px; line-height:1.68; color:rgba(255,255,255,0.60);
+  max-width:520px; font-weight:400;
 }
 
-/* ── NAV CARDS ── */
-.nav-cards { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+/* ── SECTION COMMONS ── */
+.section { padding:80px 0; }
+.section-light { background:var(--surface); }
 
-.nav-card {
-  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10);
-  border-radius:12px; padding:24px 20px; text-decoration:none;
-  display:flex; flex-direction:column; gap:10px;
-  transition:background .2s, border-color .2s, transform .2s, box-shadow .2s;
+.eyebrow {
+  font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--blue); display:flex; align-items:center; gap:8px; margin-bottom:12px;
 }
-.nav-card:hover {
-  background:rgba(255,255,255,0.09); border-color:rgba(33,69,234,0.45);
-  transform:translateY(-2px); box-shadow:0 8px 32px rgba(33,69,234,0.20);
-}
-.nav-card-eyebrow {
-  font-size:10px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
-  color:rgba(255,255,255,0.35);
-}
-.nav-card h3 { font-size:16px; font-weight:700; color:#fff; line-height:1.25; }
-.nav-card p  { font-size:12.5px; line-height:1.62; color:rgba(255,255,255,0.52); flex:1; }
-.nav-card-arrow {
-  font-size:13px; font-weight:700; color:#57CBFF; margin-top:4px;
-  transition:gap .18s; display:flex; align-items:center; gap:5px;
-}
-.nav-card:hover .nav-card-arrow { gap:9px; }
+.eyebrow::before { content:''; width:20px; height:2px; background:currentColor; flex-shrink:0; }
 
-/* Colored top borders */
-.nav-card.c-blue  { border-top:2px solid rgba(33,69,234,0.60); }
-.nav-card.c-teal  { border-top:2px solid rgba(8,145,178,0.60); }
-.nav-card.c-green { border-top:2px solid rgba(4,120,87,0.60); }
-.nav-card.c-amber { border-top:2px solid rgba(180,83,9,0.55); }
+.section-title {
+  font-size:clamp(26px,3.2vw,40px); font-weight:800; line-height:1.13;
+  letter-spacing:-.025em; margin-bottom:14px;
+}
+.section-sub { font-size:16px; line-height:1.68; color:var(--ink2); font-weight:400; max-width:600px; }
+
+/* ── BELIEFS ── */
+.beliefs-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; border-radius:12px; overflow:hidden; border:1px solid var(--border); }
+.belief {
+  background:var(--surface); padding:32px 28px;
+  transition:background .2s;
+}
+.belief:hover { background:var(--bg); }
+.belief-num {
+  font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:14px; display:flex; align-items:center; gap:6px;
+}
+.belief-num::before { content:''; width:14px; height:1.5px; background:var(--blue); flex-shrink:0; }
+.belief h3 { font-size:16px; font-weight:700; margin-bottom:9px; line-height:1.28; letter-spacing:-.01em; }
+.belief p  { font-size:13.5px; line-height:1.72; color:var(--ink2); }
+
+.philosophy-strip {
+  background:var(--ink); border-radius:12px; padding:32px 36px;
+  display:grid; grid-template-columns:1fr 1fr; gap:28px 48px; margin-top:16px;
+}
+.phil-item h4 { font-size:14px; font-weight:700; color:#fff; margin-bottom:6px; }
+.phil-item p  { font-size:12.5px; line-height:1.68; color:rgba(255,255,255,0.55); }
+
+/* ── PLATFORM CTA ── */
+.platform-cta-block {
+  margin-top:40px; padding:32px 36px; background:var(--blue-bg);
+  border:1.5px solid rgba(33,69,234,0.18); border-radius:12px;
+  display:flex; align-items:center; justify-content:space-between; gap:24px;
+  flex-wrap:wrap;
+}
+.platform-cta-block h3 { font-size:17px; font-weight:700; color:var(--ink); margin-bottom:6px; }
+.platform-cta-block p  { font-size:13.5px; color:var(--ink2); line-height:1.6; max-width:520px; }
+.btn-blue {
+  display:inline-flex; align-items:center; gap:7px; flex-shrink:0;
+  background:var(--blue); color:#fff; padding:12px 24px; border-radius:7px;
+  font-size:13.5px; font-weight:600; text-decoration:none;
+  transition:opacity .2s, transform .2s;
+}
+.btn-blue:hover { opacity:.88; transform:translateY(-1px); }
 
 /* ── FOOTER ── */
 footer {
-  background:rgba(255,255,255,0.04); padding:28px 0;
+  background:var(--ink); padding:40px 0;
   border-top:1px solid rgba(255,255,255,0.07);
 }
 .footer-inner {
   display:flex; align-items:center; justify-content:space-between;
-  flex-wrap:wrap; gap:16px; max-width:var(--max); margin:0 auto; padding:0 32px;
+  flex-wrap:wrap; gap:16px;
 }
 .footer-brand { display:flex; align-items:center; gap:8px; text-decoration:none; }
 .footer-brand-name { font-size:14px; font-weight:800; color:#fff; }
 .footer-brand-tag { font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-left:5px; }
 .footer-links { display:flex; gap:20px; }
-.footer-links a { font-size:12.5px; color:rgba(255,255,255,0.35); text-decoration:none; transition:color .2s; }
-.footer-links a:hover { color:rgba(255,255,255,0.70); }
-.footer-copy { font-size:12px; color:rgba(255,255,255,0.22); }
+.footer-links a { font-size:12.5px; color:rgba(255,255,255,0.40); text-decoration:none; transition:color .2s; }
+.footer-links a:hover { color:rgba(255,255,255,0.75); }
+.footer-copy { font-size:12px; color:rgba(255,255,255,0.28); }
 
 /* ── HAMBURGER ── */
 .nav-ham {
   display:none; flex-direction:column; justify-content:center; gap:5px;
-  background:none; border:none; cursor:pointer; padding:8px 4px; margin-left:8px; flex-shrink:0;
+  background:none; border:none; cursor:pointer; padding:8px 4px; margin-left:8px;
+  flex-shrink:0;
 }
-.nav-ham span { display:block; width:22px; height:2px; border-radius:2px; background:rgba(255,255,255,0.7); transition:transform .22s var(--ease), opacity .18s; }
+.nav-ham span {
+  display:block; width:22px; height:2px; border-radius:2px; background:var(--ink);
+  transition:transform .22s var(--ease), opacity .18s;
+}
 .nav-ham.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
 .nav-ham.open span:nth-child(2) { opacity:0; }
 .nav-ham.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
 
+/* ── MOBILE NAV DRAWER ── */
 .nav-mob {
   display:none; position:fixed; top:60px; left:0; right:0; bottom:0;
-  background:rgba(13,21,52,0.98); backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.98); backdrop-filter:blur(20px);
   z-index:199; padding:8px 20px 40px; flex-direction:column; overflow-y:auto;
 }
 .nav-mob.open { display:flex; }
-.nav-mob-head { font-size:10px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:rgba(255,255,255,0.30); padding:20px 8px 8px; flex-shrink:0; }
-.nav-mob a { font-size:16px; font-weight:600; color:rgba(255,255,255,0.80); text-decoration:none; padding:15px 8px; border-bottom:1px solid rgba(255,255,255,0.07); transition:color .15s; display:block; flex-shrink:0; }
-.nav-mob a:hover { color:#fff; }
-.nav-mob a.nav-mob-cta { margin-top:16px; background:var(--blue); color:#fff; border-radius:8px; text-align:center; border-bottom:none; padding:16px 8px; }
+.nav-mob-head {
+  font-size:10px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--ink4); padding:20px 8px 8px; flex-shrink:0;
+}
+.nav-mob a {
+  font-size:16px; font-weight:600; color:var(--ink); text-decoration:none;
+  padding:15px 8px; border-bottom:1px solid var(--border-s); transition:color .15s;
+  display:block; flex-shrink:0;
+}
+.nav-mob a:hover { color:var(--blue); }
+.nav-mob a.nav-mob-cta {
+  margin-top:16px; background:var(--blue); color:#fff;
+  border-radius:8px; text-align:center; border-bottom:none; padding:16px 8px;
+}
+.nav-mob a.nav-mob-cta:hover { opacity:.88; color:#fff; }
 
 /* ── RESPONSIVE ── */
-@media (max-width:900px) {
-  .nav-cards { grid-template-columns:1fr 1fr; }
-}
 @media (max-width:860px) {
   nav { padding:0 20px; }
-  .hero-inner { padding:0 20px; }
-  .hero { padding:100px 0 64px; }
+  .wrap { padding:0 20px; }
+  .page-hero-inner { padding:0 20px; }
+  .page-hero { padding:88px 0 48px; }
+  .beliefs-grid { grid-template-columns:1fr; }
+  .philosophy-strip { grid-template-columns:1fr; gap:20px; padding:24px 20px; }
   .nav-links { display:none; }
   .nav-ham { display:flex; }
-  .nav-mega { width:90vw; grid-template-columns:1fr; }
-  .nav-mega-div { display:none; }
+  .section { padding:56px 0; }
+  .platform-cta-block { flex-direction:column; align-items:flex-start; }
 }
 @media (max-width:580px) {
-  .nav-cards { grid-template-columns:1fr; }
-  .hero h1 { font-size:30px; }
-  .hero-sub { font-size:15px; margin-bottom:40px; }
-  footer .footer-inner { padding:0 20px; flex-direction:column; align-items:flex-start; gap:20px; }
+  .page-hero h1 { font-size:28px; }
+  .page-hero-sub { font-size:15px; }
+  .section { padding:44px 0; }
+  .footer-inner { flex-direction:column; align-items:flex-start; gap:20px; }
   .footer-links { flex-wrap:wrap; gap:12px; }
 }
 </style>
@@ -262,11 +307,10 @@ footer {
 <!-- ── NAV ── -->
 <nav id="nav">
   <a href="/" class="nav-brand">
-    <img src="/enow_logo.svg" alt="ElevateNow" style="height:26px; filter:brightness(0) saturate(100%) invert(100%);">
-    <span class="nav-brand-tag">Insights</span>
+    <img src="/enow_logo.svg" alt="ElevateNow" style="height:26px; filter:brightness(0) saturate(100%) invert(19%) sepia(80%) hue-rotate(215deg) saturate(600%) brightness(90%);">
   </a>
   <ul class="nav-links">
-    <li><a href="/perspectives">Perspectives</a></li>
+    <li><a href="/perspectives" class="active">Perspectives</a></li>
     <li class="nav-item">
       <a href="/platform">The Platform</a>
       <div class="nav-drop">
@@ -313,10 +357,10 @@ footer {
 </nav>
 
 <div class="nav-mob" id="navMob">
-  <a href="/perspectives">Perspectives</a>
+  <a href="/perspectives" style="color:var(--blue);">Perspectives</a>
   <div class="nav-mob-head">The Platform</div>
-  <a href="/encode" style="padding-left:20px;font-size:14px;font-weight:500;opacity:0.7;">enCODE: Insurance Intelligence Platform</a>
-  <a href="/cargo-data" style="padding-left:20px;font-size:14px;font-weight:500;opacity:0.7;">CARGO: AI Ready Data Platform</a>
+  <a href="/encode" style="padding-left:20px;font-size:14px;font-weight:500;opacity:0.8;">enCODE: Insurance Intelligence Platform</a>
+  <a href="/cargo-data" style="padding-left:20px;font-size:14px;font-weight:500;opacity:0.8;">CARGO: AI Ready Data Platform</a>
   <div class="nav-mob-head">Proven Results: Insurance</div>
   <a href="/usecases/SubmissionIntake">Submission Triage</a>
   <a href="/usecases/ElevateNow_MultiLOB_FNOL">FNOL Intelligence</a>
@@ -330,65 +374,76 @@ footer {
   <a href="/usecases/ProactiveAuditMonitoring">Proactive Audit</a>
   <a href="/usecases/cohort-analysis">Cohort Analysis</a>
   <a href="/evidence-lab">Evidence Lab</a>
-  <a href="/evidence-lab/ocr-benchmark" style="padding-left:20px;font-size:14px;font-weight:500;opacity:0.7;">OCR Benchmark Framework</a>
-  <a href="/evidence-lab/six-tier-stack" style="padding-left:20px;font-size:14px;font-weight:500;opacity:0.7;">Six-Tier Extraction Stack</a>
+  <a href="/evidence-lab/ocr-benchmark" style="padding-left:20px;font-size:14px;font-weight:500;opacity:0.8;">OCR Benchmark Framework</a>
+  <a href="/evidence-lab/six-tier-stack" style="padding-left:20px;font-size:14px;font-weight:500;opacity:0.8;">Six-Tier Extraction Stack</a>
   <a href="/contact" class="nav-mob-cta">Let's Talk</a>
 </div>
 
-<!-- ── HERO ── -->
-<section class="hero">
-  <div class="hero-dots"></div>
-  <svg class="hero-logo-bg" xmlns="http://www.w3.org/2000/svg" viewBox="110 120 210 200">
-    <rect x="116.9" y="156.8" width="57.9" height="57.9" fill="white"/>
-    <rect x="174.8" y="156.8" width="57.9" height="57.9" fill="white"/>
-    <rect x="116.9" y="255.7" width="57.9" height="57.9" fill="white"/>
-    <rect x="215.8" y="197.8" width="57.9" height="57.9" fill="white"/>
-    <rect x="244.7" y="127.8" width="57.9" height="57.9" fill="white" transform="translate(-30.7 239.5) rotate(-45)"/>
-    <rect x="215.8" y="255.7" width="57.9" height="57.9" fill="white"/>
-  </svg>
-  <div class="hero-inner">
-    <div class="hero-eyebrow r"><span class="hero-eyebrow-dot"></span>Practitioner Research · Insurance AI</div>
-    <h1 class="r" style="transition-delay:.06s">
-      What we build,<br>what we learn, and<br><span class="accent">what the evidence shows.</span>
-    </h1>
-    <p class="hero-sub r" style="transition-delay:.12s">
-      We architect governed AI systems for insurers and MGAs. This is where we publish the work: implemented workflows, benchmark studies, and the reasoning behind every architectural decision.
-    </p>
+<!-- ── PAGE HERO ── -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow r"><span class="page-eyebrow-dot"></span>Perspectives</div>
+    <h1 class="r" style="transition-delay:.06s">What we believe<br>about insurance AI.</h1>
+    <p class="page-hero-sub r" style="transition-delay:.12s">Not as a vendor. As practitioners who have built these systems, debugged them in production, and had to explain them to underwriters and regulators.</p>
+  </div>
+</section>
 
-    <div class="nav-cards r" style="transition-delay:.18s">
-      <a href="/perspectives" class="nav-card c-blue">
-        <div class="nav-card-eyebrow">Perspectives</div>
-        <h3>What we believe about insurance AI.</h3>
-        <p>Four convictions about data, governance, knowledge, and the market shift — from practitioners who have run these systems in production.</p>
-        <div class="nav-card-arrow">Read perspectives <span>→</span></div>
-      </a>
-      <a href="/platform" class="nav-card c-teal">
-        <div class="nav-card-eyebrow">The Platform</div>
-        <h3>The governed intelligence stack.</h3>
-        <p>Ten capabilities across four layers: AI-ready pipelines, semantic knowledge, governance tooling, and traceable agentic workflows.</p>
-        <div class="nav-card-arrow">Explore the platform <span>→</span></div>
-      </a>
-      <a href="/proven-results" class="nav-card c-green">
-        <div class="nav-card-eyebrow">Proven Results · Access Required</div>
-        <h3>10 implemented workflows, documented as practitioners.</h3>
-        <p>Submission triage, FNOL intelligence, WC jurisdiction rules, loss run analysis, data quality certification, and five more.</p>
-        <div class="nav-card-arrow">Browse use cases <span>→</span></div>
-      </a>
-      <a href="/evidence-lab" class="nav-card c-amber">
-        <div class="nav-card-eyebrow">Evidence Lab · Access Required</div>
-        <h3>Benchmark studies &amp; technical depth.</h3>
-        <p>We publish the evaluation criteria before the results. OCR benchmarks, extraction stack architectures, and hallucination analysis on real documents.</p>
-        <div class="nav-card-arrow">Enter the lab <span>→</span></div>
-      </a>
+<!-- ── BELIEFS ── -->
+<section class="section section-light">
+  <div class="wrap">
+    <div class="beliefs-grid r">
+      <div class="belief">
+        <div class="belief-num">01 · The data problem</div>
+        <h3>A single bad data point doesn't fail quietly in an agentic workflow. It propagates.</h3>
+        <p>Every downstream decision an agent makes inherits the error that entered upstream. Trust in AI outcomes is not a function of the model. It's a function of the data pipeline. Carriers who treat data certification as a pre-deployment step, not a foundation, will keep hitting the same wall.</p>
+      </div>
+      <div class="belief">
+        <div class="belief-num">02 · The governance reality</div>
+        <h3>AI is entering regulated decisions. The audit standard is the same as for human decisions.</h3>
+        <p>When an AI agent participates in an underwriting decision or claims adjudication, regulators apply the same explainability and audit requirements as they do to a human adjuster. You can't build a governed outcome on an ungoverned pipeline. The architecture has to be designed for accountability from the start.</p>
+      </div>
+      <div class="belief">
+        <div class="belief-num">03 · The knowledge problem</div>
+        <h3>The platform handles the computation. The knowledge stays yours.</h3>
+        <p>Your appetite rules, jurisdiction requirements, and SOPs should be encoded, versioned, and applied consistently, not recalled probabilistically from a model that may have drifted since last training. Every AI decision should trace back to your procedures, your expertise, your institutional knowledge.</p>
+      </div>
+      <div class="belief">
+        <div class="belief-num">04 · The market shift</div>
+        <h3>Boards are moving from pilot to P&L. The architecture has to move with them.</h3>
+        <p>Proof-of-value expectations have shifted from "interesting" to "in production." Scaling agentic AI at this stage requires a method, not just a model: one that certifies the data before agents consume it, contextualizes institutional knowledge so agents reason correctly, and composes workflows that are auditable end to end.</p>
+      </div>
+    </div>
+
+    <div class="philosophy-strip r" style="transition-delay:.10s">
+      <div class="phil-item">
+        <h4>Certify before you compose</h4>
+        <p>Bad data in an agentic workflow doesn't fail at the source. It compounds across every downstream decision. Every data product needs a trust score before an agent touches it.</p>
+      </div>
+      <div class="phil-item">
+        <h4>Knowledge encoded, not recalled</h4>
+        <p>Appetite, jurisdiction rules, and SOPs as versioned, governed definitions, not floating in model weights where they can drift, hallucinate, or become unauditable.</p>
+      </div>
+      <div class="phil-item">
+        <h4>Regulated decisions need regulated systems</h4>
+        <p>Underwriting and claims AI faces the same audit standards as human decisions. Explainability has to be designed in. It cannot be retrofitted onto a black-box pipeline.</p>
+      </div>
+    </div>
+
+    <div class="platform-cta-block r" style="transition-delay:.16s">
+      <div>
+        <h3>See the architecture that makes this possible.</h3>
+        <p>The governed intelligence stack behind the use cases — from AI-ready data pipelines to traceable agentic workflows.</p>
+      </div>
+      <a href="/platform" class="btn-blue">Explore the Platform →</a>
     </div>
   </div>
 </section>
 
 <!-- ── FOOTER ── -->
 <footer>
-  <div class="footer-inner">
+  <div class="wrap footer-inner">
     <a href="/" class="footer-brand">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="110 120 210 200" fill="rgba(255,255,255,0.55)" width="20" height="20">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="110 120 210 200" fill="rgba(255,255,255,0.65)" width="22" height="22">
         <rect x="116.9" y="156.8" width="57.9" height="57.9"/>
         <rect x="174.8" y="156.8" width="57.9" height="57.9"/>
         <rect x="116.9" y="255.7" width="57.9" height="57.9"/>
@@ -447,7 +502,7 @@ const obs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
 document.querySelectorAll('.r').forEach(el => obs.observe(el));
-setTimeout(() => document.querySelectorAll('.hero .r').forEach(el => el.classList.add('on')), 60);
+setTimeout(() => document.querySelectorAll('.page-hero .r').forEach(el => el.classList.add('on')), 60);
 
 // Mobile hamburger
 (function() {

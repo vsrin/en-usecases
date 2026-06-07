@@ -33,13 +33,15 @@ function isAsset(pathname) {
 function requiresGate(pathname) {
   // Use case write-ups
   if (pathname.startsWith('/usecases/')) return true;
+  // Proven Results page (contains use case cards)
+  if (pathname.startsWith('/proven-results')) return true;
   // Evidence Lab studies and the Evidence Lab index page
   if (pathname.startsWith('/evidence-lab')) return true;
   // Demoboards remain gated
   if (pathname.startsWith('/demoboards/')) return true;
   // access-required page itself must never be gated (infinite loop)
   if (pathname === '/access-required.html') return false;
-  // Everything else (root page, perspectives content, platform content) is open
+  // Open pages: root (/), /perspectives, /platform, /contact, /encode, /cargo-data
   return false;
 }
 
