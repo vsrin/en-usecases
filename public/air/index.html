@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AIR — ElevateNow Insights</title>
-<meta name="description" content="AIR — AI Readiness Platform. Eight capabilities across three layers: trusted data foundation, semantic context, and purpose-built agentic solutions.">
+<meta name="description" content="AIR — AI Readiness Platform. Products, accelerators, and specialists to scale AI in insurance.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -157,8 +157,8 @@ nav {
   padding:16px 8px;
 }
 
-/* ── DEMOBOARD WRAPPER ── */
-.demo-wrapper {
+/* ── DEMOBOARD FRAME ── */
+.demo-frame {
   position: fixed;
   top: 60px;
   left: 0;
@@ -170,7 +170,7 @@ nav {
   justify-content: center;
   overflow: hidden;
 }
-.demo-wrapper iframe {
+.demo-frame iframe {
   width: 1280px;
   height: 720px;
   border: none;
@@ -273,7 +273,7 @@ nav {
 </div>
 
 <!-- ── DEMOBOARD ── -->
-<div class="demo-wrapper">
+<div class="demo-frame">
   <iframe src="/air/presentation.html" title="AIR — AI Readiness Platform" allowfullscreen></iframe>
 </div>
 
@@ -319,17 +319,19 @@ nav {
   });
 })();
 
-// Scale iframe to fill viewport while keeping 1280x720 aspect ratio.
-// flex-shrink:0 keeps layout size at 1280x720; only visual size is scaled.
+// Scale iframe to fill viewport while keeping 1280×720 aspect ratio
 function scaleFrame() {
-  const iframe = document.querySelector('.demo-wrapper iframe');
+  const iframe = document.querySelector('.demo-frame iframe');
   if (!iframe) return;
-  const s = Math.min(window.innerWidth / 1280, (window.innerHeight - 60) / 720);
+  const aw = window.innerWidth;
+  const ah = window.innerHeight - 60;
+  const s = Math.min(aw / 1280, ah / 720);
   iframe.style.transform = 'scale(' + s + ')';
 }
 window.addEventListener('load', scaleFrame);
 window.addEventListener('resize', scaleFrame);
 scaleFrame();
 </script>
+
 </body>
 </html>

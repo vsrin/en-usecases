@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ElevateNow AIR — AI Readiness Platform</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #0a0a14; -webkit-font-smoothing: antialiased; }
+  .stage { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .track { display: flex; width: 100%; height: 100%; align-items: center; transition: transform 0.55s cubic-bezier(0.77,0,0.175,1); will-change: transform; }
+  .cell { min-width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+  .cell iframe { width: 1280px; height: 720px; border: none; border-radius: 10px; box-shadow: 0 24px 64px rgba(0,0,0,0.55); display: block; background: #fff; }
+  .nav { position: fixed; top: 50%; transform: translateY(-50%); z-index: 1000; width: 44px; height: 88px; border: none; background: transparent; color: rgba(255,255,255,0.45); font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s, background 0.2s, color 0.2s; }
+  .nav.left { left: 0; border-radius: 0 6px 6px 0; }
+  .nav.right { right: 0; border-radius: 6px 0 0 6px; }
+  .nav.hidden { pointer-events: none !important; opacity: 0 !important; }
+  .stage:hover .nav:not(.hidden) { opacity: 1; }
+  .nav:hover { background: rgba(33,69,234,0.30); color: #57CBFF; }
+  .counter { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); z-index: 1000; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: rgba(255,255,255,0.20); pointer-events: none; font-family: system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="track" id="track">
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html><html lang=&quot;en&quot;><head><meta charset=&quot;UTF-8&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Lora:ital,wght@0,400;1,400&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #fff; display: grid; min-height: 100vh; place-items: center; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+.slide-container { width: 1280px; height: 720px; background: #2145EA; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.geo { position: absolute; }
+.geo-1 { width: 310px; height: 220px; background: rgba(255,255,255,0.12); right: 200px; top: 140px; border-radius: 4px; }
+.geo-2 { width: 200px; height: 200px; background: rgba(255,255,255,0.10); right: 60px; top: 80px; border-radius: 4px; }
+.geo-3 { width: 140px; height: 140px; background: rgba(255,255,255,0.12); right: 60px; top: 420px; border-radius: 4px; }
+.geo-4 { width: 120px; height: 120px; background: rgba(255,255,255,0.15); right: 340px; top: 100px; transform: rotate(45deg); border-radius: 8px; }
+.logo { position: absolute; top: 36px; left: 48px; }
+.logo-img { height: 32px; width: auto; display: block; }
+.website { position: absolute; top: 40px; right: 48px; font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.85); }
+.content { position: absolute; bottom: 150px; left: 48px; }
+.air-label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 8px; }
+.brand-name { font-size: 112px; font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: #FFFFFF; margin-bottom: 16px; }
+.tagline { font-family: 'Lora', serif; font-size: 20px; font-style: italic; color: rgba(255,255,255,0.75); }
+.founders { position: absolute; bottom: 44px; right: 48px; text-align: right; }
+.f-row { margin-bottom: 10px; }
+.f-name { font-size: 14px; font-weight: 700; color: #FFFFFF; }
+.f-role { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 0.06em; text-transform: uppercase; }
+</style></head><body>
+<div class=&quot;slide-container&quot;>
+<div class=&quot;geo geo-1&quot;></div><div class=&quot;geo geo-2&quot;></div><div class=&quot;geo geo-3&quot;></div><div class=&quot;geo geo-4&quot;></div>
+<div class=&quot;logo&quot;><img src=&quot;https://insights.elevatenow.tech/enow_logo.svg&quot; alt=&quot;Elevatenow&quot; class=&quot;logo-img&quot;></div>
+<div class=&quot;website&quot;>elevatenow.tech</div>
+<div class=&quot;content&quot;>
+<div class=&quot;air-label&quot;>AI Readiness Platform</div>
+<div class=&quot;brand-name&quot;>AIR</div>
+<div class=&quot;tagline&quot;>Products, accelerators, and specialists to scale AI in Insurance</div>
+</div>
+<div class=&quot;founders&quot;>
+<div class=&quot;f-row&quot;><div class=&quot;f-name&quot;>Vinod Srinivasan</div><div class=&quot;f-role&quot;>Co-Founder</div></div>
+<div class=&quot;f-row&quot;><div class=&quot;f-name&quot;>Sudeep Joseph</div><div class=&quot;f-role&quot;>Co-Founder</div></div>
+</div>
+</div></body></html>" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html><html lang=&quot;en&quot;><head><meta charset=&quot;UTF-8&quot;><link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
+<style>* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+.slide-container { width: 1280px; height: 720px; background: #FFFFFF; color: #1C1C46; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; padding: 46px 80px 0 80px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+.slide-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10; }
+.slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94A3B8; padding: 8px 0 14px; border-top: 1px solid #E2E8F0; flex-shrink: 0; }
+.tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
+.slide-eyebrow { font-size: 11px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+.slide-title { font-size: 30px; font-weight: 800; color: #1C1C46; letter-spacing: -0.5px; line-height: 1.15; }
+.header-section { margin-bottom: 18px; flex-shrink: 0; }
+.cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; flex-grow: 1; margin-bottom: 14px; }
+.col { border-radius: 10px; overflow: hidden; border: 1px solid #E2E8F0; display: flex; flex-direction: column; }
+.col-head { background: #1C1C46; padding: 14px 20px; }
+.col-lbl { font-size: 9px; font-weight: 800; color: #57CBFF; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+.col-title { font-size: 15px; font-weight: 700; color: #FFFFFF; line-height: 1.25; }
+.col-body { padding: 16px 20px; flex-grow: 1; display: flex; flex-direction: column; gap: 10px; }
+.col-text { font-size: 13.5px; color: #1C1C46; line-height: 1.6; }
+.col-text strong { color: #2145EA; font-weight: 700; }
+.pills { display: flex; flex-direction: column; gap: 7px; }
+.pill { background: rgba(33,69,234,0.06); border: 1px solid rgba(33,69,234,0.15); border-radius: 6px; padding: 8px 12px; }
+.pill-name { font-size: 13px; font-weight: 700; color: #2145EA; }
+.pill-sub { font-size: 11.5px; color: #64748B; margin-top: 1px; }
+.platform-list { display: flex; flex-direction: column; gap: 7px; }
+.platform-item { display: flex; align-items: center; gap: 9px; font-size: 13px; color: #5E6977; }
+.platform-item i { color: #2145EA; font-size: 11px; width: 14px; flex-shrink: 0; }
+</style></head><body>
+<div class=&quot;slide-container&quot;>
+<div class=&quot;header-section&quot;>
+<div class=&quot;slide-eyebrow&quot;>About Us</div>
+<h2 class=&quot;slide-title&quot;>Products, accelerators, and specialists to scale AI in Insurance</h2>
+</div>
+<div class=&quot;cols&quot;>
+<div class=&quot;col&quot;>
+<div class=&quot;col-head&quot;><div class=&quot;col-lbl&quot;>Who We Are</div><div class=&quot;col-title&quot;>AI-Native. Insurance-Focused.</div></div>
+<div class=&quot;col-body&quot;>
+<p class=&quot;col-text&quot;>We are an AI-Native company focused on helping insurance organizations adopt and scale AI with <strong>trust</strong>.</p>
+<p class=&quot;col-text&quot;>We bring truly AI-native accelerators and solutions that take you beyond MVP to <strong>scalable production</strong> applications.</p>
+</div></div>
+<div class=&quot;col&quot;>
+<div class=&quot;col-head&quot;><div class=&quot;col-lbl&quot;>How We Operate</div><div class=&quot;col-title&quot;>Two Accelerator Categories</div></div>
+<div class=&quot;col-body&quot;>
+<p class=&quot;col-text&quot;>We collaboratively contextualize and customize our accelerators for your organization.</p>
+<div class=&quot;pills&quot;>
+<div class=&quot;pill&quot;><div class=&quot;pill-name&quot;>Insurance Workflow Accelerators</div><div class=&quot;pill-sub&quot;>Underwriting · Claims · Compliance · Renewal</div></div>
+<div class=&quot;pill&quot;><div class=&quot;pill-name&quot;>Data &amp;amp; AI Readiness Accelerators</div><div class=&quot;pill-sub&quot;>Identity · Quality · Safety · Context</div></div>
+</div></div></div>
+<div class=&quot;col&quot;>
+<div class=&quot;col-head&quot;><div class=&quot;col-lbl&quot;>Where We Deploy</div><div class=&quot;col-title&quot;>Your Platform. Your Cloud.</div></div>
+<div class=&quot;col-body&quot;>
+<p class=&quot;col-text&quot;>We deploy on the platforms you already operate — natively. No rip and replace.</p>
+<div class=&quot;platform-list&quot;>
+<div class=&quot;platform-item&quot;><i class=&quot;fa-solid fa-check&quot;></i>AWS · Azure · GCP</div>
+<div class=&quot;platform-item&quot;><i class=&quot;fa-solid fa-check&quot;></i>Databricks · Snowflake</div>
+<div class=&quot;platform-item&quot;><i class=&quot;fa-solid fa-check&quot;></i>ServiceNow</div>
+<div class=&quot;platform-item&quot;><i class=&quot;fa-solid fa-check&quot;></i>OpenAI · Claude · Gemini</div>
+</div></div></div>
+</div>
+<div class=&quot;slide-footer&quot;><span>ELEVATENOW · AIR<span class=&quot;tm&quot;>™</span></span><span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>AI Readiness Platform</span><span>CONFIDENTIAL</span></div>
+</div></body></html>" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html><html lang=&quot;en&quot;><head><meta charset=&quot;UTF-8&quot;><link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
+<style>* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+.slide-container { width: 1280px; height: 720px; background: #FFFFFF; color: #1C1C46; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; padding: 46px 80px 0 80px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+.slide-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10; }
+.slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94A3B8; padding: 8px 0 14px; border-top: 1px solid #E2E8F0; flex-shrink: 0; }
+.tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
+.slide-eyebrow { font-size: 11px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+.slide-title { font-size: 30px; font-weight: 800; color: #1C1C46; letter-spacing: -0.5px; line-height: 1.15; }
+.header-section { margin-bottom: 18px; flex-shrink: 0; }
+.body-grid { display: grid; grid-template-columns: 1fr 360px; gap: 24px; flex-grow: 1; margin-bottom: 14px; }
+.stack { display: flex; flex-direction: column; gap: 6px; }
+.layer { border-radius: 7px; padding: 10px 14px; flex-shrink: 0; }
+.layer-lbl { font-size: 8px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 3px; }
+.layer-items { font-size: 12px; font-weight: 500; }
+.l-apps { background: #EEF2FF; border: 1px solid #C7D4FF; }
+.l-apps .layer-lbl { color: #2145EA; } .l-apps .layer-items { color: #3B5BDB; }
+.l-workflows { background: #F0F4FF; border: 1px solid #D0DAFF; }
+.l-workflows .layer-lbl { color: #4361C4; } .l-workflows .layer-items { color: #4361C4; }
+.l-air-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; flex-shrink: 0; }
+.l-context { background: #1C1C46; border-radius: 7px; padding: 10px 14px; }
+.l-context .layer-lbl { color: #57CBFF; } .l-context .layer-items { color: rgba(255,255,255,0.8); }
+.l-data { background: #2145EA; border-radius: 7px; padding: 10px 14px; }
+.l-data .layer-lbl { color: #57CBFF; } .l-data .layer-items { color: rgba(255,255,255,0.9); font-weight: 600; }
+.l-gov { background: #0D1B3E; border-radius: 7px; padding: 9px 14px; flex-shrink: 0; }
+.l-gov .layer-lbl { color: #57CBFF; } .l-gov .layer-items { color: rgba(255,255,255,0.65); font-size: 11px; }
+.l-ent { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 7px; padding: 8px 14px; flex-shrink: 0; }
+.l-ent .layer-lbl { color: #64748B; } .l-ent .layer-items { color: #94A3B8; font-size: 11px; }
+.req-col { display: flex; flex-direction: column; gap: 8px; }
+.req-eyebrow { font-size: 9px; font-weight: 800; color: #2145EA; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; }
+.req-card { border-radius: 8px; padding: 11px 14px; border: 1px solid rgba(33,69,234,0.18); background: #F8FAFF; }
+.req-title { font-size: 13px; font-weight: 700; color: #1C1C46; margin-bottom: 3px; }
+.req-desc { font-size: 11.5px; color: #64748B; line-height: 1.45; }
+.air-cta { margin-top: 4px; background: #1C1C46; border-radius: 7px; padding: 11px 14px; font-size: 12px; color: rgba(255,255,255,0.75); line-height: 1.5; }
+.air-cta strong { color: #57CBFF; }
+</style></head><body>
+<div class=&quot;slide-container&quot;>
+<div class=&quot;header-section&quot;>
+<div class=&quot;slide-eyebrow&quot;>Our Focus &amp;amp; Offerings</div>
+<h2 class=&quot;slide-title&quot;>AI Readiness in the Regulated Enterprise</h2>
+</div>
+<div class=&quot;body-grid&quot;>
+<div class=&quot;stack&quot;>
+<div class=&quot;layer l-apps&quot;><div class=&quot;layer-lbl&quot;>Enterprise Apps</div><div class=&quot;layer-items&quot;>Workbenches &amp;nbsp;·&amp;nbsp; Embeddable Apps &amp;nbsp;·&amp;nbsp; Headless API</div></div>
+<div class=&quot;layer l-workflows&quot;><div class=&quot;layer-lbl&quot;>AI Ready Workflows &amp;amp; Agents</div><div class=&quot;layer-items&quot;>Tool Packs &amp;nbsp;·&amp;nbsp; Skill Packs &amp;nbsp;·&amp;nbsp; Recipe Packs</div></div>
+<div class=&quot;l-air-row&quot;>
+<div class=&quot;l-context&quot;><div class=&quot;layer-lbl&quot;>AIR Context</div><div class=&quot;layer-items&quot;>EnCoder — Insurance Ontology &amp;amp; Semantic Enrichment</div></div>
+<div class=&quot;l-data&quot;><div class=&quot;layer-lbl&quot;>AIR Data</div><div class=&quot;layer-items&quot;>Assure &amp;nbsp;·&amp;nbsp; Shield &amp;nbsp;·&amp;nbsp; Resolve</div></div>
+</div>
+<div class=&quot;layer l-gov&quot;><div class=&quot;layer-lbl&quot;>Governance &amp;nbsp;·&amp;nbsp; Policy Control &amp;nbsp;·&amp;nbsp; Audit &amp;amp; Lineage</div><div class=&quot;layer-items&quot;>Policy enforcement &amp;nbsp;·&amp;nbsp; Decision provenance &amp;nbsp;·&amp;nbsp; Examiner-ready audit trail</div></div>
+<div class=&quot;layer l-ent&quot;><div class=&quot;layer-lbl&quot;>Enterprise Data</div><div class=&quot;layer-items&quot;>Policy &amp;nbsp;·&amp;nbsp; Claims &amp;nbsp;·&amp;nbsp; Billing &amp;nbsp;·&amp;nbsp; CRM &amp;nbsp;·&amp;nbsp; Broker Systems</div></div>
+</div>
+<div class=&quot;req-col&quot;>
+<div class=&quot;req-eyebrow&quot;>What Scaling Agentic AI Requires</div>
+<div class=&quot;req-card&quot;><div class=&quot;req-title&quot;>Certified Data</div><div class=&quot;req-desc&quot;>Quality, protection, and resolved identity the model can actually trust — not just more data.</div></div>
+<div class=&quot;req-card&quot;><div class=&quot;req-title&quot;>Governed Context</div><div class=&quot;req-desc&quot;>Insurance meaning and encoded rules agents can use — encoded, not trained.</div></div>
+<div class=&quot;req-card&quot;><div class=&quot;req-title&quot;>Auditable Agents</div><div class=&quot;req-desc&quot;>Every decision traceable and defensible to an examiner.</div></div>
+<div class=&quot;req-card&quot;><div class=&quot;req-title&quot;>Governance Throughout</div><div class=&quot;req-desc&quot;>Policy control, audit, and lineage across the whole stack.</div></div>
+<div class=&quot;air-cta&quot;><strong>AIR</strong> delivers all of these — on the cloud, data, and AI platforms enterprises already use.</div>
+</div>
+</div>
+<div class=&quot;slide-footer&quot;><span>ELEVATENOW · AIR<span class=&quot;tm&quot;>™</span></span><span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>AI Readiness Platform</span><span>CONFIDENTIAL</span></div>
+</div></body></html>" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html><html lang=&quot;en&quot;><head><meta charset=&quot;UTF-8&quot;><link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
+<style>* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+.slide-container { width: 1280px; height: 720px; background: #FFFFFF; color: #1C1C46; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; padding: 46px 80px 0 80px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+.slide-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10; }
+.slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94A3B8; padding: 8px 0 14px; border-top: 1px solid #E2E8F0; flex-shrink: 0; }
+.tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
+.slide-eyebrow { font-size: 11px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+.slide-title { font-size: 30px; font-weight: 800; color: #1C1C46; letter-spacing: -0.5px; line-height: 1.15; }
+.header-section { margin-bottom: 18px; flex-shrink: 0; }
+.pillars { display: grid; grid-template-columns: 1fr 230px 1fr; gap: 20px; flex-grow: 1; margin-bottom: 8px; align-items: center; }
+.pillar { display: flex; flex-direction: column; gap: 7px; align-self: start; }
+.pillar-lbl { font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(28,28,70,0.4); margin-bottom: 2px; }
+.pillar-name { font-size: 19px; font-weight: 700; color: #2145EA; margin-bottom: 3px; }
+.card { border-radius: 9px; padding: 11px 13px; }
+.card-navy { background: #1C1C46; }
+.card-navy .cn { color: #FFFFFF; font-size: 12.5px; font-weight: 700; margin-bottom: 3px; }
+.card-navy .cd { color: rgba(255,255,255,0.55); font-size: 11px; line-height: 1.45; }
+.card-blue { background: #2145EA; }
+.card-blue .cn { color: #FFFFFF; font-size: 12.5px; font-weight: 700; margin-bottom: 3px; }
+.card-blue .cd { color: rgba(255,255,255,0.65); font-size: 11px; line-height: 1.45; }
+.center-col { display: flex; align-items: center; justify-content: center; }
+.ctx-row { display: flex; align-items: center; }
+.arr-in { height: 2px; width: 50px; background: linear-gradient(to right, transparent, rgba(87,203,255,0.45)); margin-right: -2px; }
+.arr-out { height: 2px; width: 50px; background: linear-gradient(to right, rgba(87,203,255,0.45), transparent); margin-left: -2px; }
+.ctx-circle { width: 196px; height: 196px; border-radius: 50%; background: #1C1C46; border: 2px solid rgba(87,203,255,0.3); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 22px; box-shadow: 0 0 0 7px rgba(87,203,255,0.05); }
+.ctx-lbl { font-size: 16px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px; }
+.ctx-acc { color: #57CBFF; }
+.ctx-sub { font-size: 10px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+.infra { border-top: 1px solid rgba(0,0,0,0.06); padding: 8px 0 0; text-align: center; flex-shrink: 0; margin-bottom: 6px; }
+.infra-lbl { font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(19,29,62,0.35); margin-bottom: 3px; }
+.infra-pl { font-size: 12px; font-weight: 500; color: rgba(19,29,62,0.55); }
+</style></head><body>
+<div class=&quot;slide-container&quot;>
+<div class=&quot;header-section&quot;>
+<div class=&quot;slide-eyebrow&quot;>The Platform</div>
+<h2 class=&quot;slide-title&quot;>Build your Agentic solutions on a foundation of Identity, Data Quality and Safety.</h2>
+</div>
+<div class=&quot;pillars&quot;>
+<div class=&quot;pillar&quot;>
+<div class=&quot;pillar-lbl&quot;>Trusted Data Foundation</div>
+<div class=&quot;pillar-name&quot;>AIR Data</div>
+<div class=&quot;card card-navy&quot;><div class=&quot;cn&quot;>Customer Identification</div><div class=&quot;cd&quot;>AI-powered entity resolution and mastering across customers and entities.</div></div>
+<div class=&quot;card card-navy&quot;><div class=&quot;cn&quot;>Data Quality</div><div class=&quot;cd&quot;>Continuous, explainable data quality across structured and unstructured sources.</div></div>
+<div class=&quot;card card-navy&quot;><div class=&quot;cn&quot;>Safety</div><div class=&quot;cd&quot;>PII, PHI, and PCI detection with audit-grade redaction.</div></div>
+<div class=&quot;card card-navy&quot;><div class=&quot;cn&quot;>Unstructured Data</div><div class=&quot;cd&quot;>Ingest and extract from PDFs, documents, transcripts, and forms.</div></div>
+</div>
+<div class=&quot;center-col&quot;>
+<div class=&quot;ctx-row&quot;>
+<div class=&quot;arr-in&quot;></div>
+<div class=&quot;ctx-circle&quot;>
+<div class=&quot;ctx-lbl&quot;>AIR <span class=&quot;ctx-acc&quot;>Context</span></div>
+<div class=&quot;ctx-sub&quot;>Semantic enrichment for Agentic consumption.</div>
+</div>
+<div class=&quot;arr-out&quot;></div>
+</div>
+</div>
+<div class=&quot;pillar&quot;>
+<div class=&quot;pillar-lbl&quot;>Purpose Built Solutions</div>
+<div class=&quot;pillar-name&quot;>AIR Agentic</div>
+<div class=&quot;card card-blue&quot;><div class=&quot;cn&quot;>Pre-Built Agentic Recipes</div><div class=&quot;cd&quot;>Domain-tuned agents for high-value workflows, ready to deploy.</div></div>
+<div class=&quot;card card-blue&quot;><div class=&quot;cn&quot;>Agent Studio</div><div class=&quot;cd&quot;>Compose your own agents from templates.</div></div>
+<div class=&quot;card card-blue&quot;><div class=&quot;cn&quot;>AI Registry</div><div class=&quot;cd&quot;>Real-time PII/PHI redaction and policy enforcement for AI pipelines.</div></div>
+<div class=&quot;card card-blue&quot;><div class=&quot;cn&quot;>Agent Observability</div><div class=&quot;cd&quot;>Agentic data quality validation with explainable rule generation.</div></div>
+</div>
+</div>
+<div class=&quot;infra&quot;>
+<div class=&quot;infra-lbl&quot;>Runs Natively On The Platforms You Already Trust</div>
+<div class=&quot;infra-pl&quot;>AWS &amp;middot; Azure &amp;middot; Snowflake &amp;middot; Databricks &amp;middot; GCP &amp;nbsp;|&amp;nbsp; OpenAI &amp;middot; Claude &amp;middot; Gemini</div>
+</div>
+<div class=&quot;slide-footer&quot;><span>ELEVATENOW · AIR<span class=&quot;tm&quot;>™</span></span><span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>AI Readiness Platform</span><span>CONFIDENTIAL</span></div>
+</div></body></html>" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html><html lang=&quot;en&quot;><head><meta charset=&quot;UTF-8&quot;><link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
+<style>* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+.slide-container { width: 1280px; height: 720px; background: #FFFFFF; color: #1C1C46; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; padding: 46px 80px 0 80px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+.slide-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10; }
+.slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94A3B8; padding: 8px 0 14px; border-top: 1px solid #E2E8F0; flex-shrink: 0; }
+.tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
+.slide-eyebrow { font-size: 11px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+.slide-title { font-size: 30px; font-weight: 800; color: #1C1C46; letter-spacing: -0.5px; line-height: 1.15; }
+.header-section { margin-bottom: 18px; flex-shrink: 0; }
+.body-grid { display: grid; grid-template-columns: 340px 1fr; gap: 28px; flex-grow: 1; margin-bottom: 14px; align-items: start; }
+.hero-col { display: flex; flex-direction: column; gap: 12px; }
+.prod-badge { background: #2145EA; border-radius: 8px; padding: 8px 14px; width: fit-content; }
+.prod-badge-lbl { font-size: 9px; font-weight: 800; color: #57CBFF; letter-spacing: 2px; text-transform: uppercase; }
+.prod-badge-name { font-size: 16px; font-weight: 800; color: #FFFFFF; }
+.hero-stmt { font-size: 17px; font-weight: 700; color: #1C1C46; line-height: 1.35; letter-spacing: -0.2px; }
+.hero-desc { font-size: 12.5px; color: #5E6977; line-height: 1.6; }
+.badges { display: flex; flex-direction: column; gap: 6px; }
+.badge { display: flex; align-items: center; gap: 9px; background: #F0F4FF; border: 1px solid rgba(33,69,234,0.2); border-radius: 6px; padding: 7px 12px; }
+.badge i { color: #2145EA; font-size: 11px; }
+.badge span { font-size: 12px; font-weight: 600; color: #2145EA; }
+.what-lbl { font-size: 9px; font-weight: 800; color: #2145EA; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.cap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.cap { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 12px 14px; }
+.cap-title { font-size: 12.5px; font-weight: 700; color: #1C1C46; margin-bottom: 3px; }
+.cap-desc { font-size: 11.5px; color: #64748B; line-height: 1.45; }
+</style></head><body>
+<div class=&quot;slide-container&quot;>
+<div class=&quot;header-section&quot;>
+<div class=&quot;slide-eyebrow&quot;>AIR Data · Customer Intelligence</div>
+<h2 class=&quot;slide-title&quot;>Unify every customer and entity into one trusted golden record</h2>
+</div>
+<div class=&quot;body-grid&quot;>
+<div class=&quot;hero-col&quot;>
+<div class=&quot;prod-badge&quot;><div class=&quot;prod-badge-lbl&quot;>AIR Data</div><div class=&quot;prod-badge-name&quot;>Resolve</div></div>
+<p class=&quot;hero-desc&quot;>Customer and entity data is scattered across policy, billing, claims, and CRM systems. Agents and analytics inherit duplicates, conflicts, and identity no one can verify. Resolve turns those fragments into a single, certified source of truth.</p>
+<div class=&quot;badges&quot;>
+<div class=&quot;badge&quot;><i class=&quot;fa-solid fa-shield-halved&quot;></i><span>Examiner-Defensible</span></div>
+<div class=&quot;badge&quot;><i class=&quot;fa-solid fa-link&quot;></i><span>Source-Attributed</span></div>
+<div class=&quot;badge&quot;><i class=&quot;fa-solid fa-sliders&quot;></i><span>Configurable Identity Rules</span></div>
+</div>
+</div>
+<div>
+<div class=&quot;what-lbl&quot;>What Resolve Does</div>
+<div class=&quot;cap-grid&quot;>
+<div class=&quot;cap&quot;><div class=&quot;cap-title&quot;>Unified Customer 360</div><div class=&quot;cap-desc&quot;>One golden profile per customer or entity, merged from every source system.</div></div>
+<div class=&quot;cap&quot;><div class=&quot;cap-title&quot;>AI Entity Resolution</div><div class=&quot;cap-desc&quot;>Probabilistic match &amp;amp; merge that separates true duplicates from distinct records.</div></div>
+<div class=&quot;cap&quot;><div class=&quot;cap-title&quot;>Multi-Source Mastering</div><div class=&quot;cap-desc&quot;>Resolves across policy (auto/home), billing, claims, and marketing systems.</div></div>
+<div class=&quot;cap&quot;><div class=&quot;cap-title&quot;>Attribute-Level Lineage</div><div class=&quot;cap-desc&quot;>Every golden value carries its winning source and survivorship rationale.</div></div>
+<div class=&quot;cap&quot;><div class=&quot;cap-title&quot;>Explainable &amp;amp; Auditable</div><div class=&quot;cap-desc&quot;>Match scores and record-level provenance you can show a regulator.</div></div>
+<div class=&quot;cap&quot;><div class=&quot;cap-title&quot;>Configurable Identity Rules</div><div class=&quot;cap-desc&quot;>Tune matching, survivorship, and thresholds to your book of business.</div></div>
+</div>
+</div>
+</div>
+<div class=&quot;slide-footer&quot;><span>ELEVATENOW · AIR DATA<span class=&quot;tm&quot;>™</span></span><span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>AI Readiness Platform</span><span>CONFIDENTIAL</span></div>
+</div></body></html>" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html><html lang=&quot;en&quot;><head><meta charset=&quot;UTF-8&quot;><link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
+<style>* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+.slide-container { width: 1280px; height: 720px; background: #FFFFFF; color: #1C1C46; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; padding: 46px 80px 0 80px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+.slide-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10; }
+.slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94A3B8; padding: 8px 0 14px; border-top: 1px solid #E2E8F0; flex-shrink: 0; }
+.tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
+.slide-eyebrow { font-size: 11px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+.slide-title { font-size: 30px; font-weight: 800; color: #1C1C46; letter-spacing: -0.5px; line-height: 1.15; }
+.header-section { margin-bottom: 18px; flex-shrink: 0; }
+.prod-row { display: flex; align-items: center; gap: 16px; margin-bottom: 0; }
+.prod-pill { background: #2145EA; border-radius: 7px; padding: 6px 14px; flex-shrink: 0; }
+.prod-pill-lbl { font-size: 9px; font-weight: 800; color: #57CBFF; letter-spacing: 2px; text-transform: uppercase; }
+.prod-pill-name { font-size: 15px; font-weight: 800; color: #FFFFFF; }
+.prod-sub { font-size: 13px; color: #5E6977; line-height: 1.5; }
+.pipeline { display: flex; align-items: stretch; gap: 0; flex-grow: 1; margin-bottom: 10px; }
+.pipe-step { flex: 1; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 16px 14px; display: flex; flex-direction: column; gap: 6px; }
+.pipe-arr { display: flex; align-items: center; padding: 0 8px; color: #2145EA; font-size: 14px; flex-shrink: 0; }
+.snum { font-size: 10px; font-weight: 800; color: #2145EA; letter-spacing: 0.1em; }
+.sname { font-size: 14px; font-weight: 700; color: #1C1C46; line-height: 1.3; }
+.sdesc { font-size: 12px; color: #64748B; line-height: 1.45; flex-grow: 1; }
+.witness { background: #1C1C46; border-radius: 7px; padding: 10px 16px; font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.45; flex-shrink: 0; margin-bottom: 10px; }
+.witness strong { color: #57CBFF; }
+.diffs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; flex-shrink: 0; margin-bottom: 14px; }
+.diff { background: rgba(33,69,234,0.04); border: 1px solid rgba(33,69,234,0.15); border-radius: 8px; padding: 12px 14px; }
+.diff-title { font-size: 10.5px; font-weight: 800; color: #2145EA; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; }
+.diff-desc { font-size: 12px; color: #5E6977; line-height: 1.45; }
+</style></head><body>
+<div class=&quot;slide-container&quot;>
+<div class=&quot;header-section&quot; style=&quot;margin-bottom:14px;&quot;>
+<div class=&quot;slide-eyebrow&quot;>AIR Data · Data Quality Engine</div>
+<div class=&quot;prod-row&quot;>
+<div class=&quot;prod-pill&quot;><div class=&quot;prod-pill-lbl&quot;>AIR Data</div><div class=&quot;prod-pill-name&quot;>Assure</div></div>
+<p class=&quot;prod-sub&quot;>The data quality engine purpose-built for AI consumption — proactive, and built for structured AND unstructured data, not just analytics.</p>
+</div>
+</div>
+<div class=&quot;pipeline&quot;><div class=&quot;pipe-step&quot;><div class=&quot;snum&quot;>01</div><div class=&quot;sname&quot;>Understand</div><div class=&quot;sdesc&quot;>Profile data, discover patterns, and build a baseline of what &quot;good&quot; looks like.</div></div><div class=&quot;pipe-arr&quot;><i class=&quot;fa-solid fa-arrow-right&quot;></i></div><div class=&quot;pipe-step&quot;><div class=&quot;snum&quot;>02</div><div class=&quot;sname&quot;>Detect</div><div class=&quot;sdesc&quot;>Continuously evaluate against rules, baselines, and statistical models.</div></div><div class=&quot;pipe-arr&quot;><i class=&quot;fa-solid fa-arrow-right&quot;></i></div><div class=&quot;pipe-step&quot;><div class=&quot;snum&quot;>03</div><div class=&quot;sname&quot;>Decide</div><div class=&quot;sdesc&quot;>Apply a policy-driven response — alert, quarantine, block, remediate, or escalate.</div></div><div class=&quot;pipe-arr&quot;><i class=&quot;fa-solid fa-arrow-right&quot;></i></div><div class=&quot;pipe-step&quot;><div class=&quot;snum&quot;>04</div><div class=&quot;sname&quot;>Act</div><div class=&quot;sdesc&quot;>Execute the response, notify stakeholders, and write evidence to the audit log.</div></div></div>
+<div class=&quot;witness&quot;><strong>Witness underneath</strong> — every stage produces audit-grade evidence: what was detected, what was decided, and what was done.</div>
+<div class=&quot;diffs&quot;><div class=&quot;diff&quot;><div class=&quot;diff-title&quot;>Proactive</div><div class=&quot;diff-desc&quot;>Runs upstream, before bad data reaches models or agents. Windshield, not rear-view.</div></div><div class=&quot;diff&quot;><div class=&quot;diff-title&quot;>Structured + Unstructured</div><div class=&quot;diff-desc&quot;>Also covers call transcripts, claim documents, agent notes, and emails.</div></div><div class=&quot;diff&quot;><div class=&quot;diff-title&quot;>Decide &amp; Act</div><div class=&quot;diff-desc&quot;>Closes the loop with policy-driven response and audit-grade evidence — not just alerts.</div></div></div>
+<div class=&quot;slide-footer&quot;><span>ELEVATENOW · AIR DATA<span class=&quot;tm&quot;>™</span></span><span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>AI Readiness Platform</span><span>CONFIDENTIAL</span></div>
+</div></body></html>" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html><html lang=&quot;en&quot;><head><meta charset=&quot;UTF-8&quot;><link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
+<style>* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+.slide-container { width: 1280px; height: 720px; background: #FFFFFF; color: #1C1C46; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; padding: 46px 80px 0 80px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+.slide-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10; }
+.slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94A3B8; padding: 8px 0 14px; border-top: 1px solid #E2E8F0; flex-shrink: 0; }
+.tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
+.slide-eyebrow { font-size: 11px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+.slide-title { font-size: 30px; font-weight: 800; color: #1C1C46; letter-spacing: -0.5px; line-height: 1.15; }
+.header-section { margin-bottom: 18px; flex-shrink: 0; }
+.prod-row { display: flex; align-items: center; gap: 16px; margin-bottom: 0; }
+.prod-pill { background: #2145EA; border-radius: 7px; padding: 6px 14px; flex-shrink: 0; }
+.prod-pill-lbl { font-size: 9px; font-weight: 800; color: #57CBFF; letter-spacing: 2px; text-transform: uppercase; }
+.prod-pill-name { font-size: 15px; font-weight: 800; color: #FFFFFF; }
+.prod-sub { font-size: 13px; color: #5E6977; line-height: 1.5; }
+.pipeline { display: flex; align-items: stretch; gap: 0; flex-grow: 1; margin-bottom: 10px; }
+.pipe-step { flex: 1; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 16px 14px; display: flex; flex-direction: column; gap: 6px; }
+.pipe-arr { display: flex; align-items: center; padding: 0 8px; color: #2145EA; font-size: 14px; flex-shrink: 0; }
+.snum { font-size: 10px; font-weight: 800; color: #2145EA; letter-spacing: 0.1em; }
+.sname { font-size: 14px; font-weight: 700; color: #1C1C46; line-height: 1.3; }
+.sdesc { font-size: 12px; color: #64748B; line-height: 1.45; flex-grow: 1; }
+.witness { background: #1C1C46; border-radius: 7px; padding: 10px 16px; font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.45; flex-shrink: 0; margin-bottom: 10px; }
+.witness strong { color: #57CBFF; }
+.diffs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; flex-shrink: 0; margin-bottom: 14px; }
+.diff { background: rgba(33,69,234,0.04); border: 1px solid rgba(33,69,234,0.15); border-radius: 8px; padding: 12px 14px; }
+.diff-title { font-size: 10.5px; font-weight: 800; color: #2145EA; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; }
+.diff-desc { font-size: 12px; color: #5E6977; line-height: 1.45; }
+</style></head><body>
+<div class=&quot;slide-container&quot;>
+<div class=&quot;header-section&quot; style=&quot;margin-bottom:14px;&quot;>
+<div class=&quot;slide-eyebrow&quot;>AIR Data · Sensitive Data Protection</div>
+<div class=&quot;prod-row&quot;>
+<div class=&quot;prod-pill&quot;><div class=&quot;prod-pill-lbl&quot;>AIR Data</div><div class=&quot;prod-pill-name&quot;>Shield</div></div>
+<p class=&quot;prod-sub&quot;>Find and protect sensitive data — PII, PHI, and PCI — across every source, with audit-grade evidence that agents and regulators can trust.</p>
+</div>
+</div>
+<div class=&quot;pipeline&quot;><div class=&quot;pipe-step&quot;><div class=&quot;snum&quot;>01</div><div class=&quot;sname&quot;>Discover</div><div class=&quot;sdesc&quot;>Scan structured and unstructured sources to find where sensitive data lives.</div></div><div class=&quot;pipe-arr&quot;><i class=&quot;fa-solid fa-arrow-right&quot;></i></div><div class=&quot;pipe-step&quot;><div class=&quot;snum&quot;>02</div><div class=&quot;sname&quot;>Classify</div><div class=&quot;sdesc&quot;>Identify and tag PII, PHI, and PCI by type and sensitivity level.</div></div><div class=&quot;pipe-arr&quot;><i class=&quot;fa-solid fa-arrow-right&quot;></i></div><div class=&quot;pipe-step&quot;><div class=&quot;snum&quot;>03</div><div class=&quot;sname&quot;>Protect</div><div class=&quot;sdesc&quot;>Apply policy-driven masking, redaction, or tokenization — in place.</div></div><div class=&quot;pipe-arr&quot;><i class=&quot;fa-solid fa-arrow-right&quot;></i></div><div class=&quot;pipe-step&quot;><div class=&quot;snum&quot;>04</div><div class=&quot;sname&quot;>Prove</div><div class=&quot;sdesc&quot;>Write audit-grade evidence: what was found, how it was protected, and where.</div></div></div>
+<div class=&quot;witness&quot;><strong>Witness underneath</strong> — every stage produces audit-grade evidence: what was detected, what was decided, and what was done.</div>
+<div class=&quot;diffs&quot;><div class=&quot;diff&quot;><div class=&quot;diff-title&quot;>Structured + Unstructured</div><div class=&quot;diff-desc&quot;>Sensitive data hides in claim docs, call transcripts, and notes — not just columns.</div></div><div class=&quot;diff&quot;><div class=&quot;diff-title&quot;>Protect In Place</div><div class=&quot;diff-desc&quot;>Mask, redact, or tokenize by policy — not just flag and alert.</div></div><div class=&quot;diff&quot;><div class=&quot;diff-title&quot;>Audit-Grade Evidence</div><div class=&quot;diff-desc&quot;>Every detection and action logged for HIPAA, PCI-DSS, and examiner review.</div></div></div>
+<div class=&quot;slide-footer&quot;><span>ELEVATENOW · AIR DATA<span class=&quot;tm&quot;>™</span></span><span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>AI Readiness Platform</span><span>CONFIDENTIAL</span></div>
+</div></body></html>" scrolling="no" frameborder="0"></iframe>
+    </div>
+  </div>
+</div>
+<button class="nav left hidden" id="nav-left">&#8249;</button>
+<button class="nav right" id="nav-right">&#8250;</button>
+<div class="counter" id="counter">1 / 7</div>
+<script>
+  const track=document.getElementById('track'),navL=document.getElementById('nav-left'),navR=document.getElementById('nav-right'),ctr=document.getElementById('counter');
+  const total=7; let cur=0;
+  function go(i){cur=Math.max(0,Math.min(total-1,i));track.style.transform=`translateX(${-cur*100}vw)`;navL.classList.toggle('hidden',cur===0);navR.classList.toggle('hidden',cur===total-1);ctr.textContent=(cur+1)+' / '+total;}
+  navL.addEventListener('click',()=>go(cur-1));navR.addEventListener('click',()=>go(cur+1));
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(cur+1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(cur-1);});
+  go(0);
+</script>
+</body>
+</html>
