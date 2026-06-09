@@ -28,111 +28,106 @@
 <head>
     <meta charset=&quot;UTF-8&quot;>
     <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
-    <title>enCode — Governed Insurance Intelligence Platform</title>
+    <title>enCODE - Governed Insurance Intelligence Platform</title>
     <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
     <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
-    <link href=&quot;https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+    <link href=&quot;https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background: #FFFFFF;
+            background: #2145EA;
             display: grid; min-height: 100vh; place-items: center;
             -webkit-font-smoothing: antialiased;
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
-
         .slide-container {
             width: 1280px; height: 720px;
             background: #2145EA;
             position: relative; overflow: hidden;
             border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column;
+            justify-content: space-between;
+            padding: 48px 64px 44px 64px;
         }
-
-        /* Geometric brand blocks - right side */
-        .geo { position: absolute; }
-        .geo-1 { width: 310px; height: 220px; background: rgba(255,255,255,0.12); right: 200px; top: 140px; border-radius: 4px; }
-        .geo-2 { width: 200px; height: 200px; background: rgba(255,255,255,0.10); right: 60px; top: 80px; border-radius: 4px; }
-        .geo-3 { width: 140px; height: 140px; background: rgba(255,255,255,0.12); right: 60px; top: 420px; border-radius: 4px; }
-        .geo-4 {
-            width: 120px; height: 120px;
-            background: rgba(255,255,255,0.15);
-            right: 340px; top: 100px;
-            transform: rotate(45deg);
-            border-radius: 8px;
-        }
+        /* Geometric accent shapes */
+        .geo { position: absolute; border-radius: 8px; }
+        .geo-1 { width: 320px; height: 320px; background: rgba(255,255,255,0.06); right: 80px; top: 60px; transform: rotate(18deg); }
+        .geo-2 { width: 200px; height: 200px; background: rgba(87,203,255,0.12); right: 200px; top: 260px; transform: rotate(35deg); }
+        .geo-3 { width: 140px; height: 140px; background: rgba(255,255,255,0.08); right: 60px; top: 420px; transform: rotate(10deg); }
+        .geo-4 { width: 80px; height: 80px; background: rgba(87,203,255,0.18); right: 380px; top: 80px; transform: rotate(45deg); border-radius: 12px; }
 
         /* Logo top left */
-        .logo {
-            position: absolute; top: 36px; left: 48px;
-        }
-        .logo-img { height: 32px; width: auto; display: block; }
+        .logo-wrap img { height: 28px; width: auto; display: block; filter: brightness(0) invert(1); opacity: 0.92; }
 
-        /* Website top right */
-        .website {
-            position: absolute; top: 36px; right: 48px;
-            font-size: 14px; font-weight: 600;
-            color: rgba(255,255,255,0.85);
-            letter-spacing: 0.02em;
-        }
-
-        /* Main content */
-        .content {
+        /* Center content */
+        .center-content {
             position: absolute;
-            bottom: 180px; left: 48px;
+            top: 50%; left: 64px;
+            transform: translateY(-50%);
         }
-
-        .brand-name {
-            font-size: 112px; font-weight: 800;
-            line-height: 1; letter-spacing: -0.04em;
-            margin-bottom: 20px;
-        }
-        .brand-name .en { color: rgba(255,255,255,0.55); font-weight: 300; }
-        .brand-name .code { color: #FFFFFF; font-weight: 800; }
-        .brand-name .tm {
-            font-size: 28px; font-weight: 400;
+        .eyebrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px; font-weight: 700;
             color: rgba(255,255,255,0.6);
-            vertical-align: super;
-            margin-left: 4px;
+            text-transform: uppercase; letter-spacing: 3px;
+            margin-bottom: 18px;
+        }
+        .product-name {
+            font-size: 72px; font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: -2px; line-height: 1;
+            margin-bottom: 16px;
+        }
+        .product-name span { color: #57CBFF; }
+        .tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px; font-weight: 400;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 0.02em;
+            line-height: 1.4;
         }
 
-        .tagline {
-            font-family: 'Lora', serif;
-            font-size: 22px; font-weight: 400; font-style: italic;
-            color: rgba(255,255,255,0.75);
-            letter-spacing: 0.01em;
+        /* Bottom bar */
+        .bottom-bar {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            position: relative; z-index: 2;
+        }
+        .bottom-left {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px; font-weight: 500;
+            color: rgba(255,255,255,0.55);
+        }
+        .bottom-right {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px; font-weight: 600;
+            color: rgba(255,255,255,0.45);
+            text-transform: uppercase; letter-spacing: 0.14em;
         }
     </style>
 </head>
 <body>
 <div class=&quot;slide-container&quot;>
-
-    <!-- Geometric blocks -->
     <div class=&quot;geo geo-1&quot;></div>
     <div class=&quot;geo geo-2&quot;></div>
     <div class=&quot;geo geo-3&quot;></div>
     <div class=&quot;geo geo-4&quot;></div>
 
-    <!-- Logo -->
-    <div class=&quot;logo&quot;>
-        <img src=&quot;https://insights.elevatenow.tech/enow_logo.svg&quot; alt=&quot;Elevatenow&quot; class=&quot;logo-img&quot;>
+    <div class=&quot;logo-wrap&quot; style=&quot;position:relative;z-index:2;&quot;>
+        <img src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATgAAABkCAYAAAASRCxSAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAACQAAAAAQAAAJAAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAATigAwAEAAAAAQAAAGQAAAAADd4d7QAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAFcZJREFUeAHtnQmYVcWVx3thVfzGARdg3JU9LCIoakZF1IkmZjKJqCiZjPlUHMyMmLjEJGp/MRO3OOMGiPuCIj0yrpEkRnGcSUczrWw2NDGOREXoOAratA00NPM7L32f9erVe729+7rf43+/7/atOnXqVN1f1T2vqm691yUlOkRABERABAqbwPLly/cp7DtQ7UVABNpLoKy9GQpRv7a29sd9+vR5k+uYQqy/6iwCItAxAkXv4FavXn19aWnp1eDZm/OlmpqawzuGSrlEQAQKjUBpoVW4PfVlxHYzzu0yN8/OnTs3Ej9l+PDh1a5cYREQgeIjULQODud2K87tkgxN9smOHTu+NHLkyFczpEssAiJQBASK0cGV4tzuxLnNzNY+jOTqST+VkdxvsukpTQREoHAJFNsaXOmaNWvuas25WXOhsweXX6xateq4wm0+1VwERCAbgaJxcBUVFWWM3O7jZi/MdsNuGk6uX1lZ2WLynejKFRYBESgOAkUxRa2srCwfM2bMAzisb3awWRpZk/tb1uRe6GB+ZRMBEeiGBArewZlzGzt27COwndZJvlvI//Vhw4Yt7qQdZRcBEegmBArawS1ZsqTHoEGDHmPkNjUXPHnxsI3zjBEjRjybC3uyIQIi0LUECtbBVVdX99xjjz0Wgu/vcokQB9fU3Nx8FtPVJ3NpV7ZEQATyT6AgHRzfRuhVXl7+BCO30+NAhpPbjt1z2ELy73HYl00REIH8ECi4t6hMS/vg3J6Ky7kZdmz34FzA17w6u66Xn1ZUKSIgAkECBTWCq6qq6tu/f39zbqcE7yb3wh2YPI8XD/YSQ4cIiECBEegR1ZcNsm9H4e56Zer4HM5tZB7rV06ZthFYDi6P0FWUCOSKQNLBYfCQXBmN0U6vrVu3Ht+rV68lOLoDYiwnMn0P63AzooiuIiAChUWg4Nbg2ND7v4yqjudcGydq7M9hamrObWec5ci2CIhAfAQKzsEZCvaprW1qarKpYyzTapzb7YzcLsa+nJsB1yECBUqgIB2csR49evR7jY2NNpL7fY7Z34Jzy/QzSzkuSuZEQATiJFCwDs6gjBs3bh2bck/AydXmAhK2bmBamvIDmbmwKxsiIAJdQ6CgHZwh4xsH65munkCwxuIdPXCS1zH1vaqj+ZVPBESg+xEoeAdnSJmu1jU0NEzGSa3oCGLyXcO09JqO5FUeERCB7kugKByc4R0/fvyHOKoTCS5tD26mpT/AuV3XnjzSFQERKAwCRePgDDdTzI/YJzcFR9emfyiDc7ucPNcXRlOpliIgAu0lUFQOzm6efXIbN2/efBLB17LBwAnOwrn9LJuO0kRABAqbQNE5OGuOCRMmfIIDO5kz9A9lbG/bd5iW3lbYTafai4AItEagKB2c3TQOrN7+NSDBVxwIO5mWXsRWkNmOTEEREIEiJVC0Ds7aa9SoUZvr6+tPZST3EtFmruczLb27SNtStyUCIuARSP5cEr8m0u2/loSDquJL9k9499BqlHw9yVfHyO2hVpWlIAIiUDQE3F8T6fY3hZM6hkra2a6DfCVMTWP59d92VUTKIiACeSVQ1FPUvJJUYSIgAt2OgBxct2sSVUgERCBXBOTgckVSdkRABLodATm4btckqpAIiECuCCRfMvCm8aZcGc2BnWN5MXBsDuzIhAiIwC5MIOng2Bh7ZXfhwJaVa6mLHFx3aRDVQwQKlICmqAXacKq2CIhA6wTk4FpnJA0REIECJSAHV6ANp2qLgAi0TkAOrnVG0hABEShQAsmXDAVa/12i2pWVleVDhw4d6N4sXz3bZr9i7MoUFgERSCUgB5fKI6exZcuW/VWfPn3O6aDRJ3iz/Y7lHTt2rNl42LOzA8fX+8wzz9zhyRWFQG1t7Rgud3kwtvGLz1+GZ4MnV7RICcjBxdiwOLej2c/Xof2F7Ev8iKolHFzLr6H4NS33BYp/ToAR7v7l5eVHfy5JhnYnJAeXxFHcAa3BFXf76u5EYJcmIAe3Sze/bl4EipuAHFxxt6/uTgR2aQJag+ui5mdd7bNsRZP+SbZ0pYmACLROQA6udUZxaIzgDWltHIaz2Vy1atUgFt73Q+cdfr79/7LpdmVaTU1N/x49ehza0NCwtjtshYmbG/fbi/sdwYfalscff/ytioqK5s7w5w3yYGz12r59+45Fixat66y9ztSlq/MmHVxVVVXfXFZm06ZNzaeddtrWXNqUrfYReOONN/bebbfdvseb3PHkHMe5d2SBh2AD8pU8CMu3bNly67hx49ZFae519erVd6I3xJUR/h8c9I88WUqUfBeQ74wUYUlJ/YoVK84KbW1B/3T0z+WcSJ5DLN/uu+9u2z3eRfY6/yFtzsiRI3/NDzFcQ51TfoiB9Gei/5SGnQri9vb0ILPhH717934Sm5uR13EPf++nWzwX3CK7lDWH8KFR3K7Uf962bdt+SV1mUddvEP8CYvu/ISVnn332Z5zLCF/DPb3o5ssUXrJkSZ+BAwd+lzwnojOW616cO3v16lWKrSbO5ZRxD2U+mmmLDPV8mLz7emXMhtEzniwRhfM3KOPCKI32uZp/8vS7KO5esf1D4se5MsKvYPtfPFnOo0kHN2DAgKxTpvaW3L9//2ryWGfV0QUEcARfo9h5nPuEiqdz2sbhgVxP7tu37/l02Ev5j2MP+rqk7815iivnYZlsDy4d9ANXHoWrq6vtYTVHMziStVyX+c7NHs5Bgwbdgu5MTzcRRX4AgQMYeX6NMm+n7CORpWz/QPYndGZbhrKysslc/IfJkhIHeaP/6bEpkrnXXHFzbJ5KmQc5cQv2YAvRrVz3twjpdkkchHcjYHV8gfudyz8xn8X/+W36c2r6X3TMqd1FPv9DKGEUeU/SJ3CdQJk3oj+DdqtMt1RyGDo+V1MLOjg4X0bapMgO7bOO8O+ieHS19sXu5cT/IpLZlTZb7cbjCpfFZVh2u4aAORce0oco/UnOoHML1GxPOuwD5HuO/Ckdkc55h6+PzB6ai3x5FGfUaJ/uvnOzTp1ii4dtMM7tNXRnRnmzXFErvYQz5SHMot+upFxzy1Y492BOKeHcsujZ/c5kFHtJJh3a63Z0XuT0nVumLHuiu5APszuZtqY8+8jn+5mQTVm5cqU/qitBNgLdpHNryTd1+fLltscw5aB9v4IgpU+ZAn3hkRTFmCIpNxlTGTKbTmA1nbMx22lTgPRsrUv69etnv+sXnHq1nrvky+S/0dVjmvTfxJe5MgvT+WfY2pEvtzjO8p98OR36o/Xr1z/mye0BtW8cdPmRa265uiH4XGtrgL49+sf1yNI4+3qhOO1zMdPWCjeNjdELaSN/pFjes2fPs1w9CyM7z5dRz35Mif0lCVOb7usSX8Vs4fWAPOciObicI22zwT5oZjzpMGmfeq1Ztk9W8gXXxui89ZyVnDdz3sv5x5A98l+I4/2im4ZuysirJW0fFsbTOj8P43hsRNNA18y9kydP3hIJGL19Cb22OPF2/b9e6toQldHKNakXF7dWyk8kU9/PODdm0oVRPxzSFDed9pmC7PuurL1h7P4IJ/k3UT4cjn1zZnEUj67onRuF7cqU05a1vunKojC6KY7PXhaRdmqU7lzzMnqz8uTgHOqFHLQpB5+s93IPvf374AGay3kway9ncV7BeQFrO0OQzUJ3h6dfSvxud3T28ccfL0DXHoCUA9k/pwiIsBYTGlWwBr3DFtsTh9nmYQg5TZu6NHDO5Duj/Rk9lm7cuHFP4tM508qP7LlX7u008pVl+j+4LLQPtHTOxBQxTm5uvUJh7ulmRrUDqHN/whPReT+DnjsFLUXX1u9Cx1aEV/H2dAjTxR4wH4quOUKT+wdNUPpTT5g2TSX9SNrrsEiPlxm2pjgwirtX5MfxwXVwJMMJT0Xmj/Kb7WVHpBP3VQ4ubsJ5sj916tThdKbQyOkeHqCZLZ/QydrYwjXy23AE5yeFnwdG0DlPiKLHHHNMI2FznikH5U1gxDYpEtrbR8LTorhzfYY3bO9GcZygTUuTD00k52p7/46gXnPHjBmTGNVMmjTpU+KP8rB+gYc1OOp08kdBVHcGR37cr8mjsyROblFlMlztLeIV0aiWcDX3mPaBYXnhnGQF76OI21tX/9jELR+J474B1n+wlzm8dX4LuzdidwLKm/wM2BmP8zoqkuNsnyWctv+Skfo5kQ79ImWUFslbruZ8/yGSYX96FI6upL88evTo96J43NcecRcg+/khQCccHSqJDlXOVOSWUFqLzEZsaQedcyTCX0UJPCRzKMPenJVHMrvirOyhfNXCvI29gEtoBJkyWsPJjCSfZfGPH/BArvGFFueh3cDDPZN8Pw+ld1QWN7dM9YLnlX4aDulJpp91yPf10pKL99z/V720RBSm3+dDbEUoDbtvMrK6ijad66djz9bNXjO5OVv0FqH3bVePPmQO7seMCvch/BXS3eSUMGnfQlBBnzuQ8LEpiUTIn7fpqZUtB+e3QH7iFTT029mK4gH4dbZ0Pw17o0MdD9m3Q3I/vx8njzm45GEjMB6+pxF8PSkkQLln4Hi+V1dX9yGf7v/oprWEa3BaS1w5tke48ZbwpwsWLLgrIE+KeFCfpw6rEKTULanQgUDc3EJVosz/5F4SHwp+Omlvw8d3cK7aMDfSEq7Dud0dkCdFtME8nNdPsD0gKSRA/FA3TvmPIEtxcMSH4bCOoH2PR7enq++H0T2QciZjx0b2KZ4Q2WekL/LzxBmXg4uTbmbbC+lwtZmTO5QSHMF1yBKZ6IxpToRRwh108hQHR4e1PW8XsR1gJdn288uzPL4M/TTb6KxmPazZ1/Xj1KsmQ35fta3x2Ln5FaH+wVFqi17aFNHNz/3b3kVXZG31JgKbdmc7dpLPPhz+2lM6yI0vXLjwlWnTpr2HLLFG6aSdSzkn+2U76W7wPPrJeFfQEn6Kfl8fkMcmKovNsgznm0C737q2UsGD/XRGCS+3PEwpSXTmGXR8m776xyYWlOf7QnT7+jLioYXwgFqb9UJ5Q7LYufmFwvBTX+bEtznhtCDs0p5ZZI1pimHBloA45SWAfchQP387j239uZRy0tb+0L3Jt4merb2FPsTyOj21emkE57dOgcbpVDYqsClEyhFySCkKmSN/CiVh7w7Kmuel2ZQqbVrF6O3+DF8Nsrqe7NkITb08lcSUamiasBOCfHFzq0iZ/n4zNzmro4e/jWBt+pc8kA1JRrIE0BtK3hQNZO+mCIjQbvNZm7vSl/tx8laxlHIduhdjN7lO6OtZHN0NfE3vhVBanDI5uDjp5tf28kBx7zMlsDeWrU1fAlnDIr4AP59NsTfQof8yrJGUNrNdIbk1JCklwAP0JiMCV2ThfVnLO4m1qYxrj6ztDONBOdx/SH1D7YznhZtbJ+5huxv3wlnbintf6unbOtoQWyNjhP26nxbFYXscegdGcef6jhNOBO2lBGudxmWsn+bF72NtdjO6tq6WdXM59/yY/zU9z1Ys0bReFkspMpoPAisChexHx/9uQJ4U2Y8ssFUgNJ1I6rgBtpfYQvH9rixD+Hm2AwRfpJDf1ozSDpzeHPvuYlrCnwU29JhL3qyL3BnyZhPnhZtbAR72rE7M1fXDZE37Vgk6ZXCZ17IJ189im3P7wNYfdSf0sPdSWgYENooLySMZ+TYzequ0OOEHI3mmK/byPj21umgEl6lFYpTT2BcyGvljtiLQeYpP0qw6bn46mX3ibqSjp4ys6Ng38QnbyCv+ef4nKPIvku9+8gyhPr8l/w2M+J7lmvUBJM9s8lyKXsYPSOp/J+nBgwdjOdOaj7HR31WwegwePPi3fLPgHJzj6iiNug0m/ADpkyNZrq755JaLOrNBeykj6A9gYUySB/EjYPcbRmrT6TdvRQm08VjucT7pwyNZdEX+wYYNG56O4u4VfVuHu5EzUxtX2ujN8tBnXrb+TJ7QCNEc4Ep0Q47Zssd6yMHFijdsHKdjziHrgY69bWrLSClhh05WT+eeheN4yDNsHXQ2a2HfoRM+R/h9TnvbOZ5zMp0y0YG5Hk38aR6IGjrkZdj7BfHgQdo7Zos8wT1Z5F/DdOlXwcwI7cEg/2UEQ/c3ju80LiW9Gvt/wNYB6E0k3C+Tvc7I88mtM/WM8toImna+gHYO7Qc8kn5T09KG75LnEE77+l55lN+9wvbf2PsWnC7D5QPs2OjuJDdPFCbvfVGYq30gPsx5tSNzg10yerMKJDq3WxOFC5cAn9zWyUId327KOvrlnLe1XKcgC7X/KDqvv0XA8qccjNDStn9ECuSfTTjrKJAH6AH0Xo7yeNfe1NE2iX6L62TOWJxbVGY+uUVlduZKfZ+HXejDwdbjbAo/jutXOe2tZ9C5IX+BLSH/mq0etPH8UDpl1/IBVuWmNTU1+R+sUXIzgUejSL6voQ6e7zqovBwSaGxsnIG59zpqks77MzrvPa3l5yF7EZ3kNDLSJ389D9aDUTzbFV2r64fZdPKVli9uubofflDWZgEdmvbBfQ0vi85tbd8h7fgflNEYqHOac21Zb/2vgO6LNhoMyPMikoPLC+b8FWK/zMsX1O2T+27OrKMor1Zb6fhX0hmv8OSZomY7bZ2Nh+IhbLRpMyeO9Pesx9kakTnLthxvo7utLYrt1ckjt/ZWLahv39HlLfVRJP6Uc0dQKSCEn70YmNiWn4JvaceUNTryb2e0ZjOFtIO00CjukTTFPArk4OKFnViE7UgROIoGJ1+aHTqTrcUEHZh1fr50PQOdkzirObM5hU8o52E25B5Oh76JcNCmU5dkkAfMOvqnSQF5OdKcnpOeFmQkuJ7/Q3AKCVeRN/hJj7yJcy4/rW7bFn6ZZiTwj5zhF2LWxLQrI4s4uHntmKh6SObcU1q9SQvJbC1zG+38Q9rhWPhUobfVseMGbfPuYu79dNrYflGmTR9AZoAPIN9B/ZzRWp1r3Anbz3F9FsUJN9BmNgrssqM0KpkFxTZ37ChPtis3Vw3Iidl0MqVRl2tJq8iU3hG5NS4jhuc6krfQ89j2gb322msIP6c0mnY5jIXoRnhsILyO81V7ULrLPfJyYTB1mUi9RuEI6qjn0rVr19Z0xf/3KCRu1n5WX74yNxJ2tldwf651nGv58FqV6X9udJd2j6seSQdHx5qey0IA/BGfLos7YpO6jCGfnTk7+CRZsqs2cs4gypAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIiIAIdILA/wPQpDngmnJMpwAAAABJRU5ErkJggg==&quot; alt=&quot;ElevateNow&quot;>
     </div>
 
-    <!-- Website -->
-    <div class=&quot;website&quot;>elevatenow.tech</div>
-
-    <!-- Main content -->
-    <div class=&quot;content&quot;>
-        <div class=&quot;brand-name&quot;>
-            <span class=&quot;en&quot;>en</span><span class=&quot;code&quot;>Code</span><span class=&quot;tm&quot;>™</span>
-        </div>
+    <div class=&quot;center-content&quot; style=&quot;position:absolute;top:50%;left:64px;transform:translateY(-50%);z-index:2;&quot;>
+        <div class=&quot;product-name&quot;>en<span>CODE</span></div>
         <div class=&quot;tagline&quot;>Governed Insurance Intelligence Platform</div>
     </div>
 
+    <div class=&quot;bottom-bar&quot;>
+        <div class=&quot;bottom-left&quot;>elevatenow.tech</div>
+        <div class=&quot;bottom-right&quot;>Confidential</div>
+    </div>
 </div>
 </body>
-</html>
-" scrolling="no" frameborder="0"></iframe>
+</html>" scrolling="no" frameborder="0"></iframe>
     </div>
     <div class="cell">
       <iframe srcdoc="<!DOCTYPE html>
@@ -218,7 +213,7 @@
       <div class=&quot;agenda-divider&quot;></div>
       <div class=&quot;agenda-body&quot;>
         <span class=&quot;agenda-title&quot;>Use Case Demo.</span>
-        <span class=&quot;agenda-sub&quot;>Live demonstration. Binding Authority.</span>
+        <span class=&quot;agenda-sub&quot;>Live demonstration. Claims. Binding Authority. Submission.</span>
       </div>
     </div>
     <div class=&quot;agenda-item&quot;>
@@ -227,6 +222,14 @@
       <div class=&quot;agenda-body&quot;>
         <span class=&quot;agenda-title&quot;>How We Can Help.</span>
         <span class=&quot;agenda-sub&quot;>Flexible engagement. Your pace. Your ownership.</span>
+      </div>
+    </div>
+    <div class=&quot;agenda-item&quot;>
+      <span class=&quot;agenda-num&quot;>06</span>
+      <div class=&quot;agenda-divider&quot;></div>
+      <div class=&quot;agenda-body&quot;>
+        <span class=&quot;agenda-title&quot;>About Us.</span>
+        <span class=&quot;agenda-sub&quot;>Team. Products. How we engage.</span>
       </div>
     </div>
   </div>
@@ -1071,6 +1074,283 @@
     </div>
     <div class="cell">
       <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<title>enCODE — Claim FNOL Intelligence</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+  .slide-container {
+    width: 1280px; height: 720px;
+    background: #1C1C46;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+  }
+  .slide-container::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 6px;
+    background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%);
+    z-index: 10;
+  }
+  .geo { position: absolute; border-radius: 6px; }
+  .geo-1 { width: 420px; height: 420px; background: rgba(33,69,234,0.12); right: -60px; top: -80px; transform: rotate(15deg); }
+  .geo-2 { width: 220px; height: 220px; background: rgba(87,203,255,0.06); right: 120px; bottom: 80px; transform: rotate(30deg); }
+  .geo-3 { width: 100px; height: 100px; background: rgba(33,69,234,0.15); right: 380px; top: 180px; transform: rotate(45deg); }
+  .content {
+    flex: 1; display: flex; flex-direction: column;
+    justify-content: center; padding: 60px 80px;
+    position: relative; z-index: 2;
+  }
+  .eyebrow { font-size: 11px; font-weight: 800; color: #57CBFF; letter-spacing: 0.22em; margin-bottom: 24px; }
+  .headline { font-size: 62px; font-weight: 800; color: #FFFFFF; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 20px; }
+  .headline .accent { color: #57CBFF; }
+  .subline { font-size: 20px; font-weight: 400; color: rgba(255,255,255,0.55); line-height: 1.5; max-width: 600px; margin-bottom: 48px; }
+  .pillars { display: flex; gap: 16px; }
+  .pillar {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 14px 20px; min-width: 280px;
+  }
+  .pillar.active { background: rgba(33,69,234,0.25); border-color: #2145EA; }
+  .pillar-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .pillar.active .pillar-icon { background: rgba(33,69,234,0.4); }
+  .pillar-icon i { font-size: 15px; color: rgba(255,255,255,0.5); }
+  .pillar.active .pillar-icon i { color: #57CBFF; }
+  .pillar-text { display: flex; flex-direction: column; gap: 2px; }
+  .pillar-name { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); }
+  .pillar.active .pillar-name { color: #FFFFFF; }
+  .pillar-sub { font-size: 11px; color: rgba(255,255,255,0.35); }
+  .pillar.active .pillar-sub { color: rgba(255,255,255,0.6); }
+  .pillar-badge { margin-left: auto; font-size: 9px; font-weight: 800; color: #57CBFF; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(87,203,255,0.12); padding: 3px 8px; border-radius: 4px; }
+  .slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.25); padding: 10px 80px 14px; border-top: 1px solid rgba(255,255,255,0.08); position: relative; z-index: 2; }
+  .tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class=&quot;slide-container&quot;>
+  <div class=&quot;geo geo-1&quot;></div>
+  <div class=&quot;geo geo-2&quot;></div>
+  <div class=&quot;geo geo-3&quot;></div>
+  <div class=&quot;content&quot;>
+    <div class=&quot;eyebrow&quot;><span style=&quot;font-size:0.75em;letter-spacing:0.22em;&quot;>en</span>CODE IN PRACTICE</div>
+    <h1 class=&quot;headline&quot;>Claim FNOL<br><span class=&quot;accent&quot;>Intelligence.</span></h1>
+    <p class=&quot;subline&quot;>The moment a claim arrives is the highest-stakes, least-governed moment in the claims lifecycle. enCode changes that.</p>
+    <div class=&quot;pillars&quot;>
+      <div class=&quot;pillar&quot; onclick=&quot;window.parent.goTo(5)&quot; title=&quot;Go to Binding Authority&quot;>
+        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-file-contract&quot;></i></div>
+        <div class=&quot;pillar-text&quot;>
+          <span class=&quot;pillar-name&quot;>Submission &amp; Underwriting</span>
+          <span class=&quot;pillar-sub&quot;>Binding Authority · Risk Evaluation</span>
+        </div>
+      </div>
+      <a href=&quot;https://workspace-beta.elevatenow.tech/&quot; target=&quot;_blank&quot; style=&quot;text-decoration:none;&quot;>
+      <div class=&quot;pillar active&quot; title=&quot;Launch Claims FNOL Demo&quot;>
+        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-shield-halved&quot;></i></div>
+        <div class=&quot;pillar-text&quot;>
+          <span class=&quot;pillar-name&quot;>Claims Intelligence</span>
+          <span class=&quot;pillar-sub&quot;>FNOL Processing · Authority &amp; Reserves</span>
+        </div>
+        <span class=&quot;pillar-badge&quot;>&#9654; Demo</span>
+      </div>
+      </a>
+      <div class=&quot;pillar&quot;>
+        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-scale-balanced&quot;></i></div>
+        <div class=&quot;pillar-text&quot;>
+          <span class=&quot;pillar-name&quot;>Governance &amp; Strategic Ops</span>
+          <span class=&quot;pillar-sub&quot;>Audit &amp; Compliance · Renewal Intelligence</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=&quot;slide-footer&quot;>
+    <span>ELEVATENOW · enCODE<span class=&quot;tm&quot;>™</span></span>
+    <span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:rgba(255,255,255,0.25)&quot;>Governed Insurance Intelligence Platform</span>
+    <span>CONFIDENTIAL</span>
+  </div>
+</div>
+</body>
+</html>
+" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<title>enCODE — FNOL Use Case</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+  .slide-container {
+    width: 1280px; height: 720px; background: #FFFFFF; color: #1C1C46;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden; padding: 46px 80px 0px 80px;
+  }
+  .slide-container::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
+    background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10;
+  }
+  .header-section { margin-bottom: 22px; }
+  .slide-eyebrow { font-size: 11px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 7px; }
+  .provocation-title { font-size: 30px; font-weight: 800; line-height: 1.2; color: #1C1C46; letter-spacing: -0.5px; max-width: 860px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; flex-grow: 1; margin-bottom: 20px; }
+
+  .col-label { font-size: 10px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+  /* LEFT — breakdown */
+  .breakdown-list { display: flex; flex-direction: column; gap: 10px; }
+  .breakdown-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 14px 16px; border: 1px solid #E2E8F0; border-radius: 8px; background: #FFFFFF;
+  }
+  .breakdown-num {
+    width: 26px; height: 26px; border-radius: 6px; background: #1C1C46;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: #57CBFF; flex-shrink: 0;
+  }
+  .breakdown-text { font-size: 13px; font-weight: 600; color: #1C1C46; line-height: 1.45; padding-top: 2px; }
+  .breakdown-text span { font-weight: 400; color: #64748B; display: block; margin-top: 2px; font-size: 12px; }
+
+  /* RIGHT — governed response */
+  .right-col {
+    background: #2145EA; border-radius: 10px;
+    padding: 22px 24px; display: flex; flex-direction: column; gap: 12px;
+  }
+  .right-col .col-label { color: rgba(255,255,255,0.85); margin-bottom: 6px; }
+  .right-col .col-label i { color: #57CBFF; }
+
+  .response-list { display: flex; flex-direction: column; gap: 10px; }
+  .response-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 14px; background: #FFFFFF; border-radius: 8px;
+  }
+  .response-item i { font-size: 13px; color: #2145EA; margin-top: 2px; flex-shrink: 0; }
+  .response-text { font-size: 13px; font-weight: 600; color: #1C1C46; line-height: 1.45; }
+  .response-text span { font-weight: 400; color: #64748B; display: block; margin-top: 2px; font-size: 12px; }
+
+  /* Closing band */
+  .closing-band {
+    background: #1C1C46; padding: 14px 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 48px; flex-shrink: 0; margin-bottom: 10px;
+  }
+  .closing-text { font-size: 14px; font-weight: 700; color: #FFFFFF; text-align: center; }
+  .closing-text em { font-style: normal; color: #57CBFF; }
+
+  .slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94A3B8; padding: 8px 0 14px; border-top: 1px solid #E2E8F0; flex-shrink: 0; }
+  .tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class=&quot;slide-container&quot;>
+  <div class=&quot;header-section&quot;>
+    <div class=&quot;slide-eyebrow&quot;>Claim FNOL Intelligence · The Use Case</div>
+    <h2 class=&quot;provocation-title&quot;>A claim arrives complete. The architecture to govern what happens next rarely exists.</h2>
+  </div>
+
+  <div class=&quot;two-col&quot;>
+    <!-- LEFT: The breakdown -->
+    <div>
+      <div class=&quot;col-label&quot;><i class=&quot;fa-solid fa-triangle-exclamation&quot;></i> Where the Architecture Breaks Down</div>
+      <div class=&quot;breakdown-list&quot;>
+        <div class=&quot;breakdown-item&quot;>
+          <div class=&quot;breakdown-num&quot;>01</div>
+          <div class=&quot;breakdown-text&quot;>FNOL document arrives. Ingested. Not interpreted.
+            <span>System of record stores the claim. No governed layer extracts meaning from it.</span>
+          </div>
+        </div>
+        <div class=&quot;breakdown-item&quot;>
+          <div class=&quot;breakdown-num&quot;>02</div>
+          <div class=&quot;breakdown-text&quot;>Adjuster reviews manually. Generic logic. No rule enforcement.
+            <span>Compensability, indicators, jurisdiction — assessed inconsistently across every claim.</span>
+          </div>
+        </div>
+        <div class=&quot;breakdown-item&quot;>
+          <div class=&quot;breakdown-num&quot;>03</div>
+          <div class=&quot;breakdown-text&quot;>Reserves estimated. Authority applied. No traceable rationale.
+            <span>Every decision a judgment call. Nothing tied to a specific carrier rule version.</span>
+          </div>
+        </div>
+        <div class=&quot;breakdown-item&quot;>
+          <div class=&quot;breakdown-num&quot;>04</div>
+          <div class=&quot;breakdown-text&quot;>Examiner asks for the audit trail. It does not exist.
+            <span>The governance artifacts regulators require were never built into the decision architecture.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: What governed FNOL looks like -->
+    <div class=&quot;right-col&quot;>
+      <div class=&quot;col-label&quot;><i class=&quot;fa-solid fa-circle-check&quot;></i> What Governed FNOL Looks Like</div>
+      <div class=&quot;response-list&quot;>
+        <div class=&quot;response-item&quot;>
+          <i class=&quot;fa-solid fa-bolt&quot;></i>
+          <div class=&quot;response-text&quot;>Document parsed, structured, jurisdiction confirmed automatically.
+            <span>WC, Auto, Property, GL — 50 states. Carrier rules applied, not generic logic.</span>
+          </div>
+        </div>
+        <div class=&quot;response-item&quot;>
+          <i class=&quot;fa-solid fa-shield-halved&quot;></i>
+          <div class=&quot;response-text&quot;>Compensability scored. Indicators ranked. Reserve estimated. Authority gate applied.
+            <span>Deterministic execution in sequence. Code enforces rules. AI reads documents. Roles never cross.</span>
+          </div>
+        </div>
+        <div class=&quot;response-item&quot;>
+          <i class=&quot;fa-solid fa-magnifying-glass&quot;></i>
+          <div class=&quot;response-text&quot;>Every finding traced to a source. Every decision auditable.
+            <span>Not a confidence score. A rule citation. Versioned to the rule active at decision time.</span>
+          </div>
+        </div>
+        <div class=&quot;response-item&quot;>
+          <i class=&quot;fa-solid fa-layer-group&quot;></i>
+          <div class=&quot;response-text&quot;>Adjuster receives a complete, defensible picture. From day one.
+            <span>Your institutional knowledge encoded once. Applied consistently to every claim that follows.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class=&quot;closing-band&quot; style=&quot;display:flex;align-items:center;justify-content:space-between;&quot;>
+    <div style=&quot;display:flex;flex-direction:column;gap:2px;&quot;>
+      <span style=&quot;font-size:10px;font-weight:800;color:#57CBFF;letter-spacing:0.18em;text-transform:uppercase;&quot;>The Outcome</span>
+      <span class=&quot;closing-text&quot;>Your best adjuster's judgment. Applied to every claim <em>consistently.</em> Before anyone opens a document.</span>
+    </div>
+    <a href=&quot;https://workspace-beta.elevatenow.tech/&quot; target=&quot;_blank&quot; style=&quot;text-decoration:none;&quot;>
+    <div style=&quot;display:flex;align-items:center;gap:12px;background:rgba(87,203,255,0.12);border:1px solid rgba(87,203,255,0.3);border-radius:8px;padding:10px 20px;cursor:pointer;&quot; title=&quot;Launch FNOL Demo&quot;>
+      <i class=&quot;fa-solid fa-circle-play&quot; style=&quot;color:#57CBFF;font-size:18px;&quot;></i>
+      <div style=&quot;display:flex;flex-direction:column;gap:1px;&quot;>
+        <span style=&quot;font-size:13px;font-weight:700;color:#FFFFFF;&quot;>enCode Claim FNOL Intelligence</span>
+        <span style=&quot;font-size:11px;color:#94A3B8;&quot;>Adjust360 · Governed triage · Full audit trail</span>
+      </div>
+    </div>
+    </a>
+  </div>
+
+  <div class=&quot;slide-footer&quot;>
+    <span>ELEVATENOW · enCODE<span class=&quot;tm&quot;>™</span></span>
+    <span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>Governed Insurance Intelligence Platform</span>
+    <span>CONFIDENTIAL</span>
+  </div>
+</div>
+</body>
+</html>
+" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html>
 
 <html lang=&quot;en&quot;>
 <head>
@@ -1437,7 +1717,6 @@
 </html>
 " scrolling="no" frameborder="0"></iframe>
     </div>
-
     <div class="cell">
       <iframe srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
@@ -1595,286 +1874,6 @@
 </html>
 " scrolling="no" frameborder="0"></iframe>
     </div>
-
-    <div class="cell">
-      <iframe srcdoc="<!DOCTYPE html>
-<html lang=&quot;en&quot;>
-<head>
-<meta charset=&quot;UTF-8&quot;>
-<title>enCODE — Claim FNOL Intelligence</title>
-<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
-<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
-<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
-<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
-  .slide-container {
-    width: 1280px; height: 720px;
-    background: #1C1C46;
-    position: relative; overflow: hidden;
-    display: flex; flex-direction: column;
-    justify-content: space-between;
-  }
-  .slide-container::before {
-    content: ''; position: absolute; top: 0; left: 0;
-    width: 100%; height: 6px;
-    background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%);
-    z-index: 10;
-  }
-  .geo { position: absolute; border-radius: 6px; }
-  .geo-1 { width: 420px; height: 420px; background: rgba(33,69,234,0.12); right: -60px; top: -80px; transform: rotate(15deg); }
-  .geo-2 { width: 220px; height: 220px; background: rgba(87,203,255,0.06); right: 120px; bottom: 80px; transform: rotate(30deg); }
-  .geo-3 { width: 100px; height: 100px; background: rgba(33,69,234,0.15); right: 380px; top: 180px; transform: rotate(45deg); }
-  .content {
-    flex: 1; display: flex; flex-direction: column;
-    justify-content: center; padding: 60px 80px;
-    position: relative; z-index: 2;
-  }
-  .eyebrow { font-size: 11px; font-weight: 800; color: #57CBFF; letter-spacing: 0.22em; margin-bottom: 24px; }
-  .headline { font-size: 62px; font-weight: 800; color: #FFFFFF; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 20px; }
-  .headline .accent { color: #57CBFF; }
-  .subline { font-size: 20px; font-weight: 400; color: rgba(255,255,255,0.55); line-height: 1.5; max-width: 600px; margin-bottom: 48px; }
-  .pillars { display: flex; gap: 16px; }
-  .pillar {
-    display: flex; align-items: center; gap: 12px;
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px; padding: 14px 20px; min-width: 280px;
-  }
-  .pillar.active { background: rgba(33,69,234,0.25); border-color: #2145EA; }
-  .pillar-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .pillar.active .pillar-icon { background: rgba(33,69,234,0.4); }
-  .pillar-icon i { font-size: 15px; color: rgba(255,255,255,0.5); }
-  .pillar.active .pillar-icon i { color: #57CBFF; }
-  .pillar-text { display: flex; flex-direction: column; gap: 2px; }
-  .pillar-name { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); }
-  .pillar.active .pillar-name { color: #FFFFFF; }
-  .pillar-sub { font-size: 11px; color: rgba(255,255,255,0.35); }
-  .pillar.active .pillar-sub { color: rgba(255,255,255,0.6); }
-  .pillar-badge { margin-left: auto; font-size: 9px; font-weight: 800; color: #57CBFF; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(87,203,255,0.12); padding: 3px 8px; border-radius: 4px; }
-  .slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.25); padding: 10px 80px 14px; border-top: 1px solid rgba(255,255,255,0.08); position: relative; z-index: 2; }
-  .tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
-</style>
-</head>
-<body>
-<div class=&quot;slide-container&quot;>
-  <div class=&quot;geo geo-1&quot;></div>
-  <div class=&quot;geo geo-2&quot;></div>
-  <div class=&quot;geo geo-3&quot;></div>
-  <div class=&quot;content&quot;>
-    <div class=&quot;eyebrow&quot;><span style=&quot;font-size:0.75em;letter-spacing:0.22em;&quot;>en</span>CODE IN PRACTICE</div>
-    <h1 class=&quot;headline&quot;>Claim FNOL<br><span class=&quot;accent&quot;>Intelligence.</span></h1>
-    <p class=&quot;subline&quot;>The moment a claim arrives is the highest-stakes, least-governed moment in the claims lifecycle. enCode changes that.</p>
-    <div class=&quot;pillars&quot;>
-      <div class=&quot;pillar&quot; onclick=&quot;window.parent.goTo(5)&quot; title=&quot;Go to Binding Authority&quot;>
-        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-file-contract&quot;></i></div>
-        <div class=&quot;pillar-text&quot;>
-          <span class=&quot;pillar-name&quot;>Submission &amp; Underwriting</span>
-          <span class=&quot;pillar-sub&quot;>Binding Authority · Risk Evaluation</span>
-        </div>
-      </div>
-      <a href=&quot;https://workspace-beta.elevatenow.tech/&quot; target=&quot;_blank&quot; style=&quot;text-decoration:none;&quot;>
-      <div class=&quot;pillar active&quot; title=&quot;Launch Claims FNOL Demo&quot;>
-        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-shield-halved&quot;></i></div>
-        <div class=&quot;pillar-text&quot;>
-          <span class=&quot;pillar-name&quot;>Claims Intelligence</span>
-          <span class=&quot;pillar-sub&quot;>FNOL Processing · Authority &amp; Reserves</span>
-        </div>
-        <span class=&quot;pillar-badge&quot;>&#9654; Demo</span>
-      </div>
-      </a>
-      <div class=&quot;pillar&quot;>
-        <div class=&quot;pillar-icon&quot;><i class=&quot;fa-solid fa-scale-balanced&quot;></i></div>
-        <div class=&quot;pillar-text&quot;>
-          <span class=&quot;pillar-name&quot;>Governance &amp; Strategic Ops</span>
-          <span class=&quot;pillar-sub&quot;>Audit &amp; Compliance · Renewal Intelligence</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class=&quot;slide-footer&quot;>
-    <span>ELEVATENOW · enCODE<span class=&quot;tm&quot;>™</span></span>
-    <span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:rgba(255,255,255,0.25)&quot;>Governed Insurance Intelligence Platform</span>
-    <span>CONFIDENTIAL</span>
-  </div>
-</div>
-</body>
-</html>
-" scrolling="no" frameborder="0"></iframe>
-    </div>
-
-    <div class="cell">
-      <iframe srcdoc="<!DOCTYPE html>
-<html lang=&quot;en&quot;>
-<head>
-<meta charset=&quot;UTF-8&quot;>
-<title>enCODE — FNOL Use Case</title>
-<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
-<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
-<link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
-<link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
-  .slide-container {
-    width: 1280px; height: 720px; background: #FFFFFF; color: #1C1C46;
-    display: flex; flex-direction: column; justify-content: space-between;
-    position: relative; overflow: hidden; padding: 46px 80px 0px 80px;
-  }
-  .slide-container::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
-    background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10;
-  }
-  .header-section { margin-bottom: 22px; }
-  .slide-eyebrow { font-size: 11px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 7px; }
-  .provocation-title { font-size: 30px; font-weight: 800; line-height: 1.2; color: #1C1C46; letter-spacing: -0.5px; max-width: 860px; }
-
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; flex-grow: 1; margin-bottom: 20px; }
-
-  .col-label { font-size: 10px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-
-  /* LEFT — breakdown */
-  .breakdown-list { display: flex; flex-direction: column; gap: 10px; }
-  .breakdown-item {
-    display: flex; gap: 14px; align-items: flex-start;
-    padding: 14px 16px; border: 1px solid #E2E8F0; border-radius: 8px; background: #FFFFFF;
-  }
-  .breakdown-num {
-    width: 26px; height: 26px; border-radius: 6px; background: #1C1C46;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 800; color: #57CBFF; flex-shrink: 0;
-  }
-  .breakdown-text { font-size: 13px; font-weight: 600; color: #1C1C46; line-height: 1.45; padding-top: 2px; }
-  .breakdown-text span { font-weight: 400; color: #64748B; display: block; margin-top: 2px; font-size: 12px; }
-
-  /* RIGHT — governed response */
-  .right-col {
-    background: #2145EA; border-radius: 10px;
-    padding: 22px 24px; display: flex; flex-direction: column; gap: 12px;
-  }
-  .right-col .col-label { color: rgba(255,255,255,0.85); margin-bottom: 6px; }
-  .right-col .col-label i { color: #57CBFF; }
-
-  .response-list { display: flex; flex-direction: column; gap: 10px; }
-  .response-item {
-    display: flex; gap: 12px; align-items: flex-start;
-    padding: 12px 14px; background: #FFFFFF; border-radius: 8px;
-  }
-  .response-item i { font-size: 13px; color: #2145EA; margin-top: 2px; flex-shrink: 0; }
-  .response-text { font-size: 13px; font-weight: 600; color: #1C1C46; line-height: 1.45; }
-  .response-text span { font-weight: 400; color: #64748B; display: block; margin-top: 2px; font-size: 12px; }
-
-  /* Closing band */
-  .closing-band {
-    background: #1C1C46; padding: 14px 28px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    min-height: 48px; flex-shrink: 0; margin-bottom: 10px;
-  }
-  .closing-text { font-size: 14px; font-weight: 700; color: #FFFFFF; text-align: center; }
-  .closing-text em { font-style: normal; color: #57CBFF; }
-
-  .slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94A3B8; padding: 8px 0 14px; border-top: 1px solid #E2E8F0; flex-shrink: 0; }
-  .tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
-</style>
-</head>
-<body>
-<div class=&quot;slide-container&quot;>
-  <div class=&quot;header-section&quot;>
-    <div class=&quot;slide-eyebrow&quot;>Claim FNOL Intelligence · The Use Case</div>
-    <h2 class=&quot;provocation-title&quot;>A claim arrives complete. The architecture to govern what happens next rarely exists.</h2>
-  </div>
-
-  <div class=&quot;two-col&quot;>
-    <!-- LEFT: The breakdown -->
-    <div>
-      <div class=&quot;col-label&quot;><i class=&quot;fa-solid fa-triangle-exclamation&quot;></i> Where the Architecture Breaks Down</div>
-      <div class=&quot;breakdown-list&quot;>
-        <div class=&quot;breakdown-item&quot;>
-          <div class=&quot;breakdown-num&quot;>01</div>
-          <div class=&quot;breakdown-text&quot;>FNOL document arrives. Ingested. Not interpreted.
-            <span>System of record stores the claim. No governed layer extracts meaning from it.</span>
-          </div>
-        </div>
-        <div class=&quot;breakdown-item&quot;>
-          <div class=&quot;breakdown-num&quot;>02</div>
-          <div class=&quot;breakdown-text&quot;>Adjuster reviews manually. Generic logic. No rule enforcement.
-            <span>Compensability, indicators, jurisdiction — assessed inconsistently across every claim.</span>
-          </div>
-        </div>
-        <div class=&quot;breakdown-item&quot;>
-          <div class=&quot;breakdown-num&quot;>03</div>
-          <div class=&quot;breakdown-text&quot;>Reserves estimated. Authority applied. No traceable rationale.
-            <span>Every decision a judgment call. Nothing tied to a specific carrier rule version.</span>
-          </div>
-        </div>
-        <div class=&quot;breakdown-item&quot;>
-          <div class=&quot;breakdown-num&quot;>04</div>
-          <div class=&quot;breakdown-text&quot;>Examiner asks for the audit trail. It does not exist.
-            <span>The governance artifacts regulators require were never built into the decision architecture.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- RIGHT: What governed FNOL looks like -->
-    <div class=&quot;right-col&quot;>
-      <div class=&quot;col-label&quot;><i class=&quot;fa-solid fa-circle-check&quot;></i> What Governed FNOL Looks Like</div>
-      <div class=&quot;response-list&quot;>
-        <div class=&quot;response-item&quot;>
-          <i class=&quot;fa-solid fa-bolt&quot;></i>
-          <div class=&quot;response-text&quot;>Document parsed, structured, jurisdiction confirmed automatically.
-            <span>WC, Auto, Property, GL — 50 states. Carrier rules applied, not generic logic.</span>
-          </div>
-        </div>
-        <div class=&quot;response-item&quot;>
-          <i class=&quot;fa-solid fa-shield-halved&quot;></i>
-          <div class=&quot;response-text&quot;>Compensability scored. Indicators ranked. Reserve estimated. Authority gate applied.
-            <span>Deterministic execution in sequence. Code enforces rules. AI reads documents. Roles never cross.</span>
-          </div>
-        </div>
-        <div class=&quot;response-item&quot;>
-          <i class=&quot;fa-solid fa-magnifying-glass&quot;></i>
-          <div class=&quot;response-text&quot;>Every finding traced to a source. Every decision auditable.
-            <span>Not a confidence score. A rule citation. Versioned to the rule active at decision time.</span>
-          </div>
-        </div>
-        <div class=&quot;response-item&quot;>
-          <i class=&quot;fa-solid fa-layer-group&quot;></i>
-          <div class=&quot;response-text&quot;>Adjuster receives a complete, defensible picture. From day one.
-            <span>Your institutional knowledge encoded once. Applied consistently to every claim that follows.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class=&quot;closing-band&quot; style=&quot;display:flex;align-items:center;justify-content:space-between;&quot;>
-    <div style=&quot;display:flex;flex-direction:column;gap:2px;&quot;>
-      <span style=&quot;font-size:10px;font-weight:800;color:#57CBFF;letter-spacing:0.18em;text-transform:uppercase;&quot;>The Outcome</span>
-      <span class=&quot;closing-text&quot;>Your best adjuster's judgment. Applied to every claim <em>consistently.</em> Before anyone opens a document.</span>
-    </div>
-    <a href=&quot;https://workspace-beta.elevatenow.tech/&quot; target=&quot;_blank&quot; style=&quot;text-decoration:none;&quot;>
-    <div style=&quot;display:flex;align-items:center;gap:12px;background:rgba(87,203,255,0.12);border:1px solid rgba(87,203,255,0.3);border-radius:8px;padding:10px 20px;cursor:pointer;&quot; title=&quot;Launch FNOL Demo&quot;>
-      <i class=&quot;fa-solid fa-circle-play&quot; style=&quot;color:#57CBFF;font-size:18px;&quot;></i>
-      <div style=&quot;display:flex;flex-direction:column;gap:1px;&quot;>
-        <span style=&quot;font-size:13px;font-weight:700;color:#FFFFFF;&quot;>enCode Claim FNOL Intelligence</span>
-        <span style=&quot;font-size:11px;color:#94A3B8;&quot;>Adjust360 · Governed triage · Full audit trail</span>
-      </div>
-    </div>
-    </a>
-  </div>
-
-  <div class=&quot;slide-footer&quot;>
-    <span>ELEVATENOW · enCODE<span class=&quot;tm&quot;>™</span></span>
-    <span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>Governed Insurance Intelligence Platform</span>
-    <span>CONFIDENTIAL</span>
-  </div>
-</div>
-</body>
-</html>
-" scrolling="no" frameborder="0"></iframe>
-    </div>
-
     <div class="cell">
       <iframe srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
@@ -1912,7 +1911,7 @@
   .zone-left { display: flex; flex-direction: column; }
   .zone-left .zone-label { color: #64748B; }
   .zone-left-inner { border: 1px solid #E2E8F0; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
-  .system-item { padding: 9px 12px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; font-size: 12px; font-weight: 600; color: #475569; text-align: center; }
+  .system-item { padding: 9px 12px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; font-size: 12px; font-weight: 600; color: #475569; text-align: center; flex: 1; display: flex; align-items: center; justify-content: center; }
   .system-note { font-size: 10px; color: #94A3B8; text-align: center; margin-top: 4px; font-style: italic; }
 
   /* CENTER zone — enCode */
@@ -1926,9 +1925,10 @@
   .encode-name { font-size: 18px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.3px; }
   .encode-sub { font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
   .encode-cap {
-    display: flex; gap: 10px; align-items: flex-start;
+    display: flex; gap: 10px; align-items: center;
     padding: 10px 12px; background: rgba(255,255,255,0.10);
     border: 1px solid rgba(255,255,255,0.18); border-radius: 7px;
+    flex: 1;
   }
   .encode-cap i { font-size: 12px; color: #57CBFF; flex-shrink: 0; margin-top: 2px; }
   .encode-cap-text { font-size: 12px; font-weight: 600; color: #FFFFFF; line-height: 1.4; }
@@ -1938,7 +1938,7 @@
   .zone-right { display: flex; flex-direction: column; }
   .zone-right .zone-label { color: #059669; }
   .zone-right-inner { border: 1px solid #D1FAE5; border-radius: 10px; padding: 16px; background: #F0FDF4; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
-  .own-item { padding: 9px 12px; background: #FFFFFF; border: 1px solid #D1FAE5; border-radius: 6px; display: flex; gap: 8px; align-items: flex-start; }
+  .own-item { padding: 9px 12px; background: #FFFFFF; border: 1px solid #D1FAE5; border-radius: 6px; display: flex; gap: 8px; align-items: center; flex: 1; }
   .own-item i { font-size: 11px; color: #059669; flex-shrink: 0; margin-top: 2px; }
   .own-item-text { font-size: 12px; font-weight: 600; color: #1C1C46; line-height: 1.4; }
   .own-item-text span { font-weight: 400; color: #64748B; font-size: 11px; display: block; margin-top: 1px; }
@@ -1968,7 +1968,7 @@
 <body>
 <div class=&quot;slide-container&quot;>
   <div class=&quot;header-section&quot;>
-    <div class=&quot;slide-eyebrow&quot;>Where enCode Fits · Claims Intelligence</div>
+    <div class=&quot;slide-eyebrow&quot;>Where enCode Fits</div>
     <h2 class=&quot;provocation-title&quot;>Your systems stay exactly as they are. Your team builds on a governed foundation they do not have to construct from scratch.</h2>
   </div>
 
@@ -1978,10 +1978,10 @@
     <div class=&quot;zone-left&quot; style=&quot;flex:1&quot;>
       <div class=&quot;zone-label&quot;>Your Existing World</div>
       <div class=&quot;zone-left-inner&quot;>
-        <div class=&quot;system-item&quot;>Claims System of Record</div>
-        <div class=&quot;system-item&quot;>FNOL Intake</div>
+        <div class=&quot;system-item&quot;>Policy Admin System</div>
+        <div class=&quot;system-item&quot;>Submission &amp; FNOL Intake</div>
         <div class=&quot;system-item&quot;>Document Repository</div>
-        <div class=&quot;system-item&quot;>Adjuster Workforce</div>
+        <div class=&quot;system-item&quot;>Underwriting &amp; Claims Teams</div>
         <div class=&quot;system-item&quot;>Data &amp; Reporting Layer</div>
         <div class=&quot;system-note&quot;>Nothing changes. Nothing moves.</div>
       </div>
@@ -1990,12 +1990,12 @@
     <div class=&quot;arrow-col&quot;><i class=&quot;fa-solid fa-arrow-right&quot;></i></div>
 
     <!-- CENTER: enCode -->
-    <div class=&quot;zone-center&quot; style=&quot;flex:1.3&quot;>
+    <div class=&quot;zone-center&quot; style=&quot;flex:1.2&quot;>
       <div class=&quot;zone-label&quot;>enCode Governed Intelligence Layer</div>
       <div class=&quot;zone-center-inner&quot;>
         <div class=&quot;encode-header&quot;>
-          <div class=&quot;encode-name&quot;>Adjust360</div>
-          <div class=&quot;encode-sub&quot;>Claims Intelligence Workbench</div>
+          <div class=&quot;encode-name&quot;>enCODE</div>
+          <div class=&quot;encode-sub&quot;>Governed Insurance Intelligence</div>
         </div>
         <div class=&quot;encode-cap&quot;>
           <i class=&quot;fa-solid fa-file-lines&quot;></i>
@@ -2032,8 +2032,8 @@
       <div class=&quot;zone-right-inner&quot;>
         <div class=&quot;own-item&quot;>
           <i class=&quot;fa-solid fa-screwdriver-wrench&quot;></i>
-          <div class=&quot;own-item-text&quot;>Adjuster workbench configured to your workflow
-            <span>Your rules. Your process. Your surface.</span>
+          <div class=&quot;own-item-text&quot;>Governed Insurance Workflows
+            <span>Underwriting and Claims. Configured to your process.</span>
           </div>
         </div>
         <div class=&quot;own-item&quot;>
@@ -2078,7 +2078,6 @@
 </html>
 " scrolling="no" frameborder="0"></iframe>
     </div>
-
     <div class="cell">
       <iframe srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
@@ -2356,14 +2355,443 @@
 </html>
 " scrolling="no" frameborder="0"></iframe>
     </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+    <meta charset=&quot;UTF-8&quot;>
+    <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+    <title>enCODE - About Us</title>
+    <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+    <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+    <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #FFFFFF;
+            display: grid; min-height: 100vh; place-items: center;
+            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', sans-serif;
+        }
+        .slide-container {
+            width: 1280px; height: 720px;
+            background: #FFFFFF; color: #1C1C46;
+            display: flex; flex-direction: column;
+            position: relative; overflow: hidden;
+        }
+        .slide-container::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%);
+            z-index: 10;
+        }
+        .slide-body {
+            flex: 1; min-height: 0;
+            padding: 30px 56px 14px 56px;
+            display: flex; flex-direction: column;
+        }
+        .header-section { margin-bottom: 18px; flex-shrink: 0; }
+        .slide-eyebrow {
+            font-size: 11px; font-weight: 800; color: #2145EA;
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 7px;
+        }
+        .slide-title {
+            font-size: 30px; font-weight: 800;
+            line-height: 1.15; color: #1C1C46; letter-spacing: -0.5px;
+        }
+        .two-col {
+            display: grid; grid-template-columns: 1.1fr 0.9fr;
+            gap: 28px; flex: 1; min-height: 0;
+        }
+        .left-col { display: flex; flex-direction: column; gap: 10px; }
+        .info-box {
+            flex: 1;
+            border: 1px solid #E0E6F0; border-left: 3px solid #2145EA;
+            border-radius: 0 8px 8px 0; padding: 14px 18px;
+            background: #F8FAFF;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .info-label {
+            font-size: 10.5px; font-weight: 800; color: #2145EA;
+            text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 8px;
+        }
+        .info-text { font-size: 13.5px; color: #3A4A5E; line-height: 1.55; }
+        .info-text strong { color: #1C1C46; font-weight: 700; }
+        .info-text + .info-text { margin-top: 8px; }
+        .tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+        .tag {
+            font-size: 10px; font-weight: 700; color: #2145EA;
+            background: rgba(33,69,234,0.09); padding: 3px 9px; border-radius: 4px;
+        }
+        .tag.teal { color: #0A8FAF; background: rgba(87,203,255,0.15); }
+        .right-col { display: flex; flex-direction: column; gap: 10px; }
+        .founder-card {
+            flex: 1;
+            border: 1px solid #E0E6F0; border-radius: 10px;
+            padding: 18px 20px; background: #FFFFFF;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .founder-name {
+            font-size: 17px; font-weight: 800; color: #1C1C46;
+            letter-spacing: -0.2px;
+        }
+        .founder-role {
+            font-size: 12px; color: #2145EA; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px;
+        }
+        .founder-divider { height: 1px; background: #E8ECF4; flex-shrink: 0; }
+        .founder-bullets { display: flex; flex-direction: column; gap: 8px; }
+        .founder-bullets li {
+            font-size: 13px; color: #4A5568; line-height: 1.45;
+            list-style: none; display: flex; align-items: flex-start; gap: 9px;
+        }
+        .founder-bullets li::before {
+            content: ''; width: 5px; height: 5px; border-radius: 50%;
+            background: #2145EA; flex-shrink: 0; margin-top: 5px;
+        }
+        .slide-footer {
+            height: 34px; padding: 0 56px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: space-between;
+            border-top: 1px solid #EEF1F8;
+        }
+        .slide-footer span {
+            font-size: 10px; font-weight: 700;
+            color: #9AAABE; text-transform: uppercase; letter-spacing: 0.12em;
+        }
+    </style>
+</head>
+<body>
+<div class=&quot;slide-container&quot;>
+    <div class=&quot;slide-body&quot;>
+        <div class=&quot;header-section&quot;>
+            <div class=&quot;slide-eyebrow&quot;>About Us</div>
+            <div class=&quot;slide-title&quot;>Insurance AI built by practitioners. Delivered the way you work.</div>
+        </div>
+        <div class=&quot;two-col&quot;>
+            <div class=&quot;left-col&quot;>
+                <div class=&quot;info-box&quot;>
+                    <div class=&quot;info-label&quot;>Who We Are</div>
+                    <div class=&quot;info-text&quot;>We help insurance organizations adopt and scale AI with trust. Deep insurance domain expertise combined with governed, production-ready solutions and accelerators built specifically for carriers.</div>
+                </div>
+                <div class=&quot;info-box&quot;>
+                    <div class=&quot;info-label&quot;>What We Offer</div>
+                    <div class=&quot;info-text&quot;><strong>AIR.</strong> Domain-specific accelerators. Certified data pipelines, trusted AI components, and agentic workflow solutions that plug into the platforms you already run.</div>
+                    <div class=&quot;info-text&quot;><strong>enCODE.</strong> Governed intelligence platform. Encode institutional knowledge, compose deterministic decisions, deploy as pre-built recipes across underwriting and claims.</div>
+                    <div class=&quot;tag-row&quot;>
+                        <span class=&quot;tag&quot;>AIR Accelerators</span>
+                        <span class=&quot;tag&quot;>Governed Insurance Intelligence Platform &amp;amp; Expert Services</span>
+                        <span class=&quot;tag teal&quot;>Marketplace Access (Databricks / Snowflake)</span>
+                    </div>
+                </div>
+                <div class=&quot;info-box&quot;>
+                    <div class=&quot;info-label&quot;>How We Engage</div>
+                    <div class=&quot;info-text&quot;><strong>Flexible by design.</strong> Use our accelerators as a foundation you build on and fully own. Access our apps directly from your Databricks or Snowflake environment. Or deploy the full governed intelligence platform end to end. We start where you are.</div>
+                </div>
+            </div>
+            <div class=&quot;right-col&quot;>
+                <div class=&quot;founder-card&quot;>
+                    <div>
+                        <div class=&quot;founder-name&quot;>Vinod Srinivasan</div>
+                        <div class=&quot;founder-role&quot;>Co-Founder</div>
+                    </div>
+                    <div class=&quot;founder-divider&quot;></div>
+                    <ul class=&quot;founder-bullets&quot;>
+                        <li>Built and scaled AI and Insurtech capabilities for large carriers over 25 years</li>
+                        <li>Led underwriting and claims transformations at top 5 carriers</li>
+                        <li>Industry advisor for multiple data and technology startups</li>
+                    </ul>
+                </div>
+                <div class=&quot;founder-card&quot;>
+                    <div>
+                        <div class=&quot;founder-name&quot;>Sudeep Joseph</div>
+                        <div class=&quot;founder-role&quot;>Co-Founder</div>
+                    </div>
+                    <div class=&quot;founder-divider&quot;></div>
+                    <ul class=&quot;founder-bullets&quot;>
+                        <li>20 years leading enterprise AI and data technology</li>
+                        <li>Drove cloud and analytics transformation. Established the Gen-AI Accelerator for a large carrier.</li>
+                        <li>Chairs multiple product councils for tech and data companies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=&quot;slide-footer&quot;>
+        <span>ELEVATENOW  .  enCODE</span>
+        <span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>Governed Insurance Intelligence Platform</span>
+        <span>CONFIDENTIAL</span>
+    </div>
+</div>
+</body>
+</html>" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <div class="cell">
+      <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+    <meta charset=&quot;UTF-8&quot;>
+    <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+    <title>App Catalog</title>
+    <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+    <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+    <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #F8FAFF; display: flex; min-height: 100vh; align-items: center; justify-content: center;
+            -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif;
+        }
+        .slide-container {
+            width: 1280px; height: 720px; background: #F8FAFF; color: #1C1C46;
+            display: flex; flex-direction: column;
+            position: relative; overflow: hidden;
+            padding: 24px 52px 0 52px;
+        }
+        .slide-container::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
+            background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10;
+        }
 
+        /* Header */
+        .header { flex-shrink: 0; margin-bottom: 10px; display: flex; align-items: baseline; gap: 12px; }
+        .eyebrow { font-size: 11px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 2px; }
+        .title { font-size: 22px; font-weight: 800; color: #1C1C46; letter-spacing: -0.3px; }
+        .powered-by {
+            margin-left: auto; font-size: 10px; font-weight: 700; color: #2145EA;
+            text-transform: uppercase; letter-spacing: 0.14em;
+            border: 1px solid #BFDBFE; border-radius: 4px; padding: 2px 10px;
+            background: rgba(33,69,234,0.06);
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex; align-items: center; flex-shrink: 0;
+            margin-bottom: 18px; padding: 0 2px;
+        }
+        .tl-node { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-shrink: 0; }
+        .tl-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid; }
+        .tl-dot.done  { background: #2145EA; border-color: #2145EA; }
+        .tl-dot.next  { background: #FFFFFF; border-color: #57CBFF; box-shadow: 0 0 0 3px rgba(87,203,255,0.2); }
+        .tl-dot.soon  { background: #FFFFFF; border-color: #CBD5E1; }
+        .tl-label { font-size: 10.5px; font-weight: 700; color: #1C1C46; white-space: nowrap; }
+        .tl-label.muted { color: #94A3B8; }
+        .tl-line { flex: 1; height: 2px; margin: 0 10px; margin-bottom: 18px; }
+        .tl-line.done { background: #2145EA; }
+        .tl-line.active { background: linear-gradient(90deg, #2145EA, #57CBFF); }
+        .tl-line.soon { background: #E2E8F0; }
+
+        /* Cards row — fixed height, centered */
+        .cards-wrap {
+            display: flex; justify-content: center; align-items: flex-start;
+            flex-shrink: 0;
+        }
+        .cards { display: grid; grid-template-columns: repeat(4, 270px); gap: 14px; }
+        .card {
+            border-radius: 12px; border: 1.5px solid;
+            display: flex; flex-direction: column; overflow: hidden;
+            background: #FFFFFF;
+        }
+        .card.c1 { border-color: #BFDBFE; }
+        .card.c2 { border-color: #C7D2FE; }
+        .card.c3 { border-color: #DDD6FE; }
+        .card.c4 { border-color: #BAE6FD; }
+
+        /* Visual area */
+        .card-visual {
+            height: 110px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .c1 .card-visual { background: linear-gradient(135deg, #1C1C46 0%, #2145EA 100%); }
+        .c2 .card-visual { background: linear-gradient(135deg, #1C1C46 0%, #4338CA 100%); }
+        .c3 .card-visual { background: linear-gradient(135deg, #2D1B69 0%, #6D28D9 100%); }
+        .c4 .card-visual { background: linear-gradient(135deg, #0C4A6E 0%, #0284C7 100%); }
+        .card-visual::before {
+            content: ''; position: absolute;
+            width: 100px; height: 100px; border-radius: 50%;
+            background: rgba(255,255,255,0.05); top: -25px; right: -25px;
+        }
+        .card-visual::after {
+            content: ''; position: absolute;
+            width: 65px; height: 65px; border-radius: 50%;
+            background: rgba(255,255,255,0.06); bottom: -16px; left: -16px;
+        }
+        .visual-icon { font-size: 36px; color: rgba(255,255,255,0.9); position: relative; z-index: 1; }
+        .visual-stat {
+            position: absolute; bottom: 8px; right: 10px;
+            font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.7);
+            letter-spacing: 0.05em; z-index: 1;
+        }
+        .visual-tag {
+            position: absolute; top: 8px; left: 10px;
+            font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.6);
+            text-transform: uppercase; letter-spacing: 0.14em; z-index: 1;
+        }
+
+        /* Card body */
+        .card-body { padding: 11px 13px 11px; display: flex; flex-direction: column; }
+        .card-eyebrow { font-size: 9.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 2px; }
+        .c1 .card-eyebrow { color: #2145EA; }
+        .c2 .card-eyebrow { color: #4338CA; }
+        .c3 .card-eyebrow { color: #6D28D9; }
+        .c4 .card-eyebrow { color: #0284C7; }
+        .card-title { font-size: 15px; font-weight: 800; color: #1C1C46; margin-bottom: 7px; letter-spacing: -0.2px; }
+
+        .features { display: flex; flex-direction: column; gap: 3px; }
+        .feat { font-size: 10.5px; color: #4A5568; line-height: 1.35; display: flex; align-items: flex-start; gap: 6px; }
+        .feat::before { content: ''; width: 3px; height: 3px; border-radius: 50%; background: #94A3B8; flex-shrink: 0; margin-top: 4px; }
+
+        .outcome-block { margin-top: 7px; padding-top: 7px; border-top: 1px solid #F1F5F9; }
+        .outcome-line { font-size: 11px; color: #475569; line-height: 1.4; }
+        .outcome-line strong { font-weight: 800; }
+        .c1 .outcome-line strong { color: #2145EA; }
+        .c2 .outcome-line strong { color: #4338CA; }
+        .c3 .outcome-line strong { color: #6D28D9; }
+        .c4 .outcome-line strong { color: #0284C7; }
+
+        /* Tagline */
+        .tagline-bar {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+        }
+        .tagline {
+            font-size: 13px; font-weight: 500; color: #64748B;
+            letter-spacing: 0.02em; font-style: italic;
+        }
+        .tagline strong { font-weight: 700; color: #2145EA; font-style: normal; }
+
+        .slide-footer {
+            height: 32px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: space-between;
+            border-top: 1px solid #EEF1F8; background: #F8FAFF;
+        }
+        .slide-footer span { font-size: 10px; font-weight: 700; color: #9AAABE; text-transform: uppercase; letter-spacing: 0.12em; }
+    </style>
+</head>
+<body>
+<div class=&quot;slide-container&quot;>
+    <div class=&quot;header&quot;>
+        <div>
+            <div class=&quot;eyebrow&quot;>ElevateNow App Catalog</div>
+            <div class=&quot;title&quot;>Insurance Intake &amp;amp; Underwriting Apps</div>
+        </div>
+        <div class=&quot;powered-by&quot;>Powered by enCODE</div>
+    </div>
+
+    <div class=&quot;timeline&quot;>
+        <div class=&quot;tl-node&quot;><div class=&quot;tl-dot done&quot;></div><div class=&quot;tl-label&quot;>Q4 2025</div></div>
+        <div class=&quot;tl-line done&quot;></div>
+        <div class=&quot;tl-node&quot;><div class=&quot;tl-dot done&quot;></div><div class=&quot;tl-label&quot;>Q1 2026</div></div>
+        <div class=&quot;tl-line active&quot;></div>
+        <div class=&quot;tl-node&quot;><div class=&quot;tl-dot next&quot;></div><div class=&quot;tl-label&quot;>Q2 2026</div></div>
+        <div class=&quot;tl-line soon&quot;></div>
+        <div class=&quot;tl-node&quot;><div class=&quot;tl-dot soon&quot;></div><div class=&quot;tl-label muted&quot;>Agents</div></div>
+    </div>
+
+    <div class=&quot;cards-wrap&quot;>
+        <div class=&quot;cards&quot;>
+            <div class=&quot;card c1&quot;>
+                <div class=&quot;card-visual&quot;>
+                    <div class=&quot;visual-tag&quot;>Submission Intake</div>
+                    <i class=&quot;fa-solid fa-file-circle-check visual-icon&quot;></i>
+                    <div class=&quot;visual-stat&quot;>ServiceNow Certified</div>
+                </div>
+                <div class=&quot;card-body&quot;>
+                    <div class=&quot;card-eyebrow&quot;>Clear360</div>
+                    <div class=&quot;card-title&quot;>Submission Intelligence</div>
+                    <div class=&quot;features&quot;>
+                        <div class=&quot;feat&quot;>Decision-ready intake with appetite alignment</div>
+                        <div class=&quot;feat&quot;>Real-time completeness validation</div>
+                        <div class=&quot;feat&quot;>Automated triage and routing</div>
+                    </div>
+                    <div class=&quot;outcome-block&quot;>
+                        <div class=&quot;outcome-line&quot;><strong>40-60%</strong> faster processing &amp;nbsp;·&amp;nbsp; <strong>85%</strong> error reduction</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class=&quot;card c2&quot;>
+                <div class=&quot;card-visual&quot;>
+                    <div class=&quot;visual-tag&quot;>Risk Analytics</div>
+                    <i class=&quot;fa-solid fa-chart-line visual-icon&quot;></i>
+                    <div class=&quot;visual-stat&quot;>PDF to Decision</div>
+                </div>
+                <div class=&quot;card-body&quot;>
+                    <div class=&quot;card-eyebrow&quot;>Loss360</div>
+                    <div class=&quot;card-title&quot;>Loss Run Intelligence</div>
+                    <div class=&quot;features&quot;>
+                        <div class=&quot;feat&quot;>PDF loss run extraction and scoring</div>
+                        <div class=&quot;feat&quot;>Pattern, frequency, and severity analysis</div>
+                        <div class=&quot;feat&quot;>Full provenance on every finding</div>
+                    </div>
+                    <div class=&quot;outcome-block&quot;>
+                        <div class=&quot;outcome-line&quot;><strong>PDF to decision</strong> workflow &amp;nbsp;·&amp;nbsp; <strong>Full</strong> provenance trail</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class=&quot;card c3&quot;>
+                <div class=&quot;card-visual&quot;>
+                    <div class=&quot;visual-tag&quot;>Compliance</div>
+                    <i class=&quot;fa-solid fa-shield-halved visual-icon&quot;></i>
+                    <div class=&quot;visual-stat&quot;>Proactive Audit</div>
+                </div>
+                <div class=&quot;card-body&quot;>
+                    <div class=&quot;card-eyebrow&quot;>Audit360</div>
+                    <div class=&quot;card-title&quot;>Submission Audit</div>
+                    <div class=&quot;features&quot;>
+                        <div class=&quot;feat&quot;>Proactive monitoring across bound portfolio</div>
+                        <div class=&quot;feat&quot;>Audit guidelines knowledge base</div>
+                        <div class=&quot;feat&quot;>Regulatory compliance awareness</div>
+                    </div>
+                    <div class=&quot;outcome-block&quot;>
+                        <div class=&quot;outcome-line&quot;><strong>100%</strong> auditing coverage &amp;nbsp;·&amp;nbsp; <strong>Proactive</strong> error detection</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class=&quot;card c4&quot;>
+                <div class=&quot;card-visual&quot;>
+                    <div class=&quot;visual-tag&quot;>Location Intel</div>
+                    <i class=&quot;fa-solid fa-map-location-dot visual-icon&quot;></i>
+                    <div class=&quot;visual-stat&quot;>COPE + Peril View</div>
+                </div>
+                <div class=&quot;card-body&quot;>
+                    <div class=&quot;card-eyebrow&quot;>Prop360</div>
+                    <div class=&quot;card-title&quot;>Property Intelligence</div>
+                    <div class=&quot;features&quot;>
+                        <div class=&quot;feat&quot;>COPE data enrichment and validation</div>
+                        <div class=&quot;feat&quot;>Geospatial peril exposure mapping</div>
+                        <div class=&quot;feat&quot;>CAT model input preparation</div>
+                    </div>
+                    <div class=&quot;outcome-block&quot;>
+                        <div class=&quot;outcome-line&quot;><strong>Unified</strong> COPE + peril view &amp;nbsp;·&amp;nbsp; <strong>Geospatial</strong> risk analytics</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=&quot;tagline-bar&quot;>
+        <div class=&quot;tagline&quot;><strong>Accelerate your outcome</strong> with our governed insurance workflows</div>
+    </div>
+
+    <div class=&quot;slide-footer&quot;>
+        <span>ELEVATENOW  .  enCODE</span>
+        <span style=&quot;font-weight:600;letter-spacing:0.05em;text-transform:none;color:#B0B0C8&quot;>Governed Insurance Intelligence Platform</span>
+        <span>CONFIDENTIAL</span>
+    </div>
+</div>
+</body>
+</html>" scrolling="no" frameborder="0"></iframe>
+    </div>
   </div>
   <button class="nav left hidden" id="prev" onclick="go(-1)">&#x2039;</button>
   <button class="nav right" id="next" onclick="go(1)">&#x203A;</button>
   <div class="counter" id="ctr"></div>
 </div>
 <script>
-  const TOTAL=12, iframes=document.querySelectorAll('.cell iframe');
+  const TOTAL=14, iframes=document.querySelectorAll('.cell iframe');
   let cur=0;
   const track=document.getElementById('track'), prev=document.getElementById('prev'), next=document.getElementById('next'), ctr=document.getElementById('ctr');
   function scaleSlides(){ const s=Math.min(window.innerWidth/1280,window.innerHeight/720); iframes.forEach(f=>f.style.transform='scale('+s+')'); }
