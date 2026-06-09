@@ -154,87 +154,58 @@ body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: cente
 </html>" scrolling="no" frameborder="0"></iframe>
     </div>
 
-    <!-- SLIDE 3: The Problem (from master) -->
+    <!-- SLIDE 3: The Problem (clean bullets — voiceover) -->
     <div class="cell">
       <iframe srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
 <meta charset=&quot;utf-8&quot;/>
 <meta content=&quot;width=device-width, initial-scale=1.0&quot; name=&quot;viewport&quot;/>
-<title>enCode. The Problem</title>
+<title>enCode. Why We Built This.</title>
 <link href=&quot;https://fonts.googleapis.com&quot; rel=&quot;preconnect&quot;/>
 <link crossorigin=&quot;&quot; href=&quot;https://fonts.gstatic.com&quot; rel=&quot;preconnect&quot;/>
 <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;/>
-<link href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot; rel=&quot;stylesheet&quot;/>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background-color: #FFFFFF; display: grid; grid-template-columns: 1fr; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
-.slide-container { width: 1280px; height: 720px; background: #FFFFFF; color: #1C1C46; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; padding: 50px 80px 0px 80px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
+body { background-color: #FFFFFF; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+.slide-container { width: 1280px; height: 720px; background: #FFFFFF; color: #1C1C46; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; padding: 52px 96px 0px 96px; }
 .slide-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10; }
-.header-section { margin-bottom: 25px; }
-.slide-eyebrow { font-size: 11px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
-.provocation-title { font-size: 32px; font-weight: 800; line-height: 1.25; color: #1C1C46; letter-spacing: -0.5px; }
-.matrix-grid { display: flex; flex-direction: column; flex-grow: 1; margin-bottom: 12px; min-height: 0; overflow: hidden; }
-.grid-headers { display: grid; grid-template-columns: 1fr 60px 1fr; gap: 24px; padding-bottom: 10px; border-bottom: 2px solid #1C1C46; }
-.grid-header { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #1C1C46; display: flex; align-items: center; gap: 8px; }
-.grid-header i { font-size: 13px; color: #2145EA; }
-.matrix-row { display: grid; grid-template-columns: 1fr 60px 1fr; align-items: stretch; gap: 24px; padding: 10px 0; border-bottom: 1px solid #E2E8F0; flex: 1; min-height: 0; }
-.matrix-row:last-child { border-bottom: none; }
-.content-cell { display: flex; gap: 16px; align-items: stretch; }
-.content-cell.impact-cell { background: transparent; border-radius: 0; padding: 0; border: none; flex: 1; display: flex; align-items: center; justify-content: flex-start; }
-.cell-num { font-size: 13px; font-weight: 800; color: #2145EA; background: rgba(33,69,234,0.07); padding: 4px 8px; border-radius: 4px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
-.cell-body { display: flex; flex-direction: column; gap: 8px; }
-.cell-text { font-size: 15px; line-height: 1.45; color: #1C1C46; font-weight: 700; }
-.metric-container { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; background: transparent; border: none; padding: 0; }
-.metric-value { font-size: 40px; font-weight: 800; color: #1C1C46; line-height: 1; letter-spacing: -0.02em; }
-.metric-label { font-size: 12px; color: #64748B; font-weight: 500; line-height: 1.3; text-align: left; }
-.connector-arrow { display: flex; justify-content: center; align-items: center; color: #94A3B8; }
-.connector-arrow svg { width: 20px; height: 16px; fill: none; stroke: #2145EA; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.essence-section { display: flex; align-items: center; justify-content: space-between; padding: 10px 28px; background: #1C1C46; border-radius: 8px; border: 2px solid #2145EA; min-height: 52px; flex-shrink: 0; margin-bottom: 10px; gap: 24px; }
-.essence-quote { font-size: 15px; font-weight: 600; line-height: 1.35; color: #FFFFFF; text-align: center; flex: 0 0 65%; }
-.essence-quote strong { color: #57CBFF; font-weight: 800; }
-.essence-pitch { border-left: 1px solid rgba(87,203,255,0.3); padding-left: 24px; display: flex; flex-direction: column; justify-content: center; gap: 3px; }
-.pitch-brand { font-size: 11px; font-weight: 700; color: #FFFFFF; line-height: 1.2; }
-.pitch-tm { font-size: 7px; vertical-align: super; font-weight: 700; }
-.pitch-text { font-size: 12px; color: #94A3B8; line-height: 1.2; font-weight: 600; white-space: nowrap; }
-.pitch-text strong { color: #FFFFFF; font-weight: 800; }
-.impact-statement { font-size: 13px; font-weight: 600; color: #1C1C46; line-height: 1.6; font-style: italic; border-left: 3px solid #2145EA; padding-left: 12px; margin: 0; }
+.eyebrow { font-size: 11px; font-weight: 800; color: #2145EA; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px; }
+.headline { font-size: 34px; font-weight: 800; color: #1C1C46; letter-spacing: -0.6px; line-height: 1.2; margin-bottom: 56px; max-width: 860px; }
+.bullets { display: flex; flex-direction: column; gap: 36px; flex: 1; }
+.bullet { display: flex; align-items: baseline; gap: 28px; }
+.bullet-num { font-size: 12px; font-weight: 800; color: #2145EA; letter-spacing: 0.08em; flex-shrink: 0; width: 20px; }
+.bullet-text { font-size: 28px; font-weight: 700; color: #1C1C46; line-height: 1.2; letter-spacing: -0.4px; }
+.bullet-text em { font-style: normal; color: #2145EA; font-weight: 800; }
+.pivot { padding: 15px 28px; background: #1C1C46; border-radius: 8px; margin-bottom: 14px; flex-shrink: 0; }
+.pivot-text { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.85); line-height: 1.5; }
+.pivot-text strong { color: #57CBFF; font-weight: 800; }
 .slide-footer { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #94A3B8; padding: 8px 0 14px; border-top: 1px solid #E2E8F0; flex-shrink: 0; }
 .tm { font-size: 7px; vertical-align: super; letter-spacing: 0; font-weight: 700; }
-.evidence-block { display: flex; align-items: flex-start; gap: 8px; margin-top: 4px; }
-.evidence-icon-wrapper { background-color: #1C1C46; color: #FFFFFF; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; margin-top: 3px; }
-.evidence-content { display: flex; flex-direction: column; gap: 2px; }
-.evidence-title { font-size: 13px; font-weight: 700; color: #2145EA; line-height: 1.3; }
-.evidence-text { font-size: 13px; line-height: 1.4; color: #5E6977; }
 </style>
 </head>
 <body>
 <div class=&quot;slide-container&quot;>
-<div class=&quot;header-section&quot;>
-<div class=&quot;slide-eyebrow&quot;>The Problem</div>
-<h2 class=&quot;provocation-title&quot;>In insurance, AI is only as defensible as the knowledge that governs it.</h2>
+<div>
+<div class=&quot;eyebrow&quot;>Why we built this</div>
+<h2 class=&quot;headline&quot;>The knowledge gap in insurance AI is structural — not a technology problem.</h2>
 </div>
-<div class=&quot;matrix-grid&quot;>
-<div class=&quot;grid-headers&quot;><div class=&quot;grid-header&quot;><span>The Issue</span></div><div></div><div class=&quot;grid-header&quot;><span>The Impact</span></div></div>
-<div class=&quot;matrix-row&quot;>
-<div class=&quot;content-cell&quot;><span class=&quot;cell-num&quot;>01</span><div class=&quot;cell-body&quot;><p class=&quot;cell-text&quot;>Knowledge Leakage</p><div class=&quot;evidence-block&quot;><div class=&quot;evidence-icon-wrapper&quot;><i class=&quot;fa-solid fa-circle&quot;></i></div><div class=&quot;evidence-content&quot;><span class=&quot;evidence-title&quot;>Expertise lives in people's heads, not your software infrastructure.</span><p class=&quot;evidence-text&quot;>When senior underwriters and adjusters retire, your competitive moat walks out the door.</p></div></div></div></div>
-<div class=&quot;connector-arrow&quot;></div>
-<div class=&quot;content-cell impact-cell&quot;><div class=&quot;cell-body&quot; style=&quot;width:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;&quot;><div class=&quot;metric-container&quot;><div class=&quot;metric-value&quot;>12–18</div><div class=&quot;metric-label&quot;>Months to train<br/>new expert proficiency</div></div></div></div>
+<div class=&quot;bullets&quot;>
+<div class=&quot;bullet&quot;>
+<span class=&quot;bullet-num&quot;>01</span>
+<p class=&quot;bullet-text&quot;>Expertise doesn't scale — <em>it retires with the people who hold it</em></p>
 </div>
-<div class=&quot;matrix-row&quot;>
-<div class=&quot;content-cell&quot;><span class=&quot;cell-num&quot;>02</span><div class=&quot;cell-body&quot;><p class=&quot;cell-text&quot;>The Core System Gap</p><div class=&quot;evidence-block&quot;><div class=&quot;evidence-icon-wrapper&quot;><i class=&quot;fa-solid fa-circle&quot;></i></div><div class=&quot;evidence-content&quot;><span class=&quot;evidence-title&quot;>Legacy systems handle rigid data fields.</span><p class=&quot;evidence-text&quot;>They cannot read narrative text, weigh complex exceptions, or enforce true human judgment.</p></div></div></div></div>
-<div class=&quot;connector-arrow&quot;></div>
-<div class=&quot;content-cell impact-cell&quot;><div class=&quot;cell-body&quot; style=&quot;width:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;&quot;><div class=&quot;metric-container&quot;><div class=&quot;metric-value&quot;>0%</div><div class=&quot;metric-label&quot;>Auditability in traditional<br/>black-box AI tools</div></div></div></div>
+<div class=&quot;bullet&quot;>
+<span class=&quot;bullet-num&quot;>02</span>
+<p class=&quot;bullet-text&quot;>Institutional knowledge isn't codified — <em>it lives in heads, not systems</em></p>
 </div>
-<div class=&quot;matrix-row&quot;>
-<div class=&quot;content-cell&quot;><span class=&quot;cell-num&quot;>03</span><div class=&quot;cell-body&quot;><p class=&quot;cell-text&quot;>The AI Liability</p><div class=&quot;evidence-block&quot;><div class=&quot;evidence-icon-wrapper&quot;><i class=&quot;fa-solid fa-circle&quot;></i></div><div class=&quot;evidence-content&quot;><span class=&quot;evidence-title&quot;>Standard GenAI tools are probabilistic — they guess.</span><p class=&quot;evidence-text&quot;>Same input can yield different answers. An AI tool without a deterministic governance trail is a regulatory violation waiting to happen.</p></div></div></div></div>
-<div class=&quot;connector-arrow&quot;></div>
-<div class=&quot;content-cell impact-cell&quot;><div class=&quot;cell-body&quot; style=&quot;width:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;&quot;><div class=&quot;metric-container&quot;><p class=&quot;impact-statement&quot;>If you cannot trace a decision to a specific, versioned rule — it's a liability, not automation.</p></div></div></div>
+<div class=&quot;bullet&quot;>
+<span class=&quot;bullet-num&quot;>03</span>
+<p class=&quot;bullet-text&quot;>AI without governed execution is a liability — <em>not a competitive advantage</em></p>
 </div>
 </div>
-<div class=&quot;essence-section&quot;>
-<p class=&quot;essence-quote&quot;>Knowledge is the moat. Applied <strong>deterministically</strong> to every decision, it becomes defensible.</p>
-<div class=&quot;essence-pitch&quot;><p class=&quot;pitch-brand&quot;>Elevatenow enCode<span class=&quot;pitch-tm&quot;>™</span></p><p class=&quot;pitch-text&quot;><strong>Encode.</strong> · <strong>Compose.</strong> · <strong>Deploy.</strong></p></div>
+<div class=&quot;pivot&quot;>
+<p class=&quot;pivot-text&quot;>We built <strong>enCODE</strong> to encode institutional and transactional knowledge into governed, auditable intelligence — applied at every decision.</p>
 </div>
 <div class=&quot;slide-footer&quot;>
 <span>ELEVATENOW · enCODE<span class=&quot;tm&quot;>™</span></span>
