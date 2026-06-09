@@ -35,8 +35,8 @@
 <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #1C1C46; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
-.slide-container { width: 1280px; height: 720px; background: #1C1C46; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+body { background: #2145EA; display: grid; min-height: 100vh; place-items: center; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+.slide-container { width: 1280px; height: 720px; background: #2145EA; position: relative; overflow: hidden; display: flex; flex-direction: column; }
 .slide-container::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #112CA9 0%, #2145EA 50%, #57CBFF 100%); z-index: 10; }
 .top-bar { display: flex; align-items: center; justify-content: space-between; padding: 36px 72px 0; position: relative; z-index: 2; }
 .logo { font-size: 20px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.2px; }
@@ -61,7 +61,7 @@ body { background: #1C1C46; display: grid; min-height: 100vh; place-items: cente
   <div class=&quot;main&quot;>
     <div class=&quot;divider&quot;></div>
     <div class=&quot;eyebrow&quot;>Prepared for AXA &nbsp;·&nbsp; Claims FNOL Adjudication</div>
-    <h1 class=&quot;headline&quot;>System of Intelligence</h1>
+    <h1 class=&quot;headline&quot;>enCode<br>Claim Intelligence</h1>
     <p class=&quot;tagline&quot;><strong>Certify the data.</strong> &nbsp;&nbsp;&nbsp; <strong>Encode the context.</strong> &nbsp;&nbsp;&nbsp; <strong>Trust the agent.</strong></p>
   </div>
   <div class=&quot;footer-bar&quot;>
@@ -644,6 +644,7 @@ body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: cente
 <button class="nav right" id="next">&#8250;</button>
 <div class="counter" id="ctr"></div>
 <script>
+  var track=document.getElementById('track'), prev=document.getElementById('prev'), next=document.getElementById('next'), ctr=document.getElementById('ctr');
   const TOTAL=7, iframes=document.querySelectorAll('.cell iframe');
   let cur=0;
   function scaleAll(){ const vw=window.innerWidth, vh=window.innerHeight, s=Math.min(vw/1280,vh/720); iframes.forEach(f=>{ f.style.transform='scale('+s+')'; }); }
@@ -655,8 +656,6 @@ body { background: #FFFFFF; display: grid; min-height: 100vh; place-items: cente
   document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1); if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1); });
   window.addEventListener('resize',scaleAll);
   scaleAll(); update();
-  var track=document.getElementById('track'), prev=document.getElementById('prev'), next=document.getElementById('next'), ctr=document.getElementById('ctr');
-  update();
 </script>
 </body>
 </html>
