@@ -482,42 +482,44 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:#fff;display:grid;min-height:100vh;place-items:center;-webkit-font-smoothing:antialiased;font-family:'Inter',sans-serif;}
-.slide{width:1280px;height:720px;background:#fff;color:#1C1C46;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;padding:38px 72px 0 72px;}
+.slide{width:1280px;height:720px;background:#fff;color:#1C1C46;display:flex;flex-direction:column;position:relative;overflow:hidden;padding:36px 72px 0 72px;}
 .slide::before{content:'';position:absolute;top:0;left:0;width:100%;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);z-index:10;}
 /* Header */
 .eyebrow{font-size:13px;font-weight:800;color:#2145EA;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;}
-/* Bullet title */
-.title-bullets{display:flex;flex-direction:column;gap:5px;margin-bottom:18px;}
+.title-bullets{display:flex;flex-direction:column;gap:4px;margin-bottom:16px;}
 .tbullet{font-size:26px;font-weight:800;color:#1C1C46;letter-spacing:-0.4px;line-height:1.22;padding-left:26px;position:relative;}
 .tbullet::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:12px;height:3px;background:#2145EA;border-radius:2px;}
 .tbullet.hl{color:#2145EA;}
-/* 4-step flow */
-.flow{display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr 24px 1fr;align-items:stretch;gap:0;flex-grow:1;margin-bottom:12px;min-height:0;}
-.step{border:1.5px solid #E2E8F0;border-radius:10px;padding:16px 15px 14px;display:flex;flex-direction:column;gap:8px;background:#fff;}
+/* 4-step flow — compact */
+.flow{display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr 24px 1fr;align-items:stretch;gap:0;margin-bottom:14px;}
+.step{border:1.5px solid #E2E8F0;border-radius:10px;padding:12px 14px 12px;display:flex;flex-direction:column;gap:6px;background:#fff;}
 .step.hi{border-color:#2145EA;background:#2145EA;}
 .snum{font-size:10px;font-weight:800;color:#2145EA;text-transform:uppercase;letter-spacing:.18em;}
 .step.hi .snum{color:rgba(255,255,255,0.6);}
-.stitle{font-size:17px;font-weight:800;color:#1C1C46;}
+.stitle{font-size:16px;font-weight:800;color:#1C1C46;}
 .step.hi .stitle{color:#fff;}
-.sbody{font-size:13px;color:#64748B;line-height:1.5;flex-grow:1;}
-.step.hi .sbody{color:rgba(255,255,255,0.82);}
-/* Tags — all bigger and brighter */
-.stag{margin-top:auto;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;align-self:flex-start;background:rgba(33,69,234,0.07);color:#2145EA;}
-.step.hi .stag{background:rgba(255,255,255,0.18);color:#FFFFFF;font-size:11px;}
+.sbody{flex-grow:1;}
+.sbody ul{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.sbody ul li{font-size:12.5px;color:#4A5568;line-height:1.38;padding-left:13px;position:relative;font-weight:500;}
+.sbody ul li::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:#2145EA;}
+.step.hi .sbody ul li{color:rgba(255,255,255,0.85);}
+.step.hi .sbody ul li::before{background:#57CBFF;}
+.stag{margin-top:6px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;align-self:flex-start;background:rgba(33,69,234,0.07);color:#2145EA;}
+.step.hi .stag{background:rgba(255,255,255,0.18);color:#fff;}
 .arr{display:flex;align-items:center;justify-content:center;color:#CBD5E1;font-size:20px;font-weight:300;}
 .arr.hi{color:#2145EA;}
-/* Tech bar — dark bg, white text */
-.tech{background:#1C1C46;border-radius:8px;padding:10px 20px;display:flex;align-items:center;gap:16px;margin-bottom:10px;flex-shrink:0;}
-.tlbl{font-size:11px;font-weight:800;color:#57CBFF;text-transform:uppercase;letter-spacing:.18em;white-space:nowrap;flex-shrink:0;}
-.tdiv{width:1px;height:16px;background:rgba(255,255,255,0.15);flex-shrink:0;}
-.titems{font-size:13px;color:rgba(255,255,255,0.85);font-weight:500;line-height:1.5;}
-.titems strong{color:#fff;font-weight:700;}
+/* Technical — 3-column spacious */
+.tech{background:#1C1C46;border-radius:10px;padding:16px 24px;display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;gap:0;margin-bottom:12px;flex-shrink:0;}
+.tech-divider{background:rgba(255,255,255,0.12);width:1px;margin:0 20px;}
+.tech-col{}
+.tech-col-label{font-size:10px;font-weight:800;color:#57CBFF;text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;}
+.tech-col-items{display:flex;flex-direction:column;gap:3px;}
+.tech-col-item{font-size:13px;color:rgba(255,255,255,0.82);font-weight:500;line-height:1.4;}
 /* Bottom band */
 .band{background:#1C1C46;padding:11px 28px;border-radius:8px;display:flex;align-items:center;justify-content:space-between;min-height:44px;flex-shrink:0;margin-bottom:10px;}
 .bl{font-size:15px;font-weight:700;color:#fff;}
 .bl em{font-style:normal;color:#57CBFF;}
-.br{font-size:13px;color:#FFFFFF;font-weight:600;}
-/* Footer */
+.br{font-size:13px;color:#fff;font-weight:600;}
 .footer{display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#94A3B8;padding:7px 0 13px;border-top:1px solid #E2E8F0;flex-shrink:0;}
 .tm{font-size:7px;vertical-align:super;letter-spacing:0;font-weight:700;}
 </style>
@@ -529,46 +531,79 @@ body{background:#fff;display:grid;min-height:100vh;place-items:center;-webkit-fo
     <div class=&quot;title-bullets&quot;>
       <div class=&quot;tbullet&quot;>A claim arrives.</div>
       <div class=&quot;tbullet&quot;>The decision is governed in under 90 seconds.</div>
-      <div class=&quot;tbullet hl&quot;>Not because of a model &amp;mdash; because the rules are already encoded.</div>
+      <div class=&quot;tbullet hl&quot;>Because the rules are already encoded.</div>
     </div>
   </div>
   <div class=&quot;flow&quot;>
     <div class=&quot;step&quot;>
       <div class=&quot;snum&quot;>01 &amp;middot; Intake</div>
       <div class=&quot;stitle&quot;>FNOL Received</div>
-      <div class=&quot;sbody&quot;>Claim file arrives via Guidewire or MCP endpoint. API-native. Structured and unstructured fields extracted immediately. No manual entry.</div>
+      <div class=&quot;sbody&quot;><ul>
+        <li>Arrives via Guidewire, MCP, or direct API</li>
+        <li>Structured &amp;amp; unstructured fields extracted</li>
+        <li>No manual entry</li>
+      </ul></div>
       <div class=&quot;stag&quot;>MCP &amp;middot; API-first &amp;middot; Guidewire</div>
     </div>
     <div class=&quot;arr&quot;>&amp;rarr;</div>
     <div class=&quot;step hi&quot;>
       <div class=&quot;snum&quot;>02 &amp;middot; Certify</div>
       <div class=&quot;stitle&quot;>Data Certified</div>
-      <div class=&quot;sbody&quot;>Policy, party, and coverage data pulled from source systems and certified. Every field traced to a record of authority. Zero hallucination risk.</div>
+      <div class=&quot;sbody&quot;><ul>
+        <li>Policy, party &amp;amp; coverage pulled from source</li>
+        <li>Every field traced to a record of authority</li>
+        <li>Zero hallucination risk</li>
+      </ul></div>
       <div class=&quot;stag&quot;>Zero hallucination &amp;middot; Source-verified</div>
     </div>
     <div class=&quot;arr hi&quot;>&amp;rarr;</div>
     <div class=&quot;step&quot;>
       <div class=&quot;snum&quot;>03 &amp;middot; Adjudicate</div>
       <div class=&quot;stitle&quot;>Rules Applied</div>
-      <div class=&quot;sbody&quot;>Each LOB carries distinct rules &amp;mdash; WC jurisdiction thresholds, GL coverage triggers, Auto liability limits. enCODE encodes those distinctions. Triage, severity, and fraud signals are evaluated deterministically by LOB. AI reads. The rule engine decides.</div>
+      <div class=&quot;sbody&quot;><ul>
+        <li>WC, GL &amp;amp; Auto rules encoded separately by LOB</li>
+        <li>Triage, severity &amp;amp; fraud evaluated deterministically</li>
+        <li>AI reads. The rule engine decides.</li>
+      </ul></div>
       <div class=&quot;stag&quot;>Deterministic &amp;middot; Carrier-configured</div>
     </div>
     <div class=&quot;arr&quot;>&amp;rarr;</div>
     <div class=&quot;step&quot;>
       <div class=&quot;snum&quot;>04 &amp;middot; Decide</div>
       <div class=&quot;stitle&quot;>Decision Issued</div>
-      <div class=&quot;sbody&quot;>Decision and full audit evidence package returned to adjuster system. Every conclusion cited to a versioned rule. Examination-ready by design.</div>
+      <div class=&quot;sbody&quot;><ul>
+        <li>Full audit evidence package returned to adjuster</li>
+        <li>Every conclusion cited to a versioned rule</li>
+        <li>Examination-ready by design</li>
+      </ul></div>
       <div class=&quot;stag&quot;>Full audit trail &amp;middot; Exam-ready</div>
     </div>
   </div>
+  <!-- Technical — 3-column spacious layout -->
   <div class=&quot;tech&quot;>
-    <span class=&quot;tlbl&quot;>Technical</span>
-    <div class=&quot;tdiv&quot;></div>
-    <span class=&quot;titems&quot;>
-      <strong>Integration:</strong> Guidewire &amp;middot; Duck Creek &amp;middot; ADLS &amp;middot; MCP &amp;middot; A2A endpoints &amp;nbsp;&amp;middot;&amp;nbsp;
-      <strong>Runtime:</strong> Runs on AXA Azure stack. No data leaves your tenant &amp;nbsp;&amp;middot;&amp;nbsp;
-      <strong>Knowledge:</strong> Rules versioned in enCODE Knowledge Studio. Carrier-owned.
-    </span>
+    <div class=&quot;tech-col&quot;>
+      <div class=&quot;tech-col-label&quot;>Integration</div>
+      <div class=&quot;tech-col-items&quot;>
+        <div class=&quot;tech-col-item&quot;>Guidewire &amp;middot; Duck Creek &amp;middot; ADLS</div>
+        <div class=&quot;tech-col-item&quot;>MCP &amp;middot; A2A endpoints</div>
+      </div>
+    </div>
+    <div class=&quot;tech-divider&quot;></div>
+    <div class=&quot;tech-col&quot;>
+      <div class=&quot;tech-col-label&quot;>Runtime</div>
+      <div class=&quot;tech-col-items&quot;>
+        <div class=&quot;tech-col-item&quot;>Runs on AXA Azure stack</div>
+        <div class=&quot;tech-col-item&quot;>No data leaves your tenant</div>
+      </div>
+    </div>
+    <div class=&quot;tech-divider&quot;></div>
+    <div class=&quot;tech-col&quot;>
+      <div class=&quot;tech-col-label&quot;>Knowledge</div>
+      <div class=&quot;tech-col-items&quot;>
+        <div class=&quot;tech-col-item&quot;>Rules versioned in enCODE Knowledge Studio</div>
+        <div class=&quot;tech-col-item&quot;>Carrier-owned</div>
+      </div>
+    </div>
   </div>
   <div class=&quot;band&quot;>
     <div class=&quot;bl&quot;>What you will see today. <em>Live. On real claim structure.</em></div>
@@ -917,7 +952,7 @@ body{font-family:'Inter',sans-serif;background:#fff;display:grid;place-items:cen
 /* SOI bars */
 .soi-bars{display:flex;flex-direction:column;gap:7px;margin-top:2px;}
 .soi-bar{background:#1C1C46;border-radius:7px;padding:9px 16px;display:flex;align-items:center;gap:12px;}
-.soi-bar-icon{width:24px;height:24px;border-radius:50%;background:rgba(87,203,255,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;}
+.soi-bar-icon{width:24px;height:24px;border-radius:50%;background:rgba(87,203,255,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;color:#FFFFFF;}
 .soi-bar-text{font-size:14px;font-weight:700;color:#FFFFFF;}
 .soi-bar-sub{font-size:12px;font-weight:600;color:rgba(255,255,255,0.75);margin-left:auto;}
 /* Connectors */
@@ -970,7 +1005,7 @@ body{font-family:'Inter',sans-serif;background:#fff;display:grid;place-items:cen
       </div>
       <div class=&quot;tier tier-soi&quot;>
         <div class=&quot;tier-label&quot;>System of Intelligence</div>
-        <div class=&quot;tier-title&quot;>ElevateNow enCODE<span style=&quot;font-size:10px;vertical-align:super;font-weight:700;&quot;>&amp;#8482;</span></div>
+        <div class=&quot;tier-title&quot;>Elevatenow enCODE<span style=&quot;font-size:10px;vertical-align:super;font-weight:700;&quot;>&amp;#8482;</span></div>
         <div class=&quot;soi-bars&quot;>
           <div class=&quot;soi-bar&quot;>
             <div class=&quot;soi-bar-icon&quot;>&amp;#9733;</div>
