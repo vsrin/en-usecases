@@ -1395,13 +1395,13 @@ body{font-family:'Inter',sans-serif;background:#fff;display:grid;place-items:cen
 body{font-family:'Inter',sans-serif;background:#fff;display:grid;place-items:center;min-height:100vh;-webkit-font-smoothing:antialiased;}
 .slide-container{width:1280px;height:720px;background:#fff;display:flex;flex-direction:column;overflow:hidden;}
 .top-bar{height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);flex-shrink:0;}
-.header{padding:14px 36px 8px;flex-shrink:0;}
-.eyebrow{font-size:12px;font-weight:800;color:#2145EA;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:5px;}
+.header{padding:13px 36px 8px;flex-shrink:0;}
+.eyebrow{font-size:12px;font-weight:800;color:#2145EA;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:4px;}
 .slide-title{font-size:22px;font-weight:800;color:#1C1C46;letter-spacing:-0.3px;line-height:1.2;}
 /* Governance bar */
 .gov-bar{margin:0 36px;background:#1C1C46;border-radius:7px 7px 0 0;padding:7px 18px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .gov-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.8px;color:#57CBFF;}
-.gov-sub{font-size:11px;color:rgba(255,255,255,0.5);margin-left:6px;}
+.gov-sub{font-size:11px;color:rgba(255,255,255,0.6);margin-left:6px;}
 .gov-dots{display:flex;gap:5px;margin-left:auto;}
 .gov-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.18);}
 .gov-dot.on{background:#57CBFF;}
@@ -1409,36 +1409,40 @@ body{font-family:'Inter',sans-serif;background:#fff;display:grid;place-items:cen
 .arch-body{flex:1;margin:0 36px;display:flex;flex-direction:column;overflow:hidden;}
 /* Column headers */
 .col-headers{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;flex-shrink:0;}
-.col-hdr{background:#1C1C46;padding:8px 10px;text-align:center;}
+.col-hdr{background:#1C1C46;padding:9px 10px;text-align:center;}
 .col-hdr.on{background:#2145EA;}
-.col-hdr-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.3px;color:#fff;display:block;}
-.col-hdr-sub{font-size:10px;color:rgba(255,255,255,0.5);display:block;margin-top:2px;}
+/* Header label — bright and readable */
+.col-hdr-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.3px;color:#FFFFFF;display:block;}
+/* Sub-header — brighter, larger */
+.col-hdr-sub{font-size:11px;font-weight:500;color:rgba(255,255,255,0.80);display:block;margin-top:3px;}
 /* Content grid */
 .col-content{flex:1;display:grid;grid-template-columns:repeat(6,1fr);gap:2px;overflow:hidden;}
 .col-cell{background:#F8FAFC;border:1px solid #E2E8F0;padding:10px 8px;display:flex;flex-direction:column;gap:7px;overflow:hidden;}
 .col-cell.on{background:#EEF2FF;border-color:#2145EA;}
-/* Arch items */
-.arch-item{background:#fff;border:1px solid #CBD5E1;border-radius:6px;padding:8px 10px;}
+/* Items */
+.arch-item{background:#fff;border:1px solid #CBD5E1;border-radius:6px;padding:9px 10px;}
 .arch-item.blue{background:#2145EA;border-color:#2145EA;}
 .arch-item.dark{background:#1C1C46;border-color:#1C1C46;}
 .arch-item-name{font-size:13px;font-weight:700;color:#1C1C46;line-height:1.2;}
 .arch-item.blue .arch-item-name,.arch-item.dark .arch-item-name{color:#fff;}
+/* Sub text — bright on dark items */
 .arch-item-sub{font-size:11px;color:#64748B;margin-top:3px;line-height:1.35;}
-.arch-item.blue .arch-item-sub{color:rgba(255,255,255,0.7);}
-.arch-item.dark .arch-item-sub{color:rgba(255,255,255,0.55);}
+.arch-item.blue .arch-item-sub{color:rgba(255,255,255,0.82);}
+.arch-item.dark .arch-item-sub{color:rgba(255,255,255,0.82);}
 /* Pipeline */
 .pipe-step{background:#1C1C46;border-radius:6px;padding:7px 10px;width:100%;text-align:center;}
 .pipe-step-name{font-size:12px;font-weight:700;color:#fff;}
-.pipe-step-sub{font-size:10px;color:rgba(255,255,255,0.5);margin-top:2px;}
+.pipe-step-sub{font-size:10px;color:rgba(255,255,255,0.65);margin-top:2px;}
 .pipe-arrow{text-align:center;font-size:13px;color:#2145EA;font-weight:700;padding:1px 0;line-height:1;}
-/* Flow line */
-.flow-bar{margin:0 36px;background:linear-gradient(90deg,#E2E8F0 0%,#2145EA 33%,#2145EA 66%,#57CBFF 100%);height:3px;border-radius:0 0 3px 3px;display:flex;align-items:center;justify-content:space-around;flex-shrink:0;}
-.flow-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;background:#fff;padding:0 6px;color:#2145EA;white-space:nowrap;}
+/* Flow bar — high contrast, bold labels */
+.flow-bar{margin:0 36px;height:28px;background:#1C1C46;border-radius:0 0 0 0;display:flex;align-items:center;justify-content:space-around;flex-shrink:0;}
+.flow-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#FFFFFF;white-space:nowrap;padding:0 16px;}
+.flow-arrow{font-size:14px;color:#57CBFF;font-weight:900;}
 /* Security bar */
 .sec-bar{margin:0 36px;background:#0F172A;border-radius:0 0 7px 7px;padding:8px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0;}
 .sec-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.8px;color:#94A3B8;}
 .sec-chips{display:flex;gap:8px;margin-left:auto;}
-.sec-chip{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#94A3B8;background:rgba(255,255,255,0.06);border-radius:4px;padding:3px 10px;}
+.sec-chip{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#CBD5E1;background:rgba(255,255,255,0.08);border-radius:4px;padding:3px 10px;}
 /* Footer */
 .footer{height:32px;padding:0 36px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #E2E8F0;flex-shrink:0;}
 .foot-l,.foot-c,.foot-r{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#94A3B8;}
@@ -1451,7 +1455,7 @@ body{font-family:'Inter',sans-serif;background:#fff;display:grid;place-items:cen
   <div class=&quot;top-bar&quot;></div>
   <div class=&quot;header&quot;>
     <div class=&quot;eyebrow&quot;>Appendix &amp;middot; Solution Architecture</div>
-    <div class=&quot;slide-title&quot;>System of Intelligence &amp;mdash; solution architecture for AXA FNOL</div>
+    <div class=&quot;slide-title&quot;>System of Intelligence: Solution Architecture for AXA FNOL</div>
   </div>
 
   <div class=&quot;gov-bar&quot;>
@@ -1479,7 +1483,7 @@ body{font-family:'Inter',sans-serif;background:#fff;display:grid;place-items:cen
         <div class=&quot;arch-item&quot;><div class=&quot;arch-item-name&quot;>Claimant Data</div><div class=&quot;arch-item-sub&quot;>Injury, incident, witness</div></div>
         <div class=&quot;arch-item&quot;><div class=&quot;arch-item-name&quot;>External Signals</div><div class=&quot;arch-item-sub&quot;>Weather, litigation, fraud flags</div></div>
       </div>
-      <!-- Pipeline waterfall -->
+      <!-- Pipeline -->
       <div class=&quot;col-cell&quot; style=&quot;justify-content:space-evenly;&quot;>
         <div class=&quot;pipe-step&quot;><div class=&quot;pipe-step-name&quot;>Ingest</div><div class=&quot;pipe-step-sub&quot;>Normalize &amp;amp; parse</div></div>
         <div class=&quot;pipe-arrow&quot;>&amp;#8595;</div>
@@ -1502,7 +1506,7 @@ body{font-family:'Inter',sans-serif;background:#fff;display:grid;place-items:cen
           <div class=&quot;arch-item-sub&quot;>Prior claims &amp;middot; Policy history &amp;middot; Claimant profile &amp;middot; Litigation signals</div>
         </div>
       </div>
-      <!-- Agentic (blue) -->
+      <!-- Agentic -->
       <div class=&quot;col-cell on&quot;>
         <div class=&quot;arch-item blue&quot;><div class=&quot;arch-item-name&quot;>Triage Agent</div><div class=&quot;arch-item-sub&quot;>Severity &amp;amp; compensability</div></div>
         <div class=&quot;arch-item blue&quot;><div class=&quot;arch-item-name&quot;>Adjudication Agent</div><div class=&quot;arch-item-sub&quot;>Coverage decision &amp;middot; Governed</div></div>
@@ -1526,10 +1530,13 @@ body{font-family:'Inter',sans-serif;background:#fff;display:grid;place-items:cen
     </div>
   </div>
 
+  <!-- Flow bar: dark bg, high-contrast bold labels, clear spacing -->
   <div class=&quot;flow-bar&quot;>
-    <span class=&quot;flow-label&quot;>DATA &amp;amp; CONTEXT</span>
-    <span class=&quot;flow-label&quot; style=&quot;color:#57CBFF;&quot;>&amp;#9658; INTELLIGENCE</span>
-    <span class=&quot;flow-label&quot; style=&quot;color:#57CBFF;&quot;>&amp;#9658; ACTION</span>
+    <span class=&quot;flow-label&quot;>Data &amp;amp; Context</span>
+    <span class=&quot;flow-arrow&quot;>&amp;#9658;</span>
+    <span class=&quot;flow-label&quot;>Intelligence</span>
+    <span class=&quot;flow-arrow&quot;>&amp;#9658;</span>
+    <span class=&quot;flow-label&quot;>Action</span>
   </div>
 
   <div class=&quot;sec-bar&quot;>
