@@ -392,7 +392,7 @@
 <div class=&quot;evidence-icon-wrapper&quot;><i class=&quot;fa-solid fa-circle&quot;></i></div>
 <div class=&quot;evidence-content&quot;>
 <span class=&quot;evidence-title&quot;>Expertise lives in people's heads, not your software infrastructure.</span>
-<p class=&quot;evidence-text&quot;>When senior underwriters and adjusters retire, your competitive moat walks out the door.</p></div>
+<p class=&quot;evidence-text&quot;>Expertise does not scale easily.</p></div>
 </div></div>
 </div>
 <div class=&quot;connector-arrow&quot;></div>
@@ -438,7 +438,7 @@
 <div class=&quot;evidence-icon-wrapper&quot;><i class=&quot;fa-solid fa-circle&quot;></i></div>
 <div class=&quot;evidence-content&quot;>
 <span class=&quot;evidence-title&quot;>Standard GenAI tools are probabilistic. They guess.</span>
-<p class=&quot;evidence-text&quot;>Same input can yield different answers. An AI tool without a deterministic governance trail is a regulatory violation waiting to happen.</p></div>
+<p class=&quot;evidence-text&quot;>Same input yields different answers. No audit trail means no defense.</p></div>
 </div></div>
 </div>
 <div class=&quot;connector-arrow&quot;></div>
@@ -481,46 +481,46 @@
 <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:#fff;display:grid;min-height:100vh;place-items:center;-webkit-font-smoothing:antialiased;font-family:'Inter',sans-serif;}
-.slide{width:1280px;height:720px;background:#fff;color:#1C1C46;display:flex;flex-direction:column;position:relative;overflow:hidden;padding:36px 72px 0 72px;}
+html,body{width:100%;height:100%;}
+body{background:#fff;display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased;font-family:'Inter',sans-serif;}
+.slide{width:1280px;height:720px;background:#fff;color:#1C1C46;display:flex;flex-direction:column;position:relative;overflow:hidden;padding:36px 72px 16px 72px;}
 .slide::before{content:'';position:absolute;top:0;left:0;width:100%;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);z-index:10;}
 /* Header */
 .eyebrow{font-size:13px;font-weight:800;color:#2145EA;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;}
-.title-bullets{display:flex;flex-direction:column;gap:4px;margin-bottom:16px;}
+.title-bullets{display:flex;flex-direction:column;gap:4px;margin-bottom:18px;}
 .tbullet{font-size:26px;font-weight:800;color:#1C1C46;letter-spacing:-0.4px;line-height:1.22;padding-left:26px;position:relative;}
 .tbullet::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:12px;height:3px;background:#2145EA;border-radius:2px;}
 .tbullet.hl{color:#2145EA;}
-/* 4-step flow — compact */
-.flow{display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr 24px 1fr;align-items:stretch;gap:0;margin-bottom:14px;}
-.step{border:1.5px solid #E2E8F0;border-radius:10px;padding:12px 14px 12px;display:flex;flex-direction:column;gap:6px;background:#fff;}
+/* Flow: takes all remaining vertical space */
+.flow{display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr 24px 1fr;gap:0;flex:1;min-height:0;margin-bottom:14px;}
+.step{border:1.5px solid #E2E8F0;border-radius:10px;padding:20px 18px;display:flex;flex-direction:column;gap:10px;background:#fff;min-height:0;}
 .step.hi{border-color:#2145EA;background:#2145EA;}
+.arr{display:flex;align-items:center;justify-content:center;color:#CBD5E1;font-size:20px;}
+.arr.hi{color:#2145EA;}
 .snum{font-size:10px;font-weight:800;color:#2145EA;text-transform:uppercase;letter-spacing:.18em;}
 .step.hi .snum{color:rgba(255,255,255,0.6);}
-.stitle{font-size:16px;font-weight:800;color:#1C1C46;}
+.stitle{font-size:17px;font-weight:800;color:#1C1C46;}
 .step.hi .stitle{color:#fff;}
-.sbody{flex-grow:1;}
-.sbody ul{list-style:none;display:flex;flex-direction:column;gap:5px;}
-.sbody ul li{font-size:12.5px;color:#4A5568;line-height:1.38;padding-left:13px;position:relative;font-weight:500;}
+.sbody{flex:1;min-height:0;}
+.sbody ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.sbody ul li{font-size:13px;color:#4A5568;line-height:1.4;padding-left:14px;position:relative;font-weight:500;}
 .sbody ul li::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:#2145EA;}
 .step.hi .sbody ul li{color:rgba(255,255,255,0.85);}
 .step.hi .sbody ul li::before{background:#57CBFF;}
-.stag{margin-top:6px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;align-self:flex-start;background:rgba(33,69,234,0.07);color:#2145EA;}
+.stag{margin-top:auto;font-size:11px;font-weight:700;padding:5px 11px;border-radius:4px;align-self:flex-start;background:rgba(33,69,234,0.07);color:#2145EA;flex-shrink:0;}
 .step.hi .stag{background:rgba(255,255,255,0.18);color:#fff;}
-.arr{display:flex;align-items:center;justify-content:center;color:#CBD5E1;font-size:20px;font-weight:300;}
-.arr.hi{color:#2145EA;}
-/* Technical — 3-column spacious */
-.tech{background:#1C1C46;border-radius:10px;padding:16px 24px;display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;gap:0;margin-bottom:12px;flex-shrink:0;}
-.tech-divider{background:rgba(255,255,255,0.12);width:1px;margin:0 20px;}
-.tech-col{}
-.tech-col-label{font-size:10px;font-weight:800;color:#57CBFF;text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;}
-.tech-col-items{display:flex;flex-direction:column;gap:3px;}
-.tech-col-item{font-size:13px;color:rgba(255,255,255,0.82);font-weight:500;line-height:1.4;}
-/* Bottom band */
-.band{background:#1C1C46;padding:11px 28px;border-radius:8px;display:flex;align-items:center;justify-content:space-between;min-height:44px;flex-shrink:0;margin-bottom:10px;}
+/* Tech — 3 col dark bar */
+.tech{background:#1C1C46;border-radius:10px;padding:16px 28px;display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;gap:0;margin-bottom:12px;flex-shrink:0;}
+.tech-div{background:rgba(255,255,255,0.12);width:1px;margin:0 24px;}
+.tc-label{font-size:11px;font-weight:800;color:#57CBFF;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;}
+.tc-item{font-size:13px;color:rgba(255,255,255,0.82);font-weight:500;line-height:1.55;}
+/* Band */
+.band{background:#1C1C46;padding:12px 28px;border-radius:8px;display:flex;align-items:center;justify-content:space-between;min-height:46px;flex-shrink:0;margin-bottom:12px;}
 .bl{font-size:15px;font-weight:700;color:#fff;}
 .bl em{font-style:normal;color:#57CBFF;}
 .br{font-size:13px;color:#fff;font-weight:600;}
-.footer{display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#94A3B8;padding:7px 0 13px;border-top:1px solid #E2E8F0;flex-shrink:0;}
+/* Footer */
+.footer{display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#94A3B8;padding-top:8px;border-top:1px solid #E2E8F0;flex-shrink:0;}
 .tm{font-size:7px;vertical-align:super;letter-spacing:0;font-weight:700;}
 </style>
 </head>
@@ -579,31 +579,12 @@ body{background:#fff;display:grid;min-height:100vh;place-items:center;-webkit-fo
       <div class=&quot;stag&quot;>Full audit trail &amp;middot; Exam-ready</div>
     </div>
   </div>
-  <!-- Technical — 3-column spacious layout -->
   <div class=&quot;tech&quot;>
-    <div class=&quot;tech-col&quot;>
-      <div class=&quot;tech-col-label&quot;>Integration</div>
-      <div class=&quot;tech-col-items&quot;>
-        <div class=&quot;tech-col-item&quot;>Guidewire &amp;middot; Duck Creek &amp;middot; ADLS</div>
-        <div class=&quot;tech-col-item&quot;>MCP &amp;middot; A2A endpoints</div>
-      </div>
-    </div>
-    <div class=&quot;tech-divider&quot;></div>
-    <div class=&quot;tech-col&quot;>
-      <div class=&quot;tech-col-label&quot;>Runtime</div>
-      <div class=&quot;tech-col-items&quot;>
-        <div class=&quot;tech-col-item&quot;>Runs on AXA Azure stack</div>
-        <div class=&quot;tech-col-item&quot;>No data leaves your tenant</div>
-      </div>
-    </div>
-    <div class=&quot;tech-divider&quot;></div>
-    <div class=&quot;tech-col&quot;>
-      <div class=&quot;tech-col-label&quot;>Knowledge</div>
-      <div class=&quot;tech-col-items&quot;>
-        <div class=&quot;tech-col-item&quot;>Rules versioned in enCODE Knowledge Studio</div>
-        <div class=&quot;tech-col-item&quot;>Carrier-owned</div>
-      </div>
-    </div>
+    <div><div class=&quot;tc-label&quot;>Integration</div><div class=&quot;tc-item&quot;>Guidewire &amp;middot; Duck Creek &amp;middot; ADLS</div><div class=&quot;tc-item&quot;>MCP &amp;middot; A2A endpoints</div></div>
+    <div class=&quot;tech-div&quot;></div>
+    <div><div class=&quot;tc-label&quot;>Runtime</div><div class=&quot;tc-item&quot;>Runs on AXA Azure stack</div><div class=&quot;tc-item&quot;>No data leaves your tenant</div></div>
+    <div class=&quot;tech-div&quot;></div>
+    <div><div class=&quot;tc-label&quot;>Knowledge</div><div class=&quot;tc-item&quot;>Rules versioned in enCODE Knowledge Studio</div><div class=&quot;tc-item&quot;>Carrier-owned</div></div>
   </div>
   <div class=&quot;band&quot;>
     <div class=&quot;bl&quot;>What you will see today. <em>Live. On real claim structure.</em></div>
@@ -1159,6 +1140,8 @@ body{font-family:'Inter',sans-serif;background:#fff;display:grid;place-items:cen
         .track-body { display: flex; flex-direction: column; gap: 3px; }
         .track-title { font-size: 16px; font-weight: 700; color: #1C1C46; }
         .track-desc { font-size: 13px; color: #5E6977; line-height: 1.45; }
+.track-bullets { margin: 4px 0 0 14px; padding: 0; font-size: 13px; color: #5E6977; line-height: 1.55; display: flex; flex-direction: column; gap: 2px; }
+.track-bullets li { list-style: disc; }
         .track-tag {
             display: inline-block; margin-top: 4px;
             font-size: 10px; font-weight: 700; color: #2145EA;
@@ -1272,7 +1255,7 @@ body{font-family:'Inter',sans-serif;background:#fff;display:grid;place-items:cen
                     <div class=&quot;track-num&quot;>01</div>
                     <div class=&quot;track-body&quot;>
                         <span class=&quot;track-title&quot;>Recipe Pilot</span>
-                        <span class=&quot;track-desc&quot;>Stand up one governed FNOL workflow on AXA claim data. Contained, time-boxed. You see enCODE adjudicating real claims against encoded carrier rules before committing to anything broader.</span>
+                        <ul class=&quot;track-bullets&quot;><li>One governed FNOL workflow on AXA claim data</li><li>Time-boxed, contained — results in weeks</li><li>Every decision traced to a versioned rule</li></ul>
                     </div>
                 </div>
 
@@ -1280,7 +1263,7 @@ body{font-family:'Inter',sans-serif;background:#fff;display:grid;place-items:cen
                     <div class=&quot;track-num&quot;>02</div>
                     <div class=&quot;track-body&quot;>
                         <span class=&quot;track-title&quot;>Platform Pilot</span>
-                        <span class=&quot;track-desc&quot;>Encode AXA adjuster knowledge into Knowledge Studio. Run triage, coverage check, and reserve workflows end to end. The governed intelligence layer becomes infrastructure your claims team controls.</span>
+                        <ul class=&quot;track-bullets&quot;><li>Encode AXA adjuster knowledge into Knowledge Studio</li><li>Run triage, coverage check, and reserve end to end</li><li>Governance artifacts ready for regulatory review</li></ul>
                     </div>
                 </div>
 
@@ -1288,7 +1271,7 @@ body{font-family:'Inter',sans-serif;background:#fff;display:grid;place-items:cen
                     <div class=&quot;track-num&quot;>03</div>
                     <div class=&quot;track-body&quot;>
                         <span class=&quot;track-title&quot;>Platform Partnership</span>
-                        <span class=&quot;track-desc&quot;>Full enCODE deployment across your claims operation. AXA owns the intelligence layer, independent of any vendor. We help build it. You keep it.</span>
+                        <ul class=&quot;track-bullets&quot;><li>Full enCODE deployment across claims operations</li><li>AXA owns the intelligence layer, vendor-independent</li><li>We build and maintain the governance infrastructure</li></ul>
                     </div>
                 </div>
 
