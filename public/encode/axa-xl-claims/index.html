@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+/* Access gate — validated against ElevateNow backend */
+(function(){
+  var PAPER='axa-xl-claims';
+  var API='https://en-workspace-backend.enowclear360.com/api/access/validate';
+  var KEY='el_email_'+PAPER;
+  function unlock(){document.documentElement.classList.add('el-unlocked');}
+  localStorage.removeItem('el_'+PAPER);var stored=localStorage.getItem(KEY);
+  if(stored){
+    fetch(API+'?email='+encodeURIComponent(stored)+'&artifact='+encodeURIComponent(PAPER))
+      .then(function(r){return r.json();})
+      .then(function(d){if(d.allowed){unlock();}else{localStorage.removeItem(KEY);}})
+      .catch(function(){});
+  }
+  window._elSubmit=function(e){
+    e.preventDefault();
+    var inp=document.getElementById('el-inp');
+    var msg=document.getElementById('el-msg');
+    var btn=document.getElementById('el-btn');
+    var email=(inp.value||'').trim();
+    if(!email)return;
+    btn.textContent='Verifying…';btn.disabled=true;
+    fetch(API+'?email='+encodeURIComponent(email)+'&artifact='+encodeURIComponent(PAPER))
+      .then(function(r){return r.json();})
+      .then(function(d){
+        if(d.allowed){localStorage.setItem(KEY,email);unlock();}
+        else{msg.textContent='Access not found for this email. Contact gps@elevatenow.tech.';btn.textContent='Unlock';btn.disabled=false;}
+      })
+      .catch(function(){msg.textContent='Unable to reach verification server. Try again.';btn.textContent='Unlock';btn.disabled=false;});
+  };
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElevateNow enCODE · AXA XL Claims Transformation Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="/EN.png">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #0D1534; --ink2: #344060; --ink3: #6B7A99; --ink4: #9BA5BE;
+  --blue: #2145EA; --blue-d: #112CA9; --blue-bg: #EEF2FF;
+  --surface: #FFFFFF; --bg: #F5F6FA; --border: rgba(13,21,52,0.09);
+  --border-s: rgba(13,21,52,0.06); --shadow-m: 0 2px 8px rgba(13,21,52,0.08), 0 8px 24px rgba(13,21,52,0.06);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+html, body { height: 100%; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a14; color: var(--ink); overflow: hidden; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; }
+
+/* NAV */
+nav { position: relative; z-index: 200; height: 60px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; background: rgba(255,255,255,0.97); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-s); box-shadow: 0 1px 24px rgba(13,21,52,0.09); }
+.nav-brand { display:flex; align-items:center; gap:8px; text-decoration:none; }
+.nav-links { display:flex; align-items:center; gap:4px; list-style:none; }
+.nav-links a { color:var(--ink2); text-decoration:none; font-size:13.5px; font-weight:500; padding:7px 13px; border-radius:6px; transition:background .15s, color .15s; }
+.nav-links a:hover { background:var(--bg); color:var(--ink); }
+.nav-links a.active { color:var(--blue); background:var(--blue-bg); font-weight:600; }
+.nav-cta { background:var(--blue)!important; color:#fff!important; font-weight:600!important; }
+.nav-cta:hover { opacity:.88!important; }
+.nav-item { position:relative; }
+.nav-item > a { display:flex; align-items:center; gap:4px; }
+.nav-item > a::after { content:''; display:inline-block; width:7px; height:4.5px; flex-shrink:0; background:currentColor; clip-path:polygon(0 0,100% 0,50% 100%); opacity:.40; transition:transform .18s, opacity .18s; }
+.nav-item.open > a::after { opacity:.75; transform:rotate(180deg); }
+.nav-item::after { content:''; position:absolute; top:100%; left:-20px; right:-20px; height:16px; display:none; }
+.nav-item.open::after { display:block; }
+.nav-drop { position:absolute; top:calc(100% + 8px); left:50%; background:#fff; border:1px solid var(--border); border-radius:10px; box-shadow:var(--shadow-m); min-width:260px; padding:6px; z-index:300; opacity:0; pointer-events:none; transform:translateX(-50%) translateY(-6px); transition:opacity .16s var(--ease), transform .16s var(--ease); }
+.nav-item.open .nav-drop { opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+.nav-drop a { display:block; padding:8px 12px; font-size:13px; font-weight:500; color:var(--ink2); border-radius:7px; text-decoration:none; white-space:nowrap; transition:background .12s, color .12s; }
+.nav-drop a:hover { background:var(--blue-bg); color:var(--blue); }
+.nav-drop a.active { background:var(--blue-bg); color:var(--blue); font-weight:600; }
+.nav-ham { display:none; flex-direction:column; justify-content:center; gap:5px; background:none; border:none; cursor:pointer; padding:8px 4px; margin-left:8px; flex-shrink:0; }
+.nav-ham span { display:block; width:22px; height:2px; border-radius:2px; background:var(--ink); transition:transform .22s var(--ease), opacity .18s; }
+@media (max-width:860px) { nav { padding:0 20px; } .nav-links { display:none; } .nav-ham { display:flex; } }
+
+/* DEMOBOARD FRAME */
+.demo-frame { position: fixed; top: 60px; left: 0; right: 0; bottom: 0; background: #0a0a14; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.demo-frame iframe { width: 1280px; height: 720px; border: none; display: block; flex-shrink: 0; transform-origin: center center; }
+
+/* DOWNLOAD BUTTON */
+.dl-btn { position: fixed; bottom: 20px; right: 24px; z-index: 300; background: #2145EA; color: #fff; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.03em; text-decoration: none; padding: 8px 16px; border-radius: 6px; opacity: 0.85; transition: opacity 0.2s; display: flex; align-items: center; gap: 7px; }
+.dl-btn:hover { opacity: 1; }
+.dl-btn svg { flex-shrink: 0; }
+.el-unlocked .dl-btn { display: flex; }
+.dl-btn { display: none; }
+
+/* ACCESS GATE */
+.el-unlocked #el-protected { display: contents; }
+#el-gate { display:flex; position:fixed; inset:0; z-index:9999; background:#0a0a14; align-items:center; justify-content:center; }
+.el-unlocked #el-gate { display:none; }
+.el-gate-box { background:#fff; border-radius:12px; padding:48px 40px; max-width:420px; width:90%; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
+.el-gate-icon { font-size:32px; margin-bottom:16px; }
+.el-gate-box h2 { font-family:Georgia,serif; font-size:20px; font-weight:700; color:#0D1534; margin-bottom:10px; }
+.el-gate-box p { font-size:14px; color:#475569; line-height:1.65; margin-bottom:24px; }
+</style>
+</head>
+<body>
+
+<div id="el-gate">
+  <div class="el-gate-box">
+    <div class="el-gate-icon">&#128274;</div>
+    <h2>Access Required</h2>
+    <p>Enter the email address associated with your access grant.</p>
+    <form onsubmit="_elSubmit(event)" style="margin-top:16px;">
+      <input id="el-inp" type="email" placeholder="your@email.com" required style="width:100%;padding:10px 14px;border:1.5px solid #d1d5db;border-radius:7px;font-size:14px;font-family:inherit;margin-bottom:10px;outline:none;color:#0D1534;">
+      <button id="el-btn" type="submit" style="width:100%;padding:11px;background:#2145EA;color:#fff;border:none;border-radius:7px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .2s;">Unlock</button>
+    </form>
+    <p id="el-msg" style="margin-top:10px;margin-bottom:0;font-size:12.5px;color:#dc2626;min-height:18px;"></p>
+    <p style="margin-top:14px;margin-bottom:0;font-size:12px;color:#94a3b8;">No access? <a href="mailto:gps@elevatenow.tech" style="color:#2145EA;text-decoration:none;font-size:12px;font-weight:400;">Request here</a></p>
+  </div>
+</div>
+
+<div id="el-protected">
+
+<nav id="nav">
+  <a href="/" class="nav-brand">
+    <img src="/enow_logo.svg" alt="ElevateNow" style="height:26px; filter:brightness(0) saturate(100%) invert(19%) sepia(80%) hue-rotate(215deg) saturate(600%) brightness(90%);">
+  </a>
+  <ul class="nav-links">
+    <li class="nav-item">
+      <a href="/#perspectives">Perspectives</a>
+      <div class="nav-drop">
+        <a href="/#perspectives">What We Believe</a>
+        <a href="/demoboards/semantic-hub.html">AI-Ready Insurance: Architectural Directive</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="/#results">Proven Results</a>
+      <div class="nav-drop">
+        <a href="/usecases/ElevateNow_MultiLOB_FNOL">FNOL Intelligence</a>
+        <a href="/usecases/SubmissionIntake">Submission Triage</a>
+        <a href="/usecases/WCFNOL-ElevatenowRecipe">WC Jurisdiction Rules</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="/encode" class="active">enCode</a>
+    </li>
+    <li><a href="/#contact" class="nav-cta">Let's Talk</a></li>
+  </ul>
+  <button class="nav-ham" id="navHam" aria-label="Open navigation">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="demo-frame">
+  <iframe src="/encode/axa-xl-claims/presentation.html" title="AXA XL Claims Transformation Program" allowfullscreen></iframe>
+</div>
+
+<a class="dl-btn" href="/encode/axa-xl-claims/AXA_ClaimsProgram_June2026.pptx" download>
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  Download PPTX
+</a>
+
+<script>
+(function() {
+  const CLOSE_DELAY = 220;
+  document.querySelectorAll('.nav-item').forEach(item => {
+    let closeTimer = null;
+    const open  = () => { clearTimeout(closeTimer); item.classList.add('open'); };
+    const close = () => { closeTimer = setTimeout(() => item.classList.remove('open'), CLOSE_DELAY); };
+    item.addEventListener('mouseenter', open);
+    item.addEventListener('mouseleave', close);
+    const panel = item.querySelector('.nav-drop');
+    if (panel) { panel.addEventListener('mouseenter', open); panel.addEventListener('mouseleave', close); }
+  });
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.nav-item')) document.querySelectorAll('.nav-item.open').forEach(i => i.classList.remove('open'));
+  });
+})();
+
+function scaleFrame() {
+  const iframe = document.querySelector('.demo-frame iframe');
+  if (!iframe) return;
+  const s = Math.min(window.innerWidth / 1280, (window.innerHeight - 60) / 720);
+  iframe.style.transform = 'scale(' + s + ')';
+}
+window.addEventListener('load', scaleFrame);
+window.addEventListener('resize', scaleFrame);
+scaleFrame();
+</script>
+
+</div>
+</body>
+</html>

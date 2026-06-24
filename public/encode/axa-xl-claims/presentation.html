@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ElevateNow enCODE · AXA XL Claims Transformation Program</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1280px; height: 720px; overflow: hidden; background: #0a0a14; -webkit-font-smoothing: antialiased; font-family: 'Inter', sans-serif; }
+
+.stage  { width: 1280px; height: 720px; overflow: hidden; position: relative; }
+.track  { display: flex; width: calc(7 * 1280px); height: 720px; transition: transform 0.5s cubic-bezier(0.77,0,0.175,1); will-change: transform; }
+.slide  { width: 1280px; height: 720px; flex-shrink: 0; overflow: hidden; display: flex; flex-direction: column; background: #fff; }
+
+/* Nav */
+.nav { position: fixed; top: 50%; transform: translateY(-50%); z-index: 100; width: 44px; height: 88px; border: none; background: transparent; color: rgba(255,255,255,0.45); font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s, background 0.2s, color 0.2s; }
+.nav.left  { left: 0; border-radius: 0 6px 6px 0; }
+.nav.right { right: 0; border-radius: 6px 0 0 6px; }
+.nav.hidden { pointer-events: none !important; opacity: 0 !important; }
+.stage:hover .nav:not(.hidden) { opacity: 1; }
+.nav:hover { background: rgba(33,69,234,0.30); color: #57CBFF; }
+.counter { position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); z-index: 100; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; color: rgba(255,255,255,0.22); pointer-events: none; }
+
+/* ── SHARED SLIDE CHROME ── */
+.top-bar { background: #1C1C46; height: 36px; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; width: 16px; height: 16px; }
+.logo-sq { border-radius: 2px; background: #fff; }
+.logo-sq:nth-child(2) { opacity: .85; }
+.logo-sq:nth-child(3) { opacity: .55; }
+.logo-sq:nth-child(4) { opacity: .35; }
+.logo-name { font-size: 13px; font-weight: 700; color: #fff; }
+.top-right { text-align: right; line-height: 1; }
+.top-right .lbl { font-size: 8px; font-weight: 700; color: #57CBFF; letter-spacing: 1.2px; text-transform: uppercase; display: block; }
+.top-right .val { font-size: 7.5px; color: rgba(255,255,255,0.38); display: block; margin-top: 2px; }
+.foot { background: #1C1C46; height: 20px; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; margin-top: auto; }
+.foot-l { font-size: 7px; color: rgba(255,255,255,0.38); }
+.foot-r { font-size: 7px; color: #57CBFF; font-weight: 600; }
+
+/* ── SLIDE 1 ── */
+.s1-body { flex: 1; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
+.s1-left { background: linear-gradient(160deg,#1C1C46 0%,#2145EA 100%); padding: 26px 40px; display: flex; flex-direction: column; gap: 0; }
+.s1-tag { font-size: 8px; font-weight: 700; color: #57CBFF; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.s1-h1 { font-size: 34px; font-weight: 800; color: #fff; line-height: 1.12; letter-spacing: -.5px; margin-bottom: 12px; }
+.s1-h1 span { color: #57CBFF; }
+.s1-sub { font-size: 13px; color: rgba(255,255,255,.72); line-height: 1.6; margin-bottom: 18px; }
+.s1-stats { display: flex; border-top: 1px solid rgba(255,255,255,.15); border-bottom: 1px solid rgba(255,255,255,.15); padding: 12px 0; margin-bottom: 18px; }
+.s1-stat { flex: 1; padding-right: 14px; border-right: 1px solid rgba(255,255,255,.12); margin-right: 14px; }
+.s1-stat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+.s1-stat-n { font-size: 28px; font-weight: 800; color: #57CBFF; line-height: 1; margin-bottom: 3px; }
+.s1-stat-l { font-size: 9px; font-weight: 600; color: rgba(255,255,255,.55); text-transform: uppercase; letter-spacing: .8px; line-height: 1.4; }
+.s1-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 20px; padding: 6px 14px; font-size: 10px; font-weight: 600; color: rgba(255,255,255,.75); }
+.s1-dot { width: 6px; height: 6px; border-radius: 50%; background: #57CBFF; flex-shrink: 0; }
+.s1-right { background: #f8f9fc; padding: 20px 32px; display: flex; flex-direction: column; gap: 0; }
+.s1-rt { font-size: 8px; font-weight: 700; color: #2145EA; letter-spacing: 1.5px; text-transform: uppercase; padding-bottom: 8px; border-bottom: 1px solid #e0e4f0; margin-bottom: 10px; }
+.s1-pillar { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+.s1-pillar:last-child { margin-bottom: 0; }
+.s1-pnum { font-size: 18px; font-weight: 800; color: #dde1f0; line-height: 1; flex-shrink: 0; width: 26px; margin-top: 1px; }
+.s1-ptitle { font-size: 13px; font-weight: 700; color: #1C1C46; margin-bottom: 3px; }
+.s1-ptext { font-size: 11.5px; color: #555; line-height: 1.5; }
+
+/* ── SLIDE 2 ── */
+.s2-hero { background: #1C1C46; padding: 8px 40px; flex-shrink: 0; }
+.s2-ey { font-size: 8px; font-weight: 700; color: #57CBFF; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 3px; }
+.s2-ht { font-size: 19px; font-weight: 800; color: #fff; letter-spacing: -.3px; }
+.s2-body { flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; overflow: hidden; }
+.s2-col { padding: 14px 16px; border-right: 1px solid #e0e4f0; display: flex; flex-direction: column; gap: 8px; }
+.s2-col:last-child { border-right: none; }
+.s2-cnum { font-size: 20px; font-weight: 800; color: #e8ebf5; line-height: 1; }
+.s2-ctitle { font-size: 13px; font-weight: 700; color: #1C1C46; line-height: 1.25; }
+.s2-outcome { padding: 8px 12px; border-radius: 6px; background: #eef1ff; border: 2px solid #2145EA; font-size: 11.5px; color: #1C1C46; font-weight: 700; line-height: 1.35; text-align: center; }
+.s2-ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.s2-ul li { font-size: 11.5px; color: #444; line-height: 1.45; display: flex; gap: 6px; align-items: flex-start; }
+.s2-ul li::before { content: "·"; color: #2145EA; font-weight: 900; font-size: 15px; flex-shrink: 0; line-height: 1; }
+
+/* ── SLIDE 3 ── */
+.s3-hero { background: #2145EA; padding: 8px 40px; flex-shrink: 0; }
+.s3-ey { font-size: 8px; font-weight: 700; color: #57CBFF; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 3px; }
+.s3-ht { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -.3px; }
+.s3-strip { background: #0F1235; padding: 0 0; display: flex; flex-shrink: 0; }
+.s3-outcome { flex: 1; display: flex; align-items: flex-start; gap: 10px; padding: 12px 18px; border-right: 1px solid rgba(255,255,255,.1); }
+.s3-outcome:last-child { border-right: none; }
+.s3-onum { font-size: 11px; font-weight: 800; color: rgba(255,255,255,.35); flex-shrink: 0; margin-top: 2px; }
+.s3-olbl { font-size: 8px; font-weight: 700; color: #fff; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 3px; }
+.s3-otxt { font-size: 10px; color: rgba(255,255,255,.6); line-height: 1.45; }
+.s3-cards { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px 28px; overflow: hidden; }
+.s3-card { border-radius: 6px; overflow: hidden; border: 1px solid #e0e4f0; display: flex; flex-direction: column; }
+.s3-chead { background: #1C1C46; padding: 10px 14px; }
+.s3-cname { font-size: 12px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 3px; }
+.s3-ccad { font-size: 8px; color: rgba(255,255,255,.5); }
+.s3-cprice { background: #2145EA; padding: 6px 14px; display: flex; align-items: baseline; gap: 6px; }
+.s3-cpamt { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -.5px; line-height: 1; }
+.s3-cpunit { font-size: 9px; color: rgba(255,255,255,.65); }
+.s3-cbody { background: #fff; padding: 10px 14px; flex: 1; }
+.s3-cdesc { font-size: 10px; color: #444; line-height: 1.5; margin-bottom: 8px; }
+.s3-clist { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.s3-clist li { font-size: 10.5px; color: #555; display: flex; gap: 5px; align-items: flex-start; line-height: 1.4; }
+.s3-clist li::before { content: "✓"; color: #2145EA; font-weight: 700; font-size: 9px; flex-shrink: 0; margin-top: 1px; }
+
+/* ── SLIDE 4 ── */
+.s4-head { background: #1C1C46; padding: 8px 40px; flex-shrink: 0; }
+.s4-ey { font-size: 8px; font-weight: 700; color: #57CBFF; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 3px; }
+.s4-ht { font-size: 14px; font-weight: 700; color: #fff; }
+.s4-body { flex: 1; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
+.s4-left { background: #f8f9fc; padding: 20px 28px; display: flex; flex-direction: column; }
+.s4-right { background: #1C1C46; padding: 20px 28px; display: flex; flex-direction: column; }
+.s4-sec { font-size: 9px; font-weight: 700; color: #1C1C46; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid #e0e4f0; }
+.s4-sec-r { color: #57CBFF; border-bottom-color: rgba(255,255,255,.15); }
+.s4-items { display: flex; flex-direction: column; gap: 0; flex: 1; }
+.s4-item { display: flex; gap: 10px; align-items: flex-start; flex: 1; min-height: 0; padding: 8px 0; border-bottom: 1px solid #f0f2f8; }
+.s4-item:last-child { border-bottom: none; }
+.s4-item-r { border-bottom-color: rgba(255,255,255,.08); }
+.s4-dot { width: 6px; height: 6px; border-radius: 50%; background: #2145EA; flex-shrink: 0; margin-top: 4px; }
+.s4-dot-r { background: #57CBFF; }
+.s4-txt { font-size: 12px; color: #333; line-height: 1.5; }
+.s4-txt-r { color: rgba(255,255,255,.82); }
+
+/* ── SLIDE 5 ── */
+.s5-head { background: #fff; padding: 6px 40px 8px; flex-shrink: 0; display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 1px solid #e0e4f0; }
+.s5-ey { font-size: 7px; font-weight: 700; color: #2145EA; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2px; }
+.s5-ht { font-size: 18px; font-weight: 800; color: #1C1C46; }
+.s5-zones { flex: 1; display: flex; overflow: hidden; }
+.s5-l { background: #1C1C46; display: flex; flex-direction: column; width: 424px; flex-shrink: 0; }
+.s5-c { background: #2145EA; display: flex; flex-direction: column; width: 180px; flex-shrink: 0; }
+.s5-r { background: #f5f7ff; display: flex; flex-direction: column; flex: 1; border-right: none; }
+.s5-zh { padding: 10px 18px 8px; flex-shrink: 0; }
+.s5-zh-l { background: rgba(0,0,0,.18); }
+.s5-zh-c { background: rgba(0,0,0,.15); }
+.s5-zh-r { background: #eaecf8; }
+.s5-zlbl { font-size: 8px; font-weight: 700; color: #57CBFF; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 3px; }
+.s5-zlbl-r { color: #1C1C46; }
+.s5-zrole { font-size: 14px; font-weight: 800; color: #fff; line-height: 1.15; }
+.s5-zrole-r { color: #1C1C46; }
+.s5-zbody { flex: 1; padding: 10px 18px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+.s5-item { display: flex; gap: 8px; align-items: flex-start; }
+.s5-dash { width: 14px; height: 3px; background: #57CBFF; flex-shrink: 0; margin-top: 7px; border-radius: 2px; }
+.s5-dash-c { background: rgba(255,255,255,.5); }
+.s5-dash-r { background: #2145EA; }
+.s5-itxt { font-size: 12px; color: #DDEEFF; line-height: 1.4; }
+.s5-itxt-c { color: rgba(255,255,255,.85); }
+.s5-itxt-r { color: #1C1C46; }
+.s5-pills { padding: 8px 18px 10px; flex-shrink: 0; border-top: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 6px; }
+.s5-pill { border-radius: 5px; padding: 6px 12px; }
+.s5-pill-a { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); }
+.s5-pill-b { background: #2145EA; border: 1px solid #57CBFF; }
+.s5-plbl { font-size: 7px; font-weight: 700; color: #57CBFF; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 2px; }
+.s5-pname { font-size: 12px; font-weight: 700; color: #fff; }
+.s5-c-center { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 10px; text-align: center; }
+.s5-big { font-size: 17px; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 14px; }
+.s5-clist { list-style: none; display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.s5-clist li { font-size: 11px; color: rgba(255,255,255,.8); text-align: center; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.15); }
+.s5-clist li:last-child { border-bottom: none; }
+.s5-r-note { margin-top: auto; background: #e8ebff; border: 1px solid #d0d5f0; padding: 8px 14px; border-radius: 5px; font-size: 10.5px; color: #334499; line-height: 1.5; flex-shrink: 0; }
+.s5-punch { background: #0F1235; padding: 0 40px; height: 36px; display: flex; align-items: center; flex-shrink: 0; }
+.s5-punch-t { font-size: 11.5px; font-weight: 700; color: #fff; text-align: center; width: 100%; }
+
+/* ── SLIDES 6 & 7 — Scope Delivery Model ── */
+.scope-sub { height: 44px; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; background: #fff; border-bottom: 1px solid #e8ebf5; flex-shrink: 0; }
+.scope-ey { font-size: 7px; font-weight: 700; color: #2145EA; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 2px; }
+.scope-desc { font-size: 11px; color: #333; font-weight: 500; max-width: 760px; line-height: 1.35; }
+.scope-badge { border-radius: 5px; padding: 4px 12px; text-align: right; flex-shrink: 0; }
+.scope-badge-a { background: #1C1C46; }
+.scope-badge-b { background: #2145EA; }
+.scope-blbl { font-size: 7px; font-weight: 700; color: #57CBFF; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 1px; }
+.scope-bname { font-size: 11px; font-weight: 700; color: #fff; white-space: nowrap; }
+.scope-lanes { flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr; overflow: hidden; }
+.lane { display: flex; flex-direction: column; overflow: hidden; }
+.lane + .lane { border-left: 1px solid rgba(0,0,0,.1); }
+.lane-head { padding: 8px 14px; flex-shrink: 0; }
+.lane1-head { background: #1C1C46; }
+.lane2-head { background: #2145EA; }
+.lane3-head { background: #eaecf8; }
+.lane-lbl { font-size: 7px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 2px; }
+.lane1 .lane-lbl { color: #57CBFF; }
+.lane2 .lane-lbl { color: #57CBFF; }
+.lane3 .lane-lbl { color: #2145EA; }
+.lane-who { font-size: 14px; font-weight: 700; }
+.lane1 .lane-who, .lane2 .lane-who { color: #fff; }
+.lane3 .lane-who { color: #1C1C46; }
+.lane-role { font-size: 9px; margin-top: 1px; }
+.lane1 .lane-role, .lane2 .lane-role { color: rgba(255,255,255,.55); }
+.lane3 .lane-role { color: #888; }
+.lane-body { flex: 1; padding: 6px 0; display: flex; flex-direction: column; overflow: hidden; }
+.lane1 .lane-body { background: #f3f5ff; }
+.lane2 .lane-body { background: #f0f3ff; }
+.lane3 .lane-body { background: #fafbfd; }
+.lane-item { padding: 5px 14px; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; border-bottom: 1px solid rgba(0,0,0,.05); }
+.lane-item:last-child { border-bottom: none; }
+.lane-ititle { font-size: 11.5px; font-weight: 700; color: #1C1C46; line-height: 1.2; margin-bottom: 2px; }
+.lane-idesc { font-size: 9.5px; color: #666; line-height: 1.4; }
+.scope-int { background: #0F1235; height: 34px; padding: 0 28px; display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+.scope-int-lbl { font-size: 7.5px; font-weight: 700; color: #57CBFF; letter-spacing: 1.2px; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+.scope-int-div { width: 1px; height: 16px; background: rgba(255,255,255,.2); flex-shrink: 0; }
+.scope-int-txt { font-size: 10px; color: rgba(255,255,255,.6); line-height: 1.4; }
+
+@media print {
+  .track { transform: none !important; flex-direction: column; width: 1280px; height: auto; }
+  .slide { break-after: page; }
+  .nav, .counter { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+<div class="track" id="track">
+
+<!-- ═══════ SLIDE 1 — STRATEGIC CONTEXT ═══════ -->
+<div class="slide">
+  <div class="top-bar">
+    <div class="logo"><div class="logo-grid"><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div></div><span class="logo-name">Elevatenow</span></div>
+    <div class="top-right"><span class="lbl">Prepared for AXA XL · Confidential</span><span class="val">June 2026 · enCODE Platform · Claims Transformation Program</span></div>
+  </div>
+  <div class="s1-body">
+    <div class="s1-left">
+      <div class="s1-tag">AXA XL · Claims Transformation Program</div>
+      <div class="s1-h1">Scaling Claims<br>Expertise with<br><span>AI Adjudication</span></div>
+      <div class="s1-sub">A governed intelligence layer that encodes expert claim knowledge and applies it consistently at every FNOL, across every line of business AXA XL operates.</div>
+      <div class="s1-stats">
+        <div class="s1-stat"><div class="s1-stat-n">50+</div><div class="s1-stat-l">Jurisdictions encoded at launch</div></div>
+        <div class="s1-stat"><div class="s1-stat-n">&lt;60s</div><div class="s1-stat-l">FNOL-to-triage on any claim</div></div>
+        <div class="s1-stat"><div class="s1-stat-n">6</div><div class="s1-stat-l">Commercial lines on one platform</div></div>
+      </div>
+      <div class="s1-pill"><div class="s1-dot"></div>Starting LOB · AXA XL's choice · Expanding across all commercial lines</div>
+    </div>
+    <div class="s1-right">
+      <div class="s1-rt">What this program delivers</div>
+      <div class="s1-pillar"><div class="s1-pnum">01</div><div><div class="s1-ptitle">Expert Judgment at Scale</div><div class="s1-ptext">Encode AXA XL's adjuster expertise into jurisdiction-specific rules. Apply it consistently at speed: at first notice, on every claim, regardless of volume or adjuster availability. Expert-quality triage stops depending on who picks up the case.</div></div></div>
+      <div class="s1-pillar"><div class="s1-pnum">02</div><div><div class="s1-ptitle">AXA XL-Owned Intelligence</div><div class="s1-ptext">The platform deploys within AXA XL's infrastructure. All claim data stays in the environment. Designated administrators operate and extend the intelligence layer independently, with no ongoing Elevatenow dependency from go-live.</div></div></div>
+      <div class="s1-pillar"><div class="s1-pnum">03</div><div><div class="s1-ptitle">Defensible, Auditable Decisions</div><div class="s1-ptext">Every triage decision traces to a governed rule: jurisdiction, coverage trigger, filing deadline. Regulator-ready audit export at the claim level from day one. When examiners ask, the answer is a click, not a reconstruction.</div></div></div>
+      <div class="s1-pillar"><div class="s1-pnum">04</div><div><div class="s1-ptitle">Continuous Improvement, No Vendor Lock</div><div class="s1-ptext">AXA XL administrators update jurisdiction rules, activate new LOBs, and run quarterly knowledge refreshes independently. Elevatenow trains the team and steps back. The intelligence layer is AXA XL's to operate and extend.</div></div></div>
+    </div>
+  </div>
+  <div class="foot"><span class="foot-l">Elevatenow · Confidential and Proprietary · For AXA XL Internal Review Only · June 2026</span><span class="foot-r">gps@elevatenow.tech · elevatenow.tech</span></div>
+</div>
+
+<!-- ═══════ SLIDE 2 — OBJECTIVES AND OUTCOMES ═══════ -->
+<div class="slide">
+  <div class="top-bar">
+    <div class="logo"><div class="logo-grid"><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div></div><span class="logo-name">Elevatenow</span></div>
+    <div class="top-right"><span class="lbl">Prepared for AXA XL · Confidential</span><span class="val">June 2026 · enCODE Platform · Claims Transformation Program</span></div>
+  </div>
+  <div class="s2-hero"><div class="s2-ey">Program Objectives</div><div class="s2-ht">What Success Looks Like</div></div>
+  <div class="s2-body">
+    <div class="s2-col">
+      <div class="s2-cnum">01</div>
+      <div class="s2-ctitle">Scale Adjuster Expertise Across Every Claim</div>
+      <div class="s2-outcome">Expert-quality triage on 100% of FNOLs from day one</div>
+      <ul class="s2-ul"><li>Jurisdiction-specific rules encode expert adjuster judgment at intake</li><li>Applied at first notice on every FNOL, regardless of volume or geography</li><li>Coverage triggers, filing deadlines, and severity thresholds evaluated in seconds</li><li>Consistent triage quality across all adjusters and claim types</li><li>Expert outcomes stop depending on who picks up the case</li></ul>
+    </div>
+    <div class="s2-col">
+      <div class="s2-cnum">02</div>
+      <div class="s2-ctitle">Accelerate Claims Throughput Without Adding Headcount</div>
+      <div class="s2-outcome">Claims ops capacity scales with volume, not headcount</div>
+      <ul class="s2-ul"><li>Every claim enters the right workflow at intake with no manual sorting</li><li>Adjusters focus on judgment calls, not first-notice classification</li><li>High-severity and complex claims escalate automatically from intake</li><li>Throughput scales with claim volume, not with team size</li><li>No additional headcount needed to absorb volume growth</li></ul>
+    </div>
+    <div class="s2-col">
+      <div class="s2-cnum">03</div>
+      <div class="s2-ctitle">Build a Defensible Audit Trail from First Notice</div>
+      <div class="s2-outcome">Regulator-ready decision records at the claim level</div>
+      <ul class="s2-ul"><li>Every decision traces to a specific jurisdiction rule and coverage trigger</li><li>Filing deadlines and statutory requirements logged at the claim level</li><li>Regulator-ready audit export available on demand, no manual reconstruction</li><li>Answer to any examiner question is a click, not a multi-system search</li><li>Designed for regulator, litigation, and internal review from day one</li></ul>
+    </div>
+    <div class="s2-col">
+      <div class="s2-cnum">04</div>
+      <div class="s2-ctitle">Expand Across All LOBs Without New Procurement</div>
+      <div class="s2-outcome">Each new LOB live in 4 weeks on the platform AXA XL already owns</div>
+      <ul class="s2-ul"><li>Master agreement signed once, governs all future LOBs</li><li>Each new LOB activates via a one-page Order Form</li><li>4-week enablement sprint per new line of business</li><li>No new vendor review, no infrastructure to rebuild</li><li>Intelligence layer compounds: each LOB reinforces the shared knowledge base</li></ul>
+    </div>
+  </div>
+  <div class="foot"><span class="foot-l">Elevatenow · Confidential and Proprietary · For AXA XL Internal Review Only · June 2026</span><span class="foot-r">gps@elevatenow.tech · elevatenow.tech</span></div>
+</div>
+
+<!-- ═══════ SLIDE 3 — COMMERCIAL STRUCTURE ═══════ -->
+<div class="slide">
+  <div class="top-bar">
+    <div class="logo"><div class="logo-grid"><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div></div><span class="logo-name">Elevatenow</span></div>
+    <div class="top-right"><span class="lbl">Prepared for AXA XL · Confidential</span><span class="val">June 2026 · enCODE Platform · Commercial Proposal</span></div>
+  </div>
+  <div class="s3-hero"><div class="s3-ey">enCODE · FNOL Intelligence for Insurance Carriers</div><div class="s3-ht">FNOL Intelligence Platform</div></div>
+  <div class="s3-strip">
+    <div class="s3-outcome"><span class="s3-onum">01</span><div><span class="s3-olbl">Triage Accuracy</span><span class="s3-otxt">Every FNOL triage decision traces to a jurisdiction-specific encoded rule, defensible from first notice.</span></div></div>
+    <div class="s3-outcome"><span class="s3-onum">02</span><div><span class="s3-olbl">Analyst Control</span><span class="s3-otxt">AXA XL's designated administrators operate the configuration environment from go-live. No ongoing Elevatenow dependency.</span></div></div>
+    <div class="s3-outcome"><span class="s3-onum">03</span><div><span class="s3-olbl">Predictable Cost</span><span class="s3-otxt">$100K per active LOB per year from Year 2. Cost scales with active use. No expansion means no cost increase.</span></div></div>
+  </div>
+  <div class="s3-cards">
+    <div class="s3-card">
+      <div class="s3-chead"><div class="s3-cname">Inaugural Year Package for the Platform</div><div class="s3-ccad">Deployment + first LOB activated + first-year platform access</div></div>
+      <div class="s3-cprice"><span class="s3-cpamt">$250K</span><span class="s3-cpunit">Year 1 total · no setup fees ever recur</span></div>
+      <div class="s3-cbody">
+        <div class="s3-cdesc">Covers $150K one-time deployment and $100K first-year platform access, bundled into a single Year 1 commitment. From Year 2, AXA XL pays $100K per active LOB, nothing more.</div>
+        <ul class="s3-clist"><li>Platform deployed on AXA XL infrastructure</li><li>First LOB activated: WC, GL, Property, or Auto (AXA XL's choice)</li><li>Claim intake, triage engine, REST API, SDK</li><li>Administrator enablement program (2 designated leads)</li><li>Source code escrow with third-party custodian</li><li>60-day go-live support, then AXA XL-operated</li></ul>
+      </div>
+    </div>
+    <div class="s3-card">
+      <div class="s3-chead"><div class="s3-cname">Annual Subscription</div><div class="s3-ccad">$100K per active LOB in production</div></div>
+      <div class="s3-cprice"><span class="s3-cpamt">$100K</span><span class="s3-cpunit">per active LOB per year · auto-renews</span></div>
+      <div class="s3-cbody">
+        <div class="s3-cdesc">AXA XL's annual cost is $100K multiplied by active LOBs. No expansion means $100K flat. Each new LOB added via a one-page Order Form with no renegotiation of the master agreement.</div>
+        <ul class="s3-clist"><li>All active LOBs on the FNOL claims knowledge layer</li><li>Quarterly knowledge updates, admin-applied by AXA XL</li><li>Claim decision audit trail, regulator-ready export</li><li>Named engineering contact and SLA tiers</li><li>40 hrs/year advisory access included</li><li>New LOB: one-page Order Form + 4-week enablement sprint</li></ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="foot-l">Elevatenow · Confidential and Proprietary · For AXA XL Internal Review Only · June 2026</span><span class="foot-r">gps@elevatenow.tech · elevatenow.tech</span></div>
+</div>
+
+<!-- ═══════ SLIDE 4 — COMMERCIAL TERMS ═══════ -->
+<div class="slide">
+  <div class="top-bar">
+    <div class="logo"><div class="logo-grid"><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div></div><span class="logo-name">Elevatenow</span></div>
+    <div class="top-right"><span class="lbl">Prepared for AXA XL · Confidential</span><span class="val">June 2026 · enCODE Platform · Commercial Proposal</span></div>
+  </div>
+  <div class="s4-head"><div class="s4-ey">Commercial Terms</div><div class="s4-ht">What AXA XL Retains · How the Commercial Relationship Works</div></div>
+  <div class="s4-body">
+    <div class="s4-left">
+      <div class="s4-sec">What AXA XL Retains</div>
+      <div class="s4-items">
+        <div class="s4-item"><div class="s4-dot"></div><span class="s4-txt">Platform runs on AXA XL infrastructure. All claim data stays within AXA XL's environment.</span></div>
+        <div class="s4-item"><div class="s4-dot"></div><span class="s4-txt">AXA XL administrators operate the configuration environment from go-live.</span></div>
+        <div class="s4-item"><div class="s4-dot"></div><span class="s4-txt">All FNOL decision records, claim traces, and jurisdiction audit logs.</span></div>
+        <div class="s4-item"><div class="s4-dot"></div><span class="s4-txt">Source code escrow releases to AXA XL on Elevatenow dissolution.</span></div>
+        <div class="s4-item"><div class="s4-dot"></div><span class="s4-txt">Right to configure and extend triage rules independently.</span></div>
+      </div>
+    </div>
+    <div class="s4-right">
+      <div class="s4-sec s4-sec-r">Commercial Structure</div>
+      <div class="s4-items">
+        <div class="s4-item s4-item-r"><div class="s4-dot s4-dot-r"></div><span class="s4-txt s4-txt-r">Master License Agreement signed once. Annual platform access auto-renews.</span></div>
+        <div class="s4-item s4-item-r"><div class="s4-dot s4-dot-r"></div><span class="s4-txt s4-txt-r">Each new LOB is a one-page Order Form. No renegotiation of the master agreement.</span></div>
+        <div class="s4-item s4-item-r"><div class="s4-dot s4-dot-r"></div><span class="s4-txt s4-txt-r">Optional document intelligence layer at consumption-based pricing, or bring your own.</span></div>
+        <div class="s4-item s4-item-r"><div class="s4-dot s4-dot-r"></div><span class="s4-txt s4-txt-r">Dedicated support arrangements available on request for teams requiring expanded engagement.</span></div>
+        <div class="s4-item s4-item-r"><div class="s4-dot s4-dot-r"></div><span class="s4-txt s4-txt-r">Elevatenow retains platform source code, FNOL knowledge base, and all platform IP.</span></div>
+        <div class="s4-item s4-item-r"><div class="s4-dot s4-dot-r"></div><span class="s4-txt s4-txt-r">Elevatenow retains right to deploy the platform with other carriers.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="foot-l">Elevatenow · Confidential and Proprietary · For AXA XL Internal Review Only · June 2026</span><span class="foot-r">gps@elevatenow.tech · elevatenow.tech</span></div>
+</div>
+
+<!-- ═══════ SLIDE 5 — WHO DOES WHAT ═══════ -->
+<div class="slide">
+  <div class="top-bar">
+    <div class="logo"><div class="logo-grid"><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div></div><span class="logo-name">Elevatenow</span></div>
+    <div class="top-right"><span class="lbl">Prepared for AXA XL · Confidential</span><span class="val">June 2026 · Claims Transformation Program</span></div>
+  </div>
+  <div class="s5-head">
+    <div><div class="s5-ey">Scope Overview</div><div class="s5-ht">Who Does What</div></div>
+    <div style="font-size:10px;color:#555;max-width:560px;text-align:right;line-height:1.5;">AXA XL selects one track at go-live. Both deploy on AXA XL infrastructure.<br>The detailed scope for each follows on the next two slides.</div>
+  </div>
+  <div class="s5-zones">
+    <div class="s5-l">
+      <div class="s5-zh s5-zh-l"><span class="s5-zlbl">Elevatenow</span><div class="s5-zrole">Deploys and hands over</div></div>
+      <div class="s5-zbody">
+        <div class="s5-item"><div class="s5-dash"></div><span class="s5-itxt">Triage engine</span></div>
+        <div class="s5-item"><div class="s5-dash"></div><span class="s5-itxt">FNOL knowledge layer</span></div>
+        <div class="s5-item"><div class="s5-dash"></div><span class="s5-itxt">Jurisdiction-encoded rules</span></div>
+        <div class="s5-item"><div class="s5-dash"></div><span class="s5-itxt">REST API + SDK</span></div>
+        <div class="s5-item"><div class="s5-dash"></div><span class="s5-itxt">Administrator enablement</span></div>
+      </div>
+      <div class="s5-pills">
+        <div class="s5-pill s5-pill-a"><span class="s5-plbl">Track A</span><span class="s5-pname">FNOL Intelligence Core</span></div>
+        <div class="s5-pill s5-pill-b"><span class="s5-plbl">Track B</span><span class="s5-pname">FNOL Core + Document Intelligence</span></div>
+      </div>
+    </div>
+    <div class="s5-c">
+      <div class="s5-zh s5-zh-c"><span class="s5-zlbl">Together</span><div class="s5-zrole">Go-Live</div></div>
+      <div class="s5-c-center">
+        <div class="s5-big">60-Day<br>Go-Live<br>Window</div>
+        <ul class="s5-clist">
+          <li>Deployment</li>
+          <li>Configuration</li>
+          <li>Admin training</li>
+          <li>Handover</li>
+        </ul>
+      </div>
+    </div>
+    <div class="s5-r">
+      <div class="s5-zh s5-zh-r"><span class="s5-zlbl s5-zlbl-r">AXA XL</span><div class="s5-zrole s5-zrole-r">Owns, operates, and extends</div></div>
+      <div class="s5-zbody">
+        <div class="s5-item"><div class="s5-dash s5-dash-r"></div><span class="s5-itxt s5-itxt-r">Triage decisions</span></div>
+        <div class="s5-item"><div class="s5-dash s5-dash-r"></div><span class="s5-itxt s5-itxt-r">All claim data</span></div>
+        <div class="s5-item"><div class="s5-dash s5-dash-r"></div><span class="s5-itxt s5-itxt-r">Knowledge configuration</span></div>
+        <div class="s5-item"><div class="s5-dash s5-dash-r"></div><span class="s5-itxt s5-itxt-r">Platform independence</span></div>
+        <div class="s5-item"><div class="s5-dash s5-dash-r"></div><span class="s5-itxt s5-itxt-r">Expansion on own terms</span></div>
+      </div>
+      <div style="padding: 0 16px 12px; margin-top: auto;">
+        <div class="s5-r-note">Same ownership model across both tracks. The scope slides that follow show each track in practice.</div>
+      </div>
+    </div>
+  </div>
+  <div class="s5-punch"><span class="s5-punch-t">Track B adds one component to go-live scope: Document Intelligence. After handover, AXA XL runs both tracks the same way.</span></div>
+  <div class="foot"><span class="foot-l">Elevatenow · Confidential and Proprietary · For AXA XL Internal Review Only · June 2026</span><span class="foot-r">gps@elevatenow.tech · elevatenow.tech</span></div>
+</div>
+
+<!-- ═══════ SLIDE 6 — TRACK A SCOPE ═══════ -->
+<div class="slide">
+  <div class="top-bar">
+    <div class="logo"><div class="logo-grid"><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div></div><span class="logo-name">Elevatenow</span></div>
+    <div class="top-right"><span class="lbl">Prepared for AXA XL · Confidential</span><span class="val">June 2026 · enCODE Platform</span></div>
+  </div>
+  <div class="scope-sub">
+    <div>
+      <span class="scope-ey">enCODE · Property LOB</span>
+      <span class="scope-desc">AXA XL's existing pipeline delivers structured FNOL data to enCODE. Elevatenow applies jurisdiction-encoded triage rules at the API boundary.</span>
+    </div>
+    <div class="scope-badge scope-badge-a"><span class="scope-blbl">Track A</span><span class="scope-bname">FNOL Intelligence Core</span></div>
+  </div>
+  <div class="scope-lanes">
+    <div class="lane lane1">
+      <div class="lane-head lane1-head"><span class="lane-lbl">Lane 1 · Elevatenow</span><div class="lane-who">Platform Vendor</div><div class="lane-role">Intake · triage intelligence · knowledge layer</div></div>
+      <div class="lane-body">
+        <div class="lane-item"><div class="lane-ititle">Platform Deployment</div><div class="lane-idesc">Deployed on AXA XL infrastructure to Elevatenow spec. Readiness confirmed before any configuration begins.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Claim Intake API</div><div class="lane-idesc">REST API accepts pre-structured FNOL payload from AXA XL pipeline. Elevatenow provides the API schema.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Property Triage Rules</div><div class="lane-idesc">Jurisdiction-specific rule set: cause of loss, coverage triggers, state deadlines, and severity thresholds.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Knowledge Layer + Quarterly Updates</div><div class="lane-idesc">Property coverage logic and jurisdiction frameworks. Versioned updates self-applied by AXA XL administrators.</div></div>
+        <div class="lane-item"><div class="lane-ititle">60-Day Go-Live Support</div><div class="lane-idesc">Active support through handover. No ongoing vendor access required post-handover.</div></div>
+      </div>
+    </div>
+    <div class="lane lane2">
+      <div class="lane-head lane2-head"><span class="lane-lbl">Lane 2 · Joint</span><div class="lane-who">Collaborative</div><div class="lane-role">Triage logic · integration · testing · enablement</div></div>
+      <div class="lane-body">
+        <div class="lane-item"><div class="lane-ititle">Triage Logic Definition</div><div class="lane-idesc">Joint workshops define the Property decision tree. Output is what Elevatenow encodes into the triage engine.</div></div>
+        <div class="lane-item"><div class="lane-ititle">FNOL Payload Schema Alignment</div><div class="lane-idesc">AXA XL maps source data fields to enCODE API schema. Elevatenow validates mapping completeness.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Claims System Integration</div><div class="lane-idesc">Triage decisions written to AXA XL claims system via REST API. AXA XL implements the integration.</div></div>
+        <div class="lane-item"><div class="lane-ititle">End-to-End Testing and Acceptance</div><div class="lane-idesc">Full chain validated from intake through triage to write-back. Pass/fail criteria defined jointly.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Administrator Enablement</div><div class="lane-idesc">Elevatenow delivers enablement program. AXA XL administrators operate platform independently from go-live.</div></div>
+      </div>
+    </div>
+    <div class="lane lane3">
+      <div class="lane-head lane3-head"><span class="lane-lbl">Lane 3 · AXA XL</span><div class="lane-who">Internal</div><div class="lane-role">Infrastructure · business ownership · operations</div></div>
+      <div class="lane-body">
+        <div class="lane-item"><div class="lane-ititle">Infrastructure Provisioning</div><div class="lane-idesc">Databases, firewall, and API gateway configured to Elevatenow spec before deployment.</div></div>
+        <div class="lane-item"><div class="lane-ititle">FNOL Document Intake Pipeline</div><div class="lane-idesc">AXA XL pipeline extracts and normalizes inbound Property FNOLs and delivers structured events to enCODE.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Business Requirements</div><div class="lane-idesc">AXA XL claims leadership defines Property triage decision criteria. This input is what Elevatenow encodes.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Post-Handover Operations</div><div class="lane-idesc">AXA XL administrators run enCODE configuration environment. Quarterly updates self-applied.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Audit and Data Governance</div><div class="lane-idesc">All FNOL decisions and logs retained within AXA XL infrastructure. No data leaves AXA XL.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="scope-int">
+    <span class="scope-int-lbl">Integration Boundary</span>
+    <div class="scope-int-div"></div>
+    <span class="scope-int-txt">AXA XL delivers structured FNOL events to the enCODE triage API. Elevatenow provides jurisdiction-encoded rules. AXA XL administers from go-live.</span>
+  </div>
+  <div class="foot"><span class="foot-l">Elevatenow · Confidential and Proprietary · For AXA XL Internal Review Only · June 2026</span><span class="foot-r">gps@elevatenow.tech · elevatenow.tech</span></div>
+</div>
+
+<!-- ═══════ SLIDE 7 — TRACK B SCOPE ═══════ -->
+<div class="slide">
+  <div class="top-bar">
+    <div class="logo"><div class="logo-grid"><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div><div class="logo-sq"></div></div><span class="logo-name">Elevatenow</span></div>
+    <div class="top-right"><span class="lbl">Prepared for AXA XL · Confidential</span><span class="val">June 2026 · enCODE Platform</span></div>
+  </div>
+  <div class="scope-sub">
+    <div>
+      <span class="scope-ey">enCODE · Property LOB</span>
+      <span class="scope-desc">Elevatenow manages the full FNOL path from document intake through triage, operating enCODE end-to-end before handing the configured platform to AXA XL.</span>
+    </div>
+    <div class="scope-badge scope-badge-b"><span class="scope-blbl">Track B</span><span class="scope-bname">With Document Intelligence</span></div>
+  </div>
+  <div class="scope-lanes">
+    <div class="lane lane1">
+      <div class="lane-head lane1-head"><span class="lane-lbl">Lane 1 · Elevatenow</span><div class="lane-who">Platform Vendor</div><div class="lane-role">Intake · triage intelligence · knowledge layer</div></div>
+      <div class="lane-body">
+        <div class="lane-item"><div class="lane-ititle">Platform Deployment</div><div class="lane-idesc">Deployed on AXA XL infrastructure to Elevatenow spec. Readiness confirmed before any configuration begins.</div></div>
+        <div class="lane-item"><div class="lane-ititle">FNOL Document Intake</div><div class="lane-idesc">Inbound Property FNOLs via email and attachment. Elevatenow extracts structured fields from incoming documents.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Property Triage Rules</div><div class="lane-idesc">Jurisdiction-specific rule set: cause of loss, coverage triggers, state deadlines, and severity thresholds.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Knowledge Layer + Quarterly Updates</div><div class="lane-idesc">Property coverage logic and jurisdiction frameworks. Versioned updates self-applied by AXA XL administrators.</div></div>
+        <div class="lane-item"><div class="lane-ititle">60-Day Go-Live Support</div><div class="lane-idesc">Active support through handover. No ongoing vendor access required post-handover.</div></div>
+      </div>
+    </div>
+    <div class="lane lane2">
+      <div class="lane-head lane2-head"><span class="lane-lbl">Lane 2 · Joint</span><div class="lane-who">Collaborative</div><div class="lane-role">Triage logic · integration · testing · enablement</div></div>
+      <div class="lane-body">
+        <div class="lane-item"><div class="lane-ititle">Triage Logic Definition</div><div class="lane-idesc">Joint workshops define the Property decision tree. Output is what Elevatenow encodes into the triage engine.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Claims System Integration</div><div class="lane-idesc">Triage decisions written to AXA XL claims system via REST API. AXA XL implements the integration.</div></div>
+        <div class="lane-item"><div class="lane-ititle">End-to-End Testing</div><div class="lane-idesc">Full chain validated from intake through triage to write-back. Pass/fail criteria defined jointly.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Administrator Enablement</div><div class="lane-idesc">Elevatenow delivers enablement program. AXA XL administrators operate platform independently from go-live.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Go-Live Acceptance</div><div class="lane-idesc">AXA XL claims ops validates triage output against adjuster standards. Acceptance criteria defined jointly.</div></div>
+      </div>
+    </div>
+    <div class="lane lane3">
+      <div class="lane-head lane3-head"><span class="lane-lbl">Lane 3 · AXA XL</span><div class="lane-who">Internal</div><div class="lane-role">Infrastructure · business ownership · operations</div></div>
+      <div class="lane-body">
+        <div class="lane-item"><div class="lane-ititle">Infrastructure Provisioning</div><div class="lane-idesc">Databases, firewall, and API gateway configured to Elevatenow spec before deployment.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Business Requirements</div><div class="lane-idesc">AXA XL claims leadership defines Property triage decision criteria. This input is what Elevatenow encodes.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Post-Handover Operations</div><div class="lane-idesc">AXA XL administrators run enCODE configuration environment. Quarterly updates self-applied.</div></div>
+        <div class="lane-item"><div class="lane-ititle">Audit and Data Governance</div><div class="lane-idesc">All FNOL decisions and logs retained within AXA XL infrastructure. No data leaves AXA XL.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="scope-int">
+    <span class="scope-int-lbl">Integration Boundary</span>
+    <div class="scope-int-div"></div>
+    <span class="scope-int-txt">Elevatenow receives FNOL documents and drives the full triage chain. AXA XL claims ops validates triage output and operates the platform from go-live.</span>
+  </div>
+  <div class="foot"><span class="foot-l">Elevatenow · Confidential and Proprietary · For AXA XL Internal Review Only · June 2026</span><span class="foot-r">gps@elevatenow.tech · elevatenow.tech</span></div>
+</div>
+
+</div><!-- /track -->
+<button class="nav left hidden" id="navL">&#8249;</button>
+<button class="nav right" id="navR">&#8250;</button>
+<div class="counter" id="counter">1 / 7</div>
+</div><!-- /stage -->
+<script>
+const TOTAL=7,track=document.getElementById('track'),navL=document.getElementById('navL'),navR=document.getElementById('navR'),counter=document.getElementById('counter');
+let cur=0;
+function go(n){cur=Math.max(0,Math.min(TOTAL-1,n));track.style.transform='translateX(-'+(cur*1280)+'px)';navL.classList.toggle('hidden',cur===0);navR.classList.toggle('hidden',cur===TOTAL-1);counter.textContent=(cur+1)+' / '+TOTAL;}
+navL.addEventListener('click',()=>go(cur-1));
+navR.addEventListener('click',()=>go(cur+1));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(cur+1);else if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(cur-1);});
+go(0);
+</script>
+</body>
+</html>
