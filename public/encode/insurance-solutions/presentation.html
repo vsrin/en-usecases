@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ElevateNow enCODE — Insurance Solutions</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;background:#0a0a14;overflow:hidden;font-family:sans-serif;}
+.stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+.track{display:flex;transition:transform 0.55s cubic-bezier(0.77,0,0.175,1);will-change:transform;}
+.cell{width:1280px;height:720px;flex-shrink:0;position:relative;}
+.cell iframe{width:1280px;height:720px;border:none;display:block;border-radius:10px;box-shadow:0 8px 48px rgba(0,0,0,0.7);}
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);z-index:100;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#fff;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.2s,background 0.2s;backdrop-filter:blur(8px);}
+.nav-btn:hover{background:rgba(255,255,255,0.18);}
+body:hover .nav-btn{opacity:1;}
+#prev{left:16px;}
+#next{right:16px;}
+.counter{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.25);font-size:12px;font-family:sans-serif;letter-spacing:0.12em;}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="track" id="track">
+
+    <!-- SLIDE 1 -->
+    <div class="cell"><iframe srcdoc="<!DOCTYPE html>
+<html><head><meta charset='UTF-8'>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1280px;height:720px;overflow:hidden;font-family:'Inter',sans-serif;background:#2145EA;-webkit-font-smoothing:antialiased;}
+.brand-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);}
+.geo{position:absolute;top:0;right:0;width:420px;height:420px;overflow:hidden;pointer-events:none;}
+.geo-r1{position:absolute;top:-80px;right:-60px;width:260px;height:260px;background:rgba(255,255,255,0.06);border-radius:18px;transform:rotate(22deg);}
+.geo-r2{position:absolute;top:40px;right:60px;width:160px;height:160px;background:rgba(87,203,255,0.10);border-radius:12px;transform:rotate(-12deg);}
+.geo-r3{position:absolute;top:160px;right:-20px;width:100px;height:100px;background:rgba(255,255,255,0.04);border-radius:10px;transform:rotate(35deg);}
+.geo-r4{position:absolute;top:220px;right:120px;width:60px;height:60px;background:rgba(87,203,255,0.08);border-radius:8px;transform:rotate(15deg);}
+.logo{position:absolute;top:44px;left:60px;}
+.content{position:absolute;top:50%;left:60px;transform:translateY(-50%);max-width:680px;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:20px;}
+.product-name{font-size:72px;font-weight:800;color:#fff;letter-spacing:-2px;line-height:1;margin-bottom:22px;}
+.tagline{font-size:22px;font-weight:400;color:rgba(255,255,255,0.82);line-height:1.45;margin-bottom:48px;}
+.pills{display:flex;gap:12px;flex-wrap:wrap;}
+.pill{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:24px;padding:8px 20px;font-size:12px;font-weight:600;color:#fff;letter-spacing:0.04em;}
+.footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #E2E8F0;padding:9px 48px 12px;display:flex;justify-content:space-between;align-items:center;background:#2145EA;}
+.footer-txt{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+.web{position:absolute;bottom:40px;right:60px;font-size:14px;font-weight:400;color:rgba(255,255,255,0.55);}
+</style></head>
+<body>
+<div class='brand-bar'></div>
+<div class='geo'><div class='geo-r1'></div><div class='geo-r2'></div><div class='geo-r3'></div><div class='geo-r4'></div></div>
+<div class='logo'><svg width='140' height='28' viewBox='0 0 170 34' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M16.5537 8.51758H10.2768H4V14.9059H10.2768H14.716V19.4239V25.8122H20.9928V19.4239V13.0336H16.5537V8.51758Z' fill='white'/><path d='M10.2768 19.4238H4V25.8121H10.2768V19.4238Z' fill='white'/><path d='M20.9931 3.99939L16.5547 8.5166L20.9931 13.0338L25.4315 8.5166L20.9931 3.99939Z' fill='white'/><path d='M35.5156 25.8535H47.1757V23.4899H38.0531V18.4945H46.1211V16.1546H38.0531V10.9895H47.1757V8.62598H35.5156V25.8535Z' fill='white'/><path d='M52.2001 8.62598H49.7344V25.8535H52.2001V8.62598Z' fill='white'/><path d='M65.1191 14.864C64.6481 14.2465 64.053 13.7553 63.3357 13.3903C62.6165 13.0253 61.7713 12.8418 60.7982 12.8418C59.5208 12.8418 58.4313 13.1259 57.5299 13.6941C56.6285 14.2623 55.9423 15.0436 55.4712 16.034C55.0002 17.0244 54.7656 18.1706 54.7656 19.4708C54.7656 20.771 54.9924 21.8876 55.448 22.8701C55.9035 23.8526 56.5762 24.6201 57.4718 25.1725C58.3654 25.7249 59.4742 26.0012 60.8002 26.0012C61.6298 26.0012 62.4246 25.8709 63.1826 25.6105C63.9405 25.3501 64.588 24.9397 65.1211 24.3794C65.6561 23.8191 66.0263 23.1089 66.2338 22.2467H63.7428C63.6149 22.6215 63.3958 22.9254 63.0837 23.1602C62.7716 23.3969 62.4207 23.5666 62.0311 23.6711C61.6395 23.7777 61.2363 23.829 60.8215 23.829C60.0713 23.829 59.4413 23.6711 58.9295 23.3535C58.4178 23.0359 58.0242 22.6097 57.7451 22.0751C57.4659 21.5384 57.3012 20.9465 57.2547 20.2955H66.3772C66.3927 20.1159 66.4082 19.9463 66.4257 19.7845C66.4412 19.6227 66.4489 19.4511 66.4489 19.2735C66.48 18.4607 66.385 17.6774 66.162 16.9218C65.9391 16.1662 65.5902 15.4796 65.1211 14.8621L65.1191 14.864ZM57.3031 18.2989C57.3516 17.7149 57.5067 17.1743 57.7703 16.6791C58.0339 16.1839 58.4081 15.7814 58.8966 15.4737C59.3831 15.1659 59.9937 15.01 60.7284 15.01C61.3992 15.01 61.9729 15.1521 62.4518 15.4362C62.9306 15.7203 63.3047 16.1109 63.5761 16.6061C63.8475 17.1013 63.9909 17.6656 64.0064 18.2989H57.3031Z' fill='white'/><path d='M73.9869 23.5866L70.3483 13.0117H67.5938L72.312 25.8534H75.6637L80.3801 13.0117H77.6022L73.9869 23.5866Z' fill='white'/><path d='M87.2519 12.8408C86.6607 12.8408 86.083 12.9099 85.515 13.048C84.949 13.1861 84.4178 13.4011 83.9235 13.6931C83.4292 13.9851 83.0144 14.356 82.679 14.8019C82.3437 15.2498 82.1285 15.7805 82.0335 16.398H84.6195C84.7144 16.0725 84.8908 15.814 85.1467 15.6187C85.4026 15.4234 85.7089 15.2813 86.0675 15.1925C86.4261 15.1038 86.8061 15.0584 87.2054 15.0584C87.8761 15.0584 88.415 15.1925 88.8221 15.4609C89.2292 15.7292 89.5277 16.1021 89.7196 16.5815C89.9115 17.0609 90.0065 17.6173 90.0065 18.2506H86.9185C86.2168 18.2506 85.5422 18.3117 84.8947 18.434C84.2492 18.5564 83.6773 18.7596 83.183 19.0437C82.6887 19.3278 82.2933 19.7263 81.9986 20.2373C81.704 20.7483 81.5547 21.3954 81.5547 22.1747C81.5547 22.8238 81.6788 23.39 81.9269 23.8675C82.175 24.3469 82.5046 24.7454 82.9213 25.0611C83.3362 25.3787 83.8111 25.6135 84.3461 25.7674C84.8811 25.9213 85.4356 25.9982 86.0094 25.9982C86.4242 25.9982 86.8797 25.9568 87.3741 25.8759C87.8684 25.795 88.3685 25.6234 88.8706 25.3649C89.3726 25.1045 89.8088 24.7237 90.1752 24.2206L90.2702 25.8542H92.4006V18.9095C92.4006 17.0254 91.9974 15.5437 91.1909 14.4626C90.3845 13.3814 89.0722 12.8428 87.2519 12.8428V12.8408ZM90.0046 20.7128C90.0046 21.3619 89.8534 21.9281 89.549 22.4055C89.2447 22.8849 88.8221 23.2499 88.2793 23.5025C87.7365 23.755 87.1065 23.8793 86.3874 23.8793C85.988 23.8793 85.6042 23.8102 85.2378 23.6721C84.8695 23.534 84.5749 23.3269 84.3519 23.0507C84.129 22.7745 84.0166 22.4174 84.0166 21.9794C84.0166 21.5414 84.1251 21.1744 84.3403 20.9318C84.5555 20.6871 84.8424 20.5135 85.2029 20.407C85.5616 20.3024 85.9609 20.2373 86.4009 20.2116C86.839 20.188 87.2907 20.1742 87.754 20.1742H90.0046V20.7108V20.7128Z' fill='white'/><path d='M101.657 23.5395C101.377 23.6697 101.054 23.7348 100.687 23.7348C100.209 23.719 99.8403 23.6046 99.5863 23.3935C99.3304 23.1824 99.1598 22.8904 99.0707 22.5156C98.9834 22.1427 98.9389 21.7284 98.9389 21.2726V15.2533H102.795V13.012H98.9389V9.2832H96.4731V13.012H94.4609V15.2533H96.4731V21.6869C96.4731 23.0522 96.7639 24.1116 97.3474 24.8673C97.9289 25.6229 98.9001 25.9997 100.257 25.9997C100.623 25.9997 100.984 25.9662 101.335 25.9031C101.686 25.838 102.025 25.7294 102.353 25.5736C102.68 25.4197 102.994 25.2204 103.299 24.9758L102.341 23.0995C102.165 23.2613 101.938 23.4093 101.659 23.5375L101.657 23.5395Z' fill='white'/><path d='M114.939 14.864C114.468 14.2465 113.873 13.7553 113.156 13.3903C112.437 13.0253 111.592 12.8418 110.619 12.8418C109.341 12.8418 108.252 13.1259 107.35 13.6941C106.449 14.2623 105.763 15.0436 105.292 16.034C104.82 17.0244 104.586 18.1706 104.586 19.4708C104.586 20.771 104.813 21.8876 105.268 22.8701C105.724 23.8526 106.396 24.6201 107.292 25.1725C108.186 25.7249 109.295 26.0012 110.62 26.0012C111.45 26.0012 112.245 25.8709 113.003 25.6105C113.761 25.3501 114.408 24.9397 114.941 24.3794C115.476 23.8191 115.847 23.1089 116.054 22.2467H113.563C113.435 22.6215 113.216 22.9254 112.904 23.1602C112.592 23.3969 112.241 23.5666 111.851 23.6711C111.46 23.7777 111.057 23.829 110.642 23.829C109.892 23.829 109.262 23.6711 108.75 23.3535C108.238 23.0359 107.845 22.6097 107.565 22.0751C107.286 21.5384 107.121 20.9465 107.075 20.2955H116.198C116.213 20.1159 116.229 19.9463 116.246 19.7845C116.261 19.6227 116.269 19.4511 116.269 19.2735C116.3 18.4607 116.205 17.6774 115.982 16.9218C115.759 16.1662 115.41 15.4796 114.941 14.8621L114.939 14.864ZM107.121 18.2989C107.17 17.7149 107.325 17.1743 107.589 16.6791C107.852 16.1839 108.226 15.7814 108.715 15.4737C109.201 15.1659 109.812 15.01 110.547 15.01C111.218 15.01 111.791 15.1521 112.27 15.4362C112.749 15.7203 113.123 16.1109 113.394 16.6061C113.666 17.1013 113.809 17.6656 113.825 18.2989H107.121Z' fill='white'/><path d='M128.21 13.6329C127.516 13.1062 126.563 12.8418 125.349 12.8418C124.87 12.8418 124.376 12.9108 123.864 13.049C123.352 13.1871 122.874 13.3982 122.428 13.6823C121.98 13.9664 121.598 14.3452 121.278 14.8147L121.158 13.0115H118.812V25.8532H121.278V19.8338C121.278 18.9401 121.414 18.1371 121.685 17.4209C121.957 16.7067 122.356 16.1385 122.883 15.7144C123.411 15.2922 124.056 15.0811 124.822 15.0811C125.444 15.0811 125.938 15.1994 126.307 15.4342C126.673 15.669 126.956 15.9866 127.156 16.3852C127.355 16.7837 127.487 17.2335 127.551 17.7366C127.615 18.2397 127.646 18.7527 127.646 19.2715V25.8512H130.137V18.7605C130.137 17.6399 129.99 16.6377 129.693 15.7519C129.399 14.866 128.902 14.1597 128.208 13.631L128.21 13.6329Z' fill='white'/><path d='M142.054 13.6823C141.144 13.122 140.034 12.8418 138.725 12.8418C137.417 12.8418 136.306 13.122 135.397 13.6823C134.488 14.2426 133.792 15.014 133.313 15.9965C132.834 16.979 132.594 18.1292 132.594 19.4452C132.594 20.7611 132.828 21.8896 133.299 22.882C133.77 23.8724 134.461 24.6398 135.37 25.1844C136.279 25.7289 137.39 26.0012 138.698 26.0012C140.007 26.0012 141.137 25.7289 142.038 25.1844C142.939 24.6398 143.626 23.8724 144.097 22.882C144.568 21.8916 144.802 20.7532 144.802 19.4708C144.802 18.1884 144.572 17.0007 144.108 16.0103C143.645 15.0199 142.959 14.2445 142.05 13.6842L142.054 13.6823ZM141.982 21.6016C141.726 22.2585 141.331 22.7833 140.797 23.174C140.262 23.5646 139.565 23.7579 138.702 23.7579C137.839 23.7579 137.161 23.5626 136.618 23.174C136.075 22.7833 135.68 22.2645 135.434 21.6134C135.186 20.9643 135.063 20.2402 135.063 19.4452C135.063 18.6501 135.187 17.9497 135.434 17.3006C135.682 16.6515 136.075 16.1267 136.618 15.7282C137.161 15.3296 137.855 15.1304 138.702 15.1304C139.549 15.1304 140.262 15.3296 140.797 15.7282C141.332 16.1267 141.728 16.6495 141.982 17.3006C142.238 17.9497 142.366 18.6658 142.366 19.4452C142.366 20.2245 142.238 20.9446 141.982 21.6016Z' fill='white'/><path d='M163.245 13.0117L160.516 23.2216L157.595 13.0117H154.507L151.585 23.2216L148.807 13.0117H146.055L149.98 25.8534H153.117L156.015 16.0342L158.936 25.8534H162.072L165.998 13.0117H163.245Z' fill='white'/></svg></div>
+<div class='content'>
+<div class='eyebrow'>Governed Insurance Intelligence</div>
+<div class='product-name'>enCODE</div>
+<div class='tagline'>The Intelligence Layer for Insurance Operations</div>
+<div class='pills'>
+<div class='pill'>Clear360</div>
+<div class='pill'>Adjust360</div>
+<div class='pill'>Audit360</div>
+</div>
+</div>
+<div class='web'>elevatenow.tech</div>
+<div class='footer'>
+<span class='footer-txt'>ELEVATENOW &middot; enCODE&trade;</span>
+<span class='footer-txt'>Governed Insurance Intelligence Platform</span>
+<span class='footer-txt'>CONFIDENTIAL</span>
+</div>
+</body></html>"></iframe></div>
+
+    <!-- SLIDE 2 -->
+    <div class="cell"><iframe srcdoc="<!DOCTYPE html>
+<html><head><meta charset='UTF-8'>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1280px;height:720px;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;-webkit-font-smoothing:antialiased;}
+.brand-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);}
+.header{padding:32px 60px 0;display:flex;align-items:center;justify-content:space-between;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2145EA;}
+.body{padding:24px 60px 0;display:flex;gap:0;flex:1;}
+.col{flex:1;padding:0 40px 0 0;}
+.col+.col{padding:0 0 0 40px;border-left:1px solid #D6E4FF;}
+.col-head{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#2145EA;margin-bottom:22px;}
+.stat-row{margin-bottom:24px;}
+.stat-num{font-size:44px;font-weight:800;color:#57CBFF;line-height:1;letter-spacing:-1px;margin-bottom:4px;}
+.stat-label{font-size:13px;font-weight:400;color:#475569;line-height:1.5;}
+.tagline-card{position:absolute;bottom:52px;left:60px;right:60px;background:#1C1C46;border:2px solid #2145EA;border-radius:8px;padding:12px 28px;text-align:center;}
+.tagline-card p{font-size:15px;font-weight:600;color:#fff;}
+.tagline-card span{color:#57CBFF;}
+.footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #E2E8F0;padding:9px 48px 12px;display:flex;justify-content:space-between;align-items:center;}
+.footer-txt{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#94A3B8;}
+.divider{width:1px;background:#D6E4FF;align-self:stretch;margin:0;}
+</style></head>
+<body>
+<div class='brand-bar'></div>
+<div class='header'>
+<div>
+<div class='eyebrow'>The Operating Reality</div>
+<div style='font-size:26px;font-weight:800;color:#1C1C46;margin-top:6px;letter-spacing:-0.5px;'>The industry runs on institutional knowledge it cannot scale.</div>
+</div>
+</div>
+<div class='body' style='margin-top:20px;'>
+<div class='col'>
+<div class='col-head'>Underwriting</div>
+<div class='stat-row'><div class='stat-num'>40%</div><div class='stat-label'>of underwriter time spent on admin, not risk assessment</div></div>
+<div class='stat-row'><div class='stat-num'>30+</div><div class='stat-label'>days average from submission to underwriting decision</div></div>
+<div class='stat-row'><div class='stat-num'>55%</div><div class='stat-label'>of declined submissions were never eligible to begin with</div></div>
+</div>
+<div class='divider'></div>
+<div class='col'>
+<div class='col-head'>Claims</div>
+<div class='stat-row'><div class='stat-num'>3&times;</div><div class='stat-label'>performance gap between top adjusters and average cohorts</div></div>
+<div class='stat-row'><div class='stat-num'>30%</div><div class='stat-label'>of senior examiners retiring, carrying irreplaceable institutional knowledge</div></div>
+<div class='stat-row'><div class='stat-num'>$180K</div><div class='stat-label'>leakage per 1,000 claims from inconsistency, not incompetence</div></div>
+</div>
+</div>
+<div class='tagline-card'><p>The gap is not talent. It is the absence of a <span>governed intelligence layer</span>.</p></div>
+<div class='footer'>
+<span class='footer-txt'>ELEVATENOW &middot; enCODE&trade;</span>
+<span class='footer-txt'>Governed Insurance Intelligence Platform</span>
+<span class='footer-txt'>CONFIDENTIAL</span>
+</div>
+</body></html>"></iframe></div>
+
+    <!-- SLIDE 3 -->
+    <div class="cell"><iframe srcdoc="<!DOCTYPE html>
+<html><head><meta charset='UTF-8'>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1280px;height:720px;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;-webkit-font-smoothing:antialiased;}
+.brand-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);}
+.header{padding:32px 60px 0;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2145EA;margin-bottom:6px;}
+.headline{font-size:28px;font-weight:800;color:#1C1C46;letter-spacing:-0.5px;}
+.cards{display:flex;gap:18px;padding:24px 60px 0;}
+.card{flex:1;border:1px solid #D6E4FF;border-radius:10px;padding:28px;}
+.card-head{font-size:14px;font-weight:700;color:#1C1C46;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #EEF2FF;}
+.card-icon{width:36px;height:36px;background:rgba(33,69,234,0.07);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+li{font-size:13px;color:#475569;line-height:1.5;padding-left:14px;position:relative;}
+li::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:#D6E4FF;}
+.tagline-card{position:absolute;bottom:52px;left:60px;right:60px;background:#1C1C46;border:2px solid #2145EA;border-radius:8px;padding:12px 28px;text-align:center;}
+.tagline-card p{font-size:15px;font-weight:600;color:#fff;}
+.tagline-card span{color:#57CBFF;}
+.footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #E2E8F0;padding:9px 48px 12px;display:flex;justify-content:space-between;align-items:center;}
+.footer-txt{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#94A3B8;}
+</style></head>
+<body>
+<div class='brand-bar'></div>
+<div class='header'>
+<div class='eyebrow'>The Gaps in Today's Tools</div>
+<div class='headline'>Why existing approaches fall short</div>
+</div>
+<div class='cards'>
+<div class='card'>
+<div class='card-icon'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#2145EA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><line x1='12' y1='16' x2='12.01' y2='16'/></svg></div>
+<div class='card-head'>No Institutional System</div>
+<ul>
+<li>Every decision rebuilt from scratch</li>
+<li>No encoded expertise to scale</li>
+<li>Outcome varies with the adjuster</li>
+</ul>
+</div>
+<div class='card'>
+<div class='card-icon'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#2145EA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='5' y='2' width='14' height='20' rx='2'/><line x1='9' y1='7' x2='15' y2='7'/><line x1='9' y1='11' x2='15' y2='11'/><line x1='9' y1='15' x2='11' y2='15'/></svg></div>
+<div class='card-head'>OCR Without Intelligence</div>
+<ul>
+<li>Extracts data. Does not evaluate it.</li>
+<li>No appetite logic. No triage rules.</li>
+<li>Output requires human re-assembly</li>
+</ul>
+</div>
+<div class='card'>
+<div class='card-icon'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#2145EA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2L2 7l10 5 10-5-10-5z'/><path d='M2 17l10 5 10-5'/><path d='M2 12l10 5 10-5'/></svg></div>
+<div class='card-head'>AI Without Insurance Context</div>
+<ul>
+<li>No insurance ontology. No class codes.</li>
+<li>Decisions untraceable to any rule</li>
+<li>Fails audit and regulatory review</li>
+</ul>
+</div>
+</div>
+<div class='tagline-card'><p>Extraction is not intelligence. <span>Governance</span> is what closes the gap.</p></div>
+<div class='footer'>
+<span class='footer-txt'>ELEVATENOW &middot; enCODE&trade;</span>
+<span class='footer-txt'>Governed Insurance Intelligence Platform</span>
+<span class='footer-txt'>CONFIDENTIAL</span>
+</div>
+</body></html>"></iframe></div>
+
+    <!-- SLIDE 4 -->
+    <div class="cell"><iframe srcdoc="<!DOCTYPE html>
+<html><head><meta charset='UTF-8'>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1280px;height:720px;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;-webkit-font-smoothing:antialiased;}
+.brand-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);}
+.header{padding:28px 60px 0;text-align:center;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2145EA;margin-bottom:6px;}
+.headline{font-size:30px;font-weight:800;color:#1C1C46;letter-spacing:-0.5px;}
+.cols{display:flex;gap:0;padding:20px 60px 0;align-items:stretch;}
+.col{flex:1;padding:0 20px;position:relative;}
+.arrow{display:flex;align-items:center;justify-content:center;padding:0 4px;color:#57CBFF;font-size:22px;font-weight:300;}
+.card{border:1px solid #D6E4FF;border-radius:10px;padding:24px 22px;height:100%;}
+.card-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#2145EA;margin-bottom:10px;}
+.card-title{font-size:17px;font-weight:800;color:#1C1C46;margin-bottom:12px;}
+.card-body{font-size:12.5px;color:#475569;line-height:1.65;}
+.card-icon{width:40px;height:40px;background:rgba(33,69,234,0.07);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+.tagline-card{position:absolute;bottom:52px;left:60px;right:60px;background:#1C1C46;border:2px solid #2145EA;border-radius:8px;padding:12px 28px;text-align:center;}
+.tagline-card p{font-size:15px;font-weight:600;color:#fff;}
+.tagline-card span{color:#57CBFF;}
+.footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #E2E8F0;padding:9px 48px 12px;display:flex;justify-content:space-between;align-items:center;}
+.footer-txt{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#94A3B8;}
+</style></head>
+<body>
+<div class='brand-bar'></div>
+<div class='header'>
+<div class='eyebrow'>The Platform</div>
+<div class='headline'>Encoded expertise. Governed decisions. At scale.</div>
+</div>
+<div class='cols'>
+<div class='col'>
+<div class='card'>
+<div class='card-icon'><svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#2145EA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/><polyline points='14 2 14 8 20 8'/><line x1='9' y1='13' x2='15' y2='13'/><line x1='9' y1='17' x2='13' y2='17'/></svg></div>
+<div class='card-label'>Capture + Structure</div>
+<div class='card-title'>enCODE</div>
+<div class='card-body'>Document Intelligence ingests and structures any intake document. Insurance Ontology enriches with class, jurisdiction, and coverage context. Governed rules applied before any human is involved.</div>
+</div>
+</div>
+<div class='arrow'>&rsaquo;</div>
+<div class='col'>
+<div class='card'>
+<div class='card-icon'><svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#2145EA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><line x1='8.59' y1='13.51' x2='15.42' y2='17.49'/><line x1='15.41' y1='6.51' x2='8.59' y2='10.49'/></svg></div>
+<div class='card-label'>Assemble + Decide</div>
+<div class='card-title'>Compose</div>
+<div class='card-body'>Agentic workflows assemble structured intelligence into decision-ready outputs. Eligibility, triage, compensability, authority — all governed and traceable.</div>
+</div>
+</div>
+<div class='arrow'>&rsaquo;</div>
+<div class='col'>
+<div class='card'>
+<div class='card-icon'><svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#2145EA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/><polyline points='9 12 11 14 15 10'/></svg></div>
+<div class='card-label'>Govern + Audit</div>
+<div class='card-title'>Deploy</div>
+<div class='card-body'>Every conclusion traced to the rule that produced it. Full audit trail. Compliance-ready from day one.</div>
+</div>
+</div>
+</div>
+<div class='tagline-card'><p>One platform. <span>Knowledge-governed.</span> AI-applied.</p></div>
+<div class='footer'>
+<span class='footer-txt'>ELEVATENOW &middot; enCODE&trade;</span>
+<span class='footer-txt'>Governed Insurance Intelligence Platform</span>
+<span class='footer-txt'>CONFIDENTIAL</span>
+</div>
+</body></html>"></iframe></div>
+
+    <!-- SLIDE 5 -->
+    <div class="cell"><iframe srcdoc="<!DOCTYPE html>
+<html><head><meta charset='UTF-8'>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1280px;height:720px;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;-webkit-font-smoothing:antialiased;}
+.brand-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);}
+.layout{display:flex;height:100%;padding-top:6px;}
+.left{flex:55%;padding:28px 36px 0 60px;display:flex;flex-direction:column;}
+.right{flex:45%;padding:28px 40px 0 36px;display:flex;flex-direction:column;justify-content:flex-start;}
+.prod-eye{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#57CBFF;margin-bottom:4px;}
+.sec-label{font-size:12px;font-weight:600;color:#2145EA;margin-bottom:10px;}
+.headline{font-size:24px;font-weight:800;color:#1C1C46;line-height:1.3;letter-spacing:-0.3px;margin-bottom:20px;}
+.cap-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid #F1F5F9;}
+.cap-icon{width:32px;height:32px;background:rgba(33,69,234,0.07);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.cap-label{font-size:13px;font-weight:700;color:#1C1C46;margin-bottom:2px;}
+.cap-desc{font-size:12px;color:#475569;line-height:1.45;}
+.outcome-box{margin-top:14px;background:rgba(33,69,234,0.07);border:1px solid #D6E4FF;border-radius:8px;padding:14px 16px;}
+.outcome-box p{font-size:13px;font-weight:600;color:#1C1C46;line-height:1.5;}
+.right-card{background:#1C1C46;border-radius:12px;padding:28px;flex:1;}
+.right-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#57CBFF;margin-bottom:18px;}
+.right-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;}
+.right-dot{width:6px;height:6px;border-radius:50%;background:#57CBFF;flex-shrink:0;margin-top:5px;}
+.right-text{font-size:13px;color:#fff;line-height:1.55;}
+.tagline-card{position:absolute;bottom:52px;left:60px;right:60px;background:#1C1C46;border:2px solid #2145EA;border-radius:8px;padding:11px 28px;text-align:center;}
+.tagline-card p{font-size:14px;font-weight:600;color:#fff;}
+.tagline-card span{color:#57CBFF;}
+.footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #E2E8F0;padding:9px 48px 12px;display:flex;justify-content:space-between;align-items:center;}
+.footer-txt{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#94A3B8;}
+</style></head>
+<body>
+<div class='brand-bar'></div>
+<div class='layout'>
+<div class='left'>
+<div class='prod-eye'>Clear360</div>
+<div class='sec-label'>SUBMISSION INTELLIGENCE</div>
+<div class='headline'>Every submission scored at intake, before the underwriter opens the file.</div>
+<div class='cap-row'><div class='cap-icon'><svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2145EA' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='9 11 12 14 22 4'/><path d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'/></svg></div><div><div class='cap-label'>Eligibility Check</div><div class='cap-desc'>Appetite and class assessed against encoded rules, not individual judgment</div></div></div>
+<div class='cap-row'><div class='cap-icon'><svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2145EA' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><line x1='12' y1='16' x2='12.01' y2='16'/></svg></div><div><div class='cap-label'>Completeness Scoring</div><div class='cap-desc'>Missing fields and data gaps flagged before review begins</div></div></div>
+<div class='cap-row'><div class='cap-icon'><svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2145EA' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'/></svg></div><div><div class='cap-label'>Exposure Analysis</div><div class='cap-desc'>Risk profile assembled from documents and enrichment data</div></div></div>
+<div class='cap-row'><div class='cap-icon'><svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='#2145EA' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='22 12 18 12 15 21 9 3 6 12 2 12'/></svg></div><div><div class='cap-label'>Loss Intelligence</div><div class='cap-desc'>Loss history evaluated against vertical benchmarks</div></div></div>
+<div class='outcome-box'><p>Fast No on the wrong risks. Decision-ready queue on the right ones.</p></div>
+</div>
+<div class='right'>
+<div class='right-card'>
+<div class='right-label'>Business Outcome</div>
+<div class='right-item'><div class='right-dot'></div><div class='right-text'>Underwriter capacity freed from ineligible submissions</div></div>
+<div class='right-item'><div class='right-dot'></div><div class='right-text'>Consistent triage, no adjuster-to-adjuster variation</div></div>
+<div class='right-item'><div class='right-dot'></div><div class='right-text'>Audit trail on every triage decision, automatically</div></div>
+</div>
+</div>
+</div>
+<div class='tagline-card'><p>Submission intelligence that <span>protects underwriting capacity</span> from day one.</p></div>
+<div class='footer'>
+<span class='footer-txt'>ELEVATENOW &middot; enCODE&trade;</span>
+<span class='footer-txt'>Governed Insurance Intelligence Platform</span>
+<span class='footer-txt'>CONFIDENTIAL</span>
+</div>
+</body></html>"></iframe></div>
+
+    <!-- SLIDE 6 -->
+    <div class="cell"><iframe srcdoc="<!DOCTYPE html>
+<html><head><meta charset='UTF-8'>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1280px;height:720px;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;-webkit-font-smoothing:antialiased;}
+.brand-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);}
+.layout{display:flex;height:100%;padding-top:6px;}
+.left{flex:55%;padding:28px 36px 0 60px;display:flex;flex-direction:column;}
+.right{flex:45%;padding:28px 40px 0 36px;display:flex;flex-direction:column;}
+.prod-eye{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#57CBFF;margin-bottom:4px;}
+.sec-label{font-size:12px;font-weight:600;color:#2145EA;margin-bottom:10px;}
+.headline{font-size:23px;font-weight:800;color:#1C1C46;line-height:1.3;letter-spacing:-0.3px;margin-bottom:18px;}
+.lob-row{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid #F1F5F9;}
+.lob-accent{width:4px;border-radius:2px;align-self:stretch;flex-shrink:0;}
+.lob-label{font-size:12px;font-weight:700;color:#1C1C46;margin-bottom:2px;}
+.lob-desc{font-size:12px;color:#475569;line-height:1.45;}
+.right-card{background:#1C1C46;border-radius:12px;padding:28px;flex:1;}
+.right-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#57CBFF;margin-bottom:18px;}
+.right-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;}
+.right-dot{width:6px;height:6px;border-radius:50%;background:#57CBFF;flex-shrink:0;margin-top:5px;}
+.right-text{font-size:13px;color:#fff;line-height:1.55;}
+.tagline-card{position:absolute;bottom:52px;left:60px;right:60px;background:#1C1C46;border:2px solid #2145EA;border-radius:8px;padding:11px 28px;text-align:center;}
+.tagline-card p{font-size:14px;font-weight:600;color:#fff;}
+.tagline-card span{color:#57CBFF;}
+.footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #E2E8F0;padding:9px 48px 12px;display:flex;justify-content:space-between;align-items:center;}
+.footer-txt{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#94A3B8;}
+</style></head>
+<body>
+<div class='brand-bar'></div>
+<div class='layout'>
+<div class='left'>
+<div class='prod-eye'>Adjust360</div>
+<div class='sec-label'>CLAIM ADJUDICATION INTELLIGENCE</div>
+<div class='headline'>Institutional judgment applied to every claim, from first notice.</div>
+<div class='lob-row'><div class='lob-accent' style='background:#F59E0B;'></div><div><div class='lob-label'>Property</div><div class='lob-desc'>NOAA enrichment, weather geocoding, pre-payment gate before assignment</div></div></div>
+<div class='lob-row'><div class='lob-accent' style='background:#22C55E;'></div><div><div class='lob-label'>Auto</div><div class='lob-desc'>Liability confidence computed at intake. Recovery theories surface at Day 0.</div></div></div>
+<div class='lob-row'><div class='lob-accent' style='background:#2145EA;'></div><div><div class='lob-label'>Workers Comp</div><div class='lob-desc'>Compensability evaluated at first notice. No benefit moves before the gate passes.</div></div></div>
+<div class='lob-row'><div class='lob-accent' style='background:#57CBFF;'></div><div><div class='lob-label'>General Liability</div><div class='lob-desc'>Premises theory classified. Tender routed on Day 1.</div></div></div>
+</div>
+<div class='right'>
+<div class='right-card'>
+<div class='right-label'>Business Outcome</div>
+<div class='right-item'><div class='right-dot'></div><div class='right-text'>Claim cycle time reduced across all lines</div></div>
+<div class='right-item'><div class='right-dot'></div><div class='right-text'>Leakage controlled by governed authority gates</div></div>
+<div class='right-item'><div class='right-dot'></div><div class='right-text'>Every decision defensible to regulator or auditor</div></div>
+</div>
+</div>
+</div>
+<div class='tagline-card'><p>From FNOL to resolution, <span>governed intelligence</span> at every decision point.</p></div>
+<div class='footer'>
+<span class='footer-txt'>ELEVATENOW &middot; enCODE&trade;</span>
+<span class='footer-txt'>Governed Insurance Intelligence Platform</span>
+<span class='footer-txt'>CONFIDENTIAL</span>
+</div>
+</body></html>"></iframe></div>
+
+    <!-- SLIDE 7 -->
+    <div class="cell"><iframe srcdoc="<!DOCTYPE html>
+<html><head><meta charset='UTF-8'>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1280px;height:720px;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;-webkit-font-smoothing:antialiased;}
+.brand-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);}
+.header{padding:28px 60px 0;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2145EA;margin-bottom:6px;}
+.headline{font-size:26px;font-weight:800;color:#1C1C46;letter-spacing:-0.5px;}
+.flow{display:flex;align-items:center;gap:0;padding:24px 48px 0;justify-content:space-between;}
+.node{flex:1;text-align:center;}
+.node-box{border-radius:10px;padding:14px 10px;margin:0 4px;}
+.node-box.light{background:rgba(33,69,234,0.07);border:1px solid #D6E4FF;}
+.node-box.blue{background:#2145EA;border:1px solid #112CA9;}
+.node-box.navy{background:#1C1C46;border:1px solid #112CA9;}
+.node-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;}
+.node-box.light .node-label{color:#2145EA;}
+.node-box.blue .node-label,.node-box.navy .node-label{color:#57CBFF;}
+.node-title{font-size:13px;font-weight:700;}
+.node-box.light .node-title{color:#1C1C46;}
+.node-box.blue .node-title,.node-box.navy .node-title{color:#fff;}
+.node-sub{font-size:11px;margin-top:4px;line-height:1.4;}
+.node-box.light .node-sub{color:#475569;}
+.node-box.blue .node-sub,.node-box.navy .node-sub{color:rgba(255,255,255,0.7);}
+.arrow{color:#57CBFF;font-size:22px;font-weight:300;flex-shrink:0;padding:0 2px;}
+.callouts{display:flex;gap:20px;padding:16px 60px 0;}
+.callout{flex:1;border:1px solid #D6E4FF;border-radius:8px;padding:14px 16px;}
+.callout-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2145EA;margin-bottom:6px;}
+.callout-text{font-size:12.5px;color:#475569;line-height:1.5;}
+.tagline-card{position:absolute;bottom:52px;left:60px;right:60px;background:#1C1C46;border:2px solid #2145EA;border-radius:8px;padding:11px 28px;text-align:center;}
+.tagline-card p{font-size:14px;font-weight:600;color:#fff;}
+.tagline-card span{color:#57CBFF;}
+.footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #E2E8F0;padding:9px 48px 12px;display:flex;justify-content:space-between;align-items:center;}
+.footer-txt{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#94A3B8;}
+</style></head>
+<body>
+<div class='brand-bar'></div>
+<div class='header'>
+<div class='eyebrow'>The Platform View</div>
+<div class='headline'>One intelligence layer. Two workbenches. Zero untraced decisions.</div>
+</div>
+<div class='flow'>
+<div class='node'><div class='node-box light'><div class='node-label'>Step 1</div><div class='node-title'>Intake</div><div class='node-sub'>Submission, FNOL, Document</div></div></div>
+<div class='arrow'>&rarr;</div>
+<div class='node'><div class='node-box blue'><div class='node-label'>Step 2</div><div class='node-title'>Document Intelligence</div><div class='node-sub'>Extract. Structure. Validate.</div></div></div>
+<div class='arrow'>&rarr;</div>
+<div class='node'><div class='node-box blue'><div class='node-label'>Step 3</div><div class='node-title'>Insurance Ontology</div><div class='node-sub'>Enrich with class, jurisdiction, coverage context</div></div></div>
+<div class='arrow'>&rarr;</div>
+<div class='node'><div class='node-box blue'><div class='node-label'>Step 4</div><div class='node-title'>GKR Rule Engine</div><div class='node-sub'>Apply encoded appetite, eligibility, triage rules</div></div></div>
+<div class='arrow'>&rarr;</div>
+<div class='node'><div class='node-box navy'><div class='node-label'>Step 5</div><div class='node-title'>Governed Output</div><div class='node-sub'>Workbench with full audit trail</div></div></div>
+</div>
+<div class='callouts'>
+<div class='callout'><div class='callout-label'>Clear360</div><div class='callout-text'>Underwriting workbench. Submission queue. Eligibility verdicts.</div></div>
+<div class='callout'><div class='callout-label'>Adjust360</div><div class='callout-text'>Claims workbench. Multi-LOB cockpit. Authority gates.</div></div>
+</div>
+<div class='tagline-card'><p>No rip-and-replace. Sits between your intake and your <span>systems of record</span>.</p></div>
+<div class='footer'>
+<span class='footer-txt'>ELEVATENOW &middot; enCODE&trade;</span>
+<span class='footer-txt'>Governed Insurance Intelligence Platform</span>
+<span class='footer-txt'>CONFIDENTIAL</span>
+</div>
+</body></html>"></iframe></div>
+
+    <!-- SLIDE 8 -->
+    <div class="cell"><iframe srcdoc="<!DOCTYPE html>
+<html><head><meta charset='UTF-8'>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1280px;height:720px;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;-webkit-font-smoothing:antialiased;}
+.brand-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);}
+.header{padding:28px 60px 0;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2145EA;margin-bottom:6px;}
+.headline{font-size:28px;font-weight:800;color:#1C1C46;letter-spacing:-0.5px;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:20px 60px 0;}
+.card{border:1px solid #D6E4FF;border-radius:10px;padding:24px;}
+.card-num{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2145EA;margin-bottom:10px;}
+.card-head{font-size:15px;font-weight:700;color:#1C1C46;margin-bottom:8px;}
+.card-body{font-size:13px;color:#475569;line-height:1.6;}
+.tagline-card{position:absolute;bottom:52px;left:60px;right:60px;background:#1C1C46;border:2px solid #2145EA;border-radius:8px;padding:11px 28px;text-align:center;}
+.tagline-card p{font-size:15px;font-weight:600;color:#fff;}
+.tagline-card span{color:#57CBFF;}
+.footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #E2E8F0;padding:9px 48px 12px;display:flex;justify-content:space-between;align-items:center;}
+.footer-txt{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#94A3B8;}
+</style></head>
+<body>
+<div class='brand-bar'></div>
+<div class='header'>
+<div class='eyebrow'>Why enCODE</div>
+<div class='headline'>Built for the way insurance actually works.</div>
+</div>
+<div class='grid'>
+<div class='card'>
+<div class='card-num'>01</div>
+<div class='card-head'>Value from day one</div>
+<div class='card-body'>Insurance expertise encoded out of the box. No model training. No data ramp. Operational from week one.</div>
+</div>
+<div class='card'>
+<div class='card-num'>02</div>
+<div class='card-head'>AI you can defend</div>
+<div class='card-body'>Every decision traced to the rule that produced it. Audit-ready by design. No black box.</div>
+</div>
+<div class='card'>
+<div class='card-num'>03</div>
+<div class='card-head'>Your best judgment, at scale</div>
+<div class='card-body'>Top-performer instincts encoded once, applied consistently to every risk and every claim.</div>
+</div>
+<div class='card'>
+<div class='card-num'>04</div>
+<div class='card-head'>No rip-and-replace</div>
+<div class='card-body'>Sits between your intake and your systems of record. Extends what you have without displacing it.</div>
+</div>
+</div>
+<div class='tagline-card'><p><span>Knowledge-governed.</span> AI-applied.</p></div>
+<div class='footer'>
+<span class='footer-txt'>ELEVATENOW &middot; enCODE&trade;</span>
+<span class='footer-txt'>Governed Insurance Intelligence Platform</span>
+<span class='footer-txt'>CONFIDENTIAL</span>
+</div>
+</body></html>"></iframe></div>
+
+    <!-- SLIDE 9 -->
+    <div class="cell"><iframe srcdoc="<!DOCTYPE html>
+<html><head><meta charset='UTF-8'>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1280px;height:720px;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;-webkit-font-smoothing:antialiased;}
+.brand-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);}
+.header{padding:28px 60px 0;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2145EA;margin-bottom:6px;}
+.headline{font-size:26px;font-weight:800;color:#1C1C46;letter-spacing:-0.5px;}
+.stats{display:flex;gap:12px;padding:18px 60px 0;}
+.stat-card{flex:1;border:1px solid #D6E4FF;border-radius:10px;padding:18px 16px;text-align:center;background:rgba(33,69,234,0.03);}
+.stat-num{font-size:36px;font-weight:800;color:#2145EA;letter-spacing:-1px;line-height:1;}
+.stat-sub{font-size:11px;font-weight:600;color:#475569;margin-top:6px;line-height:1.4;}
+.contrast{display:flex;gap:16px;padding:14px 60px 0;}
+.c-card{flex:1;border-radius:10px;padding:18px 20px;}
+.c-card.no{background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.2);}
+.c-card.yes{background:rgba(33,69,234,0.07);border:1px solid #D6E4FF;}
+.c-head{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.c-card.no .c-head{color:#dc2626;}
+.c-card.yes .c-head{color:#2145EA;}
+.c-body{font-size:13px;line-height:1.6;}
+.c-card.no .c-body{color:#7f1d1d;}
+.c-card.yes .c-body{color:#1C1C46;}
+.tagline-card{position:absolute;bottom:52px;left:60px;right:60px;background:#1C1C46;border:2px solid #2145EA;border-radius:8px;padding:11px 28px;text-align:center;}
+.tagline-card p{font-size:14px;font-weight:600;color:#fff;}
+.tagline-card span{color:#57CBFF;}
+.footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #E2E8F0;padding:9px 48px 12px;display:flex;justify-content:space-between;align-items:center;}
+.footer-txt{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#94A3B8;}
+</style></head>
+<body>
+<div class='brand-bar'></div>
+<div class='header'>
+<div class='eyebrow'>The Compliance Imperative</div>
+<div class='headline'>AI governance in insurance is no longer optional.</div>
+</div>
+<div class='stats'>
+<div class='stat-card'><div class='stat-num'>25</div><div class='stat-sub'>States adopted NAIC Model Bulletin on AI governance</div></div>
+<div class='stat-card'><div class='stat-num'>12</div><div class='stat-sub'>States piloting NAIC AI Evaluation Tool</div></div>
+<div class='stat-card'><div class='stat-num'>24%</div><div class='stat-sub'>Carriers confident they could pass a review today</div></div>
+<div class='stat-card'><div class='stat-num' style='font-size:26px;'>Nov 2026</div><div class='stat-sub'>National NAIC adoption expected</div></div>
+</div>
+<div class='contrast'>
+<div class='c-card no'><div class='c-head'>Without enCODE</div><div class='c-body'>Decisions untraced. No audit trail. Unable to demonstrate governed AI to regulators.</div></div>
+<div class='c-card yes'><div class='c-head'>With enCODE</div><div class='c-body'>Every conclusion traced to its rule. Audit log maintained automatically. Compliance posture built in.</div></div>
+</div>
+<div class='tagline-card'><p>enCODE makes <span>defensible AI</span> the default, not an afterthought.</p></div>
+<div class='footer'>
+<span class='footer-txt'>ELEVATENOW &middot; enCODE&trade;</span>
+<span class='footer-txt'>Governed Insurance Intelligence Platform</span>
+<span class='footer-txt'>CONFIDENTIAL</span>
+</div>
+</body></html>"></iframe></div>
+
+    <!-- SLIDE 10 -->
+    <div class="cell"><iframe srcdoc="<!DOCTYPE html>
+<html><head><meta charset='UTF-8'>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1280px;height:720px;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;-webkit-font-smoothing:antialiased;}
+.brand-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);}
+.header{padding:28px 60px 0;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2145EA;margin-bottom:6px;}
+.headline{font-size:26px;font-weight:800;color:#1C1C46;letter-spacing:-0.5px;}
+.stack{display:flex;flex-direction:column;gap:10px;padding:20px 60px 0;}
+.tier{display:flex;align-items:center;gap:0;border-radius:10px;padding:16px 24px;border:1px solid;}
+.tier.top{background:rgba(33,69,234,0.06);border-color:#D6E4FF;}
+.tier.mid{background:#2145EA;border-color:#112CA9;}
+.tier.bot{background:rgba(33,69,234,0.06);border-color:#D6E4FF;}
+.tier-left{flex:220px;min-width:220px;}
+.tier-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;}
+.tier.top .tier-lbl,.tier.bot .tier-lbl{color:#2145EA;}
+.tier.mid .tier-lbl{color:#57CBFF;}
+.tier-name{font-size:14px;font-weight:800;}
+.tier.top .tier-name,.tier.bot .tier-name{color:#1C1C46;}
+.tier.mid .tier-name{color:#fff;}
+.tier-right{flex:1;display:flex;flex-wrap:wrap;gap:8px;padding-left:24px;border-left:1px solid;}
+.tier.top .tier-right,.tier.bot .tier-right{border-color:#D6E4FF;}
+.tier.mid .tier-right{border-color:rgba(255,255,255,0.2);}
+.pill{border-radius:20px;padding:5px 12px;font-size:12px;font-weight:500;}
+.tier.top .pill,.tier.bot .pill{background:rgba(33,69,234,0.08);color:#2145EA;}
+.tier.mid .pill{background:rgba(255,255,255,0.15);color:#fff;}
+.tagline-card{position:absolute;bottom:52px;left:60px;right:60px;background:#1C1C46;border:2px solid #2145EA;border-radius:8px;padding:11px 28px;text-align:center;}
+.tagline-card p{font-size:15px;font-weight:600;color:#fff;}
+.tagline-card span{color:#57CBFF;}
+.footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #E2E8F0;padding:9px 48px 12px;display:flex;justify-content:space-between;align-items:center;}
+.footer-txt{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#94A3B8;}
+</style></head>
+<body>
+<div class='brand-bar'></div>
+<div class='header'>
+<div class='eyebrow'>Architecture Fit</div>
+<div class='headline'>The intelligence layer between intake and record systems.</div>
+</div>
+<div class='stack'>
+<div class='tier top'>
+<div class='tier-left'><div class='tier-lbl'>Engagement Layer</div><div class='tier-name'>Intake Channels</div></div>
+<div class='tier-right'>
+<span class='pill'>Broker Portals</span>
+<span class='pill'>Agent Platforms</span>
+<span class='pill'>Direct Channels</span>
+<span class='pill'>Email / EDI Intake</span>
+</div>
+</div>
+<div class='tier mid'>
+<div class='tier-left'><div class='tier-lbl'>Intelligence Layer</div><div class='tier-name'>enCODE Platform</div></div>
+<div class='tier-right'>
+<span class='pill'>Document Intelligence</span>
+<span class='pill'>Insurance Ontology</span>
+<span class='pill'>GKR Rule Engine</span>
+<span class='pill'>Clear360</span>
+<span class='pill'>Adjust360</span>
+</div>
+</div>
+<div class='tier bot'>
+<div class='tier-left'><div class='tier-lbl'>Systems of Record</div><div class='tier-name'>Core Systems</div></div>
+<div class='tier-right'>
+<span class='pill'>Policy Admin Systems</span>
+<span class='pill'>Claims Management</span>
+<span class='pill'>Data Warehouse</span>
+<span class='pill'>BI / Reporting</span>
+</div>
+</div>
+</div>
+<div class='tagline-card'><p>No replacement. <span>Pure augmentation.</span></p></div>
+<div class='footer'>
+<span class='footer-txt'>ELEVATENOW &middot; enCODE&trade;</span>
+<span class='footer-txt'>Governed Insurance Intelligence Platform</span>
+<span class='footer-txt'>CONFIDENTIAL</span>
+</div>
+</body></html>"></iframe></div>
+
+    <!-- SLIDE 11 -->
+    <div class="cell"><iframe srcdoc="<!DOCTYPE html>
+<html><head><meta charset='UTF-8'>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1280px;height:720px;overflow:hidden;font-family:'Inter',sans-serif;background:#fff;-webkit-font-smoothing:antialiased;}
+.brand-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);}
+.header{padding:28px 60px 0;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2145EA;margin-bottom:6px;}
+.headline{font-size:26px;font-weight:800;color:#1C1C46;letter-spacing:-0.5px;}
+.cards{display:flex;gap:18px;padding:20px 60px 0;}
+.card{flex:1;border:1px solid #D6E4FF;border-radius:10px;padding:24px;}
+.badge{display:inline-block;background:#2145EA;color:#fff;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-bottom:14px;}
+.card-head{font-size:16px;font-weight:800;color:#1C1C46;margin-bottom:14px;}
+ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+li{font-size:13px;color:#475569;line-height:1.5;padding-left:14px;position:relative;}
+li::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:#57CBFF;}
+.tagline-card{position:absolute;bottom:52px;left:60px;right:60px;background:#1C1C46;border:2px solid #2145EA;border-radius:8px;padding:11px 28px;text-align:center;}
+.tagline-card p{font-size:15px;font-weight:600;color:#fff;}
+.tagline-card span{color:#57CBFF;}
+.footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #E2E8F0;padding:9px 48px 12px;display:flex;justify-content:space-between;align-items:center;}
+.footer-txt{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#94A3B8;}
+</style></head>
+<body>
+<div class='brand-bar'></div>
+<div class='header'>
+<div class='eyebrow'>Engagement Model</div>
+<div class='headline'>Three paths. One governed platform.</div>
+</div>
+<div class='cards'>
+<div class='card'>
+<div class='badge'>90 Days</div>
+<div class='card-head'>Proof of Value</div>
+<ul>
+<li>Single LOB, bounded scope</li>
+<li>Intake to governed output in 90 days</li>
+<li>Measurable cycle time and quality outcome</li>
+</ul>
+</div>
+<div class='card'>
+<div class='badge'>Scale</div>
+<div class='card-head'>Multi-LOB Rollout</div>
+<ul>
+<li>Carrier layer configuration for your appetite</li>
+<li>Additional LOBs and workbenches added</li>
+<li>Integration with production systems</li>
+</ul>
+</div>
+<div class='card'>
+<div class='badge'>Full Suite</div>
+<div class='card-head'>Governed Intelligence at Enterprise Scale</div>
+<ul>
+<li>Full suite: Clear360 + Adjust360 + Audit360</li>
+<li>MDM, renewal intelligence, compliance posture</li>
+<li>Dedicated knowledge curation and governance support</li>
+</ul>
+</div>
+</div>
+<div class='tagline-card'><p>Start narrow. Expand with confidence. <span>Govern everything.</span></p></div>
+<div class='footer'>
+<span class='footer-txt'>ELEVATENOW &middot; enCODE&trade;</span>
+<span class='footer-txt'>Governed Insurance Intelligence Platform</span>
+<span class='footer-txt'>CONFIDENTIAL</span>
+</div>
+</body></html>"></iframe></div>
+
+    <!-- SLIDE 12 -->
+    <div class="cell"><iframe srcdoc="<!DOCTYPE html>
+<html><head><meta charset='UTF-8'>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap' rel='stylesheet'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1280px;height:720px;overflow:hidden;font-family:'Inter',sans-serif;background:#1C1C46;-webkit-font-smoothing:antialiased;}
+.brand-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#112CA9 0%,#2145EA 50%,#57CBFF 100%);}
+.geo{position:absolute;top:0;right:0;width:360px;height:360px;overflow:hidden;pointer-events:none;}
+.geo-r1{position:absolute;top:-60px;right:-40px;width:220px;height:220px;background:rgba(255,255,255,0.04);border-radius:14px;transform:rotate(18deg);}
+.geo-r2{position:absolute;top:60px;right:80px;width:120px;height:120px;background:rgba(87,203,255,0.05);border-radius:10px;transform:rotate(-10deg);}
+.geo-r3{position:absolute;top:160px;right:20px;width:70px;height:70px;background:rgba(255,255,255,0.03);border-radius:8px;transform:rotate(30deg);}
+.logo{position:absolute;top:44px;left:60px;}
+.content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:800px;}
+.headline{font-size:52px;font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1.1;margin-bottom:20px;}
+.sub{font-size:18px;font-weight:400;color:rgba(255,255,255,0.65);line-height:1.5;margin-bottom:36px;}
+.divider{width:200px;height:1px;background:rgba(87,203,255,0.3);margin:0 auto 36px;}
+.contact-web{font-size:16px;font-weight:600;color:#57CBFF;margin-bottom:8px;}
+.contact-email{font-size:14px;color:rgba(255,255,255,0.55);}
+.footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid rgba(255,255,255,0.12);padding:9px 48px 12px;display:flex;justify-content:space-between;align-items:center;}
+.footer-txt{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.35);}
+</style></head>
+<body>
+<div class='brand-bar'></div>
+<div class='geo'><div class='geo-r1'></div><div class='geo-r2'></div><div class='geo-r3'></div></div>
+<div class='logo'><svg width='140' height='28' viewBox='0 0 170 34' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M16.5537 8.51758H10.2768H4V14.9059H10.2768H14.716V19.4239V25.8122H20.9928V19.4239V13.0336H16.5537V8.51758Z' fill='white'/><path d='M10.2768 19.4238H4V25.8121H10.2768V19.4238Z' fill='white'/><path d='M20.9931 3.99939L16.5547 8.5166L20.9931 13.0338L25.4315 8.5166L20.9931 3.99939Z' fill='white'/><path d='M35.5156 25.8535H47.1757V23.4899H38.0531V18.4945H46.1211V16.1546H38.0531V10.9895H47.1757V8.62598H35.5156V25.8535Z' fill='white'/><path d='M52.2001 8.62598H49.7344V25.8535H52.2001V8.62598Z' fill='white'/><path d='M65.1191 14.864C64.6481 14.2465 64.053 13.7553 63.3357 13.3903C62.6165 13.0253 61.7713 12.8418 60.7982 12.8418C59.5208 12.8418 58.4313 13.1259 57.5299 13.6941C56.6285 14.2623 55.9423 15.0436 55.4712 16.034C55.0002 17.0244 54.7656 18.1706 54.7656 19.4708C54.7656 20.771 54.9924 21.8876 55.448 22.8701C55.9035 23.8526 56.5762 24.6201 57.4718 25.1725C58.3654 25.7249 59.4742 26.0012 60.8002 26.0012C61.6298 26.0012 62.4246 25.8709 63.1826 25.6105C63.9405 25.3501 64.588 24.9397 65.1211 24.3794C65.6561 23.8191 66.0263 23.1089 66.2338 22.2467H63.7428C63.6149 22.6215 63.3958 22.9254 63.0837 23.1602C62.7716 23.3969 62.4207 23.5666 62.0311 23.6711C61.6395 23.7777 61.2363 23.829 60.8215 23.829C60.0713 23.829 59.4413 23.6711 58.9295 23.3535C58.4178 23.0359 58.0242 22.6097 57.7451 22.0751C57.4659 21.5384 57.3012 20.9465 57.2547 20.2955H66.3772C66.3927 20.1159 66.4082 19.9463 66.4257 19.7845C66.4412 19.6227 66.4489 19.4511 66.4489 19.2735C66.48 18.4607 66.385 17.6774 66.162 16.9218C65.9391 16.1662 65.5902 15.4796 65.1211 14.8621L65.1191 14.864ZM57.3031 18.2989C57.3516 17.7149 57.5067 17.1743 57.7703 16.6791C58.0339 16.1839 58.4081 15.7814 58.8966 15.4737C59.3831 15.1659 59.9937 15.01 60.7284 15.01C61.3992 15.01 61.9729 15.1521 62.4518 15.4362C62.9306 15.7203 63.3047 16.1109 63.5761 16.6061C63.8475 17.1013 63.9909 17.6656 64.0064 18.2989H57.3031Z' fill='white'/><path d='M73.9869 23.5866L70.3483 13.0117H67.5938L72.312 25.8534H75.6637L80.3801 13.0117H77.6022L73.9869 23.5866Z' fill='white'/><path d='M87.2519 12.8408C86.6607 12.8408 86.083 12.9099 85.515 13.048C84.949 13.1861 84.4178 13.4011 83.9235 13.6931C83.4292 13.9851 83.0144 14.356 82.679 14.8019C82.3437 15.2498 82.1285 15.7805 82.0335 16.398H84.6195C84.7144 16.0725 84.8908 15.814 85.1467 15.6187C85.4026 15.4234 85.7089 15.2813 86.0675 15.1925C86.4261 15.1038 86.8061 15.0584 87.2054 15.0584C87.8761 15.0584 88.415 15.1925 88.8221 15.4609C89.2292 15.7292 89.5277 16.1021 89.7196 16.5815C89.9115 17.0609 90.0065 17.6173 90.0065 18.2506H86.9185C86.2168 18.2506 85.5422 18.3117 84.8947 18.434C84.2492 18.5564 83.6773 18.7596 83.183 19.0437C82.6887 19.3278 82.2933 19.7263 81.9986 20.2373C81.704 20.7483 81.5547 21.3954 81.5547 22.1747C81.5547 22.8238 81.6788 23.39 81.9269 23.8675C82.175 24.3469 82.5046 24.7454 82.9213 25.0611C83.3362 25.3787 83.8111 25.6135 84.3461 25.7674C84.8811 25.9213 85.4356 25.9982 86.0094 25.9982C86.4242 25.9982 86.8797 25.9568 87.3741 25.8759C87.8684 25.795 88.3685 25.6234 88.8706 25.3649C89.3726 25.1045 89.8088 24.7237 90.1752 24.2206L90.2702 25.8542H92.4006V18.9095C92.4006 17.0254 91.9974 15.5437 91.1909 14.4626C90.3845 13.3814 89.0722 12.8428 87.2519 12.8428V12.8408ZM90.0046 20.7128C90.0046 21.3619 89.8534 21.9281 89.549 22.4055C89.2447 22.8849 88.8221 23.2499 88.2793 23.5025C87.7365 23.755 87.1065 23.8793 86.3874 23.8793C85.988 23.8793 85.6042 23.8102 85.2378 23.6721C84.8695 23.534 84.5749 23.3269 84.3519 23.0507C84.129 22.7745 84.0166 22.4174 84.0166 21.9794C84.0166 21.5414 84.1251 21.1744 84.3403 20.9318C84.5555 20.6871 84.8424 20.5135 85.2029 20.407C85.5616 20.3024 85.9609 20.2373 86.4009 20.2116C86.839 20.188 87.2907 20.1742 87.754 20.1742H90.0046V20.7108V20.7128Z' fill='white'/><path d='M101.657 23.5395C101.377 23.6697 101.054 23.7348 100.687 23.7348C100.209 23.719 99.8403 23.6046 99.5863 23.3935C99.3304 23.1824 99.1598 22.8904 99.0707 22.5156C98.9834 22.1427 98.9389 21.7284 98.9389 21.2726V15.2533H102.795V13.012H98.9389V9.2832H96.4731V13.012H94.4609V15.2533H96.4731V21.6869C96.4731 23.0522 96.7639 24.1116 97.3474 24.8673C97.9289 25.6229 98.9001 25.9997 100.257 25.9997C100.623 25.9997 100.984 25.9662 101.335 25.9031C101.686 25.838 102.025 25.7294 102.353 25.5736C102.68 25.4197 102.994 25.2204 103.299 24.9758L102.341 23.0995C102.165 23.2613 101.938 23.4093 101.659 23.5375L101.657 23.5395Z' fill='white'/><path d='M114.939 14.864C114.468 14.2465 113.873 13.7553 113.156 13.3903C112.437 13.0253 111.592 12.8418 110.619 12.8418C109.341 12.8418 108.252 13.1259 107.35 13.6941C106.449 14.2623 105.763 15.0436 105.292 16.034C104.82 17.0244 104.586 18.1706 104.586 19.4708C104.586 20.771 104.813 21.8876 105.268 22.8701C105.724 23.8526 106.396 24.6201 107.292 25.1725C108.186 25.7249 109.295 26.0012 110.62 26.0012C111.45 26.0012 112.245 25.8709 113.003 25.6105C113.761 25.3501 114.408 24.9397 114.941 24.3794C115.476 23.8191 115.847 23.1089 116.054 22.2467H113.563C113.435 22.6215 113.216 22.9254 112.904 23.1602C112.592 23.3969 112.241 23.5666 111.851 23.6711C111.46 23.7777 111.057 23.829 110.642 23.829C109.892 23.829 109.262 23.6711 108.75 23.3535C108.238 23.0359 107.845 22.6097 107.565 22.0751C107.286 21.5384 107.121 20.9465 107.075 20.2955H116.198C116.213 20.1159 116.229 19.9463 116.246 19.7845C116.261 19.6227 116.269 19.4511 116.269 19.2735C116.3 18.4607 116.205 17.6774 115.982 16.9218C115.759 16.1662 115.41 15.4796 114.941 14.8621L114.939 14.864ZM107.121 18.2989C107.17 17.7149 107.325 17.1743 107.589 16.6791C107.852 16.1839 108.226 15.7814 108.715 15.4737C109.201 15.1659 109.812 15.01 110.547 15.01C111.218 15.01 111.791 15.1521 112.27 15.4362C112.749 15.7203 113.123 16.1109 113.394 16.6061C113.666 17.1013 113.809 17.6656 113.825 18.2989H107.121Z' fill='white'/><path d='M128.21 13.6329C127.516 13.1062 126.563 12.8418 125.349 12.8418C124.87 12.8418 124.376 12.9108 123.864 13.049C123.352 13.1871 122.874 13.3982 122.428 13.6823C121.98 13.9664 121.598 14.3452 121.278 14.8147L121.158 13.0115H118.812V25.8532H121.278V19.8338C121.278 18.9401 121.414 18.1371 121.685 17.4209C121.957 16.7067 122.356 16.1385 122.883 15.7144C123.411 15.2922 124.056 15.0811 124.822 15.0811C125.444 15.0811 125.938 15.1994 126.307 15.4342C126.673 15.669 126.956 15.9866 127.156 16.3852C127.355 16.7837 127.487 17.2335 127.551 17.7366C127.615 18.2397 127.646 18.7527 127.646 19.2715V25.8512H130.137V18.7605C130.137 17.6399 129.99 16.6377 129.693 15.7519C129.399 14.866 128.902 14.1597 128.208 13.631L128.21 13.6329Z' fill='white'/><path d='M142.054 13.6823C141.144 13.122 140.034 12.8418 138.725 12.8418C137.417 12.8418 136.306 13.122 135.397 13.6823C134.488 14.2426 133.792 15.014 133.313 15.9965C132.834 16.979 132.594 18.1292 132.594 19.4452C132.594 20.7611 132.828 21.8896 133.299 22.882C133.77 23.8724 134.461 24.6398 135.37 25.1844C136.279 25.7289 137.39 26.0012 138.698 26.0012C140.007 26.0012 141.137 25.7289 142.038 25.1844C142.939 24.6398 143.626 23.8724 144.097 22.882C144.568 21.8916 144.802 20.7532 144.802 19.4708C144.802 18.1884 144.572 17.0007 144.108 16.0103C143.645 15.0199 142.959 14.2445 142.05 13.6842L142.054 13.6823ZM141.982 21.6016C141.726 22.2585 141.331 22.7833 140.797 23.174C140.262 23.5646 139.565 23.7579 138.702 23.7579C137.839 23.7579 137.161 23.5626 136.618 23.174C136.075 22.7833 135.68 22.2645 135.434 21.6134C135.186 20.9643 135.063 20.2402 135.063 19.4452C135.063 18.6501 135.187 17.9497 135.434 17.3006C135.682 16.6515 136.075 16.1267 136.618 15.7282C137.161 15.3296 137.855 15.1304 138.702 15.1304C139.549 15.1304 140.262 15.3296 140.797 15.7282C141.332 16.1267 141.728 16.6495 141.982 17.3006C142.238 17.9497 142.366 18.6658 142.366 19.4452C142.366 20.2245 142.238 20.9446 141.982 21.6016Z' fill='white'/><path d='M163.245 13.0117L160.516 23.2216L157.595 13.0117H154.507L151.585 23.2216L148.807 13.0117H146.055L149.98 25.8534H153.117L156.015 16.0342L158.936 25.8534H162.072L165.998 13.0117H163.245Z' fill='white'/></svg></div>
+<div class='content'>
+<div class='headline'>Scale the judgment.<br>Not just the headcount.</div>
+<div class='sub'>Clear360 &middot; Adjust360 &middot; Governed from day one</div>
+<div class='divider'></div>
+<div class='contact-web'>elevatenow.tech</div>
+<div class='contact-email'>gps@elevatenow.tech</div>
+</div>
+<div class='footer'>
+<span class='footer-txt'>ELEVATENOW &middot; enCODE&trade;</span>
+<span class='footer-txt'>Governed Insurance Intelligence Platform</span>
+<span class='footer-txt'>CONFIDENTIAL</span>
+</div>
+</body></html>"></iframe></div>
+
+  </div><!-- /track -->
+</div><!-- /stage -->
+
+<button class="nav-btn" id="prev" onclick="go(-1)">&#8249;</button>
+<button class="nav-btn" id="next" onclick="go(1)">&#8250;</button>
+<div class="counter" id="counter">01 / 12</div>
+
+<script>
+var TOTAL = 12;
+var cur = 0;
+
+function go(dir) {
+  cur = Math.max(0, Math.min(TOTAL - 1, cur + dir));
+  document.getElementById('track').style.transform = 'translateX(-' + (cur * 1280) + 'px)';
+  document.getElementById('counter').textContent = String(cur + 1).padStart(2,'0') + ' / ' + String(TOTAL).padStart(2,'0');
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
+});
+
+(function scaleStage() {
+  var stage = document.querySelector('.stage');
+  var track = document.getElementById('track');
+  function doScale() {
+    var s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    track.style.transformOrigin = '0 0';
+    stage.style.transform = 'none';
+    var cells = document.querySelectorAll('.cell');
+    cells.forEach(function(c){ c.style.transform = 'none'; });
+    track.style.transform = 'translateX(-' + (cur * 1280) + 'px) scale(' + s + ')';
+    track.style.transformOrigin = '0 0';
+    var trackW = 1280 * s;
+    var trackH = 720 * s;
+    track.style.marginLeft = ((window.innerWidth - trackW) / 2) + 'px';
+    track.style.marginTop = ((window.innerHeight - trackH) / 2) + 'px';
+  }
+  window.addEventListener('resize', doScale);
+  doScale();
+
+  // Override go() to maintain scale
+  window._goOrig = go;
+  window.go = function(dir) {
+    cur = Math.max(0, Math.min(TOTAL - 1, cur + dir));
+    track.style.transformOrigin = '0 0';
+    track.style.transition = 'transform 0.55s cubic-bezier(0.77,0,0.175,1)';
+    var s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    track.style.transform = 'translateX(-' + (cur * 1280) + 'px) scale(' + s + ')';
+    document.getElementById('counter').textContent = String(cur + 1).padStart(2,'0') + ' / ' + String(TOTAL).padStart(2,'0');
+  };
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') window.go(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') window.go(-1);
+  });
+})();
+</script>
+</body>
+</html>
